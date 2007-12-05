@@ -1,0 +1,29 @@
+<div dojoattachpoint="tablewrap" xmlns:tal="http://xml.zope.org/namespaces/tal" class="ContentTable TaskTable">
+  <div class="tablewrap">    
+	<table class="results pendingTasks">
+	  <thead>
+		<tr><td class="selector"></td><td colspan="7"><h2>Tasks Pending My Approval</h2></td></tr> 
+		<tr dojoattachpoint="columnHeaders">
+		  <th class="selector"> <input type="checkbox" dojoattachpoint="select_all" dojoattachevent="onClick:selectAll"/></th>
+		  <th class="col_id">
+			<a href="javascript:void(0);" onclick="axiom.tasks.taskPanel.pendingTable.sort({task_id: 'alternate', due_date:'desc'} );">ID</a> 
+			<img class="col_sort" dojoattachpoint="col_name_sort" />
+		  </th>
+		  <th class="col_name" colspan="3">
+			<a href="javascript:void(0);" onclick="axiom.tasks.taskPanel.pendingTable.sort({cms_sortable_name: 'alternate', task_id:'desc'} );">Task Name</a> 
+			<img class="col_sort" dojoattachpoint="col_name_sort" />
+		  </th>
+		  <th class="col_items">Items</th>
+		  <th class="col_due_date">
+			<a href="javascript:void(0);" onclick="axiom.tasks.taskPanel.pendingTable.sort({due_date:'alternate', task_id:'desc'});">Due Date</a> 
+			<img class="col_sort" dojoattachpoint="col_due_date_sort" />
+		  </th>
+		  <th class="col_requested_by">Requested By</th>
+		</tr>
+	  </thead> 
+	  <tbody dojoattachpoint="results_body">
+
+	  </tbody>
+	</table>
+  </div>
+</div>

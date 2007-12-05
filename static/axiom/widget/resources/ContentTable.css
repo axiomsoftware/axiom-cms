@@ -1,0 +1,4 @@
+.ContentTable{ display: none; }
+.loading { width:100%; text-align:center; padding:25px 0; }
+.col_sort { display:none;  }
+.ContentTable th {height:31px; *height:22px !important;}

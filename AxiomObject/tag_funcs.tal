@@ -1,0 +1,41 @@
+<script type="text/javascript"> 
+  /*function toggleWindow(id){
+		var node = dojo.byId(id);
+		if(!(id in axiom.tags.tagWindows)){
+			axiom.tags.tagWindows[id] = false;
+		}
+		if(axiom.tags.tagWindows[id]){
+			dojo.lfx.html.fadeOut(node, 300, undefined, function(){node.style.display = 'none';}).play();
+		}
+		
+		else{
+			node.style.opacity = "0.0";
+			node.style.display = 'block';
+			dojo.lfx.html.fadeIn(node, 300).play();
+		}
+		axiom.tags.tagWindows[id] = !axiom.tags.tagWindows[id];
+	}
+        function saveTags(textareaId, windowNode, searchmode){
+		var inputs = windowNode.getElementsByTagName('input');
+		var results = [];
+		for(var input in inputs){
+			if(inputs[input].checked)
+				results.push(inputs[input].value);
+		}
+		if(searchmode){
+			var textarea = dojo.byId(textareaId)
+			var value = textarea.value;
+			for(tag in results){
+				results[tag]= 'tag:'+results[tag];
+				if(value.indexOf(results[tag]) != -1)
+					results[tag]= ''
+			}
+			textarea.value += ' '+results.join(' ');
+		}
+		else{
+			dojo.byId(textareaId).value = results.join(', ');
+		}
+		axiom.tags.toggleWindow(windowNode.id);
+	}
+*/
+</script>

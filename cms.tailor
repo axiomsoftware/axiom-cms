@@ -1,0 +1,17 @@
+[DEFAULT]
+verbose = True
+
+[project]
+target = bzr:target
+start-revision = INITIAL
+root-directory = /cygdrive/s/cms-bzr
+state-file = tailor.state
+source = svn:source
+subdir = .
+
+[bzr:target]
+
+[svn:source]
+module = src/cms/3.1/src
+repository = https://file.axiomstack.com/dev
+

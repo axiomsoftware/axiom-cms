@@ -1,0 +1,25 @@
+<div id="header" xmlns:tal="http://xml.zope.org/namespaces/tal">
+  <ul class="utility">
+	<swx tal:omit-tag="string:true" tal:condition="this/isAdmin">
+	  <li><a target="blank" tal:attributes="onclick string:${this/getSettingsPopupJS}">Settings</a></li>
+	  <li><a target="blank" tal:attributes="onclick string:${this/getUsersPopupJS}">Users</a></li>
+	</swx>
+	<li class="last"><a href="#" onclick="axiom.logout()">Logout</a></li>
+  </ul>
+  <div class="logo"><a href="http://www.axiomcm.com" target="_blank"><img tal:attributes="src string:${app/getStaticMountpoint}/axiom/images/axiom_logo.gif" alt="Axiom" title="Axiom" /></a></div> 
+  <ul class="tabs">
+	<!-- if-cms-version-enterprise -->
+	<li tal:attributes="class javascript: (req.action == 'main')?'active':''"><a tal:attributes="href javascript: root.getURI('/cms')">Tasks</a></li>
+	<li tal:attributes="class javascript: (req.action == 'content')?'active':''"><a tal:attributes="href javascript: root.getURI('/cms/content')">Content</a></li>
+	<!-- end-cms-if -->
+	<!-- if-cms-version-standard|professional -->
+	<li tal:attributes="class javascript: req.action == 'main'?'active':(req.action == 'content'?'active':'')"><a tal:attributes="href javascript: root.getURI('/cms/content')">Content</a></li>
+	<!-- end-cms-if -->
+	<li tal:condition="this/viewAssets" tal:attributes="class javascript: (req.action == 'assets')?'active':''"><a tal:attributes="href javascript:root.getURI('/cms/assets')">Assets</a></li>
+	<!-- if-cms-version-enterprise|professional -->
+	<li tal:attributes="class javascript: (req.action == 'reports')?'active':''"><a tal:attributes="href javascript: root.getURI('/cms/reports')">Reports</a></li>
+	<!-- end-cms-if -->
+	<li tal:repeat="tab this/app_tabs" tal:attributes="class javascript: (req.action == data.tab.highlight_action?'active':'')"><a tal:attributes="href tab/getURI" tal:content="tab/title"> </a></li>
+  </ul>
+
+</div>

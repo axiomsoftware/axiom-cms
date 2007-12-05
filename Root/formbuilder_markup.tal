@@ -1,0 +1,37 @@
+<div class="Form" xmlns:tal="http://xml.zope.org/namespaces/tal">
+    <form action="formbuilder_generate">
+        <input type="hidden" name="axiomcms" value="true"/>
+<fieldset class="main">
+  <legend>Form</legend>
+    <ul>
+        <li>
+            <input name="talform" type="hidden" value="cms_editForm"/>
+            <label for="prototype">Prototype</label>
+	    <select name="prototype">
+	      <option value="All">All Prototypes</option>
+	      <option tal:repeat="item prototypes" tal:attributes="value item" tal:content="item"/>
+            </select>
+        </li>
+    </ul>
+</fieldset>
+<fieldset class="main">
+    <legend>Output Options</legend>
+    <ul>
+        <li>
+            <label for="writeoption">Append New Widgets Only</label>
+            <input name="writeoption" type="radio" value="append" checked="true"/>
+        </li>
+        <li>
+            <label for="writeoption">Regenerate Widgets Only</label>
+            <input name="writeoption" type="radio" value="regen"/>
+        </li>
+        <li>
+            <label for="writeoption">Overwrite Entire Edit Form</label>
+            <input name="writeoption" type="radio" value="overwrite"/>
+        </li>
+    </ul>
+</fieldset>  
+<input type="submit" value="Generate"/>
+</form>
+</div>
+

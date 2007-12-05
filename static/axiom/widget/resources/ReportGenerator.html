@@ -1,0 +1,112 @@
+<div>
+  <h1>Reports</h1>
+  <select class="report-select" dojoattachpoint="reportSelect">
+	<option>--Choose One--</option>
+	<!-- if-cms-version-enterprise -->
+	<option value="taskReport">Task Report</option>
+	<option value="archivedTaskReport">Archived Task Report</option>
+	<option value="lockedContentReport">Locked Content Report</option>
+	<!-- end-cms-if -->
+	<option value="objectActionReport">Object Action Report</option>
+	<option dojoattachpoint="usersReportOption" value="usersReport">Users Report</option>
+  </select>
+  
+  <!-- if-cms-version-enterprise -->
+  <div class="reports-section" dojoattachpoint="taskReport">
+	<form method="post" action="task_report" name="taskReport">
+	  <label for="keywords">Keyword</label>
+	  <fieldset><input dojoattachpoint="keywords" name="keywords" id="keywords" type="textbox"/></fieldset>
+	  <label>Due Date</label>
+	  <fieldset>
+		<div style="float:left; display:inline;">
+		  <span dojoattachpoint="afterDate"> </span>
+		  <label class="info">After</label>
+		</div>
+		<div style="float:right; display:inline;">
+		  <span dojoattachpoint="beforeDate"> </span>
+		  <label class="info">Before</label>
+		</div>
+	  </fieldset>
+	  <label for="status">Task Status</label>
+	  <fieldset>
+		<select dojoattachpoint="status" id="status" name="status"> 
+		  <option selected="true">All Statuses</option>
+		  <option>Incomplete</option>
+		  <option>Pending</option>
+		  <option>Rejected</option>
+		  <option>Approved</option>
+		</select>
+	  </fieldset>
+	  <label for="assignee">Current Assignee</label>
+	  <fieldset>
+		<select dojoattachpoint="assignee" id="assignee" name="assignee"> 
+		  <option>All Assignees</option>
+		</select>
+	  </fieldset>
+	  <a href="javascript:void(0);" class="button form-button" onclick="document.taskReport.submit()">Run</a>
+	</form>
+  </div>
+
+  <div class="reports-section" dojoattachpoint="archivedTaskReport">
+	<form method="post" action="archived_task_report" name="archivedTaskReport">
+	  <fieldset>
+		<label for="archived">Archived</label>
+		<select dojoattachpoint="archived" id="archived" name="archived"> 
+		  <option value="7" selected="true">in the last 7 days</option>
+		  <option value="14" selected="true">in the last 14 days</option>
+		  <option value="30" selected="true">in the last 30 days</option>
+		</select>
+	  </fieldset>
+	  <a href="javascript:void(0);" class="button form-button" onclick="document.archivedTaskReport.submit()">Run</a>
+	</form>
+  </div>
+
+  <div class="reports-section" dojoattachpoint="lockedContentReport">
+	<form method="post" action="locked_content_report" name="lockedContentReport">
+	  <fieldset>
+		<label for="keywords">Keywords</label>
+		<input dojoattachpoint="locked_keywords" name="keywords" id="locked_keywords" type="textbox"/>
+	  </fieldset>
+	  <fieldset>
+		<label for="owner">Owner</label>
+		<select dojoattachpoint="owner" id="owner" name="owner"> 
+		  <option selected="true">All Users</option>
+		</select>
+	  </fieldset>
+	  <a href="javascript:void(0);" class="button form-button" onclick="document.lockedContentReport.submit()">Run</a>
+	</form>
+  </div>
+  <!-- end-cms-if -->
+
+  <div class="reports-section" dojoattachpoint="objectActionReport">
+	<form method="post" action="object_action_report" name="objectActionReport">
+	  <fieldset>
+		<label for="action">Last Action</label>
+		<select dojoattachpoint="action" id="action" name="action"> 
+		  <option selected="true">All Actions</option>
+		  <option value="Added">Added</option>
+		  <option value="Edited">Edited</option>
+		  <option value="Deleted">Deleted</option>
+		</select>
+	  </fieldset>
+	  <a href="javascript:void(0);" class="button form-button" onclick="document.objectActionReport.submit()">Run</a>
+	</form>
+  </div>
+
+  <div class="reports-section" dojoattachpoint="usersReport">
+	<form method="post" action="users_report" name="usersReport">
+	  <fieldset>
+		<label for="role">Role</label>
+		<select dojoattachpoint="role" id="role" name="role"> 
+		  <option selected="true">All Roles</option>
+		  <option value="Administrator">Administrator</option>
+		  <option value="Content Contributor">Content Contributor</option>
+		  <option value="Content Editor">Content Editor</option>
+		</select>
+	  </fieldset>
+	  <a href="javascript:void(0);" class="button form-button" onclick="document.usersReport.submit()">Run</a>
+	</form>
+  </div>
+
+
+</div>

@@ -1,0 +1,10 @@
+<div xmlns:tal="http://xml.zope.org/namespaces/tal" class="header">
+  <div id="BrowseContentFilter">
+    <img id="browsefind" tal:attributes="src string:${root/getURI}static/axiom/images/icon_find.gif" alt=""/>
+    <span>Find Content</span>
+    <select id="browseprototype" name="prototype"><option value="">All</option></select>
+    <input id="browsekeywords" name="keywords" type="text"/>
+    <a style="cursor: pointer;" href="javascript:void(0);" class="button" id="browsesearch" title="Search">Search</a>
+    <a style="cursor: pointer;" href="javascript:void(0);" class="button" id="browsereset" title="Reset">Reset</a>
+    </div>
+</div>        

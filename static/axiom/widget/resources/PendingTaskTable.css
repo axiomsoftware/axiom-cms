@@ -1,0 +1,7 @@
+/*.pendingTasks th.selector { width:3%; }
+.pendingTasks th.col_id { width:5%; }
+.pendingTasks th.col_name { width:43%; }
+.pendingTasks th.col_items { width:5%; }
+.pendingTasks th.col_completed { width:15%; }
+.pendingTasks th.col_by { width:5%; border-right: 1px solid #b0b4b6; } 
+.pendingTasks .col_sort { display: none; }*/

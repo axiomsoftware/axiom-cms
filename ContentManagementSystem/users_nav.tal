@@ -1,0 +1,32 @@
+<div class="columnLeft">
+  <div id="UserFilter"> </div>
+
+  <div class="section last">
+	<h2>Add User</h2>
+	<form id="add_form" name="add_form">
+	  <fieldset>
+		<label for="add_fname"><span class="required">*</span>First Name:</label>
+		<input class="textbox users-textbox" type="text" id="add_fname" name="add_fname"/> 
+		<label for="add_lname"><span class="required">*</span>Last Name:</label>
+		<input class="textbox users-textbox" type="text" id="add_lname" name="add_lname"/>  
+		<label for="add_email"><span class="required">*</span>Email Address:</label>
+		<input class="textbox users-textbox" type="text" id="add_email" name="add_email"/> 	
+		<label for="add_username"><span class="required">*</span>Username:</label>
+		<input class="textbox users-textbox" type="text" id="add_username" name="add_username"/> 	
+		<label for="add_password"><span class="required">*</span>Password:</label>
+		<input class="textbox users-textbox" type="password" id="add_password" name="add_password"/> 
+		<label for="add_verifypassword"><span class="required">*</span>Verify Password:</label>
+		<input class="textbox users-textbox" type="password" id="add_verifypassword" name="add_verifypassword"/> 
+		<label for="add_roles"><span class="required">*</span>Role(s):</label>
+		<select class="textbox users-textbox" name="add_roles" id="add_roles">
+		  <option value="" selected="selected">--- Select A Role ---</option>
+		  <option value="Administrator" >Administrator</option>
+		  <option value="Content Editor" >Content Editor</option>
+		  <option value="Content Contributor" >Content Contributor</option>
+		</select>
+		<input class="button" type="button" value="Add" onclick="users.add_user()" />
+	  </fieldset>
+	</form>
+  </div>
+</div>
+

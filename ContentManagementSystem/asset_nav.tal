@@ -1,0 +1,56 @@
+<div xmlns:tal="http://xml.zope.org/namespaces/tal" id="columnLeft" class="columnLeft">
+  <div class="section">
+	<h2>Asset Search</h2>
+	<form id="search_form" name="search_form" tal:attributes="action this/is_assets|?string:search_assets|:string:assets" method="post">
+	  <fieldset>
+		<label for="types">Search For:</label>
+		<input type="hidden" name="sort" id="hidden_sort" value="alpha" />
+		<input type="hidden" name="batch_size" id="batch_size" value="5" />
+		<select class="textbox" name="types" id="types">
+		  <option value="All" selected="selected">All Types</option>
+		  <option value="Image" >Images</option>
+		  <option value="Document" >Documents</option>
+		  <option value="Audio" >Audio</option>
+		  <option value="Video" >Video</option>
+		  <option value="Other" >Other</option>
+		</select>
+	  </fieldset>
+	  <fieldset>
+		<div class="searchtags"><label for="keywords">Keyword(s):</label><img class="tag_icon" tal:attributes="onclick string:updateTags(true); src string:${app/getStaticMountpoint}/axiom/images/icon_tags.gif; alt string:Tags;" /></div>
+		<div id="tag_window"><span tal:define="window_id string:left_nav_tags; input_id string:keywords; searchmode string:true" tal:replace="list_tags"/></div>
+		<input class="textbox" type="text" name="keywords" id="keywords" /> 
+		<p>Searches title, file name and content of document types.</p>
+	  </fieldset>
+	  <fieldset>
+		<input class="button" type="submit" value="Search" />
+		<input class="button" type="button" onclick="resetForm()" value="Reset" />
+	  </fieldset>
+	</form>
+  </div>
+
+  <div class="section second">
+	<h2>Add Items</h2>
+	<form id="upload_file" name="upload_file" method="post" enctype="multipart/form-data" action="upload">
+	  <fieldset>
+		<label for="file">File to upload:</label>
+		<input id="file" type="file" name="file"  />
+		<p>Use a ZIP file to batch process. Files may not exceed 200MB.</p>
+	  </fieldset>
+	  <fieldset>
+		<input id="nounzip" name="nounzip" type="checkbox" value="nounzip" class="cb" />
+		<label for="nounzip" class="cblabel">Upload as ZIP file.  Do not batch process.</label>
+	  </fieldset>
+	  <fieldset>
+		<input class="button" type="button" onclick="uploadFile()" value="Upload" />
+	  </fieldset>
+	</form>
+	<a onclick="axiom.tags.toggleWindow('supportedFileTypes')" href="javascript:void(0);" id="filetypes">Supported File Types</a>
+  </div>
+  
+  <div class="section last">
+	<h2>Manage Asset Tags</h2>
+	<p>View and delete existing asset tags.</p>
+	<a href="javascript:void(0);" onclick="manageTags()">Manage Tags</a> 
+  </div>
+
+</div>

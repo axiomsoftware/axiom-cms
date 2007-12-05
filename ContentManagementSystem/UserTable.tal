@@ -1,0 +1,44 @@
+<div xmlns:tal="http://xml.zope.org/namespaces/tal" class="ContentTable">
+  <h1 class="tablehead">Current Users</h1>
+    <div class="tablewrap">
+    <table class="results">
+		<thead>
+        <tr>
+			<th class="col_actions">Actions</th>
+			<th class="col_first_name"><a href="javascript:void(0);" onclick="users.cfilter.sort({first_name:'alternate', last_name: 'asc'});">First Name</a></th>
+			<th class="col_last_name"><a href="javascript:void(0);" onclick="users.cfilter.sort({last_name:'alternate', first_name: 'asc'});">Last Name</a></th>
+			<th class="col_username"><a href="javascript:void(0);" onclick="users.cfilter.sort({username:'alternate', last_name: 'asc'});">Username</a></th>
+			<th class="col_role"><a href="javascript:void(0);" onclick="users.cfilter.sort({role:'alternate', last_name: 'asc'});">Role</a></th>
+			<th class="col_lastedited"><a href="javascript:void(0);" onclick="users.cfilter.sort({cms_lasteditedby:'alternate', last_name: 'asc'});">Last Edited by</a></th>
+
+        </tr>
+		</thead>
+		<tbody>
+        <tr tal:repeat="object results" onmouseover="this.className='highlight';" onmouseout="this.className='';">
+			<td class="col_action"><a tal:attributes="href string: javascript:void(0);onclick string:users.load_edit('${object/cms_href}/user_edit')"><img tal:attributes="src string:${staticPath}/axiom/images/icon_edit.gif" alt="Edit"/></a></td>
+			<td class="col_action"><a tal:condition="object/deleteable" tal:attributes="href string: javascript:void(0);onclick string:users.delete_user('${object/cms_href}','${object/username}')"><img tal:attributes="src string:${staticPath}/axiom/images/icon_delete.gif" alt="Delete"/></a></td>
+			<td class="col_first_name" tal:content="object/first_name|string: undefined" tal:attributes="title object/first_name"></td>			
+			<td class="col_last_name" tal:content="object/last_name|string: undefined" tal:attributes="title object/last_name"></td>			
+			<td class="col_username" tal:content="object/username|string: undefined" tal:attributes="title object/username"></td>			
+			<td class="col_role" tal:content="object/roles/0|string: undefined"></td>
+			<td class="col_lastedited" tal:content="object/cms_lasteditedby"></td> 
+
+        </tr>
+		</tbody>
+    </table>
+    </div>
+
+  <div class="pagination">
+        <div class="pages users_pages" tal:condition="pagination">
+			<img tal:condition="not:backenabled" tal:attributes="src string:${staticPath}/axiom/images/icon_page_back_disabled.gif;" alt="Previous Page"/>
+            <img tal:condition="backenabled" tal:attributes="src string:${staticPath}/axiom/images/icon_page_back_enabled.gif;onclick string:users.cfilter.go(${start}-${length},${length});;" alt="Previous Page"/>
+                Page <strong tal:content="page"> </strong> of <strong tal:content="pages"> </strong>
+            <img tal:condition="nextenabled" tal:attributes="src string:${staticPath}/axiom/images/icon_page_next_enabled.gif;onclick string:users.cfilter.go(${start}+${length},${length});;" alt="Next Page"/>
+			<img tal:condition="not:nextenabled" tal:attributes="src string:${staticPath}/axiom/images/icon_page_next_disabled.gif;" alt="Next Page"/>
+            <span class="gotopage">Go to page: </span>
+            <input type="text" name="page" id="page" size="1"/>
+            <a href="javascript:void(0);" tal:attributes="onclick string:users.cfilter.goToPage(dojo.byId('page'),${length},${pages});;" class="button" alt="Go" title="Go">Go</a>
+        </div>
+    </div>
+</div>
+

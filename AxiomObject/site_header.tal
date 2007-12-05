@@ -1,0 +1,3 @@
+<div xmlns:tal="http://xml.zope.org/namespaces/tal">
+    <link tal:attributes="href string:${root/getURI}static/css/styles.css" rel="stylesheet" type="text/css"> </link>
+</div>

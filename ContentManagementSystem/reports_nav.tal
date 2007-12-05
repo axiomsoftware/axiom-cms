@@ -1,0 +1,5 @@
+<div class="columnLeft" xmlns:tal="http://xml.zope.org/namespaces/tal">
+  <div class="section section-only first">
+	<div id="ReportGenerator"> </div>
+  </div>
+</div>

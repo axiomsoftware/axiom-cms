@@ -1,0 +1,68 @@
+.assetselector {border:1px solid #aeafb1; float:left; width:385px;height:200px;}
+.assetselector .assetselectorcontrols {float:right; width:85px; margin-right:20px;}
+.assetselector .assetselectorcontrols .form-button {width:100%; display:block; text-align:center; margin:6px 0 0 0;}
+.assetselector .assetselectorpreview {float:left; margin:5px;}
+.assetselector .assetselectorpreview p {margin:0;}
+
+#assetSelectorDialog {background:#AEBABF; padding:7px; width:740px; overflow:hidden; border:1px solid #878A8B;}
+#assetSelectorDialog img {overflow:visible !important;_height:auto;}
+#assetSelectorDialog .body {background:#FFF; padding:7px; width:726px;float:left;height:500px;}
+#assetSelectorDialog .body .asset_close {float:right;cursor:pointer;}
+#assetSelectorDialog .body .columnLeftAssetSelector {float:left;width:147px; height:472px; padding:14px; background:#efefde; border:1px solid #b0b4b0;}
+#assetSelectorDialog .body .columnLeftAssetSelector h3 {margin:0 0 8px 0;font-family:"Georgia";font-size:1.5em;font-weight:normal;}
+#assetSelectorDialog .body .columnLeftAssetSelector label {float:left;font-size:1em;}
+#assetSelectorDialog .body .columnLeftAssetSelector img {float:right;cursor:pointer;}
+#assetSelectorDialog .body .columnLeftAssetSelector input.txtfield {width:100%;}
+#assetSelectorDialog .body .columnLeftAssetSelector p.help {color:#666;}
+#assetSelectorDialog .body .columnLeftAssetSelector .seperator {border:1px solid #B8B8B8;border-width:1px 0; height:3px !important; margin:12px 0 5px 0;}
+
+/* Custom File input only for FF/IE7 */
+#assetSelectorDialog .body .columnLeftAssetSelector input#assetSelectorDialog_UploadText {width:100%;}
+#assetSelectorDialog .body .columnLeftAssetSelector .browse-wrapper {position:relative;overflow:hidden; height:20px; width:70px; margin:5px 0 15px 0;}
+#assetSelectorDialog .body .columnLeftAssetSelector .browse-wrapper a {position:absolute;top:0;left:0;}
+#assetSelectorDialog .body .columnLeftAssetSelector .browse-wrapper input {position:absolute;top:0;right:0;opacity:0;;filter:alpha(opacity=0);font-size:4em;cursor:pointer;}
+
+/* Regular File input for IE6 */
+#assetSelectorDialog .body .columnLeftAssetSelector .file_dialog {width:145px;}
+
+#assetSelectorDialog .body .bodyRight {float:left;width:520px;padding-left:5px;}
+#assetSelectorDialog .body .bodyRight h3 {font-family:"Georgia";font-size:1.5em;font-weight:normal;}
+#assetSelectorDialog .assets {overflow:hidden;height:450px;}
+#assetSelectorDialog .asset  {border:1px solid #B0B4B0; width:29%; padding:0px 10px; float:left; height:145px;}
+#assetSelectorDialog .asset.hover {background:#EFEFDE; cursor:pointer;}
+#assetSelectorDialog .asset p {padding:0px;margin:0px;}
+#assetSelectorDialog .asset div {width:100%;text-align:center;padding:10px 0;}
+#assetSelectorDialog .body .bodyRight .pagination {text-align:center;margin:10px 0; float:left; width:500px;}
+#assetSelectorDialog .body .bodyRight .pagination span {padding:0 5px;}
+
+
+#assetSelectorDialog .body .bodyRight .asset-thumbpreview {width:200px;float:right;}
+/*#assetSelectorDialog .body .bodyRight .asset-thumbpreview img {width:200px;}*/
+#assetSelectorDialog .body .bodyRight .asset-edit {width:300px;}
+#assetSelectorDialog .body .bodyRight .asset-edit fieldset {border:0;width:300px;}
+#assetSelectorDialog .body .bodyRight .asset-edit fieldset div.info {width:280px;}
+#assetSelectorDialog .body .bodyRight .asset-edit fieldset textarea {width:280px;}
+#assetSelectorDialog .body .bodyRight .asset-edit fieldset.asset-tags label {float:left;}
+#assetSelectorDialog .body .bodyRight .asset-edit fieldset.asset-tags img {float:right;padding-right:20px;}
+#assetSelectorDialog .body .bodyRight .asset-edit fieldset.asset-tags label.noblock {display:inline;}
+#assetSelectorDialog .body .bodyRight .asset-edit fieldset.asset-title div.title-cont {float:left;padding-right:5px;}
+
+#assetSelectorDialog .tagInterface {width:690px;}
+#assetSelectorDialog .tags {width:690px;height:385px;overflow-y:auto;}
+#assetSelectorDialog .tags fieldset {float:left;width:240px;border:0;}
+#assetSelectorDialog .tags fieldset input {float:left;}
+#assetSelectorDialog .tags fieldset label {font-weight:normal;}
+#assetSelectorDialog .tagInterface .pagination {width:690px;padding:10px 0;text-align:center;}
+#assetSelectorDialog .tagInterface .pagination a {margin:0 10px;}
+
+/* Styles for asset image select (wysiwyg) */
+#asset_image_selector .thumb_preview {margin:10px 20px 0;}
+.asset_image_form {padding:10px;}
+.linkurl {margin-top:10px;width:380px;}
+.linkurl span {display:block;margin:3px 0 5px 0;color:#666;}
+.linkurl a {margin-left:8px;}
+.linkurlTextbox,fieldset.altdesc input {width:250px;}
+.asset_image_form fieldset {border:none;}
+.asset_image_form .hvspace input, .asset_image_form .widthheight input {width:40px;}
+#asset_image_selector fieldset fieldset {padding:0;float:left;margin-right:10px;}
+#asset_image_selector .controls {width:200px;margin:140px auto 0 auto;text-align:center;}

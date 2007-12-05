@@ -1,0 +1,8 @@
+<div class="columnLeft" xmlns:tal="http://xml.zope.org/namespaces/tal">
+  <div tal:attributes="class this/isContentContributor|?string:section first section-only|:string:section first">
+	<div id="TaskAdd"> </div>
+  </div>
+  <div tal:condition="not:this/isContentContributor" class="section last">
+	<div id="TaskFilter"> </div>
+  </div>
+</div>

@@ -1,0 +1,42 @@
+<div id="columnRight" class="columnRight" xmlns:tal="http://xml.zope.org/namespaces/tal">
+  <div id="Messages"> </div>
+  <div id="ContentWrapper">
+	<div id="ReportPanel">
+	  <div class="report-section">
+		<h1>Reports</h1>
+		<p>All reports generate a .CSV file. Use your favorite spreadsheet application for viewing.</p>
+	  </div>
+	  <!-- if-cms-version-enterprise -->
+	  <div class="report-section">
+		<h2>Task Reports</h2>
+		<p><a href="javascript:void(0);" onclick="axiom.reports.generator.showTaskReport()">Task Report</a> &#150; View tasks by status, assignees, and task event date/time.</p>
+		<p><a href="javascript:void(0);" onclick="axiom.reports.generator.showArchivedTaskReport()">Archived Tasks Report</a> &#150; View tasks that have been archived in the last week to thirty days.</p>
+	  </div>
+	  <!-- end-cms-if -->
+	  <div class="report-section">
+		<h2>Content Reports</h2>
+		<!-- if-cms-version-enterprise -->
+		<p><a href="javascript:void(0);" onclick="axiom.reports.generator.showLockedContentReport()">Locked Content Report</a> &#150; See who owns content objects, to which tasks they belong, and their status in the task lifecycle.</p>
+		<!-- end-cms-if -->
+		<p><a href="javascript:void(0);" onclick="axiom.reports.generator.showObjectActionReport()">Object Action Report</a>
+		  <!-- if-cms-version-enterprise -->
+		  &#150; View the latest actions taken against content objects, when they were last published and their current task information.
+		  <!-- end-cms-if -->
+		  <!-- if-cms-version-professional -->
+		  &#150; View the latest actions taken against content objects and when they were last published.
+		  <!-- end-cms-if -->
+		</p>
+	  </div>
+	  <div tal:condition="not:this/isContentContributor" class="report-section">
+		<h2>Administrative Reports</h2>
+		<p><a href="javascript:void(0);" onclick="axiom.reports.generator.showUsersReport()">Users Report</a>
+		  &#150; View a list of CMS users' roles, last logins, 
+		  <!-- if-cms-version-enterprise -->
+		  open tasks,
+		  <!-- end-cms-if -->
+		  and more.</p>
+	  </div>
+	</div>
+  </div>
+</div>
+

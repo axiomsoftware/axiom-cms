@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<types>
+	<type name="string" format="" store="yes" index="untokenized"/>
+	<type name="int" format="0000000000000" store="yes" index="untokenized"/>
+	<type name="float" format="0000000000000.00" store="yes" index="untokenized"/>
+	<type name="date" format="yyyy.MM.dd HH:mm:ss" store="yes" index="untokenized"/>
+	<type name="text" format="" store="no" index="untokenized"/>
+</types>

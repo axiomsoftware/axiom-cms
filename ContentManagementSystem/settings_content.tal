@@ -1,0 +1,15 @@
+<div>
+  <div class="columnRight">
+	<div id="Messages"></div>
+	<div id="ContentWrapper">
+	  <div id="SettingsTable"> 
+		<div id="General">
+		</div>
+	  </div>
+	</div>
+  </div>
+  <div class="buttons">
+	<a href="javascript:void(0);" onclick="axiom.settings.nav.saveAll()" class="button">Save</a>  
+	<a href="javascript:void(0);" onclick="window.close()" class="button">Cancel</a>
+  </div>
+</div>

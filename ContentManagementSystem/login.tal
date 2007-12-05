@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns:tal="http://xml.zope.org/namespaces/tal">
+  <script type="text/javascript">
+    var djConfig = {isDebug:true};
+  </script>
+  <span tal:replace="cms_header"/>
+  <body style="cursor: default" class="login">
+    <div class="outerwrap">
+      <div class="innerwrap">
+		<div id="header" xmlns:tal="http://xml.zope.org/namespaces/tal">
+		  <div class="logo"><a href="http://www.axiomcm.com" target="_blank"><img tal:attributes="src string:${app/getStaticMountpoint}/axiom/images/axiom_logo.gif" alt="Axiom" title="Axiom" /></a></div> 
+		</div>
+		<div id="content">
+		  <div class="body">
+			<div class="columnLeftLogin">
+			  <div class="loginbox">
+				<h2>Axiom Login</h2>
+				<div class="error_message" style="display:block" tal:condition="error_message" tal:content="error_message"> </div>
+				<form action="" method="POST" name="cms_login" onkeypress="check(event);">
+				  <div>
+					<label for="username"><span class="required">*</span>Username:</label>
+					<input type="text" id="username" name="username" />
+				  </div>
+				  <div>
+					<label for="password"><span class="required">*</span>Password:</label>
+					<input type="password" id="password" name="password" />
+				  </div>
+				  <input type="hidden" name="postback" value="true" />
+				  <div><a href="#" onclick="document.forms.cms_login.submit();" class="button">Login</a></div>
+				</form>
+				<script type="text/javascript">
+				  function check(e) {
+				  var code;
+				  if (!e) var e = window.event;
+				  if (e.keyCode) code = e.keyCode;
+				  else if (e.which) code = e.which;
+				  if(code==13) document.forms.cms_login.submit();
+				  }
+				</script>
+			  </div>
+			</div>
+			<div class="columnRightLogin">
+			  <div class="adminbox" tal:content="this/contacts">
+			  </div>
+			</div>
+		  </div>
+		</div>
+      </div>
+	  <span tal:replace="footer"/>
+    </div>
+  </body>
+</html>
+

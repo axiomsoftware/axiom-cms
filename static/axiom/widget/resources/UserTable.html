@@ -1,0 +1,37 @@
+<div id="ContentTable" dojoattachpoint="table"> 
+
+  <div dojoattachpoint="loading" class="loading">Refreshing Search Results...<br/><img dojoattachpoint="ajaxLoader"  alt="Loading..." /></div>
+  <div dojoattachpoint="tablewrap" xmlns:tal="http://xml.zope.org/namespaces/tal" class="ContentTable">
+
+	<div class="pagination">
+	  <div class="pages" dojoattachpoint="pagination_block" style="display:none">
+		<img dojoattachpoint="previous_page_img" alt="Previous Page"/>
+		Page <strong dojoattachpoint="page_num"> </strong> of <strong dojoattachpoint="page_total"> </strong>
+		<img dojoattachpoint="next_page_img" alt="Next Page"/>
+		<span class="gotopage">Go to page: </span>
+		<input type="text" name="page" id="page" size="1" dojoattachpoint="pagination_input" />
+		<a href="javascript:void(0);" dojoattachpoint="pagination_button" class="button" alt="Go" title="Go">Go</a>
+	  </div>
+	</div> 
+	<div class="tablewrap">    
+	  <div class="table-info">Users with open tasks may not be deleted.</div>
+	  <table class="results usersTable">
+		<thead>
+		  <tr>
+			<th class="selector"><input type="checkbox" dojoattachevent="onclick:selectAll" /></th>
+			<th class="col_action"></th>
+			<th class="col_first_name"><a href="javascript:void(0);" onclick="users.cfilter.sort([{first_name:'alternate'}, {last_name: 'asc'}]);">First Name</a></th>
+			<th class="col_last_name"><a href="javascript:void(0);" onclick="users.cfilter.sort([{last_name:'alternate'}, {first_name: 'asc'}]);">Last Name</a></th>
+			<th class="col_username"><a href="javascript:void(0);" onclick="users.cfilter.sort([{username:'alternate'}, {last_name: 'asc'}]);">Username</a></th>
+			<th class="col_role"><a href="javascript:void(0);" onclick="users.cfilter.sort([{search_roles:'alternate'}, {last_name: 'asc'}]);">Role</a></th>
+			<th class="col_email"><a href="javascript:void(0);" onclick="users.cfilter.sort([{email:'alternate'}, {last_name: 'asc'}]);">Email</a></th>
+		  </tr>
+		</thead>
+		<tbody dojoattachpoint="results_body">
+
+	  </tbody> 
+	</table>
+  </div>
+  </div>
+  
+</div>

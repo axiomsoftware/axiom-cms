@@ -1,0 +1,48 @@
+<form id="general_settings" xmlns:tal="http://axiom.com/">
+  <h2>General Settings</h2>
+  <fieldset class="axContacts">
+    <table>
+        <tr>
+            <td class="settingLabel"><label for="contacts">Axiom Contacts (Displayed on login screen)</label></td>
+            <td class="contactsRow"><textarea id="contacts" name="contacts" tal:content="this.contacts||''"> </textarea></td>	
+        </tr>
+    </table>
+  </fieldset>
+  <h3>Approval Workflow Settings</h3>
+  <fieldset>
+    <table>
+        <tr>
+            <td class="settingLabel"><label for="archive_period">Achive Closed Tasks After</label></td>
+            <td>
+                <select id="archive_period" name="archive_period">
+            	  <option tal:attr="selected: (this.archive_period == 30)" value="30">30 days</option>
+            	  <option tal:attr="selected: (this.archive_period == 60)" value="60">60 days</option>
+            	  <option tal:attr="selected: (this.archive_period == 90)" value="90">90 days</option>
+            	</select>
+            </td>
+        </tr>
+	</table>	
+  </fieldset>
+  <fieldset id="ax-login_url">
+    <table>
+        <tr>
+            <td><div class="error_message"> </div></td>
+        </tr>
+        <tr>
+            <td class="settingLabel"><label for="login_url"><span class="required">*</span>URL for CMS login used in emails (include http://):</label></td>
+            <td><input tal:attr="value: this.login_url" name="login_url" class="validate-empty" id="login_url" /></td>
+        </tr>
+    </table>	
+  </fieldset>
+  <fieldset id="ax-site_url">
+	<table>
+        <tr>
+            <td><div class="error_message"> </div></td>
+        </tr>
+        <tr>
+            <td class="settingLabel"><label for="site_url"><span class="required">*</span>Site URL to be used in emails (include http://):</label></td>
+            <td><input tal:attr="value: this.site_url" name="site_url" class="validate-empty" id="site_url" /> </td>
+        </tr>
+    </table>	
+  </fieldset>
+</form>    

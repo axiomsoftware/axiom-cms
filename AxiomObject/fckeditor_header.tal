@@ -1,0 +1,1 @@
+<script xmlns:tal="http://xml.zope.org/namespaces/tal" type="text/javascript" tal:attributes="src string:${app/getStaticMountpoint}/FCKeditor/fckeditor.js"> </script>

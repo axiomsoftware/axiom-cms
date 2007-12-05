@@ -1,0 +1,18 @@
+<div class="section" id="UserFilter"> 
+  <h2>Search Users</h2>
+    <fieldset>
+      <label for="roles">Role:</label>
+      <select class="textbox users-textbox" name="roles" id="roles"  dojoattachpoint="rolesInput">
+	<option value="All" selected="selected">All Roles</option>
+	<option value="Administrator" >Administrator</option>
+	<option value="Content Editor" >Content Editor</option>
+	<option value="Content Contributor" >Content Contributor</option>
+      </select>
+      <label for="keywords">Keyword:</label>
+      <input class="textbox users-textbox" type="text" name="keywords" id="keywords" dojoattachpoint="keywordInput" /> 
+      <fieldset>
+	<input id="search" class="button users-button" type="button" dojoattachpoint="searchButton" value="Search" />
+	<input id="reset"  class="button users-button" type="reset"  dojoattachpoint="resetButton" value="Reset" />
+      </fieldset>
+    </fieldset>
+</div>

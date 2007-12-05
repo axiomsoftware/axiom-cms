@@ -1,0 +1,11 @@
+<div id="TaskAdd">
+  <h2>Add A New Task</h2>
+  <div dojoattachpoint="errorMessage" class="error_message"> </div>
+  <label for="name"><span class="required">*</span>Name</label>
+  <fieldset><input class="textbox" id="name" name="name" dojoattachpoint="nameField" maxlength="75"/><p class="info-copy">75 character max</p></fieldset>
+  <label for="description">Description</label>
+  <fieldset><textarea class="textbox" id="description" name="description" dojoattachpoint="descField"></textarea></fieldset>
+  <label for="dueDate">Due Date</label>
+  <fieldset><div dojoattachpoint="dueDate"> </div></fieldset>
+  <a href="javascript:void(0);" class="button" id="add_button" alt="Add" title="Add" dojoattachpoint="addButton">Add</a>
+</div>

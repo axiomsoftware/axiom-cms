@@ -1,0 +1,11 @@
+<div id="TaskFilter">
+  <h2>Tasks By User</h2>
+  <label for="user">Display Unapproved Tasks for User: <span dojoattachpoint="username"> </span></label>
+  <div dojoattachpoint="errorMessage" class="error_message"> </div>
+  <fieldset>
+	<select class="textbox" id="user" name="user" dojoattachpoint="userList">
+	  <option value="">Choose a username</option>
+	</select>
+  </fieldset>
+  <a href="javascript:void(0);" class="button" alt="Display" title="Display" dojoattachpoint="displayButton" dojoattachevent="onclick:searchTasks">Display</a>
+</div>

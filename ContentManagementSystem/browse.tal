@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns:tal="http://xml.zope.org/namespaces/tal">
+    <script>
+        //var djConfig = {isDebug:true};
+    </script>
+    <span tal:replace="cms_header"/>
+    <body style="cursor: default;" class="browse">
+	<div class="outerwrap">  
+	    <div class="innerwrap">  
+	<div id="header">
+	  <ul class="tabs">
+	    <li class="active"><a href="#">Search</a></li>
+	    <li><a href="#">Site Tree</a></li>
+	  </ul>
+	</div>
+	<div id="content">
+        <span tal:replace="objectSelectTop"/>
+		<div class="separator"> </div>
+        <span tal:replace="objects"/>
+        </div>
+    </div>
+    </div>
+    </body>
+</html>

@@ -1,0 +1,14 @@
+div.OrderedSelect {clear:both;float:left;overflow:hidden;width:100%;}
+div.OrderedSelect div.refBody {display:none;}
+div.OrderedSelect div.refBody div.tablecontrols {float:left;width:25px;text-align:center;padding-top:10px;}
+div.OrderedSelect div.refBody div.tablecontrols img {cursor: pointer;margin-bottom:2px;_margin-bottom:4px;}
+div.OrderedSelect div.refBody div.tableitems {float:left;width:96%;}
+div.OrderedSelect div.refBody div.tableitems table {border:1px solid #b0b4b6;}
+div.OrderedSelect div.refBody div.tableitems table tr th {height:20px;padding:5px;color:#000;font-size:1em;background:#efefde;border:0;border-bottom:1px solid #b0b4b6;}
+div.OrderedSelect div.refBody div.tableitems table tr td {height:20px;padding:5px;background:#fff;border:0;border-bottom:1px solid #b0b4b6;}
+div.OrderedSelect div.refBody div.tableitems table tr td.ref_title {width:45%}
+div.OrderedSelect div.refBody div.tableitems table tr td.ref_location {width:45%}
+div.OrderedSelect div.refBody div.tableitems table tr td.ref_delete {width:10%}
+div.OrderedSelect div.refBody div.tableitems table tr td a {color:#4c6571;text-decoration:underline;}
+div.OrderedSelect div.refBody div.tableitems table tr.selected td {background:#d9dcde;}
+

@@ -1,0 +1,23 @@
+<div dojoAttachEvent="onKeyPress:handleKeyPress" class="ax-modal task-edit">
+  <div class="title"><img class="modal-icon" dojoattachpoint="modalIcon" /><h2 class="title-content" dojoattachpoint="title">Edit Task</h2><img class="close_button" dojoAttachEvent="onClick:close" src="${this.staticPath}/axiom/images/button_close.gif"/></div>
+  <form id="edit-task">
+	<div class="content-wrapper"> 
+	  <div class="content" dojoattachpoint="mainContent"> 
+		<table>
+		  <tr dojoattachpoint="idRow"> <td class="label"><label>ID:</label></td> <td dojoattachpoint="idCell"> </td> </tr>
+		  <tr> <td class="label ax-name"><label for="name"><span class="required">*</span>Name:</label></td> <td><div class="error_message">hidden error message</div><input dojoAttachPoint="nameField"  class="validate-empty" name="name" /><p class="info-copy">75 character max</p></td> </tr>
+		  
+		  <tr> <td class="label ax-description"><label for="description">Description:</label></td> <td><div class="error_message">hidden error message</div><textarea dojoAttachPoint="descriptionField" name="description"> </textarea></td> </tr>
+		  <tr> <td class="label ax-assignee"><label for="assignee"><span class="required">*</span>Assign To:</label></td> <td><div class="error_message">hidden error message</div><select dojoAttachPoint="assigneeField" name="assignee"> </select></td> </tr>
+		  <tr> <td class="label ax-due_date"><label for="due_date">Due Date:</label></td> <td><div class="error_message">hidden error message</div><input class="textbox" dojoattachpoint="datePickerNode"/> </td> </tr> 
+		</table>
+	  </div>
+
+	  <div class="modal-buttons" dojoattachpoint="modalButtons">
+		<a dojoAttachPoint="okButton" dojoAttachEvent="onClick:saveTask" class="button form-button">Submit</a> 
+		<a dojoAttachPoint="cancelButton" dojoAttachEvent="onClick:close" class="button form-button">Cancel</a> 
+	  </div>
+
+	</div>
+  </form>
+</div>

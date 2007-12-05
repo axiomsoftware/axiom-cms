@@ -1,0 +1,8 @@
+<div class="columnRight">
+  <div id="Messages"></div>
+  <div id="ContentWrapper">
+	<div id="UserTable"> </div>
+	
+	<div dojoType="ContentPane" executeScripts="true" scriptSeperation="false" style="display:none" id="EditBody" > </div> 
+  </div>
+</div>

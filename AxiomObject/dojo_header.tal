@@ -1,0 +1,3 @@
+<script type="text/javascript"  xmlns:tal="http://xml.zope.org/namespaces/tal" tal:attributes="src string:${app/getStaticMountpoint}/dojo/dojo.js"> </script>
+
+

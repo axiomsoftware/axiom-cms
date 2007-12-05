@@ -1,0 +1,5 @@
+<div class="body" xmlns:tal="http://xml.zope.org/namespaces/tal">
+	<div id="BrowseContentTable">
+	<div id="ObjectSelectTable" class="tablewrap">ObjectSelectTable</div>
+	</div>
+</div>

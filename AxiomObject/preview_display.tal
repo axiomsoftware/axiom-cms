@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns:tal="http://xml.zope.org/namespaces/tal">
+  <head>
+    <span tal:replace="cms_header"/>
+    <script type="text/javascript">
+      function close_preview(){
+	      dojo.byId('preview_frame').style.display = 'none';
+	      dojo.byId('closing').style.display = 'block';
+	      dojo.io.bind( {url: 'cms_delete',
+			     load: function(){ window.close(); } } );
+      }
+      window.onclose = close_preview;
+    </script>
+  </head>
+  <body>
+    <div id="content">
+      <div class="body">
+	
+	<div id="closing" style="display:none;width:100%;text-align:center;padding:25px 0;">Closing...<br/><img tal:attributes="src string:${root/getURI}static/axiom/images/ajax-loader.gif" alt="Closing..." /></div>
+	<iframe id="preview_frame" style="background: #ffffff; width:97%; height:600px; border: 1px solid #777; margin-left:20px;" tal:attributes="src this/getURI"> </iframe>
+	<div class="controls">
+	  <a href="javascript:close_preview()" class="button form-button" alt="Close" title="Close">Close</a>
+	</div>
+      </div>
+    </div>
+  </body>
+</html>

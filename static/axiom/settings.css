@@ -1,0 +1,19 @@
+#content .body .columnRight {min-height:530px !important;}
+#content .body .columnRight,
+#content .body .buttons { margin-left: 258px; min-height:1px; } 
+#content .body .buttons a.button {padding:3px 9px 4px 9px; margin-right:4px;}
+#content .body .buttons { text-align: center; margin-top:-21px; padding:7px 0; *margin-top:6px;}
+.section { width:100% }
+#ContentWrapper { padding-left: 20px; min-height:450px;}
+#ContentWrapper h2 {font-family: Georgia; font-size:20px; color:#333333;}
+#ContentWrapper h3 {font-family: Georgia; font-size:14px; color:#333333;margin-top:33px;}
+#ContentWrapper table {margin-bottom:-22px; width:100%;}
+#ContentWrapper table td {border:0 !important; vertical-align:top; *padding:5px 0 !important;}
+#ContentWrapper form fieldset label {color:#333333; font-weight:normal !important;}
+#ContentWrapper form fieldset input {width:190px !important; height:15px !important;}
+#ContentWrapper form fieldset input,
+#ContentWrapper form fieldset select,
+#ContentWrapper form fieldset textarea{ margin-left:10px; padding-left:2px;}
+#ContentWrapper form fieldset textarea { width: 49%; height: 104px; padding-top:2px;}
+.settingLabel {width:244px;}
+.contactsRow textarea {min-width:322px !important; float:left;}

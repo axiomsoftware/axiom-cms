@@ -1,0 +1,13 @@
+<div xmlns:tal="http://xml.zope.org/namespaces/tal">
+  <form id="edit" method="post"> 
+      <h1><img tal:attributes="src string:${root/getURI}static/axiom/images/icon_edit.gif" alt="Edit Icon" title="Edit Icon"/> EDIT <span tal:replace="string:${this/first_name} ${this/last_name}"/> </h1>
+      <div class="form">
+		<span tal:replace="cms_editForm"/>
+		<div class="edit_buttons">
+	  <a href="javascript:void(0)" class="button form-button" tal:attributes="onclick string:users.submit('${this/getURI}/editwrapper', undefined, users.load_search)" alt="Save" title="Save">Save</a>
+	  <a href="javascript:void(0)" class="button form-button" alt="Cancel" title="Cancel" tal:condition="not:add" tal:attributes="onclick string:users.load_search()">Cancel</a>
+	</div>
+      </div>
+  </form>
+</div>
+

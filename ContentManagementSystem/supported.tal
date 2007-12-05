@@ -1,0 +1,58 @@
+<div id="supportedFileTypes" class="tags_window supported_file_types">
+  <div class="taghead">
+  <h3>Supported File Types </h3>
+  <a href="javascript:void(0);" onclick="axiom.tags.toggleWindow('supportedFileTypes')">Close</a>
+  </div>
+  <div class="type_container">
+  <div class="types">
+    <h4>Images </h4>
+    <ul>
+      <li>.JPG</li>
+      <li>.GIF</li>
+      <li>.PNG</li>
+    </ul>
+    <h4>Other</h4>
+    <ul>
+      <li>.ZIP</li>
+    </ul>
+  </div>
+  <div class="types">
+    <h4>Documents*</h4>
+    <ul>
+      <li>.DOC</li>
+      <li>.DOT</li>
+      <li>.ODP</li> 
+      <li>.ODS</li>
+      <li>.OTS</li>  
+      <li>.PDF</li>
+      <li>.PPT</li>
+      <li>.POT</li> 
+      <li>.RTF</li>
+      <li>.TXT</li> 
+      <li>.XLS</li>
+      <li>.XLT</li> 
+    </ul>
+  </div>
+  <div class="types">
+    <h4>Audio </h4>
+    <ul>
+      <li>.MP3</li>
+      <li>.WMA</li>
+    </ul>
+  </div>
+  <div class="types">
+    <h4>Video </h4>
+    <ul>
+      <li>.FLV</li>
+      <li>.MOV</li>
+      <li>.SWF</li>
+      <li>.WMV</li>
+    </ul>
+  </div>
+  </div>
+  <div class="info">
+    <h4>Want to distribute an unsupported file type?</h4>
+    <p>Compress it into a .ZIP file and upload it.  .ZIP files are categorized as documents regardless of their contents.</p>
+    <p>*Indexed for search</p>
+  </div>
+</div>

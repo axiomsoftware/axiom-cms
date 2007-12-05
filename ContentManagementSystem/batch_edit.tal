@@ -1,0 +1,57 @@
+<div xmlns:tal="http://xml.zope.org/namespaces/tal" class="upload" >
+  <script tal:replace="tag_funcs"/>
+
+  <h2>Batch Upload</h2>
+  <div class="zipfile"><strong>Zip file to upload:</strong> <span tal:replace="zip_name"/> (<span tal:replace="num_files"/> items)</div>
+
+  <div id="template_wrapper">
+    <div class="template_head"><span>Batch Template</span> <a onclick="toggleTemplate()" href="javascript:void(0);" id="template_trigger">(Collapse)</a></div>
+<div id="template">
+      <table cellspacing="0" border="0" class="template_items">
+	<tr class="template" ><th class="colinfo"> </th><th class="coltitle">Title</th><th class="coltags">Tags</th><th class="colcaption">Caption/Alternate Text</th><th class="colcredit">Credit</th></tr>
+	<tr class="template"  >
+	  <td class="colinfo"><div class="info">When you use the template it prepopulates<br/>
+		  each like field for all files in the batch<br/>
+		  saving you entry time. Just complete the fields<br/>
+		  and click APPLY. You can modify any field<br/>
+		  individually even if you use the template!<br/><br/>
+	<a href="javascript:void(0);" class="button form-button" onclick="applyBatch()">Apply</a></div></td>
+	  <td class="coltitle"><textarea id="template_title"> </textarea></td>
+	  <td tal:define="window_id string:template_window" class="coltags tags">
+	    <textarea tal:attributes="id string:template_tags"> </textarea> 
+	    <div class="tag_button"><img tal:attributes="onclick string:axiom.tags.toggleWindow('${window_id}'); src string:${app/getStaticMountpoint}/axiom/images/tag.gif" /></div>
+	    <span tal:define="input_id string:template_tags" tal:replace="list_tags"/>
+	  </td>
+	  <td class="colcaption"><textarea id="template_alt"> </textarea></td>
+	  <td class="colcredit"><textarea id="template_credit"> </textarea></td>
+	</tr>
+      </table>
+</div>
+  </div>
+
+
+<div id="content_table">
+  <table cellspacing="0" border="0" class="template_items">
+    <tr><th class="colthumb"> </th><th class="colfile">Filename</th><th class="colcontent">Content Type</th><th class="coltitle"><span class="required">*</span>Title</th><th class="coltags"><span class="required">*</span>Tags</th><th class="colcaption">Caption/Alternate Text</th><th class="colcredit">Credit</th></tr>
+    <swx tal:repeat="file files" tal:omit-tag="string:true">
+      <tr tal:define="id file/id" tal:attributes="id id;name file/getURI"> 
+	<td class="colthumb"><img tal:attributes="src file/thumb_on"/> </td>
+	<td class="colfile" tal:content="file/getFileName"> </td> 
+	<td class="colcontent"><input readonly="readonly" type="text" tal:attributes="value file/getContentType"/></td>
+	<td class="coltitle"><textarea> </textarea></td>
+	<td tal:define="window_id string:${id}_window" class="coltags tags">
+	  <textarea tal:attributes="id string:${id}_tags"> </textarea> 
+	  <div class="tag_button"><img tal:attributes="onclick string:axiom.tags.toggleWindow('${window_id}'); src string:${app/getStaticMountpoint}/axiom/images/tag.gif" /></div>
+	  <span tal:define="input_id string:${id}_tags" tal:replace="list_tags"/>
+	</td>
+	<td class="colcaption"><textarea> </textarea></td>
+	<td class="colcredit"><textarea> </textarea></td>
+      </tr>
+    </swx>
+  </table>
+</div>
+  <div class="batch_buttons">
+	<a href="javascript:void(0);" class="button form-button" onclick="fire_submit();">Save</a> 
+	<a href="javascript:void(0);" onclick="cancelBatch();" class="button form-button">Cancel</a>
+  </div>
+</div>

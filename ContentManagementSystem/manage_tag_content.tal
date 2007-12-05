@@ -1,0 +1,22 @@
+<div class="columnRightAssets" xmlns:tal="http://xml.zope.org/namespaces/tal">
+  <div class="manage_column">
+	<form name="tags" method="get" action="delete_tags">
+	  <h2>Manage Asset Tags</h2>
+	  <p>The tags below indicate the existing tags available in your CMS asset list.  You may view the assets associated with a tag by clicking the number following the tag or delete tags by selecting them and clicking the Delete button.</p>
+	  
+	  <div id="tag_container" class="tag_container">
+		<div class="tag_col" tal:repeat="tags this/getPartitionedTags">
+		  <ul tal:repeat-content="tag tags">
+			<li>
+			  <input type="checkbox" class="cb" tal:attributes="value tag/getURI; name tag/title;"/>
+			  <label tal:attributes="for tag/title"><span tal:replace="tag/title" /> <a tal:attributes="href string: javascript:void(0); onclick string:tagSearch('${tag/title}')" tal:content="string:(${tag/count})"> </a></label>
+			</li>
+		  </ul>
+		</div>
+	  </div>
+	  <a href="javascript:void(0);" class="button form-button" onclick="deleteTags()">Delete Selected</a>
+	  <!-- <input class="button" type="submit" value="Delete Selected"/> -->
+	</form>
+
+  </div>
+</div>

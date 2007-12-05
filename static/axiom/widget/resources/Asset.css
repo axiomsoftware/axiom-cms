@@ -1,0 +1,25 @@
+div.thumbnail{border: 1px solid #b8b8b8; float: left; background: #FFF; margin:0 5px 5px 0; height:162px;width:158px;_width:160px; _overflow:hidden; }
+
+div.thumbnail div.topwrap{ width:148px; height:128px;_height:135px; padding:5px; _padding-bottom:0px;}
+span.title{ font-weight: bold; }
+span.filename { color: #898989; }
+div.thumbnail div.imgwrap {width:100%;text-align:center;}
+div.thumbnail div.topwrap img.thumbnail{ border: 0px; display: block; margin:0 auto; padding-top:7%; cursor:pointer;}
+
+div.thumbnail div.actionmenu{ vertical-align:bottom; height: 23px; padding-bottom: 0px;}
+div.thumbnail div.actionmenu .edit, div.thumbnail div.actionmenu .tag,  div.thumbnail div.actionmenu .zoom{position:absolute;z-index:1; border: 5px solid #aebabf; background:#EEE; padding: 10px; display:none;margin:2px 0 0 -1px;_margin:24px 0 0 -162px;width:250px;}
+div.thumbnail div.actionmenu .tag{ width:142px; }
+
+div.thumbnail div.actionmenu div.tag a{color: #72868b; font-size: 1.1em; text-decoration:underline;}
+div.thumbnail div.actionmenu div.tag a.hasTag{ font-weight:bold; font-size: 1.2em;}
+div.thumbnail div.actionmenu .zoom,
+div.thumbnail div.actionmenu .tag { background: #fff; padding:5px; min-height:30px;}
+div.thumbnail div.actionmenu .zoom .filesize{ padding-top: 5px;}
+div.thumbnail div.actionmenu div .close_buttom{ float:right; cursor: pointer;}
+div.thumbnail div.actionmenu .zoom span { display:block; padding-bottom:5px;}
+div.thumbnail div.actionmenu img.action_button{ display:none; cursor: pointer; margin:0; padding: 0;}
+div.hover{ background: #EEE; }
+
+<!--[if IE 7]>
+div.thumbnail div.actionmenu .edit, div.thumbnail div.actionmenu .tag,  div.thumbnail div.actionmenu .zoom{margin:25px 0 0 -162px;}
+<![endif]-->

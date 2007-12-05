@@ -1,0 +1,3 @@
+#TaskFilter ul { margin-top: 20px; width:100%;}
+#TaskFilter ul li { list-style: none; background:#fff; width:100%; padding:10px; padding-right:0px; border: 1px solid #b0b4b6; border-right: none; }
+#TaskFilter ul li a { color:#333; text-decoration: none;}

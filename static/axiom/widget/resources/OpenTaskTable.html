@@ -1,0 +1,34 @@
+<div dojoattachpoint="tablewrap" xmlns:tal="http://xml.zope.org/namespaces/tal" class="ContentTable TaskTable">
+  <div class="tablewrap">    
+	<table class="results openTasks">
+	  <thead>
+		<tr><td class="selector"></td><td colspan="8"><h2>My Open Tasks</h2></td></tr>
+		<tr dojoattachpoint="columnHeaders">
+		  <th class="selector"> <div class="inputBg"><input type="checkbox" dojoattachpoint="select_all" dojoattachevent="onClick:selectAll"/></div></th>
+		  <th class="col_action"> </th>
+		  <th class="col_open_id">
+			<a href="javascript:void(0);" onclick="axiom.tasks.taskPanel.openTable.sort({task_id: 'alternate', status:'desc'} );">ID</a>
+			<img class="col_sort" dojoattachpoint="col_name_sort" />
+		  </th>
+		  <th class="col_name" colspan="2">
+			<a href="javascript:void(0);" onclick="axiom.tasks.taskPanel.openTable.sort({cms_sortable_name: 'alternate', task_id:'desc'} );">Task Name</a> 
+			<img class="col_sort" dojoattachpoint="col_name_sort" />
+		  </th>
+		  <th class="col_items">Items</th>
+		  <th class="col_due_date">
+			<a href="javascript:void(0);" onclick="axiom.tasks.taskPanel.openTable.sort({due_date:'alternate', task_id:'desc'});">Due Date</a> 
+			<img class="col_sort" dojoattachpoint="col_due_date_sort" />
+		  </th>
+		  <th class="col_due_date">
+			<a href="javascript:void(0);" onclick="axiom.tasks.taskPanel.openTable.sort({status:'alternate', task_id:'desc'});">Status</a> 
+			<img class="col_sort" dojoattachpoint="col_due_date_sort" />
+		  </th>
+		  <th class="col_requested_by">By</th>
+		</tr>
+	  </thead>
+	  <tbody dojoattachpoint="results_body">
+
+	  </tbody>
+	</table>
+  </div>
+</div>

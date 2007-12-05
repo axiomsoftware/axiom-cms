@@ -1,0 +1,20 @@
+<div id="columnRight" class="columnRight" xmlns:tal="http://xml.zope.org/namespaces/tal">
+  <div id="Messages"> </div>
+  <div id="ContentWrapper"><div id="ContentTable">ContentTable</div></div>
+
+  <div dojoType="ContentPane" executeScripts="true" scriptSeperation="false" cacheContent="false" id="EditBody">
+
+  </div>
+
+  <div id="BrowseDialog" style="display:none;">
+	<div class="browsewrapper">
+	  <div id="browsecontent">
+		<span tal:replace="objectSelectTop"/>
+		<div class="separator"> </div>
+		<span tal:replace="objects"/>
+	  </div>
+	</div>
+  </div>
+
+</div>
+

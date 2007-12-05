@@ -1,0 +1,8 @@
+<div class="columnLeft" xmlns:tal="http://xml.zope.org/namespaces/tal">
+  <div class="section first">
+	<div id="ContentFilter"> </div>
+  </div>
+  <div class="section last">
+	<div id="ContentAdd"> </div>
+  </div>
+</div>

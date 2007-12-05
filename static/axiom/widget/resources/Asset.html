@@ -1,0 +1,22 @@
+<div class="thumbnail">
+  <div class="topwrap">
+    <span dojoAttachEvent="onClick:stopPropagation" class="title">${this.title}</span>
+    <span dojoAttachPoint="title_file_name" title="${this.filename}" class="filename">(${this.filename})</span>
+    <div class="imgwrap"> 
+    <img dojoAttachEvent="onClick:toggleEdit" dojoAttachPoint="thumbnail" class="thumbnail" />
+</div>
+  </div>
+  <div dojoAttachPoint="actionMenu" class="actionmenu" >
+    <img dojoAttachPoint="zoomButton" dojoAttachEvent="onClick:toggleZoom" class="action_button" title="Zoom" src="${this.staticPath}/axiom/widget/resources/images/zoom_thumb.gif"/><img dojoAttachEvent="onClick:toggleTag" class="action_button" title="Tags" src="${this.staticPath}/axiom/widget/resources/images/tag_thumb.gif"/><img dojoAttachEvent="onClick:toggleEdit" title="Edit" class="action_button" src="${this.staticPath}/axiom/widget/resources/images/edit_thumb.gif"/><img dojoAttachEvent="onClick:deleteObj" title="Delete" class="action_button" src="${this.staticPath}/axiom/widget/resources/images/delete_thumb.gif"/>
+    <div dojoAttachPoint="zoom" dojoAttachEvent="onMouseOver:stopPropagation" class="zoom">  
+	  
+      <img dojoAttachPoint="preview_thumb" class="thumbnail" />
+      <div class="title">${this.title}</div>
+      <div title="${this.filename}" dojoAttachPoint="zoom_file_name" class="filename">(${this.filename})</div> 
+      <div dojoAttachPoint="size" class="filesize"><strong>Size:</strong> ${this.filesize} KB</div>
+      <div dojoAttachPoint="dim" class="dim"><strong>Dimensions:</strong> ${this.width} x ${this.height}</div>
+    </div>
+    <div dojoAttachPoint="tag" class="tag"> <img class="close_buttom" src="${this.staticPath}/axiom/images/button_close.gif"/> </div>
+    <div dojoType="ContentPane" executeScripts="true" dojoAttachPoint="edit" class="edit"></div>
+  </div>
+</div>
