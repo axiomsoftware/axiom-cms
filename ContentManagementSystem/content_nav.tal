@@ -1,8 +1,16 @@
 <div class="columnLeft" xmlns:tal="http://xml.zope.org/namespaces/tal">
-  <div class="section first">
+  <div class="section first" id="filter_section">
 	<div id="ContentFilter"> </div>
   </div>
-  <div class="section last">
+  <div class="section last" id="add_section">
 	<div id="ContentAdd"> </div>
+  </div>
+  <div class="box" id="object_detail">
+    <h4>Created:</h4>
+    <p id="obj_created">Test</p>
+    <h4>Last Modified:</h4>
+    <p id="obj_last_modified">Test</p>
+    <h4>Content-Type:</h4>
+    <p id="obj_content_type">Test</p>
   </div>
 </div>

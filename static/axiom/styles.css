@@ -72,12 +72,12 @@ input.gray {color:#b2b1ad;}
 #content .body .reference-container { margin-left: 30px; }
 #content .body .subform h2 {font-family: "Georgia"; color:#385566; border-bottom:1px solid #C2CACE; margin:0 0 5px 0; font-weight: normal; font-size:1.5em;}
 
-#content .body .box, 
 #content .body .subform {width:96%;}
 #content .body .subform fieldset{padding:1% 2%;}
 #content .body .reference-container { margin: 1% 2%;  }
-#content .body .columnLeft .box {background:#efefde; padding:5%; width:90%;margin:0 auto;}
-
+#content .body .columnLeft .box {border:1px solid #b0b4b6; background:#efefde; padding:5px; width:185px; margin:0 auto;}
+#content .body .columnLeft .box p {margin: 3px 0 10px; font-size:1em;}
+#content .body .columnLeft #object_detail {display:none;}
 
 #content .body fieldset {margin:15px 0 0 0; border:0;}
 #content .body fieldset .set {width:42%; margin:0 5% 0 0; float:left;}
@@ -320,7 +320,7 @@ th,td {white-space: normal; text-align: left; padding:0px;border: 1px solid #AAA
 /*#content .body .columnLeft .last a {color:#4D666D;text-decoration:underline;font-size:1.2em;}*/
 #content .body .columnLeft .section-only  {border-bottom:0px;}
 #content .body .columnLeft .section-only .button {padding:3px 6px 4px 6px;}
-#content .body .columnRight {width:auto; overflow:hidden; margin:18px 1px 27px 225px; border: 1px solid #b8b8b8; overflow-y: hidden !important; border-right:0px; background:#fff; /*padding:41px 0 45px;*/ *margin-bottom:1px;  min-height:550px;padding-top:2%;} 
+#content .body .columnRight {width:auto; overflow:hidden; margin:0 1px 0 225px; border: 1px solid #b8b8b8; overflow-y: hidden !important; border-right:0px; background:#fff; /*padding:41px 0 45px;*/ *margin-bottom:1px;  min-height:550px;padding-top:2%;} 
 * html #content .body .columnRight {padding-bottom:48px; width:100%;}
 #content .body .columnRight .edit_content{ height:560px; overflow: scroll; *width:100% !important; padding-top:18px;} 
 #content .body .columnRight .edit_content h1 {margin-left:12px !important;}

@@ -65,6 +65,14 @@
 								}
   				     });
  	}
+	dojo.html.hide(dojo.byId('filter_section'));
+	dojo.html.hide(dojo.byId('add_section'));
+	dojo.byId('obj_created').innerHTML = '${this.cms_createdby}';
+	dojo.byId('obj_last_modified').innerHTML = '${this.cms_lasteditedby}';
+	dojo.byId('obj_content_type').innerHTML = axiom.searchPrototypes['${this._prototype}'];
+	//dojo.html.show(dojo.byId('object_detail')); Dojo is awesome, so this doesn't work
+	//dojo.html.setStyle(dojo.byId('object_detail'),'display','block'); Neither does this
+	dojo.byId('object_detail').style.display = 'block';
 	//dojo.addOnLoad(function() { dojo.byId('edit').getElementsByTagName('input')[0].focus(); });
 	//]]>
     </script>

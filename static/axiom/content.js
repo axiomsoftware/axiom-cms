@@ -213,6 +213,9 @@ var axiom = {
 		dojo.html.setClass(edit.domNode, axiom.editBaseClass);
 		if(classname){ dojo.html.addClass(content.domNode, classname); } 
 		axiom.showingThumbs = true;
+		dojo.byId('object_detail').style.display = 'none';
+		dojo.byId('filter_section').style.display = 'block';
+		dojo.byId('add_section').style.display = 'block';
 		document.title = (axiom.title || "Axiom CMS");
 		content.style.display='block';
 	},
