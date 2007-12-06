@@ -110,7 +110,14 @@ var axiom = {
 														onInvalid: axiom.defaultOnInvalid,
 														validate: function(elem, data){ 
 															// ex: location field
-															return data.preview ? [true, 'valid'] : [false, 'Required for preview.'];
+															if(data.preview){
+																var result = axiom.validateFunctions['validate-empty'].validate(elem, data);
+																if(!result[0]){
+																	result[1] = 'Required for preview.';
+																}
+																return result;
+															}
+															return [true, 'valid'];
 														}
 													  };
 
@@ -158,7 +165,7 @@ var axiom = {
 							if(!message_tuple[0]){
 								valid = false;
 								highest = validateFunc.onInvalid(error_node, message_tuple[1], highest);
-							} else{
+							} else {
 								error_node.style.display = 'none';
 							}
 						}
