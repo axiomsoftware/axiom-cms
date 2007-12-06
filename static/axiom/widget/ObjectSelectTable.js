@@ -88,6 +88,7 @@ dojo.widget.defineWidget(
 			});
 			this.results_body.appendChild(row);
 		},
+		toggleRow:function(){}, // override for no-op
 		handleResults:function(type, data, req){
 			this.widget.loading.style.display = 'none';
 			this.widget.tablewrap.style.display = 'block';

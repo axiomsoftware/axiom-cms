@@ -47,6 +47,7 @@ dojo.widget.defineWidget(
 								 });
 			
 		},
+		toggleRow:function(){}, // override for no-op
 		deleteObjects:function(){
 			if(!dojo.html.hasClass(this.deleteButton, 'form-button-disabled')){
 				var objects = [];

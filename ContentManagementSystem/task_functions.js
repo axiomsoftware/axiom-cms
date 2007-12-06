@@ -29,14 +29,12 @@ function approve_tasks(data){
 	var task_groups = app.getObjects("CMSTask", new OrFilter(filters), {maxlength: filters.length}).inject({}, function(table, task){
 		for each(var obj in app.getSources(task)){
 			if(obj._action == "Deleted"){
-				app.log('app.getDraft(obj, 0)._layer => '+app.getDraft(obj, 0)._layer);
-				app.getDraft(obj, 0).cms_delete();
-				app.deleteDraft(obj, 1);
+				obj.cms_delete();
 			} else{
-				obj.publishToLive();
 				obj._action = null;
 				obj._task = null;
 			}
+			obj.publishToLive();
 		}
 		task.approval_description = (data.description || null);
 		task.admin_actor = session.user ? session.user.username : "system";

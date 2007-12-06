@@ -1,7 +1,7 @@
 /**
-Copyright Siteworx
-Thomas Mayfield
-*/
+ * Copyright Axiom
+ * Thomas Mayfield
+ */
 
 dojo.provide("axiom.widget.UserFilter");
 
@@ -29,9 +29,9 @@ dojo.widget.defineWidget(
 			this.rolesInput.value = "All";
 			this.keywordInput.value = "";
 		},
-		showSearch: function(){
+	 	showSearch: function(){
 			dojo.widget.byId('EditBody').hide();
-			dojo.widget.getWidgetsByType('ContentTable')[0].show(); 
+			dojo.widget.getWidgetsByType('UserTable')[0].show(); 
 		},
 		postCreate:function() {
 			dojo.event.kwConnect({       srcObj: this.keywordInput,
