@@ -26,9 +26,9 @@
       </div>
       <!-- end-cms-if -->
       <div class="buttons">
-        <a alt="Save" class="button form-button" href="javascript:void(0)" id="save_button" tal:attr="onclick: 'axiom.submitEdit({edit_url:\\''+this.getURI('save')+'\\',form_elem: this})'" title="Save">Save</a>
-        <a alt="Preview" class="button form-button" href="javascript:void(0)" tal:attr="onclick: 'axiom.submitEdit({edit_url: \\''+this.getURI('save_preview')+'\\',form_elem:this, preview: true, callback: function(type, data){window.open(data)}})'" tal:if="this.previewable" title="Preview">Preview</a>
-        <a alt="Cancel" class="button form-button" href="javascript:void(0)" tal:attr="onclick: 'axiom.deleteNewAdd(\\''+this.getURI()+'\\')'" tal:if="add" title="Cancel">Cancel</a>
+        <a alt="Save" class="button form-button" href="javascript:void(0)" id="save_button" tal:attr="onclick: 'axiom.submitEdit({edit_url:\''+this.getURI('save')+'\',form_elem: this})'" title="Save">Save</a>
+        <a alt="Preview" class="button form-button" href="javascript:void(0)" tal:attr="onclick: 'axiom.submitEdit({edit_url: \''+this.getURI('save_preview')+'\',form_elem:this, preview: true, callback: function(type, data){window.open(data)}})'" tal:if="this.previewable" title="Preview">Preview</a>
+        <a alt="Cancel" class="button form-button" href="javascript:void(0)" tal:attr="onclick: 'axiom.deleteNewAdd(\''+this.getURI()+'\')'" tal:if="add" title="Cancel">Cancel</a>
         <a alt="Cancel" class="button form-button" href="javascript:void(0)" onclick="axiom.dirtyProps={}; axiom.showContent()" tal:if="!add" title="Cancel">Cancel</a>
       </div>
     </div>
