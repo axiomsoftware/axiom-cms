@@ -38,6 +38,9 @@ dojo.widget.defineWidget(
 		getPrototype:function() {
 			return this.prototypeList.value;			
 		},
+		getKeywords:function(){
+			return this.keywordInput.value;
+		},
 		setPrototype:function(prototype) {
 			this.prototypeList.value = prototype;
 		},
@@ -100,7 +103,7 @@ dojo.widget.defineWidget(
 				for(var field in sortObj){ this.flip_sort(field, sortObj);}
 			}
 			this.sortObj = sortObj;
-			this.runSearch(this.getPrototype(), this.keywordInput.value, sortObj, -1, this.searchlength);
+			this.runSearch(this.getPrototype(), this.getKeywords(), sortObj, -1, this.searchlength);
 		},
 		flip_sort: function(field, obj){
 			if(obj[field] == 'alternate'){
