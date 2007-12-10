@@ -32,7 +32,7 @@
         <a alt="Cancel" class="button form-button" href="javascript:void(0)" onclick="axiom.dirtyProps={}; axiom.showContent()" tal:if="!add" title="Cancel">Cancel</a>
       </div>
     </div>
-    <script tal:text="$" tal:var="window_title: add ? 'Add '+this.cms_sortable_prototype : 'Edit '+this.title" type="text/javascript">
+    <script tal:text="$" tal:var="window_title: add ? 'Add '+this.cms_sortable_prototype : 'Edit '+this.title, task_info: this._task ? this._task.getTarget().task_id + ' - ' + this._task.getTarget().name + ' - ' + this._task.getTarget().status : 'None'" type="text/javascript">
       //<![CDATA[
      //axiom.FCKInstances=[]; // Used for Saving with FCKeditor
 	document.title = "Axiom CMS - ${window_title}";
@@ -70,8 +70,8 @@
 	dojo.byId('obj_created').innerHTML = '${this.cms_createdby}';
 	dojo.byId('obj_last_modified').innerHTML = '${this.cms_lasteditedby}';
 	dojo.byId('obj_content_type').innerHTML = axiom.searchPrototypes['${this._prototype}'];
-	//dojo.html.show(dojo.byId('object_detail')); Dojo is awesome, so this doesn't work
-	//dojo.html.setStyle(dojo.byId('object_detail'),'display','block'); Neither does this
+	if (dojo.byId('obj_task_info')) { dojo.byId('obj_task_info').innerHTML = '${task_info}'; };
+
 	dojo.byId('object_detail').style.display = 'block';
 	//dojo.addOnLoad(function() { dojo.byId('edit').getElementsByTagName('input')[0].focus(); });
 	//]]>
