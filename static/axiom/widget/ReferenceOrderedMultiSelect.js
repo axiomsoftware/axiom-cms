@@ -196,6 +196,7 @@ dojo.widget.defineWidget(
 				axiom.browsetable.searchURL = path + "potentialTargets";
 				axiom.browsecfilter.setTargetTypes(this.targetTypes);
 				axiom.browsecfilter.clear();
+				axiom.browsecfilter.setLength(12);
 				axiom.browsecfilter.search(null, null, null, 12);
 				this.dialog.show();
 			} 

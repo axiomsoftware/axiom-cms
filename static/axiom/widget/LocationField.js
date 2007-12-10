@@ -63,6 +63,7 @@ dojo.widget.defineWidget(
 				axiom.browsecfilter.setTargetTypes(this.parentTypes);
 				axiom.browsecfilter.find_desc.style.display = 'none';
 				axiom.browsecfilter.reset();
+				axiom.browsecfilter.setLength(12);
 				axiom.browsecfilter.search(null, null, null, 12);
 				this.dialog.show();
 			} else {

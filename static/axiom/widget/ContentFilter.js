@@ -77,21 +77,25 @@ dojo.widget.defineWidget(
 		clear: function(){
 			this.sortField = '';
 			this.sortfdirection = '';
-			this.searchlength = 15;
+			this.searchlength = this.initialLength;
 			this.setPrototype("");
 			this.keywordInput.value = '';
 		},
 		reset:function() {
 			this.clear();
-			this.runSearch('', this.getPrototype(), {}, -1, -1);
+			this.runSearch('', this.getPrototype(), {}, -1, this.searchlength);
+		},
+		setLength:function(len){
+			this.initialLength = len;
+			this.searchlength = len;
 		},
 		search:function(evt, prototype, keyword, length) {
 			var p = (prototype || this.getPrototype());
 			var k = (keyword || (this.keywordInput.value == 'Keyword' ? '' : this.keywordInput.value));
-        	var len = (length || -1);
+        	var len = (length || this.searchlength);
 			this.runSearch(p, k, this.sortObj, -1, len, this.publishedOnly);
 		},
-		sort:function(sortObj) {
+		sort:function(sortObj){
 			if(sortObj instanceof Array){
 				for(var i in sortObj){ 
 					for(var field in sortObj[i]){
@@ -150,6 +154,7 @@ dojo.widget.defineWidget(
 		},
 		postCreate:function() {
 			var option = null;
+			this.initialLength = this.searchlength;
 			this.populateList();
 			if(this.findIcon) 
 				this.findIcon.src = axiom.staticPath+'/axiom/images/icon_find.gif';
