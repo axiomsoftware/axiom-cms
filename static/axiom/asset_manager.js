@@ -231,6 +231,10 @@ function uploadFile(){
 				  method: "post",
 				  transport: "IframeTransport"  
 			     });
+	showLoading();
+}
+
+function showLoading(){
 	assetEdit('<div style="width:100%;text-align:center;padding:25px 0;">Loading...<br/><img src="'+axiom.staticPath + '/axiom/images/ajax-loader.gif" alt="Loading..." /></div>');
 }
 
