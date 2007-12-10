@@ -71,6 +71,9 @@ function save(data){
 }
 
 function save_as_preview(data){
+	app.log('data._location => '+data._location);
 	data = this.preprocess_data(data);
-	return this.edit(data)
+	var r = this.edit(data)
+	app.log('this.getURI() => '+this.getURI());
+	return r;
 }

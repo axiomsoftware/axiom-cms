@@ -40,6 +40,7 @@ function save_preview(data){
 		// if-cms-version-enterprise
 		session.setDraftIds([previewObj._id], layer);
 		// end-cms-if
+		app.log('previewObj.getURI() => '+previewObj.getURI());
 		return 'http://'+app.getProperties()['draftHost.'+layer] + previewObj.getURI();
 	}
 }

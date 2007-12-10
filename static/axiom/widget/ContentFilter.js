@@ -83,13 +83,12 @@ dojo.widget.defineWidget(
 		},
 		reset:function() {
 			this.clear();
-			this.runSearch('', '', {}, -1, -1);
+			this.runSearch('', this.getPrototype(), {}, -1, -1);
 		},
 		search:function(evt, prototype, keyword, length) {
-			var p = (prototype != undefined)?prototype:this.getPrototype();
-			var k = (keyword != undefined)?keyword:(this.keywordInput.value == 'Keyword' ? '' : this.keywordInput.value);
-        	var len = (length != undefined)?length:-1;
-			if (this.contentAdd!=null){/**this.contentAdd.setPrototype(p);*/}
+			var p = (prototype || this.getPrototype());
+			var k = (keyword || (this.keywordInput.value == 'Keyword' ? '' : this.keywordInput.value));
+        	var len = (length || -1);
 			this.runSearch(p, k, this.sortObj, -1, len, this.publishedOnly);
 		},
 		sort:function(sortObj) {
@@ -127,11 +126,23 @@ dojo.widget.defineWidget(
 		},
 		populateList:function(){
 			this.prototypeList.innerHTML = '';
+			var list = [];
 			for (var p in this.prototypes) {
 				var option = document.createElement('option');
-				option.value = (p=='All')?this.prototypes[p]:p;
-				option.innerHTML = (p=='All')?'All Content Types':this.prototypes[p];
-				this.prototypeList.appendChild(option);
+				if(p != 'All'){
+					var option = document.createElement('option');
+					option.value = p;
+					option.innerHTML = this.prototypes[p];
+					list.push(option);
+				}
+			}
+			list.sort(function(a,b){return a.innerHTML.localeCompare(b.innerHTML)});
+			var all = document.createElement('option');
+			all.value = this.prototypes['All'];
+			all.innerHTML = 'All Content Types';
+			list = [all].concat(list);
+			for (var i in list){
+				this.prototypeList.appendChild(list[i]);
 			}
 		},
 		closeModal:function(){

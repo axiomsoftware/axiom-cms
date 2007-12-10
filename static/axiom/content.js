@@ -412,7 +412,7 @@ var axiom = {
 
 	submitEdit: function(data){
 		var form_elem = data.form_elem;
-		var preview = form_elem.innerHTML == "Preview";
+		var preview = form_elem ? form_elem.innerHTML == "Preview" : false;
 		if(form_elem && !preview){
 			if(dojo.html.hasClass(form_elem, 'form-button-disabled'))
 				return;
