@@ -140,7 +140,10 @@ var axiom = {
 		errornode.innerHTML = message;
 		errornode.style.display = "block";
 		if(errornode.offsetTop < highest) { 
-			highest = errornode.offsetTop; 
+			if(dojo.render.html.ie)
+				highest = errornode.offsetParent.offsetTop; 
+			else
+				highest = errornode.offsetTop;
 		}
 		return highest;
 	},
@@ -296,7 +299,9 @@ var axiom = {
 				} else {
 					errorNode = dojo.html.getElementsByClass("error_message",dojo.byId("ax-"+i),"div")[0];
 				}
-				if(errorNode.offsetTop < highest) { highest = errorNode.offsetTop; }
+				if(errorNode.offsetTop < highest) { 
+					highest = errorNode.offsetTop; 
+				}
 				errorNode.innerHTML = errorsObj.errors[i];
 				errorNode.style.display = (i=="_accessname" || i=="_location")?"inline":"block";
 				axiom.scroll(highest);
