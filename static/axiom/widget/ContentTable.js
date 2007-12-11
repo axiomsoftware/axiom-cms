@@ -417,16 +417,18 @@ dojo.widget.defineWidget(
 			var rows = this.rowInfoIndex[row.id];
 			for(var i in rows){
 				var row = dojo.byId(rows[i]);
-				if(row.style.display == 'table-row' || row.style.display == ''){
-					row.style.display = 'none';
-					this.activeRow = '';
-				}
-				else {
-					if(dojo.render.html.ie)
-						row.style.display = '';
-					else
-						row.style.display = 'table-row';
-				}
+				if(row){
+					if(row.style.display == 'table-row' || row.style.display == ''){
+						row.style.display = 'none';
+						this.activeRow = '';
+					}
+					else {
+						if(dojo.render.html.ie)
+							row.style.display = '';
+						else
+							row.style.display = 'table-row';
+					}
+				} 
 			}
 		},
 		handleResults:function(type, data, req){
