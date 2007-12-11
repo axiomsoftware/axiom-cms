@@ -1,12 +1,15 @@
-<div xmlns:tal="http://xml.zope.org/namespaces/tal">
+<div xmlns:tal="http://axiom.com/">
   <form id="edit" method="post"> 
-      <h1><img tal:attributes="src string:${root/getURI}static/axiom/images/icon_edit.gif" alt="Edit Icon" title="Edit Icon"/> EDIT <span tal:replace="string:${this/first_name} ${this/last_name}"/> </h1>
+      <h1 tal:text="$">
+		<img tal:attr="src: app.getStaticMountpoint('axiom/images/icon_edit.gif')" alt="Edit Icon" title="Edit Icon"/> 
+		EDIT ${this.first_name} ${this.last_name}
+	  </h1>
       <div class="form">
-		<span tal:replace="cms_editForm"/>
+		<span tal:replace="this.cms_editForm(data)"/>
 		<div class="edit_buttons">
-	  <a href="javascript:void(0)" class="button form-button" tal:attributes="onclick string:users.submit('${this/getURI}/editwrapper', undefined, users.load_search)" alt="Save" title="Save">Save</a>
-	  <a href="javascript:void(0)" class="button form-button" alt="Cancel" title="Cancel" tal:condition="not:add" tal:attributes="onclick string:users.load_search()">Cancel</a>
-	</div>
+	  <a href="javascript:void(0)" class="button form-button" tal:attr="onclick: 'users.submit(\''+this.getURI('editwrapper')+'\', undefined, users.load_search)'" alt="Save" title="Save">Save</a>
+	  <a href="javascript:void(0)" class="button form-button" alt="Cancel" title="Cancel" tal:if="!data.add" onclick="users.load_search()">Cancel</a>
+	</div> 
       </div>
   </form>
 </div>
