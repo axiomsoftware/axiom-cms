@@ -216,9 +216,8 @@ var axiom = {
 		dojo.html.setClass(edit.domNode, axiom.editBaseClass);
 		if(classname){ dojo.html.addClass(content.domNode, classname); } 
 		axiom.showingThumbs = true;
-		dojo.byId('object_detail').style.display = 'none';
-		dojo.byId('filter_section').style.display = 'block';
-		dojo.byId('add_section').style.display = 'block';
+		axiom.hideObjectDetail();
+		axiom.showLeftNav();
 		document.title = (axiom.title || "Axiom CMS");
 		content.style.display='block';
 	},
@@ -341,6 +340,28 @@ var axiom = {
 	setEditData: function(data, classname) {
 		dojo.widget.byId("EditBody").setContent(data);
 		axiom.showEdit(classname);
+	},
+
+	showLeftNav: function() {
+		if (dojo.byId('task_add_section')) { dojo.byId('task_add_section').style.display = 'block'; }
+		if (dojo.byId('task_filter_section')) { dojo.byId('task_filter_section').style.display = 'block'; }
+		if (dojo.byId('filter_section')) { dojo.byId('filter_section').style.display = 'block'; }
+		if (dojo.byId('add_section')) { dojo.byId('add_section').style.display = 'block'; }
+	},
+
+	hideLeftNav: function() {
+		if (dojo.byId('task_add_section')) { dojo.byId('task_add_section').style.display = 'none'; }
+		if (dojo.byId('task_filter_section')) { dojo.byId('task_filter_section').style.display = 'none'; }
+		if (dojo.byId('filter_section')) { dojo.byId('filter_section').style.display = 'none'; }
+		if (dojo.byId('add_section')) { dojo.byId('add_section').style.display = 'none'; }
+	},
+
+	showObjectDetail: function() {
+		dojo.byId('object_detail').style.display = 'block';
+	},
+
+	hideObjectDetail: function() {
+		dojo.byId('object_detail').style.display = 'none';
 	},
 
 	getFormData: function(id, submitAll){

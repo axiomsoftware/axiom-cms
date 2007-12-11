@@ -69,14 +69,13 @@
 								}
   				     });
  	}
-	dojo.html.hide(dojo.byId('filter_section'));
-	dojo.html.hide(dojo.byId('add_section'));
+	axiom.hideLeftNav();
 	dojo.byId('obj_created').innerHTML = '${this.cms_createdby}';
 	dojo.byId('obj_last_modified').innerHTML = '${this.cms_lasteditedby}';
 	dojo.byId('obj_content_type').innerHTML = axiom.searchPrototypes['${this._prototype}'];
 	if (dojo.byId('obj_task_info')) { dojo.byId('obj_task_info').innerHTML = '${task_info}'; };
+	axiom.showObjectDetail();
 
-	dojo.byId('object_detail').style.display = 'block';
 	//dojo.addOnLoad(function() { dojo.byId('edit').getElementsByTagName('input')[0].focus(); });
 	//]]>
     </script>
