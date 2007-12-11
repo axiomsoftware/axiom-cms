@@ -107,6 +107,17 @@ dojo.widget.defineWidget(
 			this.ajaxLoader.src = axiom.staticPath + '/axiom/images/ajax-loader.gif';
 			this.tablewrap.style.display = 'block';
 			this.searchUrl = this.appPath+ 'cms/searchUsers';
+
+			dojo.event.kwConnect({srcObj: this.pagination_input,
+								  srcFunc: 'onkeypress',
+								  adviceObj: this,
+								  adviceFunc: 'goToPage'});
+
+			dojo.event.kwConnect({srcObj: this.pagination_button,
+								  srcFunc: 'onclick',
+								  adviceObj: this,
+								  adviceFunc: 'goToPage'});
+
 		}
 	}
 );

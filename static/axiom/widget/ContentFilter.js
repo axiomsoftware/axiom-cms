@@ -117,7 +117,7 @@ dojo.widget.defineWidget(
 		},
 		go:function(start, length) {
 			this.searchlength = length;
-			this.runSearch(this.getPrototype(), null, this.sortObj, start, length);
+			this.runSearch(this.getPrototype(), this.getKeywords(), this.sortObj, start, length);
 		},
 		goToPage:function(textnode,l,pages) {
 			var page = parseInt(textnode.value, 10);
