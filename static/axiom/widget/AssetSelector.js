@@ -855,7 +855,13 @@ dojo.widget.defineWidget(
 				if(href) { output+='<a href="'+href+'"'+target+'>'; }
 				output+='<img src="'+widgetRef.current_asset.value+'"'+alt+height+width+hspace+vspace+align+' border="0"/>';
 				if(href) { output += '</a>'; }
-				window.parent.FCKeditorAPI.GetInstance(widgetRef.instanceName).InsertHtml(output);
+				if(dojo.render.html.ie){
+					var instance = window.parent.FCKeditorAPI.GetInstance(widgetRef.instanceName);
+					instance.EditorWindow.focus();
+					instance.EditorDocument.selection.createRange().pasteHTML(output);
+				} else {
+					window.parent.FCKeditorAPI.GetInstance(widgetRef.instanceName).InsertHtml(output);
+				}
 				widgetRef._closeDialog();				
 			};
 
@@ -887,10 +893,16 @@ dojo.widget.defineWidget(
 
 		insertFile:function(o){
 			var widgetRef = this;
-			var output=document.createElement("a");
-			output.href = o.path;
-			output.innerHTML = o.title + " " + o.filesize + "KB";
-			window.parent.FCKeditorAPI.GetInstance(widgetRef.instanceName).InsertElement(output);
+			if(dojo.render.html.ie){
+				var instance = window.parent.FCKeditorAPI.GetInstance(widgetRef.instanceName);
+				instance.EditorWindow.focus();
+				instance.EditorDocument.selection.createRange().pasteHTML('<a href="'+o.path+'">'+o.title + ' '+ o.filesize + '</a>');
+			} else {
+				var output=document.createElement("a");
+				output.href = o.path;
+				output.innerHTML = o.title + " " + o.filesize + "KB";
+				window.parent.FCKeditorAPI.GetInstance(widgetRef.instanceName).InsertElement(output);
+			}
 			widgetRef._closeDialog();
 		},
 
