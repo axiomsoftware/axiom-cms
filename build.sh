@@ -20,6 +20,12 @@ rsync --exclude=".svn" --delete -avr cms-enterprise/* svn-cms-enterprise
 rsync --exclude=".svn" --delete -avr cms-professional/* svn-cms-professional
 rsync --exclude=".svn" --delete -avr cms-standard/* svn-cms-standard
 
+svn add svn-cms-enterprise/*
+svn add svn-cms-professional/*
+svn add svn-cms-standard/*
+
 svn commit svn-cms-enterprise -m  "Automatic Bamboo Commit **i AXSTK-253"
 svn commit svn-cms-professional -m  "Automatic Bamboo Commit **i AXSTK-253"
 svn commit svn-cms-standard -m "Automatic Bamboo Commit **i AXSTK-253"
+
+rm -rf svn-cms-*
