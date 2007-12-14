@@ -45,12 +45,22 @@ dojo.widget.defineWidget(
 			this.archivedTaskReport.style.display = 'block';
 		},
 		showObjectActionReport:function(){
+ 			// if-cms-version-enterprise
 			this.reportSelect.selectedIndex = 4;
+			// end-cms-if
+			// if-cms-version-professional
+			this.reportSelect.selectedIndex = 1;
+			// end-cms-if
 			this.hideAll();
 			this.objectActionReport.style.display = 'block';
 		},
 		showUsersReport:function(){
+			// if-cms-version-enterprise
 			this.reportSelect.selectedIndex = 5;
+			// end-cms-if
+			// if-cms-version-professional
+			this.reportSelect.selectedIndex = 2;
+			// end-cms-if
 			this.hideAll();
 			this.usersReport.style.display = 'block';
 		},
