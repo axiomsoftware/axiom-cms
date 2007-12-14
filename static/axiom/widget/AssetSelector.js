@@ -506,10 +506,6 @@ dojo.widget.defineWidget(
 				titleErrorDiv.style.display="block";
 				errors = true;
 			} else { titleErrorDiv.style.display="none"; }
-			if(formdata.tags=="") {
-				tagsErrorDiv.style.display="block";
-				errors = true;
-			} else { tagsErrorDiv.style.display="none"; }
 			if(errors) { return false; }
 			wrapper = {};
 			wrapper[obj_id] = formdata;

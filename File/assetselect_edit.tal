@@ -25,7 +25,7 @@
 		</fieldset>
 		<fieldset class="asset-tags">
 			<div class="error_message">Please specify this file's tags.</div>
-			<label for="tags"><span class="required">*</span>Tags</label><img tal:attributes="src string:${app/getStaticMountpoint}/axiom/images/icon_tags.gif;onclick string:dojo.widget.byId('${asset_id}')._showTags(true);" alt="Tags" />
+			<label for="tags">Tags</label><img tal:attributes="src string:${app/getStaticMountpoint}/axiom/images/icon_tags.gif;onclick string:dojo.widget.byId('${asset_id}')._showTags(true);" alt="Tags" />
 			<textarea cols="70" rows="5" id="new-tags" name="tags" tal:content="this/tags|string:"></textarea>
 			<div class="info">Use the tag selector to select existing tags. You must use the asset manager to create new tags.</div>
 		</fieldset>
