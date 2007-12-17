@@ -23,7 +23,7 @@
   </script>
 
   <div class="thumb_preview">
-    <img tal:attributes="src this/preview_href" />
+    <img tal:define="time javascript:(new Date()).getTime()" tal:attributes="src string:${this/preview_href}?noCache=${time}"/>
     <div>Specifications</div>
     <ul>
       <li><strong>Filename</strong>: <span tal:replace="this/ellipsedFileName"/></li>

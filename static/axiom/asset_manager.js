@@ -15,6 +15,7 @@ var batch_size = 0;
 var current_page = 1;
 var last_page = 1;
 var upload_form_bind;
+var edited_widget;
 
 function queryAssets(keywords, types, batch_size, sort, page_num){
 	dojo.io.bind({ url: 'search_assets',
@@ -168,7 +169,7 @@ function manageTags(){
 	dojo.widget.byId('thumbs').setUrl('manage_tag_content?'+'nocache='+(new Date()).getTime());
 }
 
-function assetEdit(content,is_href,hide_nav){
+function assetEdit(content,is_href,hide_nav, widget){
 	if(!axiom.browsemodal) {
 		axiom.browsemodal = dojo.widget.createWidget("Dialog",
 													 {id:"BrowseDialog"},
