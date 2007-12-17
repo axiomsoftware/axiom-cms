@@ -97,9 +97,9 @@ input.gray {color:#b2b1ad;}
 #content .body .subform2 h3 span a {padding:0 2px; text-decoration:underline; color:#4c6571;}
 #content .body .controls {border-right: 1px solid #b0b4b6; border-bottom: 1px solid #b0b4b6; background: transparent url(images/content_form_bg.gif); margin:0px; height: 56px; padding:0px 10px 0px 0; /*width:100%;*/ margin-top:-2%; *margin-top:-2.5%;}
 #content .body .controls h1 {float:left; margin:0; padding: 15px 0 0 0;}
-#content .body .controls .task_info {float:right; position: relative; top:20px; padding-right:15px;}
+#content .body .controls .task_info {position: relative; top:20px; padding-right:15px;}
 #content .body .controls .task_info label { display:inline; }
-#content .body .controls .task_info select {position: relative; top:-4px;}
+#content .body .controls .task_info select {position: relative; top:-4px; float:right; width:200px; min-width:200px;}
 #content .body .controls .task_info .error_message {font-size:1em;}
 #content .body .controls .alert_info { top:10px; }
 #content .body .controls .alert_info img { float:left; margin-right:10px; }
@@ -328,7 +328,7 @@ th,td {white-space: normal; text-align: left; padding:0px;border: 1px solid #AAA
 #content .body .columnRight .edit_content{ height:560px; overflow: scroll; *width:100% !important;} 
 #content .body .columnRight .edit_content h1 {margin-left:12px !important;}
 #content .body .fixed { height:593px; overflow: hidden; *width:auto !important;}
-#content .body .columnRight .contentHeader {float:left;width:98%;padding-left:1%;}
+#content .body .columnRight .contentHeader {float:left;width:98%;padding-left:1%;padding-bottom:1%;}
 #content .body .columnRight .contentHeader p { float:left; margin-right:10px;margin-top:0px;}
 .loading {width:100%; padding:25px 0; text-align:center;}
 

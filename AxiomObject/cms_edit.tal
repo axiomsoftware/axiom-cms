@@ -8,10 +8,9 @@
           <span tal:replace="add ? 'ADD '+this.getPrettyName().ellipse(40) : 'EDIT '+this.title.ellipse(40)"/>
       </h1>
       <div class="buttons">
-        <a alt="Save" class="button form-button" href="javascript:void(0)" id="save_button" tal:attr="onclick: 'axiom.submitEdit({edit_url:\''+this.getURI('save')+'\',form_elem: this})'" title="Save">Save</a>
         <a alt="Preview" class="button form-button" href="javascript:void(0)" tal:attr="onclick: 'axiom.submitEdit({edit_url: \''+this.getURI('save_preview')+'\',form_elem:this, preview: true, callback: function(type, data){window.open(data)}})'" tal:if="this.previewable" title="Preview">Preview</a>
-        <a alt="Cancel" class="button form-button" href="javascript:void(0)" tal:attr="onclick: 'axiom.deleteNewAdd(\''+this.getURI()+'\')'" tal:if="add" title="Cancel">Cancel</a>
-        <a alt="Cancel" class="button form-button" href="javascript:void(0)" onclick="axiom.dirtyProps={}; axiom.showContent()" tal:if="!add" title="Cancel">Cancel</a>
+        <a alt="Save" class="button form-button" href="javascript:void(0)" id="save_button" tal:attr="onclick: 'axiom.submitEdit({edit_url:\''+this.getURI('save')+'\',form_elem: this})'" title="Save">Save</a>
+        <a alt="Cancel" class="button form-button" href="javascript:void(0)" tal:attr="onclick: add ? 'axiom.deleteNewAdd(\''+this.getURI()+'\')' : 'axiom.dirtyProps={}; axiom.showContent()'" title="Cancel">Cancel</a>
       </div>
       <!-- if-cms-version-enterprise -->
       <div class="task_info alert_info" tal:if="this.lockedByOther()" tal:var="task: this._task ? this._task.getTarget() : false">
@@ -23,9 +22,6 @@
         </div>
       </div>
       <div class="task_info" id="ax-_task" tal:if="!(this.lockedByOther())">
-        <label for="_task">
-          <span class="required">*</span>
-        </label>
         <select class="validate-not-preview" name="_task" onchange="axiom.dirtyProps['_task']=true; axiom.taskListChange(this);">
           <option value="">--Choose Task--</option>
           <option tal:attr="value: task.path, selected: (this._task ? (task.task_id == this._task.getTarget().task_id ? 'true' : false) : false)" 
