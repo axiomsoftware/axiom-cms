@@ -16,7 +16,8 @@ function main(){
 function content(){
 	res.write(this.frame({title: 'Axiom CMS', 
 						  nav: 'content_nav', 
-						  content: 'content_content'
+						  content: 'content_content',
+						  scripts: []
 						 }));
 }
 

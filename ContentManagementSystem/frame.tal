@@ -1,44 +1,47 @@
-<html xmlns:tal="http://xml.zope.org/namespaces/tal">
+<html xmlns:tal="http://axiom.com/">
   <script>
 	var djConfig = {isDebug:false};
   </script>
-  <span tal:replace="cms_header"/> 
-  <script type="text/javascript" tal:attributes="src string:${app/getStaticMountpoint}/axiom/content.js"> </script>
+  <span tal:replace="this.cms_header(data)"/> 
+  <script type="text/javascript" tal:attr="src: app.getStaticMountpoint('axiom/content.js')"> </script>
   <script language="JavaScript" type="text/javascript" tal:text="$">
-	axiom.appPath = '${root/getURI}' == '/' ? '/' : '${root/getURI}/';
-	axiom.cmsPath = '${this/getURI}/';
-	axiom.staticPath = '${app/getStaticMountpoint}';
+	axiom.appPath = '${root.getURI()}' == '/' ? '/' : '${root.getURI()}/';
+	axiom.cmsPath = '${this.getURI()}/';
+	axiom.staticPath = '${app.getStaticMountpoint()}';
+	axiom.reqLimit = ${app.getAppsProperties()['uploadLimit']};
 
-	axiom.isContentContributor = ${this/isContentContributor};
-	axiom.adminsAndEditors = ${this/getAdminsAndEditors};
-	axiom.allUsers = ${this/getUserList};
-	axiom.currentUser = '${this/currentUser}';
+	axiom.isContentContributor = ${this.isContentContributor()};
+	axiom.adminsAndEditors = ${this.getAdminsAndEditors()};
+	axiom.allUsers = ${this.getUserList()};
+	axiom.currentUser = '${this.currentUser()}';
 
-	axiom.searchPrototypes = ${this/cms_getPrototypesHash};
-	axiom.addPrototypes = ${this/cms_getAddPrototypesHash};
-	axiom.myAssignedTasks = ${this/my_assigned_tasks/toSource/ampEscape};
+	axiom.searchPrototypes = ${this.cms_getPrototypesHash()};
+	axiom.addPrototypes = ${this.cms_getAddPrototypesHash()};
+	// if-cms-version-enterprise
+	axiom.myAssignedTasks = ${this.my_assigned_tasks.toSource().ampEscape()};
+	// end-cms-if
 	function FCKeditor_OnComplete(editorInstance) {
         editorInstance.Focus();
 	} 
   </script>
-  <script type="text/javascript" tal:repeat="script scripts" tal:attributes="src string:${app/getStaticMountpoint}/axiom/${script}"> </script>
+  <script type="text/javascript" tal:repeat="script: scripts" tal:attr="src: app.getStaticMountpoint('/axiom/'+script)"> </script>
   
-  <body style="cursor: default;" tal:attributes="class string:assets_frame ${title_class}"> 
+  <body style="cursor: default;" tal:attr="'class': 'assets_frame'"> 
   <div class="outerwrap">
 	<div class="innerwrap">
-	  <span tal:condition="not:omit_top" tal:replace="cms_top" />  
+	  <span tal:condition="not:omit_top" tal:replace="this.cms_top()" />  
 
 		<div id="content">
 		  <div class="separator"> </div>
 		  <div class="separator border"> </div>
 		  <div dojoType="ContentPane" executeScripts="true" scriptSeperation="false" class="body" id="ContentBody">
-			<div tal:replace="javascript: this[data.nav]({})"/>
-			<div tal:replace="javascript: this[data.content]({})"/> 
+			<div tal:replace="this[data.nav](data)"/>
+			<div tal:replace="this[data.content](data)"/> 
 		  </div>
 		</div>
 
 	  </div>
-	  <span tal:replace="footer" />
+	  <span tal:replace="this.footer()" />
 	</div>
   </body> 
 </html>

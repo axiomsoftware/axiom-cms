@@ -213,9 +213,15 @@ function uploadFile(){
 				  load: function(load,evt,data){
 					  var check = document.getElementById("nounzip").checked;
 					  if(evt.body.innerHTML.match(/File upload size exceeds limit/i)){
-						  axiom.openModal({content: 'You may not upload a file greater than 200MB.'});
-					  }
- 					  else if(data.formNode.file.value.match(/\.zip$/)){
+						  var limit = axiom.reqLimit ? (axiom.reqLimit / 1024.0) : 200;
+						  if(limit < 1){
+							  limit = axiom.reqLimit + 'KB'
+						  } else {
+							  limit = parseInt(limit) + 'MB';
+						  }
+						  axiom.openModal({content: 'You may not upload a file greater than '+limit+'.'});
+						  fireLastQuery();
+					  } else if(data.formNode.file.value.match(/\.zip$/)){
 						  if (!check) {
 							  assetEdit(evt.body.innerHTML, null, true);
     						  kludgeTextareas();
