@@ -292,7 +292,12 @@ dojo.widget.defineWidget(
 								   srcFunc: 'onclick',
 								   adviceFunc: function(evt){
 									   evt.cancelBubble = true; 
+									   // if-cms-version-enterprise
 									   window.open(obj.href.replace(/\/$/,'') + '/task_preview');
+									   // end-cms-if
+									   // if-cms-version-professional|standard
+									   window.open(obj.href.replace(/\/$/,''));
+									   // end-cms-if
 								   }
 								 });
 
