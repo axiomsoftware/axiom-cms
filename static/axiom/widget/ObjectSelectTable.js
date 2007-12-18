@@ -76,7 +76,11 @@ dojo.widget.defineWidget(
 			var location = document.createElement('a');
 			location.id = obj.href;
 			location.href = obj.href; 
-			location.innerHTML = obj.path.match(/^\/cms/) ? '' : obj.href; // should be ellispedHref...
+			var uri =  obj.path.match(/^\/cms/) ? '' : obj.href;
+			if(uri.length > 60){
+				uri = uri.substring(0, 60)+'...';
+			}
+			location.innerHTML = uri;
 			this.selectedRows[obj.path] = (obj.path == axiom.browsetable.defaultValue || dojo.lang.inArray(axiom.browsetable.defaultValues,obj.path));
 			var row = this.createRow({
 				cols: [{content: obj.title, 'class': 'col_title'},

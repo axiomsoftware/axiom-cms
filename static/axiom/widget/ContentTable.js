@@ -297,7 +297,11 @@ dojo.widget.defineWidget(
 								 });
 
 			location.href = "javascript:void(0);";
-			location.innerHTML = obj.path.match(/^\/cms/) ? '' : obj.href;
+			var uri =  obj.path.match(/^\/cms/) ? '' : obj.href;
+			if(uri.length > 60){
+				uri = uri.substring(0, 60)+'...';
+			}
+			location.innerHTML = uri; 
 			cols.push({content: location, 'class': 'col_location'});
 
 			// content type
