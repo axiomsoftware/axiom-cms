@@ -204,6 +204,7 @@ div.browsewrapper {border:1px solid #878a8b;background:#aebabf;padding:8px;min-h
 .body .results tbody {border-collapse:separate !important;}
 .body .results tbody tr td {background:#FFF;}
 .body .results tbody tr.invisible td{border: 0px; padding-top: 5px; padding-left:0;}
+.body .results tbody tr.invisible td.lastRow{ border-top: 1px solid #b0b4b6; }
 .body .results tbody tr.invisible td a{float: left; margin-top:4px; padding:3px 9px 4px 10px;margin-right:9px;}
 .body .results tbody tr.view_all { border-right: 1px solid #b0b4b6; }
 .body .results tbody tr.view_all td{border-bottom: 1px solid #b0b4b6;}
