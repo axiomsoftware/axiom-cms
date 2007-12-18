@@ -854,7 +854,7 @@ dojo.widget.defineWidget(
 				if(dojo.render.html.ie){
 					var instance = window.parent.FCKeditorAPI.GetInstance(widgetRef.instanceName);
 					instance.EditorWindow.focus();
-					instance.EditorDocument.selection.createRange().pasteHTML(output);
+					(this.textRange || instance.EditorDocument.selection.createRange()).pasteHTML(output);
 				} else {
 					window.parent.FCKeditorAPI.GetInstance(widgetRef.instanceName).InsertHtml(output);
 				}
@@ -888,18 +888,18 @@ dojo.widget.defineWidget(
 		},
 
 		insertFile:function(o){
-			var widgetRef = this;
 			if(dojo.render.html.ie){
-				var instance = window.parent.FCKeditorAPI.GetInstance(widgetRef.instanceName);
+				var instance = window.parent.FCKeditorAPI.GetInstance(this.instanceName);
 				instance.EditorWindow.focus();
-				instance.EditorDocument.selection.createRange().pasteHTML('<a href="'+o.path+'">'+o.title + ' '+ o.filesize + '</a>');
+				var range = (this.textRange || instance.EditorDocument.selection.createRange());
+				range.pasteHTML('<a href="'+o.path+'">'+o.title + ' '+ o.filesize + 'KB</a>');
 			} else {
 				var output=document.createElement("a");
 				output.href = o.path;
 				output.innerHTML = o.title + " " + o.filesize + "KB";
-				window.parent.FCKeditorAPI.GetInstance(widgetRef.instanceName).InsertElement(output);
+				window.parent.FCKeditorAPI.GetInstance(this.instanceName).InsertElement(output);
 			}
-			widgetRef._closeDialog();
+			this._closeDialog();
 		},
 
 		

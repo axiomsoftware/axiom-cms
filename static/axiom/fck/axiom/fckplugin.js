@@ -10,6 +10,8 @@ var FCKImageSelect = function() { this.Name = 'ImageSelect'; }
 FCKImageSelect.prototype.Execute = function() {
 	var widget = window.parent.dojo.widget.byId('fck_wysiwyg_selector');
 	widget.assetType = 'Image';
+	if(window.parent.dojo.render.html.ie)
+		widget.textRange = window.parent.FCKeditorAPI.GetInstance(widget.instanceName).EditorDocument.selection.createRange();
 	widget.selectasset(); 
 }
 
@@ -33,6 +35,8 @@ var FCKFileSelect = function() { this.Name = 'FileSelect'; }
 FCKFileSelect.prototype.Execute = function() { 
 	var widget = window.parent.dojo.widget.byId('fck_wysiwyg_selector');
 	widget.assetType = 'Document';
+	if(window.parent.dojo.render.html.ie)
+		widget.textRange = window.parent.FCKeditorAPI.GetInstance(widget.instanceName).EditorDocument.selection.createRange();
 	widget.selectasset(); 
 }
 
@@ -56,6 +60,8 @@ var FCKAudioSelect = function() { this.Name = 'AudioSelect'; }
 FCKAudioSelect.prototype.Execute = function() { 
 	var widget = window.parent.dojo.widget.byId('fck_wysiwyg_selector');
 	widget.assetType = 'Audio';
+	if(window.parent.dojo.render.html.ie)
+		widget.textRange = window.parent.FCKeditorAPI.GetInstance(widget.instanceName).EditorDocument.selection.createRange();
 	widget.selectasset(); 
 }
 
@@ -78,6 +84,8 @@ var FCKVideoSelect = function() { this.Name = 'VideoSelect'; }
 FCKVideoSelect.prototype.Execute = function() { 
 	var widget = window.parent.dojo.widget.byId('fck_wysiwyg_selector');
 	widget.assetType = 'Video';
+	if(window.parent.dojo.render.html.ie)
+		widget.textRange = window.parent.FCKeditorAPI.GetInstance(widget.instanceName).EditorDocument.selection.createRange();
 	widget.selectasset(); 
 }
 
