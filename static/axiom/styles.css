@@ -97,9 +97,9 @@ input.gray {color:#b2b1ad;}
 #content .body .subform2 h3 span a {padding:0 2px; text-decoration:underline; color:#4c6571;}
 #content .body .controls {border-right: 1px solid #b0b4b6; border-bottom: 1px solid #b0b4b6; background: transparent url(images/content_form_bg.gif); margin:0px; height: 56px; padding:0px 10px 0px 0; /*width:100%;*/ margin-top:-2%; *margin-top:-2.5%;}
 #content .body .controls h1 {float:left; margin:0; padding: 15px 0 0 0;}
-#content .body .controls .task_info {position: relative; top:20px; padding-right:15px;}
+#content .body .controls .task_info {position: relative; top:20px; padding-right:15px; float:right;}
 #content .body .controls .task_info label { display:inline; }
-#content .body .controls .task_info select {position: relative; top:-4px; float:right; width:200px; min-width:200px;}
+#content .body .controls .task_info select {position: relative; top:-4px; width:200px; min-width:200px;}
 #content .body .controls .task_info .error_message {font-size:1em;}
 #content .body .controls .alert_info { top:10px; }
 #content .body .controls .alert_info img { float:left; margin-right:10px; }
@@ -207,7 +207,7 @@ div.browsewrapper {border:1px solid #878a8b;background:#aebabf;padding:8px;min-h
 .body .results tbody tr.invisible td.lastRow{ border-top: 1px solid #b0b4b6; }
 .body .results tbody tr.invisible td a{float: left; margin-top:4px; padding:3px 9px 4px 10px;margin-right:9px;}
 .body .results tbody tr.view_all { border-right: 1px solid #b0b4b6; }
-.body .results tbody tr.view_all td{border-bottom: 1px solid #b0b4b6;}
+.body .results tbody tr.view_all td {border-bottom: 1px solid #b0b4b6;}
 .body .results tbody tr.view_all td.selector{ border-bottom: none; border-right: 1px solid #b0b4b6; }
 .body .results tbody tr.view_all td a.view_all{float: none; padding-left: 5px;}
 .body .results tbody tr.info { border-right: 1px solid #b0b4b6; }

@@ -121,12 +121,12 @@ var axiom = {
 														}
 													  };
 
-		axiom.validateFunctions['validate-not-preview'] = { errorNode: axiom.defaultErrorNode,
+		axiom.validateFunctions['validate-task'] = { errorNode: axiom.defaultErrorNode,
 															onInvalid: axiom.defaultOnInvalid,
 															validate: function(elem, data){ 
 																// ex: task selector
-																if(!data.preview) 
-																	return axiom.validateFunctions['validate-empty'].validate(elem, data);
+																if(!data.preview && elem.value == "")
+																	return [false, "Please select a task."];
 																return [true, 'valid']
 															}
 														  };

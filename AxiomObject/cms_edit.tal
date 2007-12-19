@@ -22,7 +22,7 @@
         </div>
       </div>
       <div class="task_info" id="ax-_task" tal:if="!(this.lockedByOther())">
-        <select class="validate-not-preview" name="_task" onchange="axiom.dirtyProps['_task']=true; axiom.taskListChange(this);">
+        <select class="validate-task" name="_task" onchange="axiom.dirtyProps['_task']=true; axiom.taskListChange(this);">
           <option value="">--Choose Task--</option>
           <option tal:attr="value: task.path, selected: (this._task ? (task.task_id == this._task.getTarget().task_id ? 'true' : false) : false)" 
 				  tal:content="task.task_id+' - '+task.name" tal:repeat="task: root.get('cms').my_assigned_tasks()"/>

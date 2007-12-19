@@ -61,9 +61,9 @@ function upload(){
 			req.data.add = true;
 			if(assetselect) { return f.assetselect_edit({'asset_id':assetid}); }
 			else { return f.asset_edit({add:true}); }
-		} else{ // uh-oh
+		} else { // uh-oh
 			res.status = 500;
-			res.write("Unable to attach file to filefolder.");
+			return "Unable to attach file to filefolder.";
 		}
 		
 	}

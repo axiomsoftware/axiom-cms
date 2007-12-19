@@ -76,7 +76,7 @@ dojo.widget.defineWidget(
 			var location = document.createElement('a');
 			location.id = obj.href;
 			location.href = obj.href; 
-			var uri =  obj.path.match(/^\/cms/) ? '' : obj.href;
+			var uri = obj.path.match(/^\/cms/) ? '' : obj.href;
 			if(uri.length > 60){
 				uri = uri.substring(0, 60)+'...';
 			}
