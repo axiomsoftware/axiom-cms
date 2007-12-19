@@ -1,21 +1,20 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns:tal="http://xml.zope.org/namespaces/tal">
+<html xmlns:tal="http://axiom.com/">
   <script type="text/javascript">
     var djConfig = {isDebug:true};
   </script>
-  <span tal:replace="cms_header"/>
+  <span tal:replace="this.cms_header(data)"/>
   <body style="cursor: default" class="login">
     <div class="outerwrap">
       <div class="innerwrap">
-		<div id="header" xmlns:tal="http://xml.zope.org/namespaces/tal">
-		  <div class="logo"><a href="http://www.axiomcm.com" target="_blank"><img tal:attributes="src string:${app/getStaticMountpoint}/axiom/images/axiom_logo.gif" alt="Axiom" title="Axiom" /></a></div> 
+		<div id="header">
+		  <div class="logo"><a href="http://www.axiomcm.com" target="_blank"><img tal:attr="src: app.getStaticMountpoint('axiom/images/axiom_logo.gif')" alt="Axiom" title="Axiom" /></a></div> 
 		</div>
 		<div id="content">
 		  <div class="body">
 			<div class="columnLeftLogin">
 			  <div class="loginbox">
 				<h2>Axiom Login</h2>
-				<div class="error_message" style="display:block" tal:condition="error_message" tal:content="error_message"> </div>
+				<div class="error_message" style="display:block" tal:content-if="data.error_message"> </div>
 				<form action="" method="POST" name="cms_login" onkeypress="check(event);">
 				  <div>
 					<label for="username"><span class="required">*</span>Username:</label>
@@ -40,13 +39,15 @@
 			  </div>
 			</div>
 			<div class="columnRightLogin">
-			  <div class="adminbox" tal:content="this/contacts">
+			  <div class="adminbox">
+				<span tal:replace="this.contacts"/>
+				<div tal:content-if="this.domain_warning()"/>
 			  </div>
 			</div>
 		  </div>
 		</div>
       </div>
-	  <span tal:replace="footer"/>
+	  <span tal:replace="this.footer(data)"/>
     </div>
   </body>
 </html>
