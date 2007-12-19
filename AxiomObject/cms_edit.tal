@@ -65,14 +65,18 @@
 								}
   				     });
  	}
-	axiom.hideLeftNav();
-	dojo.byId('obj_created').innerHTML = '${this.cms_createdby}';
-	dojo.byId('obj_last_modified').innerHTML = '${this.cms_lasteditedby}';
-	dojo.byId('obj_content_type').innerHTML = axiom.searchPrototypes['${this._prototype}'];
-	if (dojo.byId('obj_task_info')) { dojo.byId('obj_task_info').innerHTML = '${task_info}'; };
-	axiom.showObjectDetail();
 
-	//dojo.addOnLoad(function() { dojo.byId('edit').getElementsByTagName('input')[0].focus(); });
+    axiom.hideLeftNav();
+    dojo.byId('obj_created').innerHTML = '${this.cms_createdby}';
+ 	dojo.byId('obj_last_modified').innerHTML = '${this.cms_lasteditedby}';
+ 	dojo.byId('obj_content_type').innerHTML = axiom.searchPrototypes['${this._prototype}'];
+    var task_info = dojo.byId('obj_task_info');
+    if (task_info) { 
+		task_info.innerHTML = '${task_info.replace(/'/g, "\\'")}'; 
+	};
+ 	axiom.showObjectDetail();
+
+    //dojo.addOnLoad(function() { dojo.byId('edit').getElementsByTagName('input')[0].focus(); });
 	//]]>
     </script>
     <div class="edit_content" id="edit_content">
