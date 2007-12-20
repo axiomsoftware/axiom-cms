@@ -28,7 +28,7 @@ function save_preview(data){
 	// if-cms-version-enterprise
 	var layer = 2;
 	// end-cms-if
-	// if-cms-version-professional|standard
+	// if-cms-version-workgroup|standard
 	var layer = 1;
 	// end-cms-if
 	app.deleteDraft(this, layer);
@@ -49,7 +49,7 @@ function preview_url(){
 	// if-cms-version-enterprise
 	var preview_domain = app.getProperties()['draftHost.2'];
 	// end-cms-if
-	// if-cms-version-professional|standard
+	// if-cms-version-workgroup|standard
 	var preview_domain = app.getProperties()['draftHost.1'];
 	// end-cms-if
 	if(preview_domain)

@@ -22,7 +22,7 @@
 		  <!-- if-cms-version-enterprise -->
 		  &#150; View the latest actions taken against content objects, when they were last published and their current task information.
 		  <!-- end-cms-if -->
-		  <!-- if-cms-version-professional -->
+		  <!-- if-cms-version-workgroup -->
 		  &#150; View the latest actions taken against content objects and when they were last published.
 		  <!-- end-cms-if -->
 		</p>

@@ -48,7 +48,7 @@ dojo.widget.defineWidget(
  			// if-cms-version-enterprise
 			this.reportSelect.selectedIndex = 4;
 			// end-cms-if
-			// if-cms-version-professional
+			// if-cms-version-workgroup
 			this.reportSelect.selectedIndex = 1;
 			// end-cms-if
 			this.hideAll();
@@ -58,7 +58,7 @@ dojo.widget.defineWidget(
 			// if-cms-version-enterprise
 			this.reportSelect.selectedIndex = 5;
 			// end-cms-if
-			// if-cms-version-professional
+			// if-cms-version-workgroup
 			this.reportSelect.selectedIndex = 2;
 			// end-cms-if
 			this.hideAll();

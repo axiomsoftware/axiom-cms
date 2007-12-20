@@ -79,12 +79,12 @@ def copy_tree_entry(path, dest, version)
 end
 
 clean_dir 'cms-enterprise'
-clean_dir 'cms-professional'
+clean_dir 'cms-workgroup'
 clean_dir 'cms-standard'
 clean_dir 'dist'
 
 Find.find('.') do |file|
-  Find.prune if file =~ /\.svn|cms-(standard|professional|enterprise)/
+  Find.prune if file =~ /\.svn|cms-(standard|workgroup|enterprise)/
   
   task = task_files.member? file 
   report = reports_files.member? file
@@ -94,7 +94,7 @@ Find.find('.') do |file|
   end
 
   if not task
-    copy_tree_entry(file, 'cms-professional', 'professional') 
+    copy_tree_entry(file, 'cms-workgroup', 'workgroup') 
   end
   
   copy_tree_entry(file, 'cms-enterprise', 'enterprise')

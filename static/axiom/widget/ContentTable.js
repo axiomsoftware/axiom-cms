@@ -295,7 +295,7 @@ dojo.widget.defineWidget(
 									   // if-cms-version-enterprise
 									   window.open(obj.href.replace(/\/$/,'') + '/task_preview');
 									   // end-cms-if
-									   // if-cms-version-professional|standard
+									   // if-cms-version-workgroup|standard
 									   window.open(obj.href.replace(/\/$/,''));
 									   // end-cms-if
 								   }

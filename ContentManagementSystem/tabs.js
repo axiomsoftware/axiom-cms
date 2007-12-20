@@ -7,7 +7,7 @@ function main(){
 }
 // end-cms-if
 
-//if-cms-version-standard|professional
+//if-cms-version-standard|workgroup
 function main(){
 	this.content();
 }

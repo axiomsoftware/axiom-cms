@@ -12,11 +12,11 @@
 	<li tal:attributes="class javascript: (req.action == 'main')?'active':''"><a tal:attributes="href javascript: root.getURI('/cms')">Tasks</a></li>
 	<li tal:attributes="class javascript: (req.action == 'content')?'active':''"><a tal:attributes="href javascript: root.getURI('/cms/content')">Content</a></li>
 	<!-- end-cms-if -->
-	<!-- if-cms-version-standard|professional -->
+	<!-- if-cms-version-standard|workgroup -->
 	<li tal:attributes="class javascript: req.action == 'main'?'active':(req.action == 'content'?'active':'')"><a tal:attributes="href javascript: root.getURI('/cms/content')">Content</a></li>
 	<!-- end-cms-if -->
 	<li tal:condition="this/viewAssets" tal:attributes="class javascript: (req.action == 'assets')?'active':''"><a tal:attributes="href javascript:root.getURI('/cms/assets')">Assets</a></li>
-	<!-- if-cms-version-enterprise|professional -->
+	<!-- if-cms-version-enterprise|workgroup -->
 	<li tal:attributes="class javascript: (req.action == 'reports')?'active':''"><a tal:attributes="href javascript: root.getURI('/cms/reports')">Reports</a></li>
 	<!-- end-cms-if -->
 	<li tal:repeat="tab this/app_tabs" tal:attributes="class javascript: (req.action == data.tab.highlight_action?'active':'')"><a tal:attributes="href tab/getURI" tal:content="tab/title"> </a></li>

@@ -69,7 +69,7 @@ dojo.widget.defineWidget(
 			// if-cms-version-enterprise
 			this.title.innerHTML = "Add Content to Task for Deletion";
 			// end-cms-if
-			// if-cms-version-professional|standard
+			// if-cms-version-workgroup|standard
 			this.title.innerHTML = "Delete Objects";
 			// end-cms-if
 
@@ -126,7 +126,7 @@ dojo.widget.defineWidget(
 								  // if-cms-version-enterprise
 								  adviceFunc: 'addToTask'
 								  // end-cms-if
-								  // if-cms-version-professional|standard
+								  // if-cms-version-workgroup|standard
 								  adviceFunc: 'deleteObjects'
 								  // end-cms-if
 								 });

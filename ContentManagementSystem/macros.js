@@ -35,7 +35,7 @@ function domain_warning(){
 	}
 
 	// end-cms-if
-	// if-cms-version-professional|standard
+	// if-cms-version-workgroup|standard
 	if(staging_hosts.length === 0){
 		errors.push("No preview domain");
 	} else if(staging_hosts.length > 1) {
