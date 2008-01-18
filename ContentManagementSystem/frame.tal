@@ -8,7 +8,7 @@
 	axiom.appPath = '${root.getURI()}' == '/' ? '/' : '${root.getURI()}/';
 	axiom.cmsPath = '${this.getURI()}/';
 	axiom.staticPath = '${app.getStaticMountpoint()}';
-	axiom.reqLimit = ${app.getAppsProperties()['uploadLimit']};
+	axiom.reqLimit = ${app.getProperties()['uploadLimit']}; 
 
 	axiom.isContentContributor = ${this.isContentContributor()};
 	axiom.adminsAndEditors = ${this.getAdminsAndEditors()};
@@ -18,7 +18,7 @@
 	axiom.searchPrototypes = ${this.cms_getPrototypesHash()};
 	axiom.addPrototypes = ${this.cms_getAddPrototypesHash()};
 	// if-cms-version-enterprise
-	axiom.myAssignedTasks = ${this.my_assigned_tasks.toSource().ampEscape()};
+	axiom.myAssignedTasks = ${this.my_assigned_tasks().toSource().ampEscape()};
 	// end-cms-if
 	function FCKeditor_OnComplete(editorInstance) {
         editorInstance.Focus();

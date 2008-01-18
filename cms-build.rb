@@ -101,3 +101,8 @@ Find.find('.') do |file|
   
 end
 
+if ARGV[0] == '-copy'
+  cp_r('cms-enterprise', '../cms-enterprise')
+  cp_r('cms-standard', '../cms-standard')
+  cp_r('cms-workgroup', '../cms-workgroup')
+end

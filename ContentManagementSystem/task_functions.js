@@ -4,7 +4,10 @@ function add_to_delete_task(data){
 	var filters = data.objects.map(function(obj){ return new Filter({'_id': obj.id}) })
 	var conn = app.getDbSource('_default').getConnection(false);
 	var objs = app.getObjects([], new OrFilter(filters)).map(function(obj){ return app.getDraft(obj, 1) });
+	app.log(app.getObjects([], new OrFilter(filters)).toSource());
+	app.log("setting _task on objects to be deleted: ");
 	for each(var obj in objs){
+		app.log("object: "+obj.toSource());
 		obj._task = new Reference(task);
 		obj._action = "Deleted";
 		obj.cms_lastmodified = new Date();
@@ -194,7 +197,7 @@ function add_task(data){
 
 	// modifying the property creates a lock on the container for this thread,
 	// so the generated task_id should be unique
-	var container = app.getObjects("CMSTaskContainer", {id: 'task_container'}, {maxlength: 1})[0];
+	var container = app.getObjects("CMSTaskContainer", {}, {maxlength: 1})[0];
 	container.last_id += 1; 
 
 	var t = new CMSTask();
