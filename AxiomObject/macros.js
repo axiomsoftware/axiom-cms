@@ -28,7 +28,7 @@ function cmsTagList(){
 }
 
 function genCMSSortablePrototype(){
-	var props = app.getCMSProperties();
+	var props = cmsGlobals.props;
 	try{
 		if(props){
 			var prototype = props..*.(@name == this._prototype);
@@ -57,7 +57,7 @@ function isAdmin(){
  *  value or undefined if no default is given.
  */
 function getCMSProperty(key, default_value){
-	var cms_props = app.getCMSProperties();
+	var cms_props = cmsGlobals.props;
 	if(cms_props){
 		var proto = cms_props..prototype.(@name == this._prototype);
 		if(proto){

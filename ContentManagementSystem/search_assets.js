@@ -102,7 +102,7 @@ function search_assets(){
 		object_types.push('File');
 	
 	// allow user defined prototypes to be searchable
-	var cms_props = app.getCMSProperties();
+	var cms_props = cmsGlobals.props;
 	for each(obj in cms_props..prototype.(@asset_searchable == 'true')){
 		if(obj.@content_type){
 			var typematcher = new RegExp('All|'+ obj.@content_type.toString().split(',').join('|'), 'i');

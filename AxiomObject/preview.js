@@ -60,7 +60,7 @@ function preview_url(){
 
 
 function previewable(){
-	var previewable = app.getCMSProperties()..prototype.(@name == this._prototype).@previewable;
+	var previewable = cmsGlobals.props..prototype.(@name == this._prototype).@previewable;
 	if(previewable && previewable != 'false')
 		return true;
 	return false;

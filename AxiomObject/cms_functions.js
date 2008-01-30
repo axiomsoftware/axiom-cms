@@ -105,7 +105,7 @@ function removeReferences(){
  * of all user-addable prototypes in the cms.
  */
 function cms_getAddPrototypesHash(){
-	var proto_list = app.getCMSProperties()..prototype.(@addable != 'false');
+	var proto_list = cmsGlobals.props..prototype.(@addable != 'false');
 	var elements = [];
 	var results = [];
 	for each(var proto in proto_list){ 
@@ -206,7 +206,7 @@ function escapedTitle() {
 }
 
 function getSearchablePrototypePairs() {
-	var prototype_list = app.getCMSProperties()..prototype;
+	var prototype_list = cmsGlobals.props..prototype;
 	var results = [];
 	for each(var prototype in prototype_list){
 		results.push([prototype.@name, prototype.@displayname]);
@@ -216,7 +216,7 @@ function getSearchablePrototypePairs() {
 }
 
 function getSearchablePrototypes() {
-	var prototype_list = app.getCMSProperties()..prototype;
+	var prototype_list = cmsGlobals.props..prototype;
 	var results = [];
 	for each(var prototype in prototype_list){
 		results.push(prototype.@name.toString());
@@ -226,5 +226,5 @@ function getSearchablePrototypes() {
 }
 
 function getPrettyName() {
-	return app.getCMSProperties()..prototype.(@name == this._prototype).@displayname;
+	return cmsGlobals.props..prototype.(@name == this._prototype).@displayname;
 }

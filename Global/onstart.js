@@ -1,4 +1,7 @@
+cmsGlobals = {};
+
 function cms_init(){
+	cmsGlobals.loadCMSProperties();
 	if(!root.get('cms')){
 		app.log("Creating cms...");
 
@@ -20,8 +23,10 @@ function cms_init(){
 		files.id = "filefolder";
 		files.title = "File Folder";
 		root.add(files);
-		
+
+		app.log('-------------------------------------------');
 		app.log('Creating default cms user: admin / changeme');
+		app.log('-------------------------------------------');
 		var user = new CMSUser();
 		users.add(user);
 		user.username = 'admin';
@@ -93,7 +98,7 @@ function cms_init(){
 
 	// default to running cleanup at midnight
 	var args = ['cms_cleanup', '*', '*', '*', '*', '0', '0'];
-	var cleanup  = app.getCMSProperties().cleanup;
+	var cleanup  = cmsGlobals.props.cleanup;
 	var user_defined_schedule = cleanup?cleanup.@schedule:false;
 	if(user_defined_schedule && user_defined_schedule.toString().replace(/\s+/g,'')){
 		args = ['cms_cleanup'].concat(user_defined_schedule.toString().split(/\s+/));
@@ -104,9 +109,82 @@ function cms_init(){
 	// run task archiving at 2:00am every night
 	app.addCronJob('archive_tasks', '*', '*', '*', '*', '2', '0');
 	// end-cms-if
-
-	// application onStart hook
-	if(typeof appOnStart == "function")
-		appOnStart();
 }
 
+cmsGlobals.loadCMSProperties = function() {
+    var reader = null;
+	try {
+	    // create cms properties
+	    var cmsPropertiesXML = "<prototypes></prototypes>";
+	    var cmsFile = new java.io.File(app.getAppDir() + java.io.File.separator + "cms.xml");
+	    if (cmsFile.exists()) {
+	    	cmsPropertiesXML = "";
+	    	reader = new java.io.BufferedReader(new java.io.FileReader(cmsFile));
+	    	var line = "";
+			var lines = [];
+	    	while ((line = reader.readLine()) != null) {
+	    		lines.push(line);
+	    	}
+			cmsPropertiesXML = lines.join("");
+	    	reader.close();	
+	    } else {
+	    	logEvent("Warning: cms.xml not found."); 
+	    }
+    	cmsGlobals.props = new XML(cmsPropertiesXML);
+	} catch(e) {
+		app.log("Error loading cms.xml");
+		app.log(e);
+	} finally{
+		if (reader != null) {
+			try { 
+				reader.close(); 
+			} catch (e) { 
+				app.log(e); 
+			}
+		}
+	}
+}
+
+/*
+function getCMSPrototypes() {
+	var names = [];
+	Iterator prototypes = app.getPrototypes().iterator();
+	Object n = null;
+	while (prototypes.hasNext()) {
+		n = prototypes.next();
+		if (n != null) {
+			Prototype p = (Prototype) n;
+			if (resourceExists(p, "cms_editForm.tal")) {
+				names.add(p.getName());
+			}
+		}
+	}
+	return names;
+}
+
+
+
+    public static final int CMS_THUMB_WIDTH = 100;
+    public static final int CMS_THUMB_HEIGHT = 100;
+    public static final int CMS_PREVIEW_WIDTH = 250;
+    public static final int CMS_PREVIEW_HEIGHT = 250;
+
+    public void addCMSThumbnails() throws Exception {
+        ImageObject thumb = this.jsFunction_bound(ImageObject.CMS_THUMB_WIDTH, 
+                                                  ImageObject.CMS_THUMB_HEIGHT, false);
+        if (thumb != null) {
+            this.jsFunction_addThumbnail(thumb, "thumb");
+        } else {
+            core.app.logError("Could not create 'thumb' for " + this.node.getString(FILE_NAME));
+        }
+
+        ImageObject preview = this.jsFunction_bound(ImageObject.CMS_PREVIEW_WIDTH, 
+                                                    ImageObject.CMS_PREVIEW_HEIGHT, false);
+        if (preview != null) {
+            this.jsFunction_addThumbnail(preview, "preview");
+        } else {
+            core.app.logError("Could not create 'preview' for " + this.node.getString(FILE_NAME));
+        }
+    }
+
+*/

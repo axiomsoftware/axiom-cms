@@ -2,7 +2,7 @@ function cms_cleanup(){
 	app.log('Cleaning up objects with null status...');
 	var ms_to_hours = 1000*60*60;
 	var now = (new Date()).getTime();
-	var cleanup = app.getCMSProperties().cleanup;
+	var cleanup = cmsGlobals.props.cleanup;
 	
 	var expiration_time;
 	if(cleanup && cleanup.@interval){

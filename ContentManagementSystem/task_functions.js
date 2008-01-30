@@ -3,11 +3,10 @@ function add_to_delete_task(data){
 	var task = app.getHits("CMSTask", {task_id: data.task_id}).objects(0,1)[0];
 	var filters = data.objects.map(function(obj){ return new Filter({'_id': obj.id}) })
 	var conn = app.getDbSource('_default').getConnection(false);
-	var objs = app.getObjects([], new OrFilter(filters)).map(function(obj){ return app.getDraft(obj, 1) });
+	var objs = app.getObjects([], new AndFilter(new OrFilter(filters), new NativeFilter("_status: a OR _status: z","WhitespaceAnalyzer"))).map(function(obj){ return app.getDraft(obj, 1) });
 	app.log(app.getObjects([], new OrFilter(filters)).toSource());
 	app.log("setting _task on objects to be deleted: ");
 	for each(var obj in objs){
-		app.log("object: "+obj.toSource());
 		obj._task = new Reference(task);
 		obj._action = "Deleted";
 		obj.cms_lastmodified = new Date();
