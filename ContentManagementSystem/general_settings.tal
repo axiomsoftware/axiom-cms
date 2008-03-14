@@ -1,4 +1,4 @@
-<form id="general_settings" xmlns:tal="http://axiom.com/">
+<form id="general_settings" xmlns:tal="http://axiomstack.com/tale">
   <h2>General Settings</h2>
   <fieldset class="axContacts">
     <table>

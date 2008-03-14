@@ -1,4 +1,6 @@
-cmsGlobals = {};
+if(!this['cmsGlobals']){
+	cmsGlobals = {};
+}
 
 function cms_init(){
 	cmsGlobals.loadCMSProperties();
@@ -98,7 +100,9 @@ function cms_init(){
 
 	// default to running cleanup at midnight
 	var args = ['cms_cleanup', '*', '*', '*', '*', '0', '0'];
-	var cleanup  = cmsGlobals.props.cleanup;
+	var cleanup;
+	if(cmsGlobals.props)
+		cleanup = cmsGlobals.props.cleanup;
 	var user_defined_schedule = cleanup?cleanup.@schedule:false;
 	if(user_defined_schedule && user_defined_schedule.toString().replace(/\s+/g,'')){
 		args = ['cms_cleanup'].concat(user_defined_schedule.toString().split(/\s+/));
@@ -116,7 +120,7 @@ cmsGlobals.loadCMSProperties = function() {
 	try {
 	    // create cms properties
 	    var cmsPropertiesXML = "<prototypes></prototypes>";
-	    var cmsFile = new java.io.File(app.getAppDir() + java.io.File.separator + "cms.xml");
+	    var cmsFile = new java.io.File(app.getDir() + java.io.File.separator + "cms.xml");
 	    if (cmsFile.exists()) {
 	    	cmsPropertiesXML = "";
 	    	reader = new java.io.BufferedReader(new java.io.FileReader(cmsFile));

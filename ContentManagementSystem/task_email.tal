@@ -1,4 +1,4 @@
-<div xmlns:tal="http://axiom.com/" style="font-size:10pt;font-face:Arial">
+<div xmlns:tal="http://axiomstack.com/tale" style="font-size:10pt;font-face:Arial">
   <p tal:text="$">Dear ${assignee_name},</p>
   <p tal:text="$"><span tal:replace="action"/> 
      <ul><li tal:repeat="task: tasks" tal:content="task.task_id + ' - '+ task.name" /> </ul>

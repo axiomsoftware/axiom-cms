@@ -175,7 +175,7 @@ function emailNotifications(subject_verbage, body, action_verbage, task_groups){
 			else
 				subject = 'Axiom CMS: Task '+tasks[0].task_id+' has '+subject_verbage;
 			mailer.setData({ to:      {email: assignee.email, name: assignee.first_name + ' ' + assignee.last_name},
-							 from:    {email: session.user.email, name: session.user.first_name + ' ' + session.user.last_name},
+							 from:    {email: session.user.email || 'robot@siteworx.com', name: session.user.first_name + ' ' + session.user.last_name},
 							 subject: subject,
 							 html:    this.task_email({assignee_name:  assignee.first_name,
 													   actor_name:     session.user.first_name,

@@ -1,4 +1,4 @@
-<div xmlns:tal="http://axiom.com/" tal:var="add: data.add || null">
+<div xmlns:tal="http://axiomstack.com/tale" tal:var="add: data.add || null">
   <div id="fck_asset"/>
   <form id="edit" method="post" tal:attr="action: this.preview_url()" target="_blank">
     <div class="controls" tal:var="lockedByOther: this.lockedByOther()">

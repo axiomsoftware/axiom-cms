@@ -1,4 +1,4 @@
-<html xmlns:tal="http://axiom.com/">
+<html xmlns:tal="http://axiomstack.com/tale">
   <script type="text/javascript">
     var djConfig = {isDebug:true};
   </script>

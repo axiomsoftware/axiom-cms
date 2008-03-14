@@ -1,4 +1,4 @@
-<div xmlns:tal="http://axiom.com/">
+<div xmlns:tal="http://axiomstack.com/tale">
   <form id="edit" method="post"> 
       <h1 tal:text="$">
 		<img tal:attr="src: app.getStaticMountpoint('axiom/images/icon_edit.gif')" alt="Edit Icon" title="Edit Icon"/> 
