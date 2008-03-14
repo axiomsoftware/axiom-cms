@@ -103,5 +103,5 @@ function cancel_delete(){
 }
 
 function getLocationPaths(){
-	return app.getPrototype(this._prototype).getProperty('_location.paths');
+	return app.__app__.getPrototypeByName(this._prototype).getProperty('_location.paths');
 }

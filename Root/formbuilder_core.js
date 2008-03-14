@@ -84,7 +84,7 @@ function _fb_regen(outputFile, xml){
 function _fb_generate(prototype, catalog) {
 	var properties = getObj(prototype).getSchema();
 
-	var proto = app.getPrototype(prototype);
+	var proto = app.__app__.getPrototypeByName(prototype);
 	var location_data = {
 		widget:      proto.getProperty('_location.widget')  || 'location',
 		push:        proto.getProperty('_location.widget.push'),
