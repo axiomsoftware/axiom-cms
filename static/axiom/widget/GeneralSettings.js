@@ -23,7 +23,7 @@ dojo.widget.defineWidget(
 		},
 		save: function(){
 			if(axiom.validateForm('general_settings')){
-				axiom.submitEdit({edit_url: axiom.appPath+'/cms/save', 
+				axiom.submitEdit({edit_url: axiom.cmsPath+'save', 
 								  form_id: 'general_settings',
 								  callback: function() { window.close() },
 								  submit_all: true});
