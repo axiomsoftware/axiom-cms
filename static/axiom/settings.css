@@ -2,9 +2,9 @@
 #content .body .columnRight,
 #content .body .buttons { margin-left: 258px; min-height:1px; } 
 #content .body .buttons a.button {padding:3px 9px 4px 9px; margin-right:4px;}
-#content .body .buttons { text-align: center; margin-top:-21px; padding:7px 0; *margin-top:6px;}
+#content .body .buttons { text-align: center; padding:7px 0; *margin-top:6px;}
 .section { width:100% }
-#ContentWrapper { padding-left: 20px; min-height:450px;}
+#ContentWrapper { padding-left: 20px; min-height:350px;}
 #ContentWrapper h2 {font-family: Georgia; font-size:20px; color:#333333;}
 #ContentWrapper h3 {font-family: Georgia; font-size:14px; color:#333333;margin-top:33px;}
 #ContentWrapper table {margin-bottom:-22px; width:100%;}
