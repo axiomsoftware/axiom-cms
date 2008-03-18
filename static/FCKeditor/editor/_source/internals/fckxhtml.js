@@ -362,6 +362,15 @@ FCKXHtml.TagProcessors =
 
 		node = FCKXHtml._AppendChildNodes( node, htmlNode, false ) ;
 
+		// delete host in IE
+		// fix AXCMS-654 -> see http://dev.fckeditor.net/ticket/641
+		if ( FCKBrowserInfo.IsIE && (htmlNode.href.search(document.location.host) != -1))
+		{
+			htmlNode.href = htmlNode.href.substr( (document.location.protocol + '//' + document.location.host).length );
+			FCKXHtml._AppendAttribute( node, 'href', htmlNode.href ) ;
+		}
+
+
 		return node ;
 	},
 
