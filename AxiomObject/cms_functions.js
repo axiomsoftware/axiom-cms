@@ -160,7 +160,7 @@ function referenceTitle(property) {
 	var target = ref.getTarget();
 	if (!target) { return ''; }
 	var title = target.title
-	if (title) { title = title.replace('\'', '\\\''); }
+	if (title) { title = title.replace(/'/g, '\\\''); }
 	return title;
 }
 
