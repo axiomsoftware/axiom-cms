@@ -30,14 +30,18 @@ function upload(){
 						content_type = 'application/octect-stream';
 					var mimepart = new Packages.axiom.util.MimePart(this.getBaseName(item.name), item.data, content_type);
 					var hop_object_file;
-					if(content_type.match(/^image/))
+					if(content_type.match(/^image/)){
 						hop_object_file = new Image(mimepart);
-					else
+					} else {
 						hop_object_file = new File(mimepart);
+					}
 					hop_object_file.id = this.uniqueId(item.name, true); 
 					hop_object_file.setStatus('null');
 
 					root.get(ff.id).add(hop_object_file);
+					if(hop_object_file instanceof Image){
+						hop_object_file.add_cms_thumbnails();
+					}
 					// if-cms-version-enterprise
 					hop_object_file.publishToLive();
 					// end-cms-if
@@ -59,6 +63,9 @@ function upload(){
 			f = new File(file);
 		}
 		if(ff.add(f)){
+			if(f instanceof Image){
+				f.add_cms_thumbnails();
+			}
 			f.id = this.uniqueId(file.getName(), true); 
 			f.setStatus('null');
 			req.data.add = true;
@@ -134,3 +141,5 @@ function uniqueId(name, is_path){
 	}
 	return unique_name;
 }
+
+

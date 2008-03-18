@@ -126,7 +126,7 @@ function search_assets(){
 	var total = 0;
 	var hits;
 	if((!keywords || keywords.replace(/^\s+/, '').replace(/\s+$/, '') == '') && types.match(/all/i)){
-		var filter = '_status:a OR _status:z';
+		var filter = '(_status:a OR _status:z) NOT _rendered: true';
 		if(typeof this.cmsCustomQueryFilter == "function")
 			filter = new AndFilter(filter, this.cmsCustomQueryFilter(context));
 		hits = app.getHits(object_types, filter, {sort: sort_obj});
@@ -158,12 +158,13 @@ function search_assets(){
 			final_query += '('+q.queries+') AND ';
 		else if(typefilter)
             final_query += ' AND ';
-		final_query += '(_status: z OR _status: a)';
+		final_query += '(_status: z OR _status: a) NOT _rendered: true';
 
 		var final_filter = new NativeFilter(final_query, 'WhitespaceAnalyzer');
 		if(typeof this.cmsCustomQueryFilter == "function")
 			final_filter = new AndFilter(final_filter, this.cmsCustomQueryFilter(context));
 
+		app.log(final_query);
 		hits = app.getHits(object_types, final_filter, {sort: sort_obj});
 		highlight = q.highlight;
 	}
