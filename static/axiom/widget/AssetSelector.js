@@ -707,7 +707,7 @@ dojo.widget.defineWidget(
 			var linker = document.createElement('a');
 			linker.href = "javascript:void(0);"
 			linker.onclick = function() {widgetRef.showLinker();}
-			linker.innerHTML = '<img src="'+widgetRef.appPath+'static/axiom/images/icon_link.gif" alt="Link" />';
+			linker.innerHTML = '<img src="'+axiom.staticPath+'/axiom/images/icon_link.gif" alt="Link" />';
 			
 			var newWindowCheck = this.createFormElement('input','checkbox',this.objectId+'_windowcheck','');
 			newWindowCheck.id = this.objectId+'_windowcheck';
