@@ -1,24 +1,32 @@
 <div xmlns:tal="http://xml.zope.org/namespaces/tal" class="subform">
   <script type="text/javascript">
-	window.replaceFile= function(){
-		var isImage = dojo.byId('replacement').value.match(/\.(jpe?g|gif|png)$/);
-		var valid = ('<span tal:replace="this/_prototype"/>' == 'Image') ? isImage : !isImage;
-		if(valid){
-			dojo.io.bind({url: '<span tal:replace="this/getURI"/>/replace',
-    					  formNode: dojo.byId('replace'),
-						  mimetype: 'text/html',
-    					  load: function(load,data,evt){ assetEdit((data.body.textContent||data.body.innerText)+'/asset_edit', true);},
-    					  error: function(a,b,c){ axiom.openModal({content: 'Error connecting to server.'})},
-    					  method: "post",
-    					  transport: "IframeTransport"  
-    					 });
-    		window.showLoading();
-		} else {
-			var error_message = ('<span tal:replace="this/_prototype"/>' == 'Image') ? 'Images may only replaced with images.' : 'Non-images may not be replaced with images.';
+	window.replaceFileError = function(msg){
 			var error_node = dojo.byId('replace_error');
 			error_node.style.display = 'block';
-			error_node.innerHTML = error_message;
-		} 
+			error_node.innerHTML = msg;
+	}
+
+	window.replaceFile= function(){
+		var filename = dojo.byId('replacement').vale;
+		if(!filename){
+			window.replaceFileError('Please select a file before continuing.');
+		} else {
+			var isImage = filename.match(/\.(jpe?g|gif|png)$/);
+			var valid = ('<span tal:replace="this/_prototype"/>' == 'Image') ? isImage : !isImage;
+			if(valid){
+				dojo.io.bind({url: '<span tal:replace="this/getURI"/>/replace',
+    						  formNode: dojo.byId('replace'),
+							  mimetype: 'text/html',
+    						  load: function(load,data,evt){ assetEdit((data.body.textContent||data.body.innerText)+'/asset_edit', true);},
+    						  error: function(a,b,c){ axiom.openModal({content: 'Error connecting to server.'})},
+    						  method: "post",
+    						  transport: "IframeTransport"  
+    						 });
+    			window.showLoading();
+			} else {
+				window.replaceFileError( ('<span tal:replace="this/_prototype"/>' == 'Image') ? 'Images may only replaced with images.' : 'Non-images may not be replaced with images.');
+			} 
+		}
 	}
   </script>
 
