@@ -12,7 +12,7 @@ function Login() {
 			users[0].last_login = new Date();
 			session.login(users[0]);
 			var http_referer = session.getHttpReferer();
-			if(http_referer != null){
+			if(http_referer != null && http_referer.match(/(cms|assets|reports|content)\/?$/)){ // referer may be set to an action like create/delete, etc. only allow landing pages for redirection
 				session.setHttpReferer(null); // Remove http_referer from session
 				res.redirect(http_referer);
 			} else {
