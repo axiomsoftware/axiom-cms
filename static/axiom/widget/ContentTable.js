@@ -154,12 +154,13 @@ dojo.widget.defineWidget(
 				button_holder.appendChild(button);
 				buttons.push(button);
 
-				dojo.event.kwConnect({srcObj:button, 
-								 	  srcFunc: 'onclick',
-									  adviceObj: this,
-									  adviceFunc: button_obj.callback
-									 });
-
+				if(button_obj.callback){
+					dojo.event.kwConnect({srcObj:button, 
+								 		  srcFunc: 'onclick',
+										  adviceObj: this,
+										  adviceFunc: button_obj.callback
+										 });
+				} 
 			}
 			var expand_txt = document.createElement('span');
 			expand_txt.className='table_info_txt';
@@ -406,7 +407,11 @@ dojo.widget.defineWidget(
 			}
 		},
 		checkDeleteButton:function(){
-			this.checkButton(this.nonDeletableObjects, this.deleteButton);
+			// if-cms-version-standard|workgroup
+			if(!axiom.isContentContributor)
+				// end-cms-if
+				this.checkButton(this.nonDeletableObjects, this.deleteButton);
+
 		},
 		checkButton: function(noTable, button){
 			var enable = false;
@@ -459,8 +464,15 @@ dojo.widget.defineWidget(
 			for(var i in data.results){
 				this.widget.insertRow(data.results[i]);
 			}
+			
 
-			var buttons = this.widget.insertButtonRow([{text:'Delete', callback:'deleteObjects'}]);
+			var button_data = {text:'Delete', callback: 'deleteObjects'};
+			// if-cms-version-standard|workgroup
+			if(axiom.isContentContributor){
+				delete button_data.callback;
+			}
+			// end-cms-if
+			var buttons = this.widget.insertButtonRow([button_data]);
 			this.widget.deleteButton = buttons[0];
 
 			this.widget.setupPagination(data);

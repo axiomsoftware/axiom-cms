@@ -29,7 +29,7 @@
   <body style="cursor: default;" tal:attr="'class': 'assets_frame'"> 
   <div class="outerwrap">
 	<div class="innerwrap">
-	  <span tal:condition="not:omit_top" tal:replace="this.cms_top()" />  
+	  <span tal:if="!data.omit_top" tal:replace="this.cms_top()" />  
 
 		<div id="content">
 		  <div class="separator"> </div>
