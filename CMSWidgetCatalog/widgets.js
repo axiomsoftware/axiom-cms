@@ -1,5 +1,5 @@
 function location(attr_name, props){
-	return <fieldset xmlns:tal="http://axiom.com/" xmlns:talout="http://axiom.com/talout" class="ax-_location" id="ax-_location">
+	return <fieldset xmlns:tal="http://axiomstack.com/tale" xmlns:talout="http://axiom.com/talout" class="ax-_location" id="ax-_location">
         <div><div class="error_message">hidden error message </div> 
             <label for="_location_widget">Location</label>
             <div id="_location_widget">Loading...</div>
@@ -21,7 +21,7 @@ function location(attr_name, props){
 }
 
 function dropdown_location(attr_name, props){
-	return <fieldset xmlns:tal="http://axiom.com/" xmlns:talout="http://axiom.com/talout" class="ax-_location" id="ax-_location">
+	return <fieldset xmlns:tal="http://axiomstack.com/tale" xmlns:talout="http://axiom.com/talout" class="ax-_location" id="ax-_location">
         <div><div class="error_message">hidden error message </div> 
             <label for="_location_widget">Location</label>
             <div id="_location_widget">Loading...</div>
@@ -44,7 +44,7 @@ function dropdown_location(attr_name, props){
 
 
 function textbox(attr_name, props){ 
-	return <fieldset xmlns:tal="http://axiom.com/" xmlns:talout="http://axiom.com/talout" tal:attr="'class': 'ax-textbox ax-'+attr_name, id: 'ax-'+attr_name">
+	return <fieldset xmlns:tal="http://axiomstack.com/tale" xmlns:talout="http://axiom.com/talout" tal:attr="'class': 'ax-textbox ax-'+attr_name, id: 'ax-'+attr_name">
 			 <div><div class="error_message">hidden error message </div> 
 		<label tal:attr="'for': attr_name">{(props.widget.required?new XML('<span class="required">*</span>'):'')}{(props.widget.label?new XMLList(props.widget.label.value):'undefined')}</label>
 		<input tal:attr="name: attr_name, id: attr_name, 'class': (props.widget.required?'validate-empty':''), 'talout:attributes':'value this/'+attr_name+'|string: '" type="text" />
@@ -68,7 +68,7 @@ function title(attr_name, props){
 }
 
 function boothselections(attr_name, props){
-    return <fieldset xmlns:talout="http://axiom.com/talout" xmlns:tal="http://axiom.com/" tal:attr="id: 'ax-'+attr_name"> 
+    return <fieldset xmlns:talout="http://axiomstack.com/taletalout" xmlns:tal="http://axiom.com/" tal:attr="id: 'ax-'+attr_name"> 
         <script type="text/javascript" src="/acb/static/scripts/booth_selections.js">
 		//
 	</script>
@@ -94,7 +94,7 @@ function password(attr_name, props){
 }
 
 function textarea(attr_name, props){
-	return <fieldset xmlns:tal="http://axiom.com/" xmlns:talout="http://axiom.com/talout" tal:attr="'class': 'ax-textarea ax-'+attr_name, id: 'ax-'+attr_name">
+	return <fieldset xmlns:tal="http://axiomstack.com/tale" xmlns:talout="http://axiom.com/talout" tal:attr="'class': 'ax-textarea ax-'+attr_name, id: 'ax-'+attr_name">
 			 <div > <div class="error_message">hidden error message</div>
       	<label tal:attr="'for': attr_name">{(props.widget.required?new XML('<span class="required">*</span>'):'')}{(props.widget.label?new XMLList(props.widget.label.value):'undefined')}</label>
 		<textarea cols="50" rows="5" tal:attr="id: attr_name, name:attr_name, 'class': (props.widget.required?'validate-empty':''), 'talout:content': 'this/'+attr_name+'|string: '">.</textarea>
@@ -113,7 +113,7 @@ function textarea(attr_name, props){
 
 
 function multitext(attr_name, props){ 
-	return <fieldset xmlns:talout="http://axiom.com/talout" tal:attr="'class':'ax-multitext ax-'+attr_name, id: 'ax-'+attr_name">
+	return <fieldset xmlns:talout="http://axiomstack.com/taletalout" tal:attr="'class':'ax-multitext ax-'+attr_name, id: 'ax-'+attr_name">
 		<div> <div class="error_message">hidden error message</div>
 		<label tal:attr="'for': attr_name">{(props.widget.label?new XMLList(props.widget.label.value):'undefined')}</label>
 		<textarea cols="50" rows="5" tal:attr="id: attr_name, name: attr_name">
@@ -133,7 +133,7 @@ function multitext(attr_name, props){
 
 
 function select(attr_name, props){
-	return <fieldset xmlns:tal="http://axiom.com/" xmlns:talout="http://axiom.com/talout" tal:attr="'class': 'ax-select ax-'+attr_name, id: 'ax-'+attr_name">
+	return <fieldset xmlns:tal="http://axiom.com/" xmlns:talout="http://axiomstack.com/taletalout" tal:attr="'class': 'ax-select ax-'+attr_name, id: 'ax-'+attr_name">
 				<div> <div class="error_message">hidden error message</div>
 		<label tal:attr="'for': attr_name">{(props.widget.required?new XML('<span class="required">*</span>'):'')}{(props.widget.label?new XMLList(props.widget.label.value):null)}</label>
                  <select tal:attr="id: attr_name, name: attr_name, 'class': (props.widget.required?'validate-empty':''), 'talout:attributes': 'value this/'+attr_name">
@@ -153,7 +153,7 @@ function select(attr_name, props){
 
 
 function multiselect(attr_name, props){
-	var tal = new Namespace('tal','http://axiom.com/');
+	var tal = new Namespace('tal','http://axiomstack.com/tale');
 	var talout = new Namespace('tal', 'http://axiom.com/talout');
 
 	var widget = this.select(attr_name, props);
@@ -161,8 +161,8 @@ function multiselect(attr_name, props){
 	widget..select.@multiple = "true";
 	delete widget..option[0];
 	widget..select.@talout::attributes = props.widget.list?'size javascript:eval('+props.widget.list.value+').length':'';
-	widget.div.input += <input type="hidden" tal:attr="id: attr_name, name: attr_name" value="" xmlns:tal="http://axiom.com/"/>;
-	widget.div.script += <script type="text/javascript" tal:text="%" talout:text="$" xmlns:tal="http://axiom.com/" xmlns:talout="http://axiom.com/talout" > //<![CDATA[
+	widget.div.input += <input type="hidden" tal:attr="id: attr_name, name: attr_name" value="" xmlns:tal="http://axiomstack.com/tale"/>;
+	widget.div.script += <script type="text/javascript" tal:text="%" talout:text="$" xmlns:tal="http://axiomstack.com/tale" xmlns:talout="http://axiom.com/talout" > //<![CDATA[
                 window.ms_%{attr_name} = {
 					value:'${this/%{attr_name}}',
 					hiddenInput:dojo.byId('%{attr_name}'),
@@ -196,7 +196,7 @@ function multiselect(attr_name, props){
 }
 
 function checkbox(attr_name, props){
-	return <fieldset xmlns:tal="http://axiom.com/" xmlns:talout="http://axiom.com/talout" tal:attr="'class': 'ax-checkbox ax-'+attr_name, id: 'ax-'+attr_name">
+	return <fieldset xmlns:tal="http://axiomstack.com/tale" xmlns:talout="http://axiom.com/talout" tal:attr="'class': 'ax-checkbox ax-'+attr_name, id: 'ax-'+attr_name">
 			 <div> <div class="error_message">hidden error message</div>
 		<label tal:attr="'for': attr_name+'_cb'">{(props.widget.label?new XMLList(props.widget.label.value):'undefined')}</label>
 		<input type="checkbox" class="cb" tal:attr="id: attr_name+'_cb', onclick: 'if(this.checked) dojo.byId(\''+attr_name+'\').value=\'true\'; else dojo.byId(\''+attr_name+'\').value=\'false\'; axiom.dirtyProps[\''+attr_name+'\']=true;', 'tal:attributes':'checked this/'+attr_name"/> 
@@ -208,7 +208,7 @@ function checkbox(attr_name, props){
 
 
 function radio(attr_name, props){
-	return <fieldset xmlns:tal="http://axiom.com/" xmlns:talout="http://axiom.com/talout"  tal:attr="'class': 'ax-radio ax-'+attr_name, id: 'ax-'+attr_name">
+	return <fieldset xmlns:tal="http://axiomstack.com/tale" xmlns:talout="http://axiom.com/talout"  tal:attr="'class': 'ax-radio ax-'+attr_name, id: 'ax-'+attr_name">
 		<div class="error_message">hidden error message</div>
 		<label>{attr_name}</label>
 		 <div tal:attr="'talout:repeat-content':'item javascript:'+(props.widget.list?props.widget.list.value:'')"> 
@@ -228,7 +228,7 @@ function radio(attr_name, props){
 		</fieldset>;
 } 
 function wysiwyg(attr_name, props){
-	return <fieldset xmlns:talout="http://axiom.com/talout" xmlns:tal="http://axiom.com/" tal:attr="'class': 'ax-wysiwyg ax-'+attr_name, id: 'ax-'+attr_name">
+	return <fieldset xmlns:talout="http://axiom.com/talout" xmlns:tal="http://axiomstack.com/tale" tal:attr="'class': 'ax-wysiwyg ax-'+attr_name, id: 'ax-'+attr_name">
 		<div> <div class="error_message">hidden error message</div>
 		<label class="wysiwyg-label" tal:attr="'for': attr_name">{(props.widget.required?new XML('<span class="required">*</span>'):'')} {(props.widget.label?new XMLList(props.widget.label.value):'undefined')+' '} <a class="button form-button" tal:attr="onclick: 'axiom.loadFCKInstance(\''+attr_name+'\',\''+(props.widget.width?props.widget.width.value:'')+'\',\''+(props.widget.height?props.widget.height.value:'')+'\',\''+(props.widget.formats?props.widget.formats.value:'')+'\',\''+(props.widget.templates?props.widget.templates.value:'')+'\',\''+(props.widget.styles?props.widget.styles.value:'')+'\',\''+(props.widget.stylesxml?props.widget.stylesxml.value:'')+'\');axiom.dirtyProps[\''+attr_name+'\'] = true;'">Edit</a>
 		          </label>
@@ -240,7 +240,7 @@ function wysiwyg(attr_name, props){
 
 
 function calendar(attr_name, props){ // Requires Dojo
-	return <fieldset xmlns:tal="http://axiom.com/" xmlns:talout="http://axiom.com/talout" tal:attr="'class': 'ax-calendar ax-'+attr_name, id: 'ax-'+attr_name">
+	return <fieldset xmlns:tal="http://axiomstack.com/tale" xmlns:talout="http://axiom.com/talout" tal:attr="'class': 'ax-calendar ax-'+attr_name, id: 'ax-'+attr_name">
 		<div> <div class="error_message">hidden error message</div>
 		<label tal:attr="'for': attr_name">{(props.widget.required?new XML('<span class="required">*</span>'):'')}{(props.widget.label?new XMLList(props.widget.label.value):'undefined')}</label>
 		<div tal:attr="id: attr_name+'_DatePicker'"> <br/> </div>
@@ -261,7 +261,7 @@ function calendar(attr_name, props){ // Requires Dojo
 }
 
 function time(attr_name, props) {
-	return <fieldset xmlns:tal="http://axiom.com/" xmlns:talout="http://axiom.com/talout" tal:attr="'class': 'ax-datetime ax-'+attr_name, id: 'ax-'+attr_name">
+	return <fieldset xmlns:tal="http://axiomstack.com/tale" xmlns:talout="http://axiom.com/talout" tal:attr="'class': 'ax-datetime ax-'+attr_name, id: 'ax-'+attr_name">
 		<div> <div class="error_message">hidden error message</div>
 		<label tal:attr="'for': attr_name">{(props.widget.required?new XML('<span class="required">*</span>'):'')}{(props.widget.label?new XMLList(props.widget.label.value):'undefined')}</label>
 		<label tal:attr="'for':'timehour_'+attr_name">Time</label>
@@ -338,7 +338,7 @@ function time(attr_name, props) {
 }
 
 function datetime(attr_name, props){ // Requires Dojo
-	return <fieldset xmlns:tal="http://axiom.com/" xmlns:talout="http://axiom.com/talout" tal:attr="'class': 'ax-datetime ax-'+attr_name, id:'ax-'+attr_name">
+	return <fieldset xmlns:tal="http://axiomstack.com/tale" xmlns:talout="http://axiom.com/talout" tal:attr="'class': 'ax-datetime ax-'+attr_name, id:'ax-'+attr_name">
 		<div> <div class="error_message">hidden error message</div>
 		<label tal:attr="'for': attr_name">{(props.widget.required?new XML('<span class="required">*</span>'):'')}{(props.widget.label?new XMLList(props.widget.label.value):'undefined')}</label>
 		      <div tal:attr="id: attr_name+'_DateTime'"><br/></div>
@@ -448,7 +448,7 @@ function datetime(attr_name, props){ // Requires Dojo
 }
 
 function referenceSingleSelectAuto(attr_name, props){ // Requires Dojo
-	return <fieldset xmlns:tal="http://axiom.com/" xmlns:talout="http://axiom.com/talout" tal:attr="'class':'ax-refssa ax-'+attr_name, id:'ax-'+attr_name">
+	return <fieldset xmlns:tal="http://axiomstack.com/tale" xmlns:talout="http://axiom.com/talout" tal:attr="'class':'ax-refssa ax-'+attr_name, id:'ax-'+attr_name">
 		   <div> <div class="error_message">hidden error message</div>
 		<label tal:attr="'for':attr_name">{(props.widget.label?new XMLList(props.widget.label.value):'undefined')}</label>
 		<div tal:attr="id:attr_name+'_WRSSA'">Loading...</div>
@@ -474,7 +474,7 @@ function referenceSingleSelectAuto(attr_name, props){ // Requires Dojo
 }
 
 function referenceSingleSelectPopUp(attr_name, props){ // Requires Dojo 
-	return <fieldset xmlns:tal="http://axiom.com/" xmlns:talout="http://axiom.com/talout" tal:attr="'class':'ax-refssp ax-'+attr_name, id:'ax-'+attr_name">
+	return <fieldset xmlns:tal="http://axiomstack.com/tale" xmlns:talout="http://axiom.com/talout" tal:attr="'class':'ax-refssp ax-'+attr_name, id:'ax-'+attr_name">
 		<div> <div class="error_message">hidden error message</div>
 		<label tal:attr="'for':attr_name">{(props.widget.label?new XMLList(props.widget.label.value):'undefined')}</label>
 		<div tal:attr="id:attr_name+'_WRSS'">Loading...</div>
@@ -497,7 +497,7 @@ function referenceSingleSelectPopUp(attr_name, props){ // Requires Dojo
 } 
 
 function referenceOrderedMultiSelectPopUp(attr_name, props){ // Requires Dojo
-	return <fieldset xmlns:tal="http://axiom.com/" xmlns:talout="http://axiom.com/talout" tal:attr="'class':'ax-refomsp ax-'+attr_name, id:'ax-'+attr_name">
+	return <fieldset xmlns:tal="http://axiomstack.com/tale" xmlns:talout="http://axiom.com/talout" tal:attr="'class':'ax-refomsp ax-'+attr_name, id:'ax-'+attr_name">
 		<div> <div class="error_message">hidden error message</div>
 			  <div class="label_container">
         <label class="reference" tal:attr="'for':attr_name">{(props.widget.label?new XMLList(props.widget.label.value):'undefined')} <span class="ref-widget-toggle">[<a href="javascript:void(0);" tal:attr="onclick:'dojo.widget.byId(\''+attr_name+'\').toggleVisibility(this)'">Show</a>]</span></label>
@@ -523,7 +523,7 @@ function referenceOrderedMultiSelectPopUp(attr_name, props){ // Requires Dojo
 }
 
 function referenceMultiSelectChecked(attr_name, props){
-	return <fieldset xmlns:tal="http://axiom.com/" xmlns:talout="http://axiom.com/talout" tal:attr="'class':'ax-refmsc ax-'+attr_name, id:'ax-'+attr_name">
+	return <fieldset xmlns:tal="http://axiomstack.com/tale" xmlns:talout="http://axiom.com/talout" tal:attr="'class':'ax-refmsc ax-'+attr_name, id:'ax-'+attr_name">
 	            <div> <div class="error_message">hidden error message</div>
  		<label tal:attr="'for':attr_name">{(props.widget.required?new XML('<span class="required">*</span>'):'')}{(props.widget.label?new XMLList(props.widget.label.value):'undefined')}</label>
 		<div tal:attr="id:attr_name+'_WMSC'">Loading...</div>
@@ -545,7 +545,7 @@ function referenceMultiSelectChecked(attr_name, props){
 }
 
 function assetselect(attr_name, props){
-	return <fieldset xmlns:tal="http://axiom.com/" xmlns:talout="http://axiom.com/talout" tal:attr="'class':'ax-assetselect ax-'+attr_name, id:'ax-'+attr_name">
+	return <fieldset xmlns:tal="http://axiomstack.com/tale" xmlns:talout="http://axiom.com/talout" tal:attr="'class':'ax-assetselect ax-'+attr_name, id:'ax-'+attr_name">
 	             <div> <div class="error_message">hidden error message</div>
 		<label tal:attr="'for':attr_name">{(props.widget.required?new XML('<span class="required">*</span>'):'')}{(props.widget.label?new XMLList(props.widget.label.value):'undefined')}</label>
 		<div tal:attr="id:attr_name+'_WAS'">Loading...</div>
@@ -571,7 +571,7 @@ function assetselect(attr_name, props){
 }
 
 function textboxcounter(attr_name, props){
-	return <fieldset xmlns:tal="http://axiom.com/" xmlns:talout="http://axiom.com/talout" tal:attr="'class':'ax-textboxcounter ax-'+attr_name, id:'ax-'+attr_name">
+	return <fieldset xmlns:tal="http://axiomstack.com/tale" xmlns:talout="http://axiom.com/talout" tal:attr="'class':'ax-textboxcounter ax-'+attr_name, id:'ax-'+attr_name">
 	           <div> <div class="error_message">hidden error message</div>
 		<label tal:attr="'for':attr_name">{(props.widget.required?new XML('<span class="required">*</span>'):'')}{(props.widget.label?new XMLList(props.widget.label.value):'undefined')}</label>
 		<input type="text" tal:attr="id:attr_name, name:attr_name, maxlength: (props.widget.maxchars || 20), onkeypress:'tbc'+attr_name+'.update()', 'talout:attributes': 'value this/'+attr_name,  'class':(props.widget.required?'validate-empty':'')"/>
@@ -595,7 +595,7 @@ function textboxcounter(attr_name, props){
 }
 
 function textareacounter(attr_name, props){
-	return <fieldset xmlns:tal="http://axiom.com/" xmlns:talout="http://axiom.com/talout" tal:attr="'class':'ax-textareacounter ax-'+attr_name, id:'ax-'+attr_name" tal:var="maxchars: (props.widget.maxchars? props.widget.maxchars.value: 100)">
+	return <fieldset xmlns:tal="http://axiomstack.com/tale" xmlns:talout="http://axiom.com/talout" tal:attr="'class':'ax-textareacounter ax-'+attr_name, id:'ax-'+attr_name" tal:var="maxchars: (props.widget.maxchars? props.widget.maxchars.value: 100)">
 			 <div> <div class="error_message">hidden error message</div>
 		<label tal:attr="'for': attr_name">{(props.widget.required?new XML('<span class="required">*</span>'):'')}{(props.widget.label?new XMLList(props.widget.label.value):'undefined')}</label>
 		<textarea cols="50" rows="5" tal:attr="id:attr_name, name:attr_name, onkeyup:'tac'+attr_name+'.update()', 'class':(props.widget.required?'validate-empty validate-length-'+maxchars:'validate-length-'+maxchars)"> <span tal:attr="'talout:replace':'this/'+attr_name+'|string: '"/> </textarea>
@@ -624,7 +624,7 @@ function textareacounter(attr_name, props){
 }
 
 function tags(attr_name, props){
-    return <fieldset xmlns:tal="http://axiom.com/" xmlns:talout="http://axiom.com/talout" tal:attr="'class':'ax-tags ax-'+attr_name, id:'ax-'+attr_name">
+    return <fieldset xmlns:tal="http://axiomstack.com/tale" xmlns:talout="http://axiom.com/talout" tal:attr="'class':'ax-tags ax-'+attr_name, id:'ax-'+attr_name">
               <div> <div class="error_message">hidden error message</div>
 	          <div tal:attr="'talout:define': 'window_id: string:${this/id}_window'" class="tags">
 		<label tal:attr="'for':attr_name">{(props.widget.label?new XMLList(props.widget.label.value):'undefined')}</label>
@@ -637,7 +637,7 @@ function tags(attr_name, props){
 }
 
 function simpleFormBuilder(attr_name, props){ // Requires Dojo
-	return <fieldset xmlns:tal="http://axiom.com/" xmlns:talout="http://axiom.com/talout" tal:attr="'class':'ax-refomsp ax-'+attr_name, id:'ax-'+attr_name">
+	return <fieldset xmlns:tal="http://axiomstack.com/tale" xmlns:talout="http://axiom.com/talout" tal:attr="'class':'ax-refomsp ax-'+attr_name, id:'ax-'+attr_name">
 		<div> <div class="error_message">hidden error message</div>
 		<label tal:attr="'for':attr_name">{(props.widget.label?new XMLList(props.widget.label.value):'undefined')}</label>
 		       <div tal:attr="id:attr_name+'_sfb'">SimpleFormBuilder</div>
@@ -661,7 +661,7 @@ function simpleFormBuilder(attr_name, props){ // Requires Dojo
 }
 
 function urlselect(attr_name, props){
-	var markup = <fieldset xmlns:tal="http://axiom.com/" xmlns:talout="http://axiom.com/talout" tal:attr="'class':'ax-urlselect ax-'+attr_name, id:'ax-'+attr_name">
+	var markup = <fieldset xmlns:tal="http://axiomstack.com/tale" xmlns:talout="http://axiom.com/talout" tal:attr="'class':'ax-urlselect ax-'+attr_name, id:'ax-'+attr_name">
 			 <div> <div class="error_message">hidden error message</div>
 		<label tal:attr="'for':attr_name">{(props.widget.required?new XML('<span class="required">*</span>'):'')}{(props.widget.label?new XMLList(props.widget.label.value):'undefined')}</label>
 		<input type="text" tal:attr="id:attr_name, name:attr_name, 'talout:attributes': 'value this/'+attr_name, onchange:'axiom.dirtyProps[\''+attr_name+'\']=true', 'class':(props.widget.required?'validate-empty':'')"/> <img tal:attr="id:'icon_'+attr_name, onclick:'urlselect'+attr_name+'.open();', 'talout:attributes':'src string:${app/getStaticMountpoint}/axiom/images/icon_link.gif'" /> <a href="javascript:void(0);" class="button form-button" tal:attr="onclick:'urlselect'+attr_name+'.clear();'">Clear</a>
