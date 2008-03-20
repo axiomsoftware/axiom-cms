@@ -81,7 +81,6 @@ end
 clean_dir 'cms-enterprise'
 clean_dir 'cms-workgroup'
 clean_dir 'cms-standard'
-clean_dir 'dist'
 
 Find.find('.') do |file|
   Find.prune if file =~ /\.svn|cms-(standard|workgroup|enterprise)/
@@ -101,7 +100,7 @@ Find.find('.') do |file|
   
 end
 
-if ARGV[0] == '-copy'
+if ARGV.member? '-copy'
   cp_r('cms-enterprise', '../cms-enterprise')
   cp_r('cms-standard', '../cms-standard')
   cp_r('cms-workgroup', '../cms-workgroup')

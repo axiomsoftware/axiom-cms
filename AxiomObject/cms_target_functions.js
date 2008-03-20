@@ -23,15 +23,11 @@ function jsonFromResults(results) {
 function potentialTargets() {    
 	var prototype = (req.data.prototype || '');
 	var keywords = (req.data.keywords || '');
-	var field = (req.data.sort_field || 'cms_lastmodified');
-	var direction = (req.data.sort_direction || 'asc');
 	var property = (req.data.property || '');
-	//var template = (req.data.template || 'ObjectSelectTable');
 	var start = (parseInt(req.data.start) || 0);
 	var cms = root.get('cms');
 
 	var schema = this.getSchema();
-	//app.log(schema.toSource());
 	var prop = schema[property];
 	var path = (prop && prop.targetchildren && prop.targetchildren.value == 'true')?(this.getURI()+'*'):undefined;
 	var types = (prop && prop.targetTypes) ? eval(this.getSchema()[property].targetTypes.value) : null;
@@ -43,10 +39,11 @@ function potentialTargets() {
 	if (prototype) { types = prototype.split(','); } //search overrides targetTypes
 	if (!types) { types = cms_searchable_types; }
 	
-	var sort = {};
-	if(field){
-		sort[field] = direction;
+	var sort = req.data.sort || false;
+	if(!sort || sort.toSource() == '({})'){
+		sort = {'cms_lastmodified':'desc'}
 	}
+	sort = new Sort(sort);
 	
 	var filter = "_d: 1 AND (_status: z OR _status: a) NOT _id: "+this._id; 
 	if (keywords) {
@@ -57,7 +54,7 @@ function potentialTargets() {
 	if(typeof cms.cmsCustomQueryFilter == 'function'){  
 		filter = new AndFilter(filter, cms.cmsCustomQueryFilter('referenceWidget'));
 	}
-	var args = [types, filter, sort];
+	var args = [types, filter, {sort:sort}];
 	if(path){ args.push(path); }
 	var hits = app[qmethod].apply(app, args);
     
@@ -78,7 +75,7 @@ function potentialTargets() {
 		return;
 	}
 	var results = (qmethod == 'getHits')?hits.objects(start, length):hits.slice(start, length);
-	cms.writeResults(cms.extractContent, hits, results, start, length, field, req.data.return_hrefs);
+	cms.writeResults(cms.extractContent, hits, results, start, length, '', req.data.return_hrefs);
 }
 
 function _hashFromtt(targets) {

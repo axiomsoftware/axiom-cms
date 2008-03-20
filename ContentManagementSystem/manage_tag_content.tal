@@ -15,8 +15,6 @@
 		</div>
 	  </div>
 	  <a href="javascript:void(0);" class="button form-button" onclick="deleteTags()">Delete Selected</a>
-	  <!-- <input class="button" type="submit" value="Delete Selected"/> -->
 	</form>
-
   </div>
 </div>

@@ -7,7 +7,7 @@
     <div class="outerwrap">
       <div class="innerwrap">
 		<div id="header">
-		  <div class="logo"><a href="http://www.axiomcm.com" target="_blank"><img tal:attr="src: app.getStaticMountpoint('axiom/images/axiom_logo.gif')" alt="Axiom" title="Axiom" /></a></div> 
+		  <div class="logo"><a href="http://www.axiomcm.com" target="_blank"><img tal:attr="src: app.getStaticMountpoint('axiom/images/AxiomCms.png')" alt="Axiom" title="Axiom" /></a></div> 
 		</div>
 		<div id="content">
 		  <div class="body">
