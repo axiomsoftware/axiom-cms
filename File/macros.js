@@ -9,6 +9,8 @@ function replace(){
 	var clean_name = this.getFileName().replace(/\s+/g,'_');
 	if(this.id != clean_name)
 		this.id = cms.uniqueId(clean_name);
+	if(this instanceof Image)
+		this.add_cms_thumbnails();
 	res.write(this.getURI()); 
 }
 

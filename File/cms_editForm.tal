@@ -7,7 +7,7 @@
 	}
 
 	window.replaceFile= function(){
-		var filename = dojo.byId('replacement').vale;
+		var filename = dojo.byId('replacement').value;
 		if(!filename){
 			window.replaceFileError('Please select a file before continuing.');
 		} else {
