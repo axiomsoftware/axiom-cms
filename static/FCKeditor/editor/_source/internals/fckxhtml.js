@@ -336,6 +336,12 @@ FCKXHtml.TagProcessors =
 		if ( sSavedUrl != null )
 			FCKXHtml._AppendAttribute( node, 'src', sSavedUrl ) ;
 
+		// delete host in IE
+		// fix AXCMS-654 -> see http://dev.fckeditor.net/ticket/641
+		if ( FCKBrowserInfo.IsIE && (htmlNode.src.search(document.location.host) != -1))
+		{
+			FCKXHtml._AppendAttribute( node, 'src', htmlNode.src.substr( (document.location.protocol + '\/\/' + document.location.host).length ) ) ;
+		}
 		return node ;
 	},
 
@@ -369,7 +375,6 @@ FCKXHtml.TagProcessors =
 			htmlNode.href = htmlNode.href.substr( (document.location.protocol + '//' + document.location.host).length );
 			FCKXHtml._AppendAttribute( node, 'href', htmlNode.href ) ;
 		}
-
 
 		return node ;
 	},
