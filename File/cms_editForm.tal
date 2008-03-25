@@ -69,9 +69,9 @@
 	try{
           dojo.require("axiom.widget.LocationField");
 	      var loc = dojo.widget.createWidget('axiom:LocationField',
-						 {appPath:'${root/getURI}/',
+						 {appPath:axiom.appPath,
 						  initialValue: '${this/_parent/getPath}',
-						  parentHref:'${this/_parent/getURI}/',
+						  parentHref:'${this/_parent/getURI}',
 						  href:'${this/getURI}/',
 	                      filemode: true,
 						  objectId:'${this/id}',
