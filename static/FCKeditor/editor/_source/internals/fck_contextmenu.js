@@ -113,7 +113,7 @@ function FCK_ContextMenu_GetListener( listenerName )
 
 					menu.AddSeparator() ;
 					if ( bInsideLink )
-						menu.AddItem( 'Link', FCKLang.EditLink		, 34 ) ;
+						menu.AddItem( 'LinkSelect', FCKLang.EditLink		, 34 ) ;
 					menu.AddItem( 'Unlink'	, FCKLang.RemoveLink	, 35 ) ;
 				}
 			}} ;
