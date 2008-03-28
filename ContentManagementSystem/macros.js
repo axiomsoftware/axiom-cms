@@ -7,7 +7,7 @@ function delete_objects(){
 }
 
 function domain_warning(){
-	var host = req.data.http_host;
+	var host = req.data.http_host.split(':')[0];
 	var staging_hosts = app.getDomains(1);
 	var preview_hosts = app.getDomains(2);
 	var errors = [];
