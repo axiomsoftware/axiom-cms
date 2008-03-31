@@ -8,6 +8,9 @@ function get_object_ids(){
  */
 function save_task(data){
 	data = (data || req.data);
+	if(!data.due_date){
+		delete data.due_date;
+	}
 	var user = app.getHits("CMSUser", {username: data.assignee}).objects(0,1)[0];
 	if(!user){
 		app.log("CMSTask.save_task: Couldn't find user: "+data.assignee);
@@ -20,9 +23,9 @@ function save_task(data){
 	var mailer = null;
 	if(user.username != current && user.username != session.user.username){
 		mailer = new axiom.Mail();
-		mailer.setData({to:      {email:   user.email, 
+		mailer.setData({to:      {email:   user.email,
 							      name:    user.first_name+' '+user.last_name},
-						from:    {email: session.user.email, 
+						from:    {email: session.user.email,
 							      name:  session.user.first_name+' '+session.user.last_name},
 						subject: 'Axiom CMS: Task '+this.task_id+' has been assigned to you.',
 						html:     root.get('cms').task_email({assignee_name:  user.first_name,
@@ -30,12 +33,12 @@ function save_task(data){
 															  action:         session.user.first_name+' has assigned you the following tasks:',
 															  tasks:          [this],
 															  body:           'All content objects within the task(s) above are now owned by you.'
-															 }) 
+															 })
 					   });
 	}
 
 	var result = this.edit(data);
-	if(mailer) mailer.send(); 
+	if(mailer) mailer.send();
 	return result;
 }
 
@@ -60,10 +63,10 @@ function archive(conn){
 	this._parent.remove(this);
 }
 
-/** 
+/**
  *  Return a boolean indicating if the object can be deleted in the cms
  */
-function deletable(){ 
+function deletable(){
 	return this.status.match(/Incomplete|Rejected/);
 }
 

@@ -10,7 +10,7 @@ function add_to_delete_task(data){
 		obj._task = new Reference(task);
 		obj._action = "Deleted";
 		obj.cms_lastmodified = new Date();
-		
+
 		auditLogObjectAction({task_id:       task.task_id,
 							  username:      task.admin_actor,
 							  title:         obj.title,
@@ -28,39 +28,40 @@ function approve_tasks(data){
 	var filters = this.get_task_filters(data);
 	var cms = this;
 	var conn = app.getDbSource('_default').getConnection(false);
-	var task_groups = app.getObjects("CMSTask", new OrFilter(filters), {maxlength: filters.length}).inject({}, function(table, task){
-		for each(var obj in app.getSources(task)){
-			if(obj._action == "Deleted"){
-				obj.cms_delete();
-			} else{
-				obj._action = null;
-				obj._task = null;
+	var task_groups = app.getObjects("CMSTask", new OrFilter(filters), {maxlength: filters.length}).inject({},
+		function(table, task){
+			for each(var obj in app.getSources(task, [], {_status: ['a', 'z']})){
+				if(obj._action == "Deleted"){
+					obj.cms_delete();
+				} else{
+					obj._action = null;
+					obj._task = null;
+				}
+				obj.publishToLive();
 			}
-			obj.publishToLive();
-		}
-		task.approval_description = (data.description || null);
-		task.admin_actor = session.user ? session.user.username : "system";
-		task.status = "Approved";
+			task.approval_description = (data.description || null);
+			task.admin_actor = session.user ? session.user.username : "system";
+			task.status = "Approved";
 
-		var submitter = task.submitter ? task.submitter.getTarget() : session.user;
-		if(table[submitter.username])
-			table[submitter.username].tasks.push(task) 
-		else
-			table[submitter.username] = {tasks: [task], submitter: submitter};
+			var submitter = task.submitter ? task.submitter.getTarget() : session.user;
+			if(table[submitter.username])
+				table[submitter.username].tasks.push(task)
+			else
+				table[submitter.username] = {tasks: [task], submitter: submitter};
 
-		auditLogTaskAction({task_id: task.task_id,
-							username: task.admin_actor,
-							action: 'Approved'},
-						  conn);
-		return table; 
-		
-	});
+			auditLogTaskAction({task_id: task.task_id,
+								username: task.admin_actor,
+								action: 'Approved'},
+								conn);
+			return table;
 
-	this.emailNotifications('been approved and published.', 
-							'All tasks are now in an approved status and appear in your "My Closed Tasks" table.', 
-							'has approved and published the following tasks:', 
+		});
+
+	this.emailNotifications('been approved and published.',
+							'All tasks are now in an approved status and appear in your "My Closed Tasks" table.',
+							'has approved and published the following tasks:',
 							task_groups);
-	
+
 }
 
 function reject_tasks(data){
@@ -76,10 +77,10 @@ function reject_tasks(data){
 		task.admin_actor = session.user ? session.user.username : "system";
 
 		if(table[submitter.username])
-			table[submitter.username].tasks.push(task) 
+			table[submitter.username].tasks.push(task)
 		else
 			table[submitter.username] = {tasks: [task], submitter: submitter};
-		
+
  		auditLogTaskAction({task_id: task.task_id,
 							username: task.admin_actor,
 							action: 'Rejected'},
@@ -112,13 +113,13 @@ function submit_tasks(data){
 								action: 'Submitted'},
 							  conn);
 		}
-	}	
+	}
 
 	var task_table = {};
 	task_table[assignee.username] = {submitter: assignee, tasks: tasks};
-	this.emailNotifications('been been submitted for your approval.', 
-							'All tasks listed above are now owned by you.', 
-							'has submitted the following tasks for approval:', 
+	this.emailNotifications('been been submitted for your approval.',
+							'All tasks listed above are now owned by you.',
+							'has submitted the following tasks for approval:',
 							task_table);
 }
 
@@ -143,18 +144,18 @@ function delete_tasks(data){
 							username: session.user.username,
 							action: 'Deleted'},
 						   conn);
-		
+
 		var assignee = task.assignee.getTarget();
 		if(table[assignee.username])
-			table[assignee.username].tasks.push(task); 
+			table[assignee.username].tasks.push(task);
 		else
 			table[assignee.username] = {tasks: [task], submitter: assignee};
 		return table;
 	});
-	
-	this.emailNotifications('been been deleted.', 
-							'All content objects within the above tasks have been reversed: Additions removed, edits reverted, and deletions cancelled.', 
-							'has deleted your following tasks:', 
+
+	this.emailNotifications('been been deleted.',
+							'All content objects within the above tasks have been reversed: Additions removed, edits reverted, and deletions cancelled.',
+							'has deleted your following tasks:',
 							task_table);
 }
 
@@ -169,7 +170,7 @@ function emailNotifications(subject_verbage, body, action_verbage, task_groups){
 		var assignee = task_groups[username].submitter;
 		if(assignee.username != session.user.username){
 			var mailer = new axiom.Mail();
-			var subject; 
+			var subject;
 			if(tasks.length > 1)
 				subject = 'Axiom CMS: '+tasks.length+' tasks have '+subject_verbage;
 			else
@@ -197,7 +198,7 @@ function add_task(data){
 	// modifying the property creates a lock on the container for this thread,
 	// so the generated task_id should be unique
 	var container = app.getObjects("CMSTaskContainer", {}, {maxlength: 1})[0];
-	container.last_id += 1; 
+	container.last_id += 1;
 
 	var t = new CMSTask();
 	container.add(t);
@@ -229,7 +230,7 @@ function my_pending_tasks(user){
 
 function my_assigned_tasks(user){
 	user = (user || session.user);
-	var filter = new AndFilter({assignee_searchable: user.username}, 
+	var filter = new AndFilter({assignee_searchable: user.username},
 		                       new OrFilter({status: "Incomplete"}, {status: "Rejected"}));
 	var sort = this.getSort(req.data.sort || [{task_id: 'asc'}]);
 	return app.getObjects("CMSTask", filter, {sort: sort}).map(this.extract_task);
@@ -244,8 +245,8 @@ function my_closed_tasks(user){
 
 function my_open_tasks(user){
 	user = (user || session.user);
-	var filter = new OrFilter(new AndFilter({creator:user.username},{status: "Pending"}), 
-		                      new AndFilter({assignee_searchable: user.username}, 
+	var filter = new OrFilter(new AndFilter({creator:user.username},{status: "Pending"}),
+		                      new AndFilter({assignee_searchable: user.username},
 		                                     new OrFilter({status: "Incomplete"}, {status: "Rejected"})));
 	var sort = this.getSort(req.data.sort || [{task_id: 'asc'}]);
 	return app.getObjects("CMSTask", filter, {sort: sort}).map(this.extract_task);
