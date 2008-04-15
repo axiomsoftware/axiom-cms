@@ -1,3 +1,46 @@
+function add_copy_to_task(data) {
+	data = (data || req.data);
+	var task = app.getHits("CMSTask", {task_id: data.task_id}).objects(0,1)[0];
+	var filters = data.objects.map(function(obj){ return new Filter({"_id": obj.id}) });
+	var objs = app.getObjects([], new OrFilter(filters));
+
+	for (var i = 0; i < objs.length; i++) {
+		var copy = objs[i].copy("title", data.prefix + objs[i].title);
+		var fixed_prefix = data.prefix.replace(/\s+/g, '_').replace(/[^\w\.]+/g, '').toLowerCase();
+		var accessname = fixed_prefix + objs[i].id;
+		copy.id = accessname;
+		copy.cms_lastmodified = new Date();
+		if (data.clear_url == "true") {
+			var p = objs[i]._prototype;
+			var folder = this.get(p);
+			if (!folder){
+				folder = new CMSContentFolder();
+				folder.id = p;
+				folder.title = p + " Folder";
+				root.get("cms").add(folder);
+			}
+			var count = 1;
+			while (folder.get(copy.id)) {
+				copy.id = accessname + "_" + count;
+				count++;
+			}
+			folder.add(copy);
+		} else {
+			var par = objs[i]._parent;
+			var count = 1;
+			while (par.get(copy.id)) {
+				copy.id = accessname + "_" + count;
+				count++;
+			}
+			par.add(copy);
+		}
+		copy._task = new Reference(task);
+		copy._action = "Added";
+	}
+}
+
+
+
 function add_to_delete_task(data){
 	data = (data || req.data);
 	var task = app.getHits("CMSTask", {task_id: data.task_id}).objects(0,1)[0];

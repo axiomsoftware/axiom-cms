@@ -8,6 +8,7 @@ dojo.provide("axiom.widget.ContentTable");
 dojo.require("dojo.widget.*");
 dojo.require("axiom.widget.IOTable");
 dojo.require("axiom.widget.DeleteObjectsModal");
+dojo.require("axiom.widget.CopyObjectsModal");
 dojo.widget.defineWidget(
 	"axiom.widget.ContentTable",
 	axiom.widget.IOTable,
@@ -15,6 +16,7 @@ dojo.widget.defineWidget(
 	{
 		activeRow: null,
 		deleteButton: null,
+		copyButton: null,
 		selectedRows: {},
 		nonDeletableObjects: {},
 		nextSet:false,
@@ -118,6 +120,16 @@ dojo.widget.defineWidget(
 								  id: id});
 				}
 				axiom.openModal({ widget: dojo.widget.createWidget("axiom:DeleteObjectsModal", {appPath:axiom.appPath, staticPath: axiom.staticPath, objects:objects}) });
+			}
+		},
+		copyObjects:function(){
+			if(!dojo.html.hasClass(this.copyButton, 'form-button-disabled')){
+				var objects = [];
+				for(var id in this.selectedRows){
+					objects.push({title: dojo.byId(id).getElementsByTagName('td')[2].innerHTML,
+								  id: id});
+				}
+				axiom.openModal({ widget: dojo.widget.createWidget("axiom:CopyObjectsModal", {appPath:axiom.appPath, staticPath: axiom.staticPath, objects:objects}) });
 			}
 		},
 		insertButtonRow:function(data){
@@ -390,11 +402,13 @@ dojo.widget.defineWidget(
 				this.nonDeletableObjects[row.id] = true;
 			}
 			this.checkDeleteButton();
+			this.checkButton({}, this.copyButton);
 		},
 		onUnselect:function(row){
 			delete this.nonDeletableObjects[row.id];
 			delete this.selectedRows[row.id];
 			this.checkDeleteButton();
+			this.checkButton({}, this.copyButton);
 		},
 		highlightRow:function(row){
 			this.selectedRows[row.id] = true;
@@ -409,9 +423,8 @@ dojo.widget.defineWidget(
 		checkDeleteButton:function(){
 			// if-cms-version-standard|workgroup
 			if(!axiom.isContentContributor)
-				// end-cms-if
+			// end-cms-if
 				this.checkButton(this.nonDeletableObjects, this.deleteButton);
-
 		},
 		checkButton: function(noTable, button){
 			var enable = false;
@@ -466,15 +479,16 @@ dojo.widget.defineWidget(
 			}
 			
 
-			var button_data = {text:'Delete', callback: 'deleteObjects'};
+			var delete_data = {text:'Delete', callback: 'deleteObjects'};
 			// if-cms-version-standard|workgroup
 			if(axiom.isContentContributor){
-				delete button_data.callback;
+				delete delete_data.callback;
 			}
 			// end-cms-if
-			var buttons = this.widget.insertButtonRow([button_data]);
+			var copy_data = {text:'Copy', callback: 'copyObjects'};//, classNames:['button','form-button']};
+			var buttons = this.widget.insertButtonRow([delete_data, copy_data]);
 			this.widget.deleteButton = buttons[0];
-
+			this.widget.copyButton = buttons[1];
 			this.widget.setupPagination(data);
 		},
 		setupPagination:function(data){

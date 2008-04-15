@@ -3,7 +3,7 @@ Copyright Axiom
 Thomas Mayfield
 */
 
-dojo.provide("axiom.widget.DeleteObjectsModal");
+dojo.provide("axiom.widget.CopyObjectsModal");
 
 dojo.require("dojo.lang.common");
 dojo.require("dojo.html.*");
@@ -12,15 +12,18 @@ dojo.require("dojo.widget.*");
 dojo.require("axiom.widget.AxiomModal");
 
 dojo.widget.defineWidget(
-	"axiom.widget.DeleteObjectsModal", 
+	"axiom.widget.CopyObjectsModal", 
 	axiom.widget.AxiomModal,
 	function(){},
 	{
 		taskField: null,
 		errorField: null,
+		prefixField: null,
+		clearUrlField: null,
 		objects: [],
+		objectIds: [],
 		templatePath:new dojo.uri.dojoUri('../axiom/widget/resources/AxiomModal.html'),
-		templateCssPath:new dojo.uri.dojoUri('../axiom/widget/resources/DeleteObjectsModal.css'),
+		templateCssPath:new dojo.uri.dojoUri('../axiom/widget/resources/CopyObjectsModal.css'),
 		close:function(){
 			axiom.closeModal();
 		},
@@ -29,12 +32,12 @@ dojo.widget.defineWidget(
 				var task_id = this.taskField.value.match(/^\d*/)[0];
 				var message; 
 				if(this.objects.length < 2 ){
-					message = this.objects[0].title + ' has been added to task ' + task_id + ' for deletion.';
+					message = this.objects[0].title + ' has been added to task ' + task_id + ' for copying.';
 				} else {
-					message = this.objects.length +' content objects have been added to task '+ task_id + ' for deletion.';
+					message = this.objects.length +' content objects have been added to task '+ task_id + ' for copying.';
 				}
-				this.doTaskAction({url:      'add_to_delete_task',  
-								   params:   {objects: this.objects, task_id: task_id},
+				this.doTaskAction({url:      'add_copy_to_task',  
+								   params:   {objects: this.objects, task_id: task_id, prefix: this.prefixField.value, clear_url: this.clearUrlField.checked.toString()},
 								   message:  message,
 								   callback: function(){axiom.cfilter.search()}
 								  });
@@ -44,45 +47,67 @@ dojo.widget.defineWidget(
 				this.errorField.innerHTML = "Please select a task before proceeding.";
 			}
 		},
-		deleteObjects: function(){
+		copyObjects: function(){
 			var widget = this;
 			var message;
 			if(this.objects.length < 2 ){
-				message = this.objects[0].title + ' has been deleted.';
+				message = this.objects[0].title + ' has been copied.';
 			} else {
-				message = this.objects.length +' content objects have been deleted.';
+				message = this.objects.length +' content objects have been copied.';
 			}
 			
-			dojo.io.bind({ url: axiom.cmsPath + 'delete_objects',
+			dojo.io.bind({ url: axiom.cmsPath + 'copy_objects',
 						   method: 'post',
-						   contentType: 'text/json',
-						   postContent: dojo.json.serialize({objs: this.objects}),
+						   content: {objects: this.objectIds.join(','), prefix: this.prefixField.value, clear_url: this.clearUrlField.checked.toString()},
 						   load: function() { 
 							   widget.close();
 							   axiom.showMessage(message)
 							   axiom.cfilter.search();
 						   },
-						   error: function() { axiom.openModal({content: "Error deleting objects."}) }
+						   error: function() { axiom.openModal({content: "Error copying objects."}) }
 						 });
 		},
 		postCreate:function() {
 			// if-cms-version-enterprise
-			this.title.innerHTML = "Add Content to Task for Deletion";
+			this.title.innerHTML = "Add Content to Task for Copying";
 			// end-cms-if
 			// if-cms-version-workgroup|standard
-			this.title.innerHTML = "Delete Objects";
+			this.title.innerHTML = "Copy Objects";
 			// end-cms-if
+
+			var prefix_label = document.createElement('label');
+			prefix_label.innerHTML = 'Copy Prefix: ';
+			this.mainContent.appendChild(prefix_label);
+			
+			var prefix_field = document.createElement('input');
+			prefix_field.type = 'text';
+			prefix_field.className = 'copy-prefix';
+			prefix_field.value = 'Copy of ';
+			this.mainContent.appendChild(prefix_field);
+			this.prefixField = prefix_field;
+
+			var clear_url_label = document.createElement('label');
+			clear_url_label.innerHTML = 'Clear Location: ';
+			this.mainContent.appendChild(clear_url_label);
+
+			var clear_url_field = document.createElement('input');
+			clear_url_field.type = 'checkbox';
+			clear_url_field.className = 'clear-url';
+			clear_url_field.checked = 'true';
+			this.mainContent.appendChild(clear_url_field);
+			this.clearUrlField = clear_url_field;
 
 			var textList = [];
 			for(var i in this.objects){
+				this.objectIds.push(this.objects[i].id);
 				textList.push(this.objects[i].title);
 			}
 			var list = document.createElement('textarea');
 			list.innerHTML = textList.join("\n");
 			list.setAttribute('readonly', true);
 			this.mainContent.appendChild(list);
-			
-			// if-cms-version-enterprise
+
+			// if-cms-version-enterprise			
 			var error_field = document.createElement('div');
 			error_field.className = 'error_message';
 			this.errorField = error_field;
@@ -104,10 +129,11 @@ dojo.widget.defineWidget(
 			this.taskField = task_list;
 			this.mainContent.appendChild(task_list);
 			// end-cms-if
+
 			// if-cms-version-personal|standard
-			var warning = document.createElement('div');
-			warning.innerHTML = "Are you sure you want to delete the selected content listed above?"
-			this.mainContent.appendChild(warning);
+			var info = document.createElement('div');
+			info.innerHTML = "The content listed above will be copied."
+			this.mainContent.appendChild(info);
 			// end-cms-if
 
 			this.modalButtons.innerHTML = '';
@@ -117,7 +143,7 @@ dojo.widget.defineWidget(
 			saveButton.innerHTML = "Save";
 			// end-cms-if
 			// if-cms-version-personal|standard
-			saveButton.innerHTML = "Delete";
+			saveButton.innerHTML = "Copy";
 			// end-cms-if
 
 			dojo.event.kwConnect({srcObj: saveButton,
@@ -127,7 +153,7 @@ dojo.widget.defineWidget(
 								  adviceFunc: 'addToTask'
 								  // end-cms-if
 								  // if-cms-version-workgroup|standard
-								  adviceFunc: 'deleteObjects'
+								  adviceFunc: 'copyObjects'
 								  // end-cms-if
 								 });
 			this.modalButtons.appendChild(saveButton);
@@ -141,7 +167,7 @@ dojo.widget.defineWidget(
 								  adviceFunc: 'close'});
 			this.modalButtons.appendChild(cancelButton);
 
-			this.modalIcon.src = axiom.staticPath + '/axiom/images/icon_delete.gif';
+			this.modalIcon.src = axiom.staticPath + '/axiom/images/icon_copy.gif';
 		}
 	}
 );

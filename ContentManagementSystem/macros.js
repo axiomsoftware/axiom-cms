@@ -1,3 +1,42 @@
+function copy_objects() {
+	var data = req.data;
+	var objects = data.objects.split(',');
+	var filters = objects.map(function(obj){ return new Filter({"_id": obj}) });
+	var objs = app.getObjects([], new OrFilter(filters));
+
+	for (var i = 0; i < objs.length; i++) {
+		var copy = objs[i].copy("title", data.prefix + objs[i].title);
+		var fixed_prefix = data.prefix.replace(/\s+/g, '_').replace(/[^\w\.]+/g, '').toLowerCase();
+		var accessname = fixed_prefix + objs[i].id;
+		copy.id = accessname;
+		copy.cms_lastmodified = new Date();
+		if (data.clear_url == "true") {
+			var p = objs[i]._prototype;
+			var folder = this.get(p);
+			if (!folder){
+				folder = new CMSContentFolder();
+				folder.id = p;
+				folder.title = p + " Folder";
+				root.get("cms").add(folder);
+			}
+			var count = 1;
+			while (folder.get(copy.id)) {
+				copy.id = accessname + "_" + count;
+				count++;
+			}
+			folder.add(copy);
+		} else {
+			var par = objs[i]._parent;
+			var count = 1;
+			while (par.get(copy.id)) {
+				copy.id = accessname + "_" + count;
+				count++;
+			}
+			par.add(copy);
+		}
+	}
+}
+
 /** 
  * Delete all given objects
  * @params = req.data.objs - array of ids of objects to be deleted
@@ -12,7 +51,6 @@ function domain_warning(){
 	var preview_hosts = app.getDomains(2);
 	var errors = [];
 
-	// if-cms-version-enterprise
 	switch(staging_hosts.length){
 	case 0: 	errors.push("No staging domains set."); break;
 	case 1:		errors.push("Only one domain set for staging layer."); break;
@@ -34,14 +72,6 @@ function domain_warning(){
 		errors.push("Accessing CMS on live domain. Axiom CMS Enterprise must be accessed via a staging domain.");
 	}
 
-	// end-cms-if
-	// if-cms-version-workgroup|standard
-	if(staging_hosts.length === 0){
-		errors.push("No preview domain");
-	} else if(staging_hosts.length > 1) {
-		errors.push("Multiple preview domains set.");
-	}
-	// end-cms-if
 
 	if(errors.length === 0){
 		return false;
