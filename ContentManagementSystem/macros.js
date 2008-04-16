@@ -51,6 +51,7 @@ function domain_warning(){
 	var preview_hosts = app.getDomains(2);
 	var errors = [];
 
+	// if-cms-version-enterprise
 	switch(staging_hosts.length){
 	case 0: 	errors.push("No staging domains set."); break;
 	case 1:		errors.push("Only one domain set for staging layer."); break;
@@ -72,6 +73,14 @@ function domain_warning(){
 		errors.push("Accessing CMS on live domain. Axiom CMS Enterprise must be accessed via a staging domain.");
 	}
 
+	// end-cms-if
+	// if-cms-version-workgroup|standard
+	if(staging_hosts.length === 0){
+		errors.push("No preview domain");
+	} else if(staging_hosts.length > 1) {
+		errors.push("Multiple preview domains set.");
+	}
+	// end-cms-if
 
 	if(errors.length === 0){
 		return false;
@@ -137,3 +146,4 @@ function getUsersPopupJS(){
 function getSettingsPopupJS(){
 	return "window.open('"+root.getURI('/cms/settings')+"','Users','width=1024,height=600,resizable=yes,scrollbars=yes');";
 }
+
