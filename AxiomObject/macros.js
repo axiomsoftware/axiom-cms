@@ -76,6 +76,15 @@ function getCMSProperty(key, default_value){
 
 
 /** 
+ *  Return a boolean indicating if the object can be added in the cms
+ */
+function addable(){ 
+	var val = this.getCMSProperty('addable', true);
+	return val;
+}
+
+
+/** 
  *  Return a boolean indicating if the object can be edited in the cms
  */
 function editable(){ 

@@ -113,6 +113,7 @@ function extractContent(result){
 			href: result.getURI(),
 			title: result.title,
 			task: task ? cms.extractTask(task) : null,
+			addable: result.addable(),
 			editable: result.task_editable(), 
 			locked: locked,
 			deletable: (!locked && result.deleteable()),

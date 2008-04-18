@@ -19,6 +19,7 @@ dojo.widget.defineWidget(
 		copyButton: null,
 		selectedRows: {},
 		nonDeletableObjects: {},
+		nonAddableObjects: {},
 		nextSet:false,
 		prevSet:false,
 		data:{},
@@ -333,6 +334,10 @@ dojo.widget.defineWidget(
 				dojo.html.addClass(row, 'deletable');
 			}
 
+			if(obj.addable){
+				dojo.html.addClass(row, 'addable');
+			}
+
 			// info row creation
 			var task_text = '';
 			if(obj.task){
@@ -401,14 +406,18 @@ dojo.widget.defineWidget(
 			if(this.deleteButton && !dojo.html.hasClass(row, 'deletable')){
 				this.nonDeletableObjects[row.id] = true;
 			}
+			if(this.copyButton && !dojo.html.hasClass(row, 'addable')){
+				this.nonAddableObjects[row.id] = true;
+			}
 			this.checkDeleteButton();
-			this.checkButton({}, this.copyButton);
+			this.checkButton(this.nonAddableObjects, this.copyButton);
 		},
 		onUnselect:function(row){
 			delete this.nonDeletableObjects[row.id];
+			delete this.nonAddableObjects[row.id];
 			delete this.selectedRows[row.id];
 			this.checkDeleteButton();
-			this.checkButton({}, this.copyButton);
+			this.checkButton(this.nonAddableObjects, this.copyButton);
 		},
 		highlightRow:function(row){
 			this.selectedRows[row.id] = true;
