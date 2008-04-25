@@ -2,7 +2,8 @@ function add_copy_to_task(data) {
 	data = (data || req.data);
 	var task = app.getHits("CMSTask", {task_id: data.task_id}).objects(0,1)[0];
 	var filters = data.objects.map(function(obj){ return new Filter({"_id": obj.id}) });
-	var objs = app.getObjects([], new OrFilter(filters));
+	var filter = new AndFilter(new OrFilter(filters), new NativeFilter("_status: z OR _status: a", "WhitespaceAnalyzer"));
+	var objs = app.getObjects([], filter);
 
 	for (var i = 0; i < objs.length; i++) {
 		var copy = objs[i].copy("title", data.prefix + objs[i].title);

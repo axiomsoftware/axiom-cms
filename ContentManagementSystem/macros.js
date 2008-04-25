@@ -2,7 +2,9 @@ function copy_objects() {
 	var data = req.data;
 	var objects = data.objects.split(',');
 	var filters = objects.map(function(obj){ return new Filter({"_id": obj}) });
-	var objs = app.getObjects([], new OrFilter(filters));
+	var filter = new AndFilter(new OrFilter(filters), new NativeFilter("_status: z OR _status: a", "WhitespaceAnalyzer"));
+	var objs = app.getObjects([], filter);
+
 
 	for (var i = 0; i < objs.length; i++) {
 		var copy = objs[i].copy("title", data.prefix + objs[i].title);

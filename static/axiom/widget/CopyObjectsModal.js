@@ -98,6 +98,7 @@ dojo.widget.defineWidget(
 			this.clearUrlField = clear_url_field;
 
 			var textList = [];
+			this.objectIds = [];
 			for(var i in this.objects){
 				this.objectIds.push(this.objects[i].id);
 				textList.push(this.objects[i].title);
