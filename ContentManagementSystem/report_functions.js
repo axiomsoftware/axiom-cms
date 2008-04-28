@@ -25,6 +25,7 @@ function task_report(){
 	var filter = filters.length ? new AndFilter(filters) : {};
 	res.setContentType('text/csv');
 	res.setHeader("Content-disposition", "attachment; filename=task_report.csv" );
+	res.write("Task ID,Task Name,Due Date,Task Status,Objects in Task,Task Description,Task Created,Current Assignee,Submitted,Approved,Approval Comments,Rejected,Reason for Rejection\n");
 	res.write(app.getObjects("CMSTask", filter).map(function(task){
 		return [task.task_id,
 				task.name,
@@ -63,6 +64,7 @@ function archived_task_report(){
 	}
 	res.setContentType('text/csv');
 	res.setHeader("Content-disposition", "attachment; filename=archived_task_report.csv" );
+	res.write("Task ID,Task Name,Task Description,Due Date,Approved By,Submitted By,Created By\n");
 	res.write(objects.join('\n'));
 }
 
@@ -78,6 +80,7 @@ function locked_content_report(){
 	res.setContentType('text/csv');
 	res.setHeader("Content-disposition", "attachment; filename=locked_content_report.csv" );
 	var prettyNames = this.getCMSTypesHash();
+	res.write("Object Title,Content Type,Location,Live URL,Task ID,Task Name,Task Status,Task Assignee,Task Due Date\n");
 	return app.getObjects(prettyNames.keys(), filter).map(function(obj){
 		var uri = obj.getURI();
 		var task = obj._task.getTarget();
@@ -109,6 +112,7 @@ function object_action_report(){
 	var prettyNames = this.getCMSTypesHash();
 	var task = this._task ? this._task.getTarget() : false;
 	var uri = this.getURI();
+	res.write("Object Title,Last Action,Content Type,Location,Live URL,Task/Assignee,Task Status\n");
 	return app.getObjects(prettyNames.keys(), filter).map(function(obj){
 		return [obj.title,
 				obj.action,
@@ -131,6 +135,7 @@ function users_report(){
 	var cms = this;
 	res.setContentType('text/csv');
 	res.setHeader("Content-disposition", "attachment; filename=users_report.csv" );
+	res.write("Username,First Name,Last Name,Role(s),Email Address,Last Login,Open Tasks,Locked Content\n");
 	res.write(app.getObjects("CMSUser", filter).map(function(u){
 		var tasks = cms.my_open_tasks(u);
 		return [u.username,
