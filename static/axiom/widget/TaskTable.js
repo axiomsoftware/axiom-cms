@@ -91,7 +91,7 @@ dojo.widget.defineWidget(
 			}
 		},
 		insertObjectRows:function(task, row_id, omitEdit){
-			if(task.description){
+			if(task.description || task.rejection_description || task.approval_description){
 				this.results_body.appendChild(this.createInfoRow({	id: row_id+'description',
 																	cols: [{content: (task.approval_description || task.rejection_description || task.description), 
 																			colspan: this.numCols-2}]
