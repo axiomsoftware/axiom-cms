@@ -48,8 +48,6 @@ function add_to_delete_task(data){
 	var filters = data.objects.map(function(obj){ return new Filter({'_id': obj.id}) })
 	var conn = app.getDbSource('_default').getConnection(false);
 	var objs = app.getObjects([], new AndFilter(new OrFilter(filters), new NativeFilter("_status: a OR _status: z","WhitespaceAnalyzer"))).map(function(obj){ return app.getDraft(obj, 1) });
-	app.log(app.getObjects([], new OrFilter(filters)).toSource());
-	app.log("setting _task on objects to be deleted: ");
 	for each(var obj in objs){
 		obj._task = new Reference(task);
 		obj._action = "Deleted";
@@ -74,7 +72,7 @@ function approve_tasks(data){
 	var conn = app.getDbSource('_default').getConnection(false);
 	var task_groups = app.getObjects("CMSTask", new OrFilter(filters), {maxlength: filters.length}).inject({},
 		function(table, task){
-			for each(var obj in app.getSources(task, [], {_status: ['a', 'z']})){
+			for each(var obj in app.getSources(task, [], new NativeFilter("_status: a OR _status: z","WhitespaceAnalyzer"))){
 				if(obj._action == "Deleted"){
 					obj.cms_delete();
 				} else{
