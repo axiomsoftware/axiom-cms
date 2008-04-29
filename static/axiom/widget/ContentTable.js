@@ -494,11 +494,18 @@ dojo.widget.defineWidget(
 				delete delete_data.callback;
 			}
 			// end-cms-if
-			var copy_data = {text:'Copy', callback: 'copyObjects'};//, classNames:['button','form-button']};
-			var buttons = this.widget.insertButtonRow([delete_data, copy_data]);
+
+			var buttons;
+			if (this.widget.widgetType == "UserTable") {
+				buttons = this.widget.insertButtonRow([delete_data]);
+			} else {
+				var copy_data = {text:'Copy', callback: 'copyObjects'};
+				buttons = this.widget.insertButtonRow([delete_data,copy_data]);
+				this.widget.copyButton = buttons[1];
+			}
 			this.widget.deleteButton = buttons[0];
-			this.widget.copyButton = buttons[1];
 			this.widget.setupPagination(data);
+
 		},
 		setupPagination:function(data){
 			if(data.pagination){
