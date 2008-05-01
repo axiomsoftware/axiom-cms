@@ -208,7 +208,7 @@ FCKLinkSelect.prototype.Execute = function()
 			oLink.innerHTML = linktext;
 			if(target) { oLink.target = target; }
 			FCK.Focus();
-			FCK.Selection.SelectNode(oLink);
+			//FCK.Selection.SelectNode(oLink);
 		}
 
 		linkdialog.hide();
