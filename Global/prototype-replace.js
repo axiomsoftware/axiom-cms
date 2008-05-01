@@ -10,7 +10,7 @@ Array.prototype.keys = function(){
 };
 Array.prototype.inject = function(memo, func){
 	for each(var i in this){
-		memo = func(i);
+		memo = func(memo,i);
 	}
 	return memo;
 };
