@@ -27,7 +27,7 @@ function _fb_generateForm(prototype, widgetName, outputName, writeoption) {
 			}
 		}
 	}
-	XML.prettyPrinting = false; 
+	XML.prettyPrinting = false;
 	XML.ignoreComments = false;
 	XML.ignoreWhitespace = false;
 	this['_fb_'+writeoption](outputFile, this._fb_generate(prototype, (new CMSWidgetCatalog())));
@@ -40,17 +40,17 @@ function _fb_writeToFile(outputFile, xml){
 }
 
 function _fb_readFromFile(file){
-	var file_string = "";
+	var _buffer = [];
 	var f = new java.io.File(file);
 	if (!f.exists()) return null;
 	var reader = new java.io.BufferedReader(new java.io.FileReader(f));
 	var line = '';
 	while( line !== null ){
-		file_string += line;
+		_buffer.push(line);
 		line = reader.readLine();
 	}
 	reader.close();
-	return new XML(file_string);
+	return new XMLList(_buffer.join("\n"));
 }
 
 function _fb_overwrite(outputFile, xml){
@@ -64,6 +64,7 @@ function _fb_append(outputFile, xml){
 		if( !file_xml..*.(@id == widget.@id)[0] )
 			file_xml.fieldset[widget.name()] += widget;
 	}
+	app.log(file_xml.toXMLString());
 	this._fb_writeToFile(outputFile, file_xml);
 }
 
@@ -73,7 +74,7 @@ function _fb_regen(outputFile, xml){
 		var widgets = xml..*.(@id.toString().match(/^ax-|_location/));
 		for each(widget in widgets){
 			if(file_xml..*.(@id == widget.@id))
-				file_xml..*.(@id == widget.@id)[0] = widget; 
+				file_xml..*.(@id == widget.@id)[0] = widget;
 		}
 		this._fb_writeToFile(outputFile, file_xml);
 	} else {
@@ -112,4 +113,4 @@ function _fb_generate(prototype, catalog) {
 	if(reference_widgets.*.length() > 0)
 		result.div += reference_widgets;
 	return result;
-} 
+}
