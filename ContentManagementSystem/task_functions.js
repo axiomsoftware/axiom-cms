@@ -1,7 +1,7 @@
 function add_copy_to_task(data) {
 	data = (data || req.data);
 	var task = app.getHits("CMSTask", {task_id: data.task_id}).objects(0,1)[0];
-	var filters = data.objects.map(function(obj){ return new Filter({"_id": obj.id}) });
+	var filters = data.objects.map(function(obj){ return new Filter({"_id": obj.id}); });
 	var filter = new AndFilter(new OrFilter(filters), new NativeFilter("_status: z OR _status: a", "WhitespaceAnalyzer"));
 	var objs = app.getObjects([], filter);
 
@@ -195,10 +195,15 @@ function delete_tasks(data){
 		return table;
 	});
 
-	this.emailNotifications('been been deleted.',
+	try{
+		this.emailNotifications('been been deleted.',
 							'All content objects within the above tasks have been reversed: Additions removed, edits reverted, and deletions cancelled.',
 							'has deleted your following tasks:',
 							task_table);
+	} catch(e){
+		app.log("Couldn't send email for task deletion event:");
+		app.log(e.toString());
+	}
 }
 
 function get_task_filters(data){
