@@ -28,6 +28,7 @@ function typeMap(){
 					  'audio/x-ms-wma',
 					  'audio/wav'],
 			'Image': ['image/jpeg',
+					  'image/pjpeg',
 					  'image/gif',
 					  'image/png'] 
 	       };
@@ -67,6 +68,7 @@ var typeMap = {'application/vnd.ms-excel': 'Document',
 		'audio/wav': 'Audio',
 		'audio/x-ms-wma': 'Audio',
 		'image/jpeg': 'Image',
+		'image/pjpeg': 'Image',
 		'image/gif': 'Image',
 		'image/png': 'Image' 
 		};
