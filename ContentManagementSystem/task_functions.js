@@ -257,6 +257,8 @@ function add_task(data){
 		t.due_date = new Date(data.due_date);
 	t.task_id = container.last_id;
 
+	res.commit();
+
 	auditLogTaskAction({task_id: t.task_id,
 						username: session.user.username,
 						action: 'Created'},
@@ -264,7 +266,8 @@ function add_task(data){
 
 	return {task_id: t.task_id,
 			path:    t.getPath(),
-			name:    t.name};
+			name:    t.name,
+			my_assigned_tasks: this.my_assigned_tasks()};
 }
 
 function my_pending_tasks(user){

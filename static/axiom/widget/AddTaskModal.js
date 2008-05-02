@@ -29,7 +29,7 @@ dojo.widget.defineWidget(
 		saveTask:function(){
 			var widget = this;
 			if(axiom.validateForm('edit-task')){ 
-				dojo.io.bind({url:axiom.appPath+'cms/add_task',
+				dojo.io.bind({url:axiom.cmsPath+'add_task',
 							  contentType: 'text/json',
 							  mimetype: 'text/javascript',
 							  method: 'post',

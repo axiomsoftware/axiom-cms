@@ -575,7 +575,8 @@ var axiom = {
 		if(node.options[node.selectedIndex].value == 'ADD NEW TASK'){
 			dojo.require('axiom.widget.AddTaskModal');
 			var widget =  dojo.widget.createWidget('axiom:AddTaskModal', {appPath: axiom.appPath, staticPath: axiom.staticPath, selectNode: node});
-			widget.editCallback = function(evt,data,req){	
+			widget.editCallback = function(evt,data,req){
+				axiom.myAssignedTasks = data.my_assigned_tasks;
 				var opt = document.createElement('option');
 				opt.value = data.path;
 				opt.innerHTML = data.task_id + ' - ' + data.name;
