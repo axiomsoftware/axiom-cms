@@ -195,15 +195,10 @@ function delete_tasks(data){
 		return table;
 	});
 
-	try{
-		this.emailNotifications('been been deleted.',
+	this.emailNotifications('been been deleted.',
 							'All content objects within the above tasks have been reversed: Additions removed, edits reverted, and deletions cancelled.',
 							'has deleted your following tasks:',
 							task_table);
-	} catch(e){
-		app.log("Couldn't send email for task deletion event:");
-		app.log(e.toString());
-	}
 }
 
 function get_task_filters(data){
@@ -211,32 +206,36 @@ function get_task_filters(data){
 }
 
 function emailNotifications(subject_verbage, body, action_verbage, task_groups){
-	var mailers = [];
-	for(var username in task_groups){
-		var tasks = task_groups[username].tasks;
-		var assignee = task_groups[username].submitter;
-		if(assignee.username != session.user.username){
-			var mailer = new axiom.Mail();
-			var subject;
-			if(tasks.length > 1)
-				subject = 'Axiom CMS: '+tasks.length+' tasks have '+subject_verbage;
-			else
-				subject = 'Axiom CMS: Task '+tasks[0].task_id+' has '+subject_verbage;
-			mailer.setData({ to:      {email: assignee.email, name: assignee.first_name + ' ' + assignee.last_name},
-							 from:    {email: session.user.email || 'robot@siteworx.com', name: session.user.first_name + ' ' + session.user.last_name},
-							 subject: subject,
-							 html:    this.task_email({assignee_name:  assignee.first_name,
-													   actor_name:     session.user.first_name,
-													   action:         session.user.first_name+' '+action_verbage,
-													   tasks:          tasks,
-													   body:           (body || '')
-													  })
-						   });
-			mailers.push(mailer);
+	try{
+		var mailers = [];
+		for(var username in task_groups){
+			var tasks = task_groups[username].tasks;
+			var assignee = task_groups[username].submitter;
+			if(assignee.username != session.user.username){
+				var mailer = new axiom.Mail();
+				var subject;
+				if(tasks.length > 1)
+					subject = 'Axiom CMS: '+tasks.length+' tasks have '+subject_verbage;
+				else
+					subject = 'Axiom CMS: Task '+tasks[0].task_id+' has '+subject_verbage;
+				mailer.setData({ to:      {email: assignee.email, name: assignee.first_name + ' ' + assignee.last_name},
+								 from:    {email: session.user.email || 'robot@siteworx.com', name: session.user.first_name + ' ' + session.user.last_name},
+								 subject: subject,
+								 html:    this.task_email({assignee_name:  assignee.first_name,
+														   actor_name:     session.user.first_name,
+														   action:         session.user.first_name+' '+action_verbage,
+														   tasks:          tasks,
+														   body:           (body || '')
+														  })
+							   });
+				mailers.push(mailer);
+			}
 		}
+		mailers.invoke('send');
+	} catch(e){
+		app.log("Couldn't send notification email:");
+		app.log(e.toString());
 	}
-	mailers.invoke('send');
-
 }
 
 function add_task(data){
