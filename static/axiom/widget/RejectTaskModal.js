@@ -25,7 +25,7 @@ dojo.widget.defineWidget(
 		},
 		rejectTasks:function(){
 			var task_ids = this.getTaskIds();
-			this.doTaskAction({url:'cms/reject_tasks',  
+			this.doTaskAction({url: axiom.cmsPath + 'reject_tasks',  
 							   params: {task_ids: task_ids,
 										reason: this.reasonField.value},
 							   message: this.taskListString(task_ids)+"been rejected."});

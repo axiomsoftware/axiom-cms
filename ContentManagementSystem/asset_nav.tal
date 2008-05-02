@@ -1,7 +1,7 @@
 <div xmlns:tal="http://xml.zope.org/namespaces/tal" id="columnLeft" class="columnLeft">
   <div class="section">
 	<h2>Asset Search</h2>
-	<form id="search_form" name="search_form" tal:attributes="action this/is_assets|?string:search_assets|:string:assets" method="post">
+	<form id="search_form" name="search_form" tal:attributes="action this/is_assets|?string:${this/getURI}/search_assets|:string:${this/getURI}/assets" method="post">
 	  <fieldset>
 		<label for="types">Search For:</label>
 		<input type="hidden" name="sort" id="hidden_sort" value="alpha" />

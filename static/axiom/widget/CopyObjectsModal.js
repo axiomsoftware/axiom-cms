@@ -36,7 +36,7 @@ dojo.widget.defineWidget(
 				} else {
 					message = this.objects.length +' content objects have been added to task '+ task_id + ' for copying.';
 				}
-				this.doTaskAction({url:      'add_copy_to_task',  
+				this.doTaskAction({url: axiom.cmsPath + 'add_copy_to_task',  
 								   params:   {objects: this.objects, task_id: task_id, prefix: this.prefixField.value, clear_url: this.clearUrlField.checked.toString()},
 								   message:  message,
 								   callback: function(){axiom.cfilter.search()}

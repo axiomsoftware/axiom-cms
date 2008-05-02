@@ -23,7 +23,7 @@ dojo.widget.defineWidget(
 		},
 		deleteTasks:function(){
 			var task_ids = this.getTaskIds(this.taskList);
-			this.doTaskAction({ url: 'cms/delete_tasks', 
+			this.doTaskAction({ url: axiom.cmsPath + 'delete_tasks', 
 								params: {task_ids: task_ids}, 
 								message: this.taskListString(task_ids)+"been deleted and all content reverted and unlocked."});
 		},

@@ -29,7 +29,7 @@ dojo.widget.defineWidget(
 			var task_ids = this.getTaskIds();
 			if(axiom.isContentContributor || !this.publishInput.checked){
 				if(this.userSelect.value != "-- Choose One --"){
-					this.doTaskAction({url:'cms/submit_tasks',  
+					this.doTaskAction({url: axiom.cmsPath + 'submit_tasks',  
 									   params: {task_ids: task_ids,
 												assignee: this.userSelect.value},
 									   message: this.taskListString(task_ids)+"been submitted for approval."});
@@ -38,7 +38,7 @@ dojo.widget.defineWidget(
 					this.validateErrorField.innerHTML = 'Please select a user.';
 				}
 			} else{
-				this.doTaskAction({url:'cms/approve_tasks',
+				this.doTaskAction({url: axiom.cmsPath + 'approve_tasks',
 								   params: {task_ids: task_ids},
 								   message: this.taskListString(task_ids)+"been approved and published."});
 			}

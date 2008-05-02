@@ -18,7 +18,7 @@ var upload_form_bind;
 var edited_widget;
 
 function queryAssets(keywords, types, batch_size, sort, page_num){
-	dojo.io.bind({ url: 'search_assets',
+	dojo.io.bind({ url: axiom.cmsPath + 'search_assets',
  				   load: load_thumbs,
 				   mimetype: 'text/javascript',
 				   content: {keywords: keywords,
@@ -145,7 +145,7 @@ function load_thumbs(load, data, evt){
 }
 
 function updateTags(display){
-	dojo.io.bind({url: 'cmsTagList', 
+	dojo.io.bind({url: axiom.cmsPath + 'cmsTagList', 
 				  load: function(load, data, evt){
 					  dojo.byId('tag_window').innerHTML=data;
 					  if(display)
@@ -207,7 +207,7 @@ function assetEdit(content,is_href,hide_nav, widget){
 }
 
 function uploadFile(){
-	dojo.io.bind({url: 'upload',
+	dojo.io.bind({url: axiom.cmsPath + 'upload',
 				  formNode: dojo.byId('upload_file'),
 				  mimetype: 'text/html',
 				  load: function(load,evt,data){

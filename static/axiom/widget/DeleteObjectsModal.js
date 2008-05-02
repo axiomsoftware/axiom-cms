@@ -33,7 +33,7 @@ dojo.widget.defineWidget(
 				} else {
 					message = this.objects.length +' content objects have been added to task '+ task_id + ' for deletion.';
 				}
-				this.doTaskAction({url:      'add_to_delete_task',  
+				this.doTaskAction({url: axiom.cmsPath + 'add_to_delete_task',  
 								   params:   {objects: this.objects, task_id: task_id},
 								   message:  message,
 								   callback: function(){axiom.cfilter.search()}

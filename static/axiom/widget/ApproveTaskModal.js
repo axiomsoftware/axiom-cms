@@ -25,7 +25,7 @@ dojo.widget.defineWidget(
 		},
 		approveTasks:function(){
 			var task_ids = this.getTaskIds();
-			this.doTaskAction({url: 'cms/approve_tasks',  
+			this.doTaskAction({url: axiom.cmsPath + 'approve_tasks',  
 							   params: {task_ids: task_ids,
 										description: this.descriptionField.value },
 							   message: this.taskListString(task_ids)+"been approved and published."});
