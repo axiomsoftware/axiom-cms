@@ -11,7 +11,7 @@ dojo.require("dojo.event.*");
 dojo.require("dojo.widget.*");
 
 dojo.widget.defineWidget(
-	"axiom.widget.AxiomModal", 
+	"axiom.widget.AxiomModal",
 	dojo.widget.HtmlWidget,
 	function(){},
 	{
@@ -21,6 +21,9 @@ dojo.widget.defineWidget(
 		templateCssPath: new dojo.uri.dojoUri('../axiom/widget/resources/AxiomModal.css'),
 		close:function(){
 			axiom.closeModal();
+		},
+		onEnter: function(){
+			this.okCallback();
 		},
 		okCallback:function(){
 			this.close();
@@ -37,9 +40,9 @@ dojo.widget.defineWidget(
 						   contentType: 'text/json',
 						   method: 'post',
 						   postContent: dojo.json.serialize(data.params),
-						   load: function(){ 
+						   load: function(){
 							   axiom.showMessage(data.message);
-							   if(typeof data.callback == 'function') 
+							   if(typeof data.callback == 'function')
 								   data.callback();
 							   else
 								   axiom.tasks.taskPanel.refreshAll();

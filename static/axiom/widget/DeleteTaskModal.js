@@ -12,7 +12,7 @@ dojo.require("dojo.widget.*");
 dojo.require("axiom.widget.AxiomModal");
 
 dojo.widget.defineWidget(
-	"axiom.widget.DeleteTaskModal", 
+	"axiom.widget.DeleteTaskModal",
 	axiom.widget.AxiomModal,
 	function(){},
 	{
@@ -20,6 +20,9 @@ dojo.widget.defineWidget(
 		templatePath:new dojo.uri.dojoUri('../axiom/widget/resources/AxiomModal.html'),
 		close:function(){
 			axiom.closeModal();
+		},
+		onEnter: function(){
+			this.deleteTasks();
 		},
 		deleteTasks:function(){
 			var task_ids = this.getTaskIds(this.taskList);
@@ -46,7 +49,7 @@ dojo.widget.defineWidget(
 				warning2.innerHTML = 'If any of the tasks being deleted are not assigned to you, an email will be sent to the assignee informing them of the deletion.';
 				this.mainContent.appendChild(warning2);
 			}
-			
+
 			this.modalButtons.innerHTML = '';
 			var deleteButton = document.createElement('a');
 			deleteButton.className = 'button form-button';

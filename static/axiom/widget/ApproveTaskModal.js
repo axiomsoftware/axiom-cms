@@ -12,7 +12,7 @@ dojo.require("dojo.widget.*");
 dojo.require("axiom.widget.AxiomModal");
 
 dojo.widget.defineWidget(
-	"axiom.widget.ApproveTaskModal", 
+	"axiom.widget.ApproveTaskModal",
 	axiom.widget.AxiomModal,
 	function(){},
 	{
@@ -22,6 +22,9 @@ dojo.widget.defineWidget(
 		templateCssPath: new dojo.uri.dojoUri('../axiom/widget/resources/ApproveTaskModal.css'),
 		close:function(){
 			axiom.closeModal();
+		},
+		onEnter:function(){
+			this.approveTasks();
 		},
 		approveTasks:function(){
 			var task_ids = this.getTaskIds();
@@ -42,7 +45,7 @@ dojo.widget.defineWidget(
 			list.setAttribute('readonly', true);
 			this.mainContent.appendChild(list);
 			list.value = textList.join("\n");
-			
+
 			var holder = document.createElement('div');
 			var label = document.createElement('label');
 			label.setAttribute('for', 'description');

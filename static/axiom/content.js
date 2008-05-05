@@ -18,13 +18,13 @@ var axiom = {
 																			templatePath: new dojo.uri.dojoUri('../axiom/widget/resources/NavContentFilter.html')},
 													 dojo.byId("ContentFilter"));
 			axiom.cadd = dojo.widget.createWidget("axiom:ContentAdd",{prototypes:axiom.addPrototypes,
-																	  appPath:axiom.appPath, 
+																	  appPath:axiom.appPath,
 																	  myTasks: axiom.myAssignedTasks},
 												  dojo.byId("ContentAdd"));
 
 			axiom.ctable = dojo.widget.createWidget("axiom:ContentTable",{appPath:axiom.appPath, staticPath: axiom.staticPath},dojo.byId("ContentTable"));
 			axiom.ctable.setContext('contentTable');
-			
+
 			axiom.cfilter.registerAdd(axiom.cadd);
 			axiom.cfilter.registerTable(axiom.ctable);
 			axiom.cfilter.search();
@@ -39,6 +39,20 @@ var axiom = {
 		axiom.modal = dojo.widget.createWidget("Dialog",{},dialogHolder);
 		axiom.modal.bg.style.zIndex = 1000;
 		axiom.modal.domNode.style.zIndex = 1001;
+		dojo.event.kwConnect({srcObj: axiom.modal.domNode,
+							  srcFunc: 'onkeypress',
+							  adviceFunc: function(e){
+								  if(e.key == e.KEY_ESCAPE){
+									  axiom.closeModal();
+								  } else if(e.key == e.KEY_ENTER){
+									  var widget = axiom.modal.widget;
+									  if(widget && widget.onEnter){
+										  widget.onEnter();
+									  }
+								  }
+							  }
+							 });
+
 		if(dojo.byId("EditBody") && dojo.byId("ContentBody")) {
 			axiom.editBaseClass = dojo.html.getClass(dojo.widget.byId("EditBody").domNode);
 			axiom.contentBaseClass = dojo.html.getClass(dojo.widget.byId("ContentBody").domNode);
@@ -64,22 +78,22 @@ var axiom = {
 	initValidation: function(){
 		axiom.validateFunctions['validate-empty'] = { errorNode: axiom.defaultErrorNode,
 													  onInvalid: axiom.defaultOnInvalid,
-													  validate: function(elem){ 
-														  if(elem.value == "") 
+													  validate: function(elem){
+														  if(elem.value == "")
 															  return [false, "Please enter a value"];
 														  return [true, "valid"];
-													  } 
+													  }
 													};
-		
+
 		axiom.validateFunctions['validate-date'] = { errorNode: axiom.defaultErrorNode,
 													 onInvalid: axiom.defaultOnInvalid,
-													 validate: function(elem){ 
-														 if(elem.value == "") 
+													 validate: function(elem){
+														 if(elem.value == "")
 															 return [false, "Please enter a valid Date." ];
 														 return [true, "valid"];
 													 }
-												   }; 
-		
+												   };
+
 		axiom.validateFunctions['validate-email'] = { errorNode: axiom.defaultErrorNode,
 													  onInvalid: axiom.defaultOnInvalid,
 													  validate: function(elem){
@@ -88,12 +102,12 @@ var axiom = {
 															  return[false, "Please enter a valid email address."]
 														  }
 														  return[true, "valid"];
-													  } 
+													  }
 													};
-		
+
 		axiom.validateFunctions['validate-length'] = { errorNode: axiom.defaultErrorNode,
 													   onInvalid: axiom.defaultOnInvalid,
-													   validate: function(elem){ 
+													   validate: function(elem){
 														   var maxchars = 99999;
 														   var classes = elem.className.split(/\s+/);
 														   for(var i in classes){
@@ -108,7 +122,7 @@ var axiom = {
 
 		axiom.validateFunctions['validate-preview'] = { errorNode: axiom.defaultErrorNode,
 														onInvalid: axiom.defaultOnInvalid,
-														validate: function(elem, data){ 
+														validate: function(elem, data){
 															// ex: location field
 															if(data.preview){
 																var result = axiom.validateFunctions['validate-empty'].validate(elem, data);
@@ -123,25 +137,25 @@ var axiom = {
 
 		axiom.validateFunctions['validate-task'] = { errorNode: axiom.defaultErrorNode,
 															onInvalid: axiom.defaultOnInvalid,
-															validate: function(elem, data){ 
+															validate: function(elem, data){
 																// ex: task selector
 																if(!data.preview && elem.value == "")
 																	return [false, "Please select a task."];
 																return [true, 'valid']
 															}
 														  };
-		
+
 
 	},
-	defaultErrorNode: function(elem){	
-		return dojo.html.getElementsByClass("error_message", dojo.byId("ax-"+elem.name),"div")[0]; 
+	defaultErrorNode: function(elem){
+		return dojo.html.getElementsByClass("error_message", dojo.byId("ax-"+elem.name),"div")[0];
 	},
 	defaultOnInvalid: function(errornode, message, highest){
 		errornode.innerHTML = message;
 		errornode.style.display = "block";
-		if(errornode.offsetTop < highest) { 
+		if(errornode.offsetTop < highest) {
 			if(dojo.render.html.ie)
-				highest = errornode.offsetParent.offsetTop; 
+				highest = errornode.offsetParent.offsetTop;
 			else
 				highest = errornode.offsetTop;
 		}
@@ -179,10 +193,10 @@ var axiom = {
 		var edit = dojo.byId(id);
 		dojo.lang.forEach(edit.getElementsByTagName('textarea'), validate_lambda);
 		dojo.lang.forEach(edit.getElementsByTagName('select'), validate_lambda);
-		dojo.lang.forEach(edit.getElementsByTagName('input'), validate_lambda);	
+		dojo.lang.forEach(edit.getElementsByTagName('input'), validate_lambda);
 		if(!valid) { axiom.scroll(highest); }
 		return valid;
-	}, 
+	},
 	saveDialog:function(callback){
 		var content = document.createElement('p');
 		var img = document.createElement('img');
@@ -200,7 +214,7 @@ var axiom = {
 
 		axiom.openModal({content: content,
 						 callback: function(){axiom.triggerSubmitEdit(callback)},
-						 confirmdialog: true});		
+						 confirmdialog: true});
 	},
 	isDirty: function(){
 		var dirty = false;
@@ -214,7 +228,7 @@ var axiom = {
 		var edit = dojo.widget.byId("EditBody");
 		edit.hide();
 		dojo.html.setClass(edit.domNode, axiom.editBaseClass);
-		if(classname){ dojo.html.addClass(content.domNode, classname); } 
+		if(classname){ dojo.html.addClass(content.domNode, classname); }
 		axiom.showingThumbs = true;
 		axiom.hideObjectDetail();
 		axiom.showLeftNav();
@@ -253,7 +267,7 @@ var axiom = {
 
 			axiom.browsetable.multiple = false; // Initialize table to be singular select
 			axiom.browsetable.defaultValue = "";
-			axiom.browsetable.defaultValues = []; 
+			axiom.browsetable.defaultValues = [];
 		}
 
 		dojo.html.setClass(content.domNode, axiom.contentBaseClass);
@@ -298,8 +312,8 @@ var axiom = {
 				} else {
 					errorNode = dojo.html.getElementsByClass("error_message",dojo.byId("ax-"+i),"div")[0];
 				}
-				if(errorNode.offsetTop < highest) { 
-					highest = errorNode.offsetTop; 
+				if(errorNode.offsetTop < highest) {
+					highest = errorNode.offsetTop;
 				}
 				errorNode.innerHTML = errorsObj.errors[i];
 				errorNode.style.display = (i=="_accessname" || i=="_location")?"inline":"block";
@@ -367,14 +381,14 @@ var axiom = {
 	getFormData: function(id, submitAll){
 		var edit = dojo.byId(id);
 		var data = {};
-		var extract_lambda = function(elem){ if(elem.name) { 
+		var extract_lambda = function(elem){ if(elem.name) {
 			if(submitAll || axiom.dirtyProps[elem.name])
 				data[elem.name] = elem.value;
 		}
 										   };
 		dojo.lang.forEach( (edit.getElementsByTagName('textarea') || []), extract_lambda);
-		dojo.lang.forEach( (edit.getElementsByTagName('select') || []), extract_lambda); 
-		dojo.lang.forEach( (edit.getElementsByTagName('input') || []), extract_lambda);	
+		dojo.lang.forEach( (edit.getElementsByTagName('select') || []), extract_lambda);
+		dojo.lang.forEach( (edit.getElementsByTagName('input') || []), extract_lambda);
 		return data;
 	},
 	populateFCKTextareas: function() {
@@ -387,7 +401,7 @@ var axiom = {
 	},
 	currentFCKInstance:null,
 	FCKAssetSelect:null,
-	loadFCKInstance: function(id,width,height,formats,templates,styles,stylesxml) { 
+	loadFCKInstance: function(id,width,height,formats,templates,styles,stylesxml) {
 		// TODO: Add more config parameters, config?/toolbar? etc
 		if(axiom.currentFCKInstance!=id) {
 			if(axiom.currentFCKInstance) { axiom.unloadFCKInstance(axiom.currentFCKInstance); }
@@ -413,8 +427,8 @@ var axiom = {
 
 	unloadFCKInstance: function(id) {
 		var xhtml = FCKeditorAPI.GetInstance(id+'_fcktext').GetXHTML();
-		var empty_tag_re = /<(strong|em|u|strike|a)[^>]*>\s*<\/\1>/g
-		var only_br_re = /<(strong|em|u|strike|a)[^>]*>\s*<br\s*\/>\s*<\/\1>/g
+		var empty_tag_re = /<(strong|em|u|strike|a)[^>]*>\s*<\/\1>/g;
+		var only_br_re = /<(strong|em|u|strike|a)[^>]*>\s*<br\s*\/>\s*<\/\1>/g;
 		xhtml = xhtml.replace(empty_tag_re,'').replace(only_br_re,'<br />');
 		dojo.byId(id).value = xhtml; // Set hidden "input" to new markup value
 		//dojo.byId(id+'_preview').innerHTML = xhtml; // Show new markup in preview div
@@ -444,7 +458,7 @@ var axiom = {
 				return;
 			dojo.html.addClass(form_elem, 'form-button-disabled');
 		}
-		
+
 		if(axiom.currentFCKInstance){ axiom.unloadFCKInstance(axiom.currentFCKInstance);}
 	    window.onunload = null;
 	    axiom.bodyChangeMethods = [];
@@ -473,7 +487,7 @@ var axiom = {
 						 contentType:  'text/json',
 						 method:       'post'
 					   };
-			dojo.io.bind(args); 
+			dojo.io.bind(args);
 		}
 		else {
 			dojo.html.removeClass(dojo.byId('save_button'), 'form-button-disabled');
@@ -494,15 +508,16 @@ var axiom = {
 		if(typeof obj.href !="undefined") {
 			axiom.modal.href = obj.href;
 			axiom.modal.refresh();
-		} else if(obj.widget){
+		} else if(obj.widget) {
+			axiom.modal.widget = obj.widget;
 			axiom.modal.setContent(obj.widget.domNode);
-		}else {
+		} else {
 			var dialog = document.createElement("div");
 			dialog.className = "modal";
 			var p;
 			if(dojo.dom.isNode(obj.content)){
 				p = obj.content;
-			}else{ 
+			} else{
 				p = document.createElement("p");
 				p.innerHTML = obj.content;
 			}
@@ -513,22 +528,22 @@ var axiom = {
 				var okbutton = document.createElement("a");
 				okbutton.innerHTML = (obj.submittext || "OK");
 				okbutton.className = "button form-button";
-				okbutton.onclick = function() { axiom.closeModal();obj.callback(); }
+				okbutton.onclick = function() { axiom.closeModal();obj.callback(); };
 				b.appendChild(okbutton);
 				var cancelbutton = document.createElement("a");
 				cancelbutton.innerHTML = "Cancel";
 				cancelbutton.className = "button form-button";
-				cancelbutton.onclick = function() { axiom.closeModal(); }
+				cancelbutton.onclick = function() { axiom.closeModal(); };
 				b.appendChild(cancelbutton);
 			} else {
 				var okbutton = document.createElement("a");
 				okbutton.innerHTML = "OK";
 				okbutton.className = "button form-button";
-				okbutton.onclick = function() { axiom.closeModal(); }
+				okbutton.onclick = function() { axiom.closeModal(); };
 				b.appendChild(okbutton);
 			}
 			dialog.appendChild(b);
-			
+
 			axiom.modal.setContent(dialog);
 		}
 		axiom.modal.show();
@@ -536,6 +551,7 @@ var axiom = {
 
 	closeModal: function() {
 		axiom.modal.setContent("");
+		delete axiom.modal.widget;
 		axiom.modal.hide();
 	},
 
@@ -561,7 +577,7 @@ var axiom = {
 				dojo.io.bind({ url:path + "/cms_delete",
 							   method:"GET",
 							   mimetype:"text/json",
-							   load:function(type,data,evt){ 
+							   load:function(type,data,evt){
 								   //axiom.openModal({content:"Successfully Deleted "+data.deleted+"."});
 								   axiom.cfilter.search();
 							   },
@@ -580,7 +596,7 @@ var axiom = {
 				var opt = document.createElement('option');
 				opt.value = data.path;
 				opt.innerHTML = data.task_id + ' - ' + data.name;
-				
+
 				var opts = this.widget.selectNode.getElementsByTagName('option');
 				var len = opts.length;
 				var last = opts[len-1];
@@ -624,7 +640,7 @@ var axiom = {
 					 for(var tag in results){
 						 results[tag]= 'tag:"'+results[tag]+'"';
 						 if(value.indexOf(results[tag]) != -1)
-							 results[tag]= ''
+							 results[tag]= '';
 					 }
 					 textarea.value += ' '+results.join(' ');
 				 }
@@ -639,7 +655,7 @@ var axiom = {
 								 break;
 							 }
 						 }
-						 
+
 						 if(skip) {
 							 skip = false;
 						 } else {
@@ -651,12 +667,12 @@ var axiom = {
 				 axiom.tags.toggleWindow(windowNode.id);
 			 }
 	       },
-	
+
 	logout: function(){
 		dojo.io.bind({url: axiom.appPath+ 'cms/Logout',
-					  load: function(){ window.location = axiom.appPath+ 'cms/Login' }
+					  load: function(){ window.location = axiom.appPath+ 'cms/Login'; }
 					 });
 	},
 	dirtyProps:{}
-}
+};
 dojo.addOnLoad(axiom.init);

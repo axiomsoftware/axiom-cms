@@ -12,7 +12,7 @@ dojo.require("dojo.widget.*");
 dojo.require("axiom.widget.EditTaskModal");
 
 dojo.widget.defineWidget(
-	"axiom.widget.AddTaskModal", 
+	"axiom.widget.AddTaskModal",
 	axiom.widget.EditTaskModal,
 	function(){},
 	{
@@ -26,9 +26,12 @@ dojo.widget.defineWidget(
 			axiom.loadEdit(this.widget.appPath + 'cms/cms_add?prototype='+this.widget.prototype+'&task_id='+data.task_id);
 			this.widget.close();
 		},
+		onEnter:function(){
+			this.saveTask();
+		},
 		saveTask:function(){
 			var widget = this;
-			if(axiom.validateForm('edit-task')){ 
+			if(axiom.validateForm('edit-task')){
 				dojo.io.bind({url:axiom.cmsPath+'add_task',
 							  contentType: 'text/json',
 							  mimetype: 'text/javascript',

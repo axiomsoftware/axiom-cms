@@ -12,7 +12,7 @@ dojo.require("dojo.widget.*");
 dojo.require("axiom.widget.AxiomModal");
 
 dojo.widget.defineWidget(
-	"axiom.widget.EditTaskModal", 
+	"axiom.widget.EditTaskModal",
 	axiom.widget.AxiomModal,
 	function(){},
 	{
@@ -26,14 +26,17 @@ dojo.widget.defineWidget(
 		editCallback: function(evt, data, req){
 			if(data){
 				axiom.openModal({content: data.errors[0]});
-			} else{ 
+			} else{
 				this.widget.close();
 				axiom.tasks.taskPanel.refreshAll();
 			}
 		},
+		onEnter: function(){
+			this.saveTask();
+		},
 		saveTask:function(){
 			var widget = this;
-			if(axiom.validateForm('edit-task')){ 
+			if(axiom.validateForm('edit-task')){
 				dojo.io.bind({url: this.task.href+'/save_task',
 							  method: 'post',
 							  mimetype: 'text/javascript',
@@ -49,7 +52,7 @@ dojo.widget.defineWidget(
 			this.idCell.innerHTML = this.task.task_id;
 			this.nameField.value = this.task.name;
 			this.descriptionField.innerHTML = this.task.description;
-			var userlist = this.task.status == 'Pending' ? axiom.adminsAndEditors  : axiom.allUsers; 
+			var userlist = this.task.status == 'Pending' ? axiom.adminsAndEditors  : axiom.allUsers;
 			for(var i in userlist){
 				var opt = document.createElement('option');
 				opt.innerHTML = userlist[i];

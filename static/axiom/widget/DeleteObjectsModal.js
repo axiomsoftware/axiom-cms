@@ -12,7 +12,7 @@ dojo.require("dojo.widget.*");
 dojo.require("axiom.widget.AxiomModal");
 
 dojo.widget.defineWidget(
-	"axiom.widget.DeleteObjectsModal", 
+	"axiom.widget.DeleteObjectsModal",
 	axiom.widget.AxiomModal,
 	function(){},
 	{
@@ -24,10 +24,18 @@ dojo.widget.defineWidget(
 		close:function(){
 			axiom.closeModal();
 		},
+		onEnter: function(){
+			// if-cms-version-enterprise
+			this.addToTask();
+			// end-cms-if
+			// if-cms-version-workgroup|standard
+			this.deleteObjects();
+			// end-cms-if
+		},
 		addToTask:function(){
 			if(this.taskField.value != "--Choose One--"){
 				var task_id = this.taskField.value.match(/^\d*/)[0];
-				var message; 
+				var message;
 				if(this.objects.length < 2 ){
 					message = this.objects[0].title + ' has been added to task ' + task_id + ' for deletion.';
 				} else {
@@ -38,7 +46,7 @@ dojo.widget.defineWidget(
 								   message:  message,
 								   callback: function(){axiom.cfilter.search()}
 								  });
-				
+
 			} else{
 				this.errorField.style.display = 'block';
 				this.errorField.innerHTML = "Please select a task before proceeding.";
@@ -52,17 +60,17 @@ dojo.widget.defineWidget(
 			} else {
 				message = this.objects.length +' content objects have been deleted.';
 			}
-			
+
 			dojo.io.bind({ url: axiom.cmsPath + 'delete_objects',
 						   method: 'post',
 						   contentType: 'text/json',
 						   postContent: dojo.json.serialize({objs: this.objects}),
-						   load: function() { 
+						   load: function() {
 							   widget.close();
-							   axiom.showMessage(message)
+							   axiom.showMessage(message);
 							   axiom.cfilter.search();
 						   },
-						   error: function() { axiom.openModal({content: "Error deleting objects."}) }
+						   error: function() { axiom.openModal({content: "Error deleting objects."}); }
 						 });
 		},
 		postCreate:function() {
@@ -81,7 +89,7 @@ dojo.widget.defineWidget(
 			list.innerHTML = textList.join("\n");
 			list.setAttribute('readonly', true);
 			this.mainContent.appendChild(list);
-			
+
 			// if-cms-version-enterprise
 			var error_field = document.createElement('div');
 			error_field.className = 'error_message';
@@ -106,7 +114,7 @@ dojo.widget.defineWidget(
 			// end-cms-if
 			// if-cms-version-personal|standard
 			var warning = document.createElement('div');
-			warning.innerHTML = "Are you sure you want to delete the selected content listed above?"
+			warning.innerHTML = "Are you sure you want to delete the selected content listed above?";
 			this.mainContent.appendChild(warning);
 			// end-cms-if
 

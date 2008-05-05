@@ -12,7 +12,7 @@ dojo.require("dojo.widget.*");
 dojo.require("axiom.widget.AxiomModal");
 
 dojo.widget.defineWidget(
-	"axiom.widget.SubmitTaskModal", 
+	"axiom.widget.SubmitTaskModal",
 	axiom.widget.AxiomModal,
 	function(){},
 	{
@@ -24,6 +24,9 @@ dojo.widget.defineWidget(
 		templatePath:new dojo.uri.dojoUri('../axiom/widget/resources/AxiomModal.html'),
 		close:function(){
 			axiom.closeModal();
+		},
+		onEnter: function(){
+			this.submitTasks();
 		},
 		submitTasks:function(){
 			var task_ids = this.getTaskIds();
@@ -44,7 +47,7 @@ dojo.widget.defineWidget(
 			}
 		},
 		postCreate:function() {
-			
+
 			// title and task list
 			this.title.innerHTML = "Submit Tasks";
 			var textList = [];
@@ -71,7 +74,7 @@ dojo.widget.defineWidget(
 				}
 			}
 			user_select.setAttribute('name', 'assignee');
-			
+
 			// submit options
 			var holder = document.createElement('div');
 			dojo.html.addClass(holder, 'selectLabel');
@@ -100,16 +103,16 @@ dojo.widget.defineWidget(
 					publishInput = document.createElement('input');
 					publishInput.type = 'radio';
 					publishInput.value = 'publish';
-					publishInput.checked = true; 
+					publishInput.checked = true;
 					publishInput.name = 'submitOption';
 				}
 				holder.appendChild(publishInput);
 				this.publishInput = publishInput;
 				holder.appendChild(document.createTextNode("Publish to website"));
-				
+
 				holder.appendChild(document.createElement('br'));
 				holder.appendChild(validateErrorField);
-				
+
 				var submitInput;
 				if(dojo.render.html.ie){
 					submitInput = document.createElement('<input type="radio" value="submit" name="submitOption"/>');

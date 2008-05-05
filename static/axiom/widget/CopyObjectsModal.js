@@ -12,7 +12,7 @@ dojo.require("dojo.widget.*");
 dojo.require("axiom.widget.AxiomModal");
 
 dojo.widget.defineWidget(
-	"axiom.widget.CopyObjectsModal", 
+	"axiom.widget.CopyObjectsModal",
 	axiom.widget.AxiomModal,
 	function(){},
 	{
@@ -27,10 +27,13 @@ dojo.widget.defineWidget(
 		close:function(){
 			axiom.closeModal();
 		},
+		onEnter:function(){
+			this.addToTask();
+		},
 		addToTask:function(){
 			if(this.taskField.value != "--Choose One--"){
 				var task_id = this.taskField.value.match(/^\d*/)[0];
-				var message; 
+				var message;
 				if(this.objects.length < 2 ){
 					message = this.objects[0].title + ' has been added to task ' + task_id + ' for copying.';
 				} else {
@@ -39,9 +42,9 @@ dojo.widget.defineWidget(
 				this.doTaskAction({url: axiom.cmsPath + 'add_copy_to_task',  
 								   params:   {objects: this.objects, task_id: task_id, prefix: this.prefixField.value, clear_url: this.clearUrlField.checked.toString()},
 								   message:  message,
-								   callback: function(){axiom.cfilter.search()}
+								   callback: function(){axiom.cfilter.search();}
 								  });
-				
+
 			} else{
 				this.errorField.style.display = 'block';
 				this.errorField.innerHTML = "Please select a task before proceeding.";
@@ -55,11 +58,11 @@ dojo.widget.defineWidget(
 			} else {
 				message = this.objects.length +' content objects have been copied.';
 			}
-			
+
 			dojo.io.bind({ url: axiom.cmsPath + 'copy_objects',
 						   method: 'post',
 						   content: {objects: this.objectIds.join(','), prefix: this.prefixField.value, clear_url: this.clearUrlField.checked.toString()},
-						   load: function() { 
+						   load: function() {
 							   widget.close();
 							   axiom.showMessage(message)
 							   axiom.cfilter.search();
@@ -78,7 +81,7 @@ dojo.widget.defineWidget(
 			var prefix_label = document.createElement('label');
 			prefix_label.innerHTML = 'Copy Prefix: ';
 			this.mainContent.appendChild(prefix_label);
-			
+
 			var prefix_field = document.createElement('input');
 			prefix_field.type = 'text';
 			prefix_field.className = 'copy-prefix';
@@ -108,7 +111,7 @@ dojo.widget.defineWidget(
 			list.setAttribute('readonly', true);
 			this.mainContent.appendChild(list);
 
-			// if-cms-version-enterprise			
+			// if-cms-version-enterprise
 			var error_field = document.createElement('div');
 			error_field.className = 'error_message';
 			this.errorField = error_field;
