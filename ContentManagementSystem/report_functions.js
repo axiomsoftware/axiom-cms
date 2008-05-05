@@ -16,7 +16,7 @@ function task_report(){
 	}
 	if(req.data.afterDate){
 		after = new Date(req.data.afterDate);
-	} 
+	}
 
 	if(before || after){
 		filters.push(new NativeFilter('due_date: [' + (after || new Date(0)).dateValue() +' TO '+ (before || new Date(2100,0,0)).dateValue() +']'));
@@ -79,9 +79,9 @@ function locked_content_report(){
 	filter = new AndFilter(filter, new OrFilter({'_status': 'a'}, {'_status': 'z'}));
 	res.setContentType('text/csv');
 	res.setHeader("Content-disposition", "attachment; filename=locked_content_report.csv" );
-	var prettyNames = this.getCMSTypesHash();
+	var prettyNames = this._getPrototypesHash();
 	res.write("Object Title,Content Type,Location,Live URL,Task ID,Task Name,Task Status,Task Assignee,Task Due Date\n");
-	return app.getObjects(prettyNames.keys(), filter).map(function(obj){
+	return app.getObjects([i for(i in prettyNames)], filter).map(function(obj){
 		var uri = obj.getURI();
 		var task = obj._task.getTarget();
 		return [obj.title,
@@ -109,11 +109,11 @@ function object_action_report(){
 
 	res.setContentType('text/csv');
 	res.setHeader("Content-disposition", "attachment; filename=object_action_report.csv" );
-	var prettyNames = this.getCMSTypesHash();
+	var prettyNames = this._getPrototypesHash();
 	var task = this._task ? this._task.getTarget() : false;
 	var uri = this.getURI();
 	res.write("Object Title,Last Action,Content Type,Location,Live URL,Task/Assignee,Task Status\n");
-	return app.getObjects(prettyNames.keys(), filter).map(function(obj){
+	return app.getObjects([i for(i in prettyNames)], filter).map(function(obj){
 		return [obj.title,
 				obj.action,
 				(prettyNames[obj._prototype] || obj._prototype),
@@ -145,11 +145,7 @@ function users_report(){
 				u.email,
 				u.last_login ? u.last_login.toCSVString() : '',
 				tasks.length,
-				tasks.inject(0, function(acc,task) {return acc+app.getSources(task).length})
+				tasks.inject(0, function(acc,task) {return acc+app.getSources(task).length;})
 			   ].join(',');
 	}).join('\n'));
-}
-
-function getCMSTypesHash(){
-	return $H(eval('('+this.cms_getPrototypesHash()+')'));
 }
