@@ -202,7 +202,7 @@ function delete_tasks(data){
 }
 
 function get_task_filters(data){
-	return data.task_ids.map(function(task_id){ return new Filter({task_id: task_id}) });
+	return data.task_ids.map(function(task_id){ return new Filter({task_id: task_id}); });
 }
 
 function emailNotifications(subject_verbage, body, action_verbage, task_groups){
@@ -248,7 +248,7 @@ function add_task(data){
 
 	var t = new CMSTask();
 	container.add(t);
-	t.id = t._id
+	t.id = t._id;
 	var user = data.assignee ? app.getHits('CMSUser', {username: data.assignee}).objects(0,1)[0] : session.user;
 	t.assignee = new Reference(user);
 	t.name = data.name;
@@ -271,7 +271,7 @@ function add_task(data){
 }
 
 function my_pending_tasks(user){
-	user = (user || session.user)
+	user = (user || session.user);
 	var sort = this.getSort(req.data.sort || [{task_id: 'asc'}]);
 	return app.getObjects("CMSTask", {assignee_searchable: user.username, status: "Pending"}, {sort: sort}).map(this.extract_task);
 
@@ -286,7 +286,7 @@ function my_assigned_tasks(user){
 }
 
 function my_closed_tasks(user){
-	user = (user || session.user)
+	user = (user || session.user);
 	var filter = new AndFilter(new Filter({creator: user.username}), new Filter({status: "Approved"}));
 	var sort = this.getSort(req.data.sort || [{task_id: 'asc'}]);
 	return app.getObjects("CMSTask", filter, {sort: sort}).map(this.extract_task);
@@ -326,7 +326,7 @@ function extract_task(task){
 		}
 		stmt.close();
 	} else{
-		objects = app.getSources(task, null, ['a', 'z']).map(
+		objects = app.getSources(task, null, {_status: ['a', 'z']}).map(
 			function(obj){
 				return {title:      obj.title,
 						editable:   obj.task_editable(),
