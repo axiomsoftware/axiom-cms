@@ -1,7 +1,7 @@
 function copy_objects() {
 	var data = req.data;
 	var objects = data.objects.split(',');
-	var filters = objects.map(function(obj){ return new Filter({"_id": obj}) });
+	var filters = objects.map(function(obj){ return new Filter({"_id": obj}); });
 	var filter = new AndFilter(new OrFilter(filters), new NativeFilter("_status: z OR _status: a", "WhitespaceAnalyzer"));
 	var objs = app.getObjects([], filter);
 
@@ -26,6 +26,7 @@ function copy_objects() {
 				copy.id = accessname + "_" + count;
 				count++;
 			}
+			copy.setStatus('a');
 			folder.add(copy);
 		} else {
 			var par = objs[i]._parent;
@@ -39,7 +40,7 @@ function copy_objects() {
 	}
 }
 
-/** 
+/**
  * Delete all given objects
  * @params = req.data.objs - array of ids of objects to be deleted
  */
@@ -57,12 +58,12 @@ function domain_warning(){
 	switch(staging_hosts.length){
 	case 0: 	errors.push("No staging domains set."); break;
 	case 1:		errors.push("Only one domain set for staging layer."); break;
-	} 
-	
+	}
+
 	if(preview_hosts.length === 0){
 		errors.push("No preview domains set.");
 	}
-	
+
 	var on_staging = false;
 	for each(var staging_host in staging_hosts){
 		if(staging_host == host) {
@@ -121,16 +122,16 @@ function getUserList(){
 	return app.getFields("username", "CMSUser", {}).sort().toSource();
 }
 
-function getAllUsers() { 
-    var users = []; 
-    var userlist = app.getObjects("CMSUser", "search_roles: Administrator"); 
-    for each(user in userlist) { 
-        if(user && user.search_roles && user.search_roles.match("Administrator")) { 
-			users.push(user.first_name + " " + user.last_name); 
-        } 
-    } 
-    return users; 
-} 
+function getAllUsers() {
+    var users = [];
+    var userlist = app.getObjects("CMSUser", "search_roles: Administrator");
+    for each(user in userlist) {
+        if(user && user.search_roles && user.search_roles.match("Administrator")) {
+			users.push(user.first_name + " " + user.last_name);
+        }
+    }
+    return users;
+}
 
 
 function isContentContributor(){
