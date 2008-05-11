@@ -112,6 +112,7 @@ function cms_init(){
 	// if-cms-version-enterprise
 	// run task archiving at 2:00am every night
 	app.addCronJob('archive_tasks', '*', '*', '*', '*', '2', '0');
+	app.addCronJob('publish_scheduled_tasks', '*', '*', '*', '*', '*', '0,15,30,45');
 	// end-cms-if
 }
 

@@ -1,2 +1,5 @@
 label { display:inline;
         vertical-align:top; }
+.ax-modal .approve-schedule {padding-left:25px;}
+.ax-modal .approve-schedule select.submit-time {width:auto;}
+.ax-modal .approve-schedule input.submit-date {margin-left: 6px; border: 1px solid #AEAFB1;}

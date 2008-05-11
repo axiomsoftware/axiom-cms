@@ -14,3 +14,13 @@ function syncToLive(){
 function publishToLive(){
 	app.saveDraft(this);
 }
+
+function task_approved() {
+	if (this._action == "Deleted") {
+		this.cms_delete();
+	} else {
+		this._action = null;
+		this._task = null;
+	}
+	this.publishToLive();
+}

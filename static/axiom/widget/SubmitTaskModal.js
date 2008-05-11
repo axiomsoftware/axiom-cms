@@ -19,9 +19,15 @@ dojo.widget.defineWidget(
 		userSelect: null,
 		submitInput: null,
 		publishInput: null,
+		scheduleInput: null,
+		scheduleDate: null,
+		scheduleHour: null,
+		scheduleMinute: null,
+		scheduleMeridiem: null,
 		validateErrorField: null,
 		taskList: [],
 		templatePath:new dojo.uri.dojoUri('../axiom/widget/resources/AxiomModal.html'),
+		templateCssPath:new dojo.uri.dojoUri('../axiom/widget/resources/SubmitTaskModal.css'),
 		close:function(){
 			axiom.closeModal();
 		},
@@ -30,7 +36,40 @@ dojo.widget.defineWidget(
 		},
 		submitTasks:function(){
 			var task_ids = this.getTaskIds();
-			if(axiom.isContentContributor || !this.publishInput.checked){
+
+			if (this.publishInput) {
+				if (this.publishInput.checked) {
+					this.doTaskAction({url: axiom.cmsPath + 'approve_tasks',
+									   params: {task_ids: task_ids},
+									   message: this.taskListString(task_ids)+"been approved and published."});
+				}
+			}
+
+			if (this.scheduleInput) {
+				if (this.scheduleInput.checked) {
+					var schedule_date = this.scheduleDate.getDate();
+					if (this.scheduleMeridiem.value == "AM") {
+						if (this.scheduleHour.value == '12') {
+							schedule_date.setHours(0);
+						} else {
+							schedule_date.setHours(parseInt(this.scheduleHour.value));
+						}
+					} else {
+						if (this.scheduleHour.value == '12') {
+							schedule_date.setHours(12);
+						} else {					
+							schedule_date.setHours(parseInt(this.scheduleHour.value) + 12);
+						}
+					}
+					schedule_date.setMinutes(parseInt(this.scheduleMinute.value));
+					this.doTaskAction({url: axiom.cmsPath + 'schedule_tasks',
+									   params: {task_ids: task_ids, schedule_date: schedule_date.valueOf()},
+									   message: this.taskListString(task_ids)+"been scheduled for publish."});
+				}
+			}
+
+
+			if(axiom.isContentContributor || this.submitInput.checked){
 				if(this.userSelect.value != "-- Choose One --"){
 					this.doTaskAction({url: axiom.cmsPath + 'submit_tasks',  
 									   params: {task_ids: task_ids,
@@ -40,11 +79,7 @@ dojo.widget.defineWidget(
 					this.validateErrorField.style.display = 'block';
 					this.validateErrorField.innerHTML = 'Please select a user.';
 				}
-			} else{
-				this.doTaskAction({url: axiom.cmsPath + 'approve_tasks',
-								   params: {task_ids: task_ids},
-								   message: this.taskListString(task_ids)+"been approved and published."});
-			}
+			} 
 		},
 		postCreate:function() {
 
@@ -74,7 +109,7 @@ dojo.widget.defineWidget(
 				}
 			}
 			user_select.setAttribute('name', 'assignee');
-
+			
 			// submit options
 			var holder = document.createElement('div');
 			dojo.html.addClass(holder, 'selectLabel');
@@ -103,7 +138,7 @@ dojo.widget.defineWidget(
 					publishInput = document.createElement('input');
 					publishInput.type = 'radio';
 					publishInput.value = 'publish';
-					publishInput.checked = true;
+					publishInput.checked = true; 
 					publishInput.name = 'submitOption';
 				}
 				holder.appendChild(publishInput);
@@ -111,8 +146,80 @@ dojo.widget.defineWidget(
 				holder.appendChild(document.createTextNode("Publish to website"));
 
 				holder.appendChild(document.createElement('br'));
-				holder.appendChild(validateErrorField);
 
+				var scheduleHolder = document.createElement('div');
+				dojo.html.addClass(scheduleHolder, 'submit-schedule');
+				
+				var scheduleInput;
+				if(dojo.render.html.ie){
+					scheduleInput = document.createElement('<input type="radio" value="schedule" name="submitOption"/>');
+				} else{
+					scheduleInput = document.createElement('input');
+					scheduleInput.type = 'radio';
+					scheduleInput.value = 'schedule';
+					scheduleInput.name = 'submitOption';
+				}				
+				holder.appendChild(scheduleInput);
+				this.scheduleInput = scheduleInput;
+				holder.appendChild(document.createTextNode("Publish at this date and time:"));
+				holder.appendChild(document.createElement('br'));
+				scheduleHolder.appendChild(document.createTextNode("Date: "));
+				var dateInput;
+				if(dojo.render.html.ie){
+					dateInput = document.createElement('<input type="text" name="publishdate"/>');
+				} else {
+					dateInput = document.createElement('input');
+					dateInput.type = 'text';
+					dateInput.name = 'publishdate';
+				}
+				scheduleHolder.appendChild(dateInput);
+				this.scheduleDate = dojo.widget.createWidget('DropdownDatePicker', {value:'today'}, dateInput);
+				this.scheduleDate.inputNode.className = 'submit-date';
+				this.scheduleDate.inputNode.readOnly = true;
+				scheduleHolder.appendChild(document.createElement('br'));
+
+				var hour = document.createElement('select');
+				var hours = ['12','1','2','3','4','5','6','7','8','9','10','11'];
+				for (var i = 0; i < hours.length; i++) {
+					var opt = document.createElement('option');
+					opt.value = hours[i];
+					opt.innerHTML = hours[i];
+					hour.appendChild(opt);
+				}
+				scheduleHolder.appendChild(document.createTextNode("Time: "));
+				dojo.html.addClass(hour, 'submit-time');
+				scheduleHolder.appendChild(hour);
+				this.scheduleHour = hour;
+
+				scheduleHolder.appendChild(document.createTextNode(" :"));
+				var minute = document.createElement('select');
+				var minutes = ['00','15','30','45'];
+				for (var j = 0; j < minutes.length; j++) {
+					var opt = document.createElement('option');
+					opt.value = minutes[j];
+					opt.innerHTML = minutes[j];
+					minute.appendChild(opt);
+				}
+				dojo.html.addClass(minute, 'submit-time');
+				scheduleHolder.appendChild(minute);
+				this.scheduleMinute = minute;
+
+				var meridiem = document.createElement('select');
+				var values = ['AM','PM'];
+				for (var k = 0; k < values.length; k++) {
+					var opt = document.createElement('option');
+					opt.value = values[k];
+					opt.innerHTML = values[k];
+					meridiem.appendChild(opt);
+				}
+				dojo.html.addClass(meridiem, 'submit-time');
+				scheduleHolder.appendChild(meridiem);
+				this.scheduleMeridiem = meridiem;
+				holder.appendChild(scheduleHolder);
+				
+				holder.appendChild(document.createElement('br'));
+				holder.appendChild(validateErrorField);
+				
 				var submitInput;
 				if(dojo.render.html.ie){
 					submitInput = document.createElement('<input type="radio" value="submit" name="submitOption"/>');
@@ -152,6 +259,7 @@ dojo.widget.defineWidget(
 			this.modalButtons.appendChild(cancelButton);
 
 			this.modalIcon.src = axiom.staticPath + '/axiom/images/icon_submit.gif';
+
 		}
 	}
 );

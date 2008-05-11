@@ -65,6 +65,38 @@ function add_to_delete_task(data){
 	}
 }
 
+function schedule_tasks(data) {
+	data = (data || req.data);
+	var schedule_date = new Date(data.schedule_date);
+	var filters = this.get_task_filters(data);
+	var conn = app.getDbSource('_default').getConnection(false);
+	var task_groups = app.getObjects("CMSTask", new OrFilter(filters)).inject({},
+		function(table, task) {
+			task.status = "Scheduled";
+			task.publish_date = schedule_date;
+			task.approval_description = (data.description || null);
+			task.admin_actor = session.user ? session.user.username : "system";
+
+			var submitter = task.submitter ? task.submitter.getTarget() : session.user;
+			if(table[submitter.username])
+				table[submitter.username].tasks.push(task)
+			else
+				table[submitter.username] = {tasks: [task], submitter: submitter};
+
+			auditLogTaskAction({task_id: task.task_id,
+								username: task.admin_actor,
+								action: 'Approved and Scheduled'},
+								conn);
+			return table;
+
+		});
+
+	this.emailNotifications('been approved and has been scheduled to be published.',
+							'All tasks are now in a scheduled status and will be published on ' + schedule_date.format('MM/dd/yyyy') + ' at ' + schedule_date.format('h:mm a') + '.',
+							'has approved and scheduled the following tasks to be published:',
+							task_groups);
+}
+
 function approve_tasks(data){
 	data = (data || req.data);
 	var filters = this.get_task_filters(data);
@@ -73,13 +105,7 @@ function approve_tasks(data){
 	var task_groups = app.getObjects("CMSTask", new OrFilter(filters), {maxlength: filters.length}).inject({},
 		function(table, task){
 			for each(var obj in app.getSources(task, [], new NativeFilter("_status: a OR _status: z","WhitespaceAnalyzer"))){
-				if(obj._action == "Deleted"){
-					obj.cms_delete();
-				} else{
-					obj._action = null;
-					obj._task = null;
-				}
-				obj.publishToLive();
+				obj.task_approved();
 			}
 			task.approval_description = (data.description || null);
 			task.admin_actor = session.user ? session.user.username : "system";
@@ -171,7 +197,7 @@ function delete_tasks(data){
 	var cms = this;
 	var conn = app.getDbSource('_default').getConnection(false);
 	var task_table = app.getObjects("CMSTask", new OrFilter(filters), {maxlength: filters.length}).inject({}, function(table, task){
-		for each(obj in app.getSources(task, null, ['a', 'z'])){
+		for each(obj in app.getSources(task, [], new NativeFilter("_status: a OR _status: z","WhitespaceAnalyzer"))){
 			if(obj._action == "Deleted")
 				obj._action = null;
 			else if(obj._action == "Added")
@@ -296,7 +322,7 @@ function my_open_tasks(user){
 	user = (user || session.user);
 	var filter = new OrFilter(new AndFilter({creator:user.username},{status: "Pending"}),
 		                      new AndFilter({assignee_searchable: user.username},
-		                                     new OrFilter({status: "Incomplete"}, {status: "Rejected"})));
+		                                     new OrFilter({status: "Incomplete"}, {status: "Rejected"}, {status: "Scheduled"})));
 	var sort = this.getSort(req.data.sort || [{task_id: 'asc'}]);
 	return app.getObjects("CMSTask", filter, {sort: sort}).map(this.extract_task);
 }
@@ -326,7 +352,7 @@ function extract_task(task){
 		}
 		stmt.close();
 	} else{
-		objects = app.getSources(task, null, {_status: ['a', 'z']}).map(
+		objects = app.getSources(task, [], new NativeFilter("_status: a OR _status: z","WhitespaceAnalyzer")).map(
 			function(obj){
 				return {title:      obj.title,
 						editable:   obj.task_editable(),
@@ -346,6 +372,7 @@ function extract_task(task){
 			 assignee:      task.assignee_searchable,
 			 due_date:      task.due_date,
 			 status:        task.status,
+			 publish_date:  task.publish_date,
 			 submittable:   task.submittable(),
 			 deletable:     task.deletable(),
 			 approvable:    task.approvable(),

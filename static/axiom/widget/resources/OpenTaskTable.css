@@ -1,19 +1,25 @@
-th.selector { width:3%; }
-th.col_action { width:3%; border-left: 1px solid #b0b4b6;} 
-th.col_open_id { width:5%; }
-th.col_name,
-td.col_task_name { width:45%; }
-td.col_task_items,
-th.col_items { width:7%; }
-th.col_due_date,
-td.col_status { width:10%; }
-th.col_requested_by,
-td.col_by { width:35%; border-right: 1px solid #b0b4b6; } 
+.openTasks th.selector { width:3%; }
+.openTasks th.col_action { width:3%; border-left: 1px solid #b0b4b6;} 
+.openTasks th.col_open_id { width:5%; }
+.openTasks th.col_name,
+.openTasks td.col_task_name { width:30%; }
+.openTasks td.col_task_items,
+.openTasks th.col_items { width:7%; }
+.openTasks th.col_due_date,
+.openTasks td.col_due_date,
+.openTasks th.col_status,
+.openTasks td.col_status { width:10%; }
+.openTasks th.col_publish_date,
+.openTasks td.col_publish_date { width:15% }
+.openTasks th.col_requested_by,
+.openTasks td.col_by { width:15%; border-right: 1px solid #b0b4b6; } 
 
 .col_sort { display: none; }
 .form-button{ margin-right: 5px; }
 .first { margin-right:0px; }
+/*
 .openTasks th.col_open_id, .openTasks th.col_items {width:3% !important; *width:4% !important;}
 .openTasks th.col_name {width: 44% !important;}
 .openTasks th.col_due_date {width:9% !important;}
 .openTasks th.col_requested_by {width: 34% !important;}
+*/

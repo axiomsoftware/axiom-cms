@@ -105,7 +105,7 @@ function runSearch(custom_query) {
 
 function extractContent(result){
 	var task = result._task ? result._task.getTarget() : null;
-	var locked = task ? task.status.match(/incomplete|rejected|pending/i): false;
+	var locked = task ? task.status.match(/incomplete|rejected|pending|scheduled/i): false;
 	var cms = root.get('cms'); // scoping fun
 	return {id: result.id,
 			_id: result._id,
