@@ -4,7 +4,7 @@
      <ul><li tal:repeat="task: tasks" tal:content="task.task_id + ' - '+ task.name" /> </ul>
   </p>
   <p tal:content-if="body" />
-  <p><a tal:attr="href: 'http://'+req.data.http_host + this.getURI('Login')">Login now</a> to manage your tasks.</p>
+  <p tal:if="show_link"><a tal:attr="href: 'http://'+req.data.http_host + this.getURI('Login')">Login now</a> to manage your tasks.</p>
   <p>Sincerely,<br/>
   Axiom CMS</p>
 </div>

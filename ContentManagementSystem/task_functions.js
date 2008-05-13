@@ -245,17 +245,50 @@ function emailNotifications(subject_verbage, body, action_verbage, task_groups){
 				else
 					subject = 'Axiom CMS: Task '+tasks[0].task_id+' has '+subject_verbage;
 				mailer.setData({ to:      {email: assignee.email, name: assignee.first_name + ' ' + assignee.last_name},
-								 from:    {email: session.user.email || 'robot@siteworx.com', name: session.user.first_name + ' ' + session.user.last_name},
+								 from:    {email: session.user.email || 'robot@axiomsoftwareinc.com', name: session.user.first_name + ' ' + session.user.last_name},
 								 subject: subject,
 								 html:    this.task_email({assignee_name:  assignee.first_name,
 														   actor_name:     session.user.first_name,
 														   action:         session.user.first_name+' '+action_verbage,
 														   tasks:          tasks,
-														   body:           (body || '')
+														   body:           (body || ''),
+														   show_link:	   true
 														  })
 							   });
 				mailers.push(mailer);
 			}
+		}
+		mailers.invoke('send');
+	} catch(e){
+		app.log("Couldn't send notification email:");
+		app.log(e.toString());
+	}
+}
+
+function scheduleNotification(task_groups) {
+	try{
+		var mailers = [];
+		for(var username in task_groups){
+			var tasks = task_groups[username].tasks;
+			var assignee = task_groups[username].submitter;
+			var mailer = new axiom.Mail();
+			var subject;
+			var subject_verbage = 'been published';
+			if(tasks.length > 1)
+				subject = 'Axiom CMS: '+tasks.length+' tasks have '+subject_verbage;
+			else
+				subject = 'Axiom CMS: Task '+tasks[0].task_id+' has '+subject_verbage;
+			mailer.setData({ to:      {email: assignee.email, name: assignee.first_name + ' ' + assignee.last_name},
+							 from:    {email: 'robot@axiomsoftwareinc.com', name: 'Axiom CMS'},
+							 subject: subject,
+							 html:    this.task_email({assignee_name:  assignee.first_name,
+													   action:         'Axiom CMS has published the following tasks that were scheduled to be published:',
+													   tasks:          tasks,
+													   body:           'All tasks are now in an approved status and will appear in the owner\'s "My Closed Tasks" table.',
+													   show_link:	   false
+													  })
+						   });
+			mailers.push(mailer);
 		}
 		mailers.invoke('send');
 	} catch(e){

@@ -63,10 +63,7 @@ function publish_scheduled_tasks(){
 
 		});
 
-//	root.get('cms').emailNotifications('been approved and published.',
-//							'All tasks are now in an approved status and appear in your "My Closed Tasks" table.',
-//							'has approved and published the following tasks:',
-//							task_groups);
+	root.get('cms').scheduleNotification(task_groups);
 
 }
 // end-cms-if

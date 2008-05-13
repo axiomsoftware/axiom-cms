@@ -32,7 +32,8 @@ function save_task(data){
 															  actor_name:     session.user.first_name,
 															  action:         session.user.first_name+' has assigned you the following tasks:',
 															  tasks:          [this],
-															  body:           'All content objects within the task(s) above are now owned by you.'
+															  body:           'All content objects within the task(s) above are now owned by you.',
+															  show_link:	  true
 															 })
 					   });
 	}
