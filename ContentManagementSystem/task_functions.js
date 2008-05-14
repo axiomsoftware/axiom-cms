@@ -26,6 +26,7 @@ function add_copy_to_task(data) {
 				count++;
 			}
 			folder.add(copy);
+			copy.setStatus('a');
 		} else {
 			var par = objs[i]._parent;
 			var count = 1;

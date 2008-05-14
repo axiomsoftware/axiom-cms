@@ -26,8 +26,8 @@ function copy_objects() {
 				copy.id = accessname + "_" + count;
 				count++;
 			}
-			copy.setStatus('a');
 			folder.add(copy);
+			copy.setStatus('a');
 		} else {
 			var par = objs[i]._parent;
 			var count = 1;
