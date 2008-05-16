@@ -1,8 +1,10 @@
 function preprocess_data(data){
 	var schema = this.getSchema();
 	for(var i in data){
-		if(data[i] === '' && schema[i].type != 'string'){
-			data[i] = null;
+		if (schema[i]) {
+			if(data[i] === '' && schema[i].type != 'string'){
+				data[i] = null;
+			}
 		}
 	}
 	if(data.ax_id){
