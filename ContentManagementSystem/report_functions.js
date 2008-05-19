@@ -79,7 +79,7 @@ function locked_content_report(){
 	filter = new AndFilter(filter, new OrFilter({'_status': 'a'}, {'_status': 'z'}));
 	res.setContentType('text/csv');
 	res.setHeader("Content-disposition", "attachment; filename=locked_content_report.csv" );
-	var prettyNames = this._getPrototypesHash();
+	var prettyNames = this.cms_getPrototypesHash(false);
 	res.write("Object Title,Content Type,Location,Live URL,Task ID,Task Name,Task Status,Task Assignee,Task Due Date\n");
 	return app.getObjects([i for(i in prettyNames)], filter).map(function(obj){
 		var uri = obj.getURI();
@@ -109,7 +109,7 @@ function object_action_report(){
 
 	res.setContentType('text/csv');
 	res.setHeader("Content-disposition", "attachment; filename=object_action_report.csv" );
-	var prettyNames = this._getPrototypesHash();
+	var prettyNames = this.cms_getPrototypesHash(false);
 	var task = this._task ? this._task.getTarget() : false;
 	var uri = this.getURI();
 	res.write("Object Title,Last Action,Content Type,Location,Live URL,Task/Assignee,Task Status\n");
