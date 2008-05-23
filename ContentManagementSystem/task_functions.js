@@ -66,6 +66,37 @@ function add_to_delete_task(data){
 	}
 }
 
+function cancel_tasks(data) {
+	data = (data || req.data);
+	var filters = this.get_task_filters(data);
+	var conn = app.getDbSource('_default').getConnection(false);
+	var task_groups = app.getObjects("CMSTask", new OrFilter(filters)).inject({},
+		function(table, task) {
+			task.status = "Incomplete";
+			task.publish_date = null;
+			task.approval_description = null;
+			task.admin_actor = null;
+
+			var submitter = session.user;
+			if(table[submitter.username])
+				table[submitter.username].tasks.push(task)
+			else
+				table[submitter.username] = {tasks: [task], submitter: submitter};
+
+			auditLogTaskAction({task_id: task.task_id,
+								username: session.user,
+								action: 'Scheduled Publish Cancelled'},
+								conn);
+			return table;
+
+		});
+
+	this.emailNotifications('been removed from the schedule for publish.',
+							'All tasks are now in an Incomplete status.',
+							'has removed the following tasks from the schedule for publish:',
+							task_groups);
+}
+
 function schedule_tasks(data) {
 	data = (data || req.data);
 	var schedule_date = new Date(data.schedule_date);
@@ -356,7 +387,15 @@ function my_open_tasks(user){
 	user = (user || session.user);
 	var filter = new OrFilter(new AndFilter({creator:user.username},{status: "Pending"}),
 		                      new AndFilter({assignee_searchable: user.username},
-		                                     new OrFilter({status: "Incomplete"}, {status: "Rejected"}, {status: "Scheduled"})));
+		                                     new OrFilter({status: "Incomplete"}, {status: "Rejected"})));
+	var sort = this.getSort(req.data.sort || [{task_id: 'asc'}]);
+	return app.getObjects("CMSTask", filter, {sort: sort}).map(this.extract_task);
+}
+
+function my_scheduled_tasks(user){
+	user = (user || session.user);
+	var filter = new OrFilter(new AndFilter({creator:user.username},{status: "Scheduled"}),
+		                      new AndFilter({assignee_searchable: user.username},new Filter({status: "Scheduled"})));
 	var sort = this.getSort(req.data.sort || [{task_id: 'asc'}]);
 	return app.getObjects("CMSTask", filter, {sort: sort}).map(this.extract_task);
 }

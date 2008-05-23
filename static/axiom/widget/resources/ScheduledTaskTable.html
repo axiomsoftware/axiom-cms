@@ -1,0 +1,26 @@
+<div dojoattachpoint="tablewrap" xmlns:tal="http://xml.zope.org/namespaces/tal" class="ContentTable TaskTable">
+  <div class="tablewrap">    
+	<table class="results scheduledTasks">
+	  <thead>
+		<tr><td class="selector"></td><td colspan="6"><h2>My Scheduled Tasks</h2></td></tr>
+		<tr dojoattachpoint="columnHeaders">
+		  <th class="selector"> <div class="inputBg"><input type="checkbox" dojoattachpoint="select_all" dojoattachevent="onClick:selectAll"/></div></th>
+		  <th class="col_id">
+			<a href="javascript:void(0);" onclick="axiom.tasks.taskPanel.scheduledTable.sort({task_id: 'alternate', status:'desc'} );">ID</a>
+			<img class="col_sort" dojoattachpoint="col_name_sort" />
+		  </th>
+		  <th class="col_name" colspan="2">
+			<a href="javascript:void(0);" onclick="axiom.tasks.taskPanel.scheduledTable.sort({cms_sortable_name: 'alternate', task_id:'desc'} );">Task Name</a> 
+			<img class="col_sort" dojoattachpoint="col_name_sort" />
+		  </th>
+		  <th class="col_items">Items</th>
+		  <th class="col_publish_date">Publish Date</th>
+		  <th class="col_by">Approved By</th>
+		</tr>
+	  </thead>
+	  <tbody dojoattachpoint="results_body">
+
+	  </tbody>
+	</table>
+  </div>
+</div>

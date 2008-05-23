@@ -1,0 +1,18 @@
+.scheduledTasks th.selector,
+.scheduledTasks td.selector { width:3%; }
+.scheduledTasks th.col_id,
+.scheduledTasks td.col_id,
+.scheduledTasks td.col_task_id { width:5%; }
+.scheduledTasks th.col_name,
+.scheduledTasks td.col_name { width:45%; }
+.scheduledTasks th.col_items,
+.scheduledTasks td.col_items { width:7%; }
+.scheduledTasks th.col_publish_date,
+.scheduledTasks td.col_publish_date { width:15% }
+.scheduledTasks th.col_by,
+.scheduledTasks td.col_by { width:15%; border-right: 1px solid #b0b4b6 !important; } 
+
+.col_sort { display: none; }
+.form-button{ margin-right: 5px; }
+.first { margin-right:0px; }
+

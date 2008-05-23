@@ -144,7 +144,7 @@ dojo.widget.defineWidget(
 
 			var colSpan = 7;
 			if(this['axiom:opentasktable']) {
-				colSpan = 9;
+				colSpan = 8;
 			} else if(this['axiom:contenttable']) {
 				colSpan = 5;
 			}

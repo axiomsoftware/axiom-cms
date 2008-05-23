@@ -23,7 +23,7 @@ dojo.widget.defineWidget(
 		data: {},
 		nonSubmittable: {},
 		selectedRows:{},
-		numCols: 9,
+		numCols: 8,
 		submitButton: null,
 		deleteButton: null,
 		sortObj: { status: 'desc', _created: 'desc', task_id: 'desc'},
@@ -51,23 +51,13 @@ dojo.widget.defineWidget(
 				{content: task.objects.length,  'class': 'col_task_items' },
 				{content: this.formatDate(task.due_date),  'class': 'col_due_date' },
 				{content: status,         'class': 'col_status' },
-				{content: this.formatPublishDate(task.publish_date), 'class': 'col_publish_date' },
 				{content: (task.admin_actor || task.creator)+' on '+this.formatDate(task.lastmodified,true),   'class': 'col_by' }]
 					  })
 			this.results_body.appendChild(row);
-			if(task.status.match(/Incomplete|Rejected|Scheduled/)){
+			if(task.status.match(/Incomplete|Rejected/)){
 				dojo.html.addClass(row, 'submittable');
 			}
 			this.insertObjectRows(task, row_id);
-		},
-		formatPublishDate:function(dateobj) {
-			var result;
-			try {
-				result = dojo.date.strftime(dateobj,'%m/%d/%y at %I:%M %p');
-			} catch(e) {
-				result = '';
-			}
-			return result;
 		},
 		onSelect:function(row){
 			if(!dojo.html.hasClass(row, 'submittable')){
