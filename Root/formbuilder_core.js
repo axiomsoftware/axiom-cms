@@ -97,7 +97,7 @@ function _fb_generate(prototype, catalog) {
 	var ns_transform = [ { from: new Namespace('talout', 'http://axiom.com/talout'), to: new Namespace('tal', 'http://xml.zope.org/namespaces/tal')} ];
 	var location = TAL.namespace_transform(this.renderTAL(catalog[location_data.widget]('_location',location_data), location_data), ns_transform);
 	result.div[location.name()] += location;
-	reference_widgets = <div class="subform reference-container"></div>;
+	var reference_widgets = <div class="subform reference-container"></div>;
 	for(key in properties){
 		var prop = properties[key];
 		var widgetname = prop.widget ? prop.widget.value: false;

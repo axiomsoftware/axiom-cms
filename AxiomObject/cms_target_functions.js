@@ -17,10 +17,10 @@ function jsonFromResults(results) {
 }
 
 /**  potentialTargets
- *  url-callable method, writes to the response a ContentTable containing a list 
- *  of the objects that can be referenced via this property. 
+ *  url-callable method, writes to the response a ContentTable containing a list
+ *  of the objects that can be referenced via this property.
  */
-function potentialTargets() {    
+function potentialTargets() {
 	var prototype = (req.data.prototype || '');
 	var keywords = (req.data.keywords || '');
 	var property = (req.data.property || '');
@@ -38,26 +38,26 @@ function potentialTargets() {
 	if (property == '_location') { types = cms_searchable_types; }
 	if (prototype) { types = prototype.split(','); } //search overrides targetTypes
 	if (!types) { types = cms_searchable_types; }
-	
-	var sort = req.data.sort || false;
+
+	var sort = (req.data.sort || false);
 	if(!sort || sort.toSource() == '({})'){
-		sort = {'cms_lastmodified':'desc'}
+		sort = {'cms_lastmodified':'desc'};
 	}
 	sort = new Sort(sort);
-	
-	var filter = "_d: 1 AND (_status: z OR _status: a) NOT _id: "+this._id; 
+
+	var filter = "_d: 1 AND (_status: z OR _status: a) NOT _id: "+this._id;
 	if (keywords) {
 		filter = cms.parseKeywordSearch(keywords, 'cms_searchable_content').queries.concat(['NOT _id:'+this._id]).join(' OR ');
 	}
 
 	// application hook
-	if(typeof cms.cmsCustomQueryFilter == 'function'){  
+	if(typeof cms.cmsCustomQueryFilter == 'function'){
 		filter = new AndFilter(filter, cms.cmsCustomQueryFilter('referenceWidget'));
 	}
 	var args = [types, filter, {sort:sort}];
 	if(path){ args.push(path); }
 	var hits = app[qmethod].apply(app, args);
-    
+
     var length = 15;
     var req_len = req.get('length');
     if (req_len && !isNaN(req_len)) {

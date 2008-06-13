@@ -16,13 +16,13 @@ function Login() {
 				session.setHttpReferer(null); // Remove http_referer from session
 				res.redirect(http_referer);
 			} else {
-				res.redirect((req.get("came_from")||root.get("cms").getURI()));
+				res.redirect(req.get("came_from") || this.getURI());
 			}
 		}
     }
 	
     data.came_from = req.data.http_referer;
-    res.write(this.login(data));
+    return this.login(data);
 }
 
 function Logout() {

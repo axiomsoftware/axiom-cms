@@ -4,11 +4,17 @@ require 'fileutils'
 require 'English'
 include FileUtils::Verbose
 
-task_files = %w{ 
+# ./CMSTask
+# ./CMSTaskContainer
+       
+enterprise_files = %w{ 
 ./ContentManagementSystem/task_functions.js 
 ./ContentManagementSystem/tasks_nav.tal
 ./ContentManagementSystem/tasks_content.tal
 ./ContentManagementSystem/task_email.tal
+./ContentManagementSystem/report_functions.js
+./ContentManagementSystem/reports_content.tal
+./ContentManagementSystem/reports_nav.tal
 ./static/axiom/widget/AddTaskModal.js
 ./static/axiom/widget/TaskTable.js
 ./static/axiom/widget/PendingTaskTable.js
@@ -26,12 +32,6 @@ task_files = %w{
 ./static/axiom/widget/TaskAdd.js
 ./static/axiom/widget/resources/TaskAdd.css
 ./static/axiom/widget/resources/TaskAdd.html
-}
-
-reports_files = %w{
-./ContentManagementSystem/report_functions.js
-./ContentManagementSystem/reports_content.tal
-./ContentManagementSystem/reports_nav.tal
 ./static/axiom/reports.js
 ./static/axiom/widget/resources/ReportGenerator.html
 ./static/axiom/widget/resources/ReportGenerator.css
@@ -79,29 +79,18 @@ def copy_tree_entry(path, dest, version)
 end
 
 clean_dir 'cms-enterprise'
-clean_dir 'cms-workgroup'
 clean_dir 'cms-standard'
 
 Find.find('.') do |file|
-  Find.prune if file =~ /\.svn|cms-(standard|workgroup|enterprise)/
+  if file =~ /\.svn|cms-(standard|workgroup|enterprise)/ || (ARGV[0] == '-ns' && file =~/dojo|ext-2.1|FCKeditor/)
+    Find.prune 
+  end
   
-  task = task_files.member? file 
-  report = reports_files.member? file
+  enterprise = enterprise_files.member? file 
 
-  if not (task or report)
+  if not (enterprise)
     copy_tree_entry(file, 'cms-standard', 'standard')
   end
-
-  if not task
-    copy_tree_entry(file, 'cms-workgroup', 'workgroup') 
-  end
-  
   copy_tree_entry(file, 'cms-enterprise', 'enterprise')
   
-end
-
-if ARGV.member? '-copy'
-  cp_r('cms-enterprise', '../cms-enterprise')
-  cp_r('cms-standard', '../cms-standard')
-  cp_r('cms-workgroup', '../cms-workgroup')
 end

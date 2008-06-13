@@ -30,7 +30,7 @@ function typeMap(){
 			'Image': ['image/jpeg',
 					  'image/pjpeg',
 					  'image/gif',
-					  'image/png'] 
+					  'image/png']
 	       };
 }
 
@@ -70,16 +70,16 @@ var typeMap = {'application/vnd.ms-excel': 'Document',
 		'image/jpeg': 'Image',
 		'image/pjpeg': 'Image',
 		'image/gif': 'Image',
-		'image/png': 'Image' 
+		'image/png': 'Image'
 		};
-	var type = typeMap[obj.getContentType()]; 
+	var type = typeMap[obj.getContentType()];
 	return (type||'File');
 }
 
 function typecheck(types, obj){
 	if(types.match(/all/i))
 		return true;
-	return (this.getType(obj) == types); 
+	return (this.getType(obj) == types);
 }
 
 function is_assets(){
@@ -102,7 +102,7 @@ function search_assets(){
 		object_types.push('Image');
 	if(types.match(/All|Video|Audio|Document|Other/i))
 		object_types.push('File');
-	
+
 	// allow user defined prototypes to be searchable
 	var cms_props = cmsGlobals.props;
 	for each(obj in cms_props..prototype.(@asset_searchable == 'true')){
@@ -136,7 +136,7 @@ function search_assets(){
 		var q = this.parseKeywordSearch(keywords);
 		var typefilter;
 		if(types && !types.match(/all|other/i)){
-			var contentTypes = this.getContentTypes(types)
+			var contentTypes = this.getContentTypes(types);
 			var subq = [];
 			for(var i in contentTypes)
 				subq.push(contentTypeProp + ': '+contentTypes[i]);
@@ -182,8 +182,8 @@ function search_assets(){
 
 		// workaround for Rhino's goofy serialization of references
 		var highlight_copy = [];
-		for each(var obj in highlight){ 
-			highlight_copy.push(obj); 
+		for each(var obj in highlight){
+			highlight_copy.push(obj);
 		}
 
 		results.push({id: asset.id,
@@ -200,7 +200,7 @@ function search_assets(){
 			      searchTags: highlight_copy,
 			      hopobjHref: asset.getURI()+'/',
 			      rootHref: root.getURI(),
-			      altText: (asset.alt||''), 
+			      altText: (asset.alt||''),
 			      contentType: asset.getContentType()})
 	}
 	return {total: total, current: (page_num || 1), objs: results};

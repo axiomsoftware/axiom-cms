@@ -28,7 +28,7 @@ dojo.widget.defineWidget(
 		handleResults:function (type, data, req) {
 			if (type == 'load') {
 				//TODO: use responseText if not an ie browser?
-				//this.widget.table.innerHTML = data.toSource(); 
+				//this.widget.table.innerHTML = data.toSource();
 			} else if (type == 'error') {
 				//alert("Error!");
 			}
@@ -44,7 +44,7 @@ dojo.widget.defineWidget(
 				     keywords: keywords,
 				     sort: sort,
 				     context: this.context,
-				     select_type: this.multiple ? 'checkbox' : 'radio'}; 
+				     select_type: this.multiple ? 'checkbox' : 'radio'};
 			if (start != -1) { args.start = start; }
 			if (length != -1) { args.batch_size = length+""; }
 			if (length != -1) { args.length = length+""; }
@@ -76,7 +76,7 @@ dojo.widget.defineWidget(
 						   mimetype: "text/javascript",
 						   contentType: 'text/json',
 						   postContent: dojo.json.serialize(args),
-						   error: function(evt, data, type){ 
+						   error: function(evt, data, type){
 							   this.widget.domNode.innerHTML = '';
 							   axiom.openModal({content:"Error connecting to server."});
 						   },

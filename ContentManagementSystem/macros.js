@@ -45,7 +45,7 @@ function copy_objects() {
  * @params = req.data.objs - array of ids of objects to be deleted
  */
 function delete_objects(){
-	app.getObjects([], req.data.objs.map(function(obj){ return "_id: "+obj.id }).join(" OR ")).invoke('cms_delete');
+	app.getObjects([], req.data.objs.map(function(obj){ return "_id: "+obj.id; }).join(" OR ")).invoke('cms_delete');
 }
 
 function domain_warning(){

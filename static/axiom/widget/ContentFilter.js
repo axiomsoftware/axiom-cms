@@ -26,7 +26,7 @@ dojo.widget.defineWidget(
 		contentAdd:null,
 		searchlength:15,
 		sortObj: {},
-		sortDirections: { cms_sortabletitle: 'asc', 
+		sortDirections: { cms_sortabletitle: 'asc',
 				  cms_sortablelocation: 'asc',
 				  '__prototype': 'asc',
 				  '_cms_lastmodified': 'desc',
@@ -36,7 +36,7 @@ dojo.widget.defineWidget(
 		//Relative to dojo:
 		templatePath:new dojo.uri.dojoUri('../axiom/widget/resources/ContentFilter.html'),
 		getPrototype:function() {
-			return this.prototypeList.value;			
+			return this.prototypeList.value;
 		},
 		getKeywords:function(){
 			return this.keywordInput.value;
@@ -59,18 +59,18 @@ dojo.widget.defineWidget(
 		},
 		runSearch:function(prototype, keyword, sort, start, length, published_only) {
 			var widget = this;
-			var search = function(){ 
-				widget.resultTable.runSearch(prototype, keyword, sort, start, length, published_only); 
+			var search = function(){
+				widget.resultTable.runSearch(prototype, keyword, sort, start, length, published_only);
 				axiom.showContent();
-			}
+			};
 			if(axiom.isDirty() && this == axiom.cfilter){
 				axiom.saveDialog(search);
 			} else{
-				this.resultTable.runSearch(prototype, keyword, sort, start, length, published_only); 
+				this.resultTable.runSearch(prototype, keyword, sort, start, length, published_only);
 			}
 		},
 		setDirection:function(field) {
-			if (this.sortField == field) { 
+			if (this.sortField == field) {
 				this.sortDirection = (this.sortDirection=='desc')?'':'desc';
 			} else { this.sortDirection = ''; }
 		},
@@ -97,7 +97,7 @@ dojo.widget.defineWidget(
 		},
 		sort:function(sortObj){
 			if(sortObj instanceof Array){
-				for(var i in sortObj){ 
+				for(var i in sortObj){
 					for(var field in sortObj[i]){
 						this.flip_sort(field, sortObj[i]);
 					}
@@ -112,7 +112,7 @@ dojo.widget.defineWidget(
 			if(obj[field] == 'alternate'){
 				var direction = this.sortDirections[field] || 'asc';
 				obj[field] = direction;
-				this.sortDirections[field] = (direction == 'asc'? 'desc': 'asc')
+				this.sortDirections[field] = (direction == 'asc'? 'desc': 'asc');
 			}
 		},
 		go:function(start, length) {
@@ -132,7 +132,6 @@ dojo.widget.defineWidget(
 			this.prototypeList.innerHTML = '';
 			var list = [];
 			for (var p in this.prototypes) {
-				var option = document.createElement('option');
 				if(p != 'All'){
 					var option = document.createElement('option');
 					option.value = p;
@@ -140,7 +139,7 @@ dojo.widget.defineWidget(
 					list.push(option);
 				}
 			}
-			list.sort(function(a,b){return a.innerHTML.localeCompare(b.innerHTML)});
+			list.sort(function(a,b){return a.innerHTML.localeCompare(b.innerHTML);});
 			var all = document.createElement('option');
 			all.value = this.prototypes['All'];
 			all.innerHTML = 'All Content Types';
@@ -156,7 +155,7 @@ dojo.widget.defineWidget(
 			var option = null;
 			this.initialLength = this.searchlength;
 			this.populateList();
-			if(this.findIcon) 
+			if(this.findIcon)
 				this.findIcon.src = axiom.staticPath+'/axiom/images/icon_find.gif';
 			if(this.closeButton){
 				this.closeButton.src = axiom.staticPath+'/axiom/images/button_close.gif';
@@ -171,7 +170,7 @@ dojo.widget.defineWidget(
 										 srcFunc:'onclick',
 										 adviceObj:this,
 										 adviceFunc:'search'});
-			
+
 			dojo.event.kwConnect({	     srcObj:this.resetButton,
 										 srcFunc:'onclick',
 										 adviceObj:this,

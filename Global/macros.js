@@ -1,6 +1,6 @@
 String.prototype.ampEscape = function(){
 	return this.replace(/&(?!(amp|nbsp|gt|lt);)/g, '&amp;');
-}
+};
 
 String.prototype.ellipse = function(length) {
 	if (this.length > length) {
@@ -9,7 +9,7 @@ String.prototype.ellipse = function(length) {
 		return substring.substr(0,index) + '...';
 	}
 	return this;
-}
+};
 
 function getObj(prototype){
 	// hackomatic

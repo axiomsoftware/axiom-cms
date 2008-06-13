@@ -15,14 +15,10 @@ function cms_delete() {
 				app.log("Couldn't find instance of CMSRecycleBin, deleting "+this._prototype+ " with _id "+this._id);
 				this._parent.remove(this);
 			}
-			if (t) {
-				res.write('{deleted:"'+t+'"}');
-			} else {
-				res.write('{deleted:"Untitled Object"}');
-			}
+			return { deleted: (t|| "Untitled Object")};
 		} catch(e) {
 			res.status=500;
-			res.write("{error:'"+e.message+"'}");
+			return {error:e.message};
 		}
 	} else{
 		app.log("Permission denied to delete "+this._prototype+" "+this.id);
@@ -37,7 +33,7 @@ function removeReferences(){
 		for each(var ref in app.getReferences(source, this)){
 			if(source[ref.sourceProperty] instanceof MultiValue){
 				source[ref.sourceProperty] = source[ref.sourceProperty].splice(ref.sourceIndex, 1);
-			} else{
+			} else {
 				source[ref.sourceProperty] = null;
 			}
 		}
@@ -54,7 +50,7 @@ function removeReferences(){
 	function nullify(){
 		this.removeReferences();
 		this.setStatus('null');
-		for each(child in this.getChildren()){ 
+		for each(child in this.getChildren()){
 			child.nullify();
 		}
 	}
@@ -100,7 +96,7 @@ function removeReferences(){
 		return '{'+names+'}';
 	}
 
-/**  
+/**
  * Return a serialized object associating the prototype name with the display name
  * of all user-addable prototypes in the cms.
  */
@@ -108,7 +104,7 @@ function cms_getAddPrototypesHash(){
 	var proto_list = cmsGlobals.props..prototype.(@addable != 'false');
 	var elements = [];
 	var results = [];
-	for each(var proto in proto_list){ 
+	for each(var proto in proto_list){
 		if(typeof this.cmsAddableAdvice == 'function'){
 			if(this.cmsAddableAdvice(proto.@name.toString()))
 				elements.push(proto);
