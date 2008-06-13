@@ -147,7 +147,7 @@ function extractUser(user){
 }
 
 function search(prototype,keywords,sort,start,length,published_only,context) {
-	var status_filter = published_only?'_status: z*':'_status: z* OR _status: a*'; 
+	var status_filter = published_only?'cms_status: z*':'cms_status: z* OR cms_status: a*'; 
 	var filter;
 	if(keywords.length != 0){
 		filter = this.parseKeywordSearch(keywords, 'cms_searchable_content').queries.join(' OR ');

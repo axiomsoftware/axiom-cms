@@ -2,7 +2,7 @@ function copy_objects() {
 	var data = req.data;
 	var objects = data.objects.split(',');
 	var filters = objects.map(function(obj){ return new Filter({"_id": obj}); });
-	var filter = new AndFilter(new OrFilter(filters), new NativeFilter("_status: z OR _status: a", "WhitespaceAnalyzer"));
+	var filter = new AndFilter(new OrFilter(filters), new NativeFilter("cms_status: z OR cms_status: a", "WhitespaceAnalyzer"));
 	var objs = app.getObjects([], filter);
 
 
@@ -27,7 +27,7 @@ function copy_objects() {
 				count++;
 			}
 			folder.add(copy);
-			copy.setStatus('a');
+			copy.cms_status = 'a';
 		} else {
 			var par = objs[i]._parent;
 			var count = 1;

@@ -13,7 +13,7 @@ function cms_add() {
 
 	child.id = child._id;
 
-	child.setStatus('null');
+	child.cms_status = 'null';
 	if(req.data.task_id){
 		var task = app.getHits("CMSTask", {task_id: req.data.task_id}).objects(0,1)[0];
 		if(task)

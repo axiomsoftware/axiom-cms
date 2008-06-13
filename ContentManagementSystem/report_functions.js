@@ -76,7 +76,7 @@ function locked_content_report(){
 	if(req.data.owner && req.data.owner != "All Users"){
 		filter.cms_owner = req.data.owner;
 	}
-	filter = new AndFilter(filter, new OrFilter({'_status': 'a'}, {'_status': 'z'}));
+	filter = new AndFilter(filter, new OrFilter({'cms_status': 'a'}, {'cms_status': 'z'}));
 	res.setContentType('text/csv');
 	res.setHeader("Content-disposition", "attachment; filename=locked_content_report.csv" );
 	var prettyNames = this.cms_getPrototypesHash(false);
@@ -98,7 +98,7 @@ function locked_content_report(){
 }
 
 function object_action_report(){
-	var filter = new OrFilter({'_status': 'a'},{'_status':'z'});
+	var filter = new OrFilter({'cms_status': 'a'},{'cms_status':'z'});
 	var sub_filter;
 	if(req.data.action == "All Actions"){
 		sub_filter = new OrFilter({'_action': 'Added'}, {'_action': 'Edited'}, {'_action': 'Deleted'});

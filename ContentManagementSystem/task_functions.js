@@ -2,7 +2,7 @@ function add_copy_to_task(data) {
 	data = (data || req.data);
 	var task = app.getHits("CMSTask", {task_id: data.task_id}).objects(0,1)[0];
 	var filters = data.objects.map(function(obj){ return new Filter({"_id": obj.id}); });
-	var filter = new AndFilter(new OrFilter(filters), new NativeFilter("_status: z OR _status: a", "WhitespaceAnalyzer"));
+	var filter = new AndFilter(new OrFilter(filters), new NativeFilter("cms_status: z OR cms_status: a", "WhitespaceAnalyzer"));
 	var objs = app.getObjects([], filter);
 
 	for (var i = 0; i < objs.length; i++) {
@@ -48,7 +48,7 @@ function add_to_delete_task(data){
 	var task = app.getHits("CMSTask", {task_id: data.task_id}).objects(0,1)[0];
 	var filters = data.objects.map(function(obj){ return new Filter({'_id': obj.id}) })
 	var conn = app.getDbSource('_default').getConnection(false);
-	var objs = app.getObjects([], new AndFilter(new OrFilter(filters), new NativeFilter("_status: a OR _status: z","WhitespaceAnalyzer"))).map(function(obj){ return app.getDraft(obj, 1) });
+	var objs = app.getObjects([], new AndFilter(new OrFilter(filters), new NativeFilter("cms_status: a OR cms_status: z","WhitespaceAnalyzer"))).map(function(obj){ return app.getDraft(obj, 1) });
 	for each(var obj in objs){
 		obj._task = new Reference(task);
 		obj._action = "Deleted";
@@ -136,7 +136,7 @@ function approve_tasks(data){
 	var conn = app.getDbSource('_default').getConnection(false);
 	var task_groups = app.getObjects("CMSTask", new OrFilter(filters), {maxlength: filters.length}).inject({},
 		function(table, task){
-			for each(var obj in app.getSources(task, [], new NativeFilter("_status: a OR _status: z","WhitespaceAnalyzer"))){
+			for each(var obj in app.getSources(task, [], new NativeFilter("cms_status: a OR cms_status: z","WhitespaceAnalyzer"))){
 				obj.task_approved();
 			}
 			task.approval_description = (data.description || null);
@@ -229,7 +229,7 @@ function delete_tasks(data){
 	var cms = this;
 	var conn = app.getDbSource('_default').getConnection(false);
 	var task_table = app.getObjects("CMSTask", new OrFilter(filters), {maxlength: filters.length}).inject({}, function(table, task){
-		for each(obj in app.getSources(task, [], new NativeFilter("_status: a OR _status: z","WhitespaceAnalyzer"))){
+		for each(obj in app.getSources(task, [], new NativeFilter("cms_status: a OR cms_status: z","WhitespaceAnalyzer"))){
 			if(obj._action == "Deleted")
 				obj._action = null;
 			else if(obj._action == "Added")
@@ -425,7 +425,7 @@ function extract_task(task){
 		}
 		stmt.close();
 	} else{
-		objects = app.getSources(task, [], new NativeFilter("_status: a OR _status: z","WhitespaceAnalyzer")).map(
+		objects = app.getSources(task, [], new NativeFilter("cms_status: a OR cms_status: z","WhitespaceAnalyzer")).map(
 			function(obj){
 				return {title:      obj.title,
 						editable:   obj.task_editable(),

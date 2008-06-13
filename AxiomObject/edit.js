@@ -28,10 +28,10 @@ function preprocess_data(data){
 
 function calculateStatus(){
 	if(this.getPath().match(/^\/cms/)){
-		this.setStatus('a');
+		this.cms_status = 'a';
 	}
 	else{
-		this.setStatus('z');
+		this.cms_status = 'z';
 	}
 }
 
@@ -49,7 +49,7 @@ function save(data){
 		var previous_task = this._task;
 		data.cms_lastmodified = new String((new Date()).getTime());
 
-		var action = this._status == 'null' ? "Added" : "Edited";
+		var action = this.cms_status == 'null' ? "Added" : "Edited";
 		var errors = this.edit(data);
 
 		if(!errors){

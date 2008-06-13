@@ -6,11 +6,11 @@ function upload(){
 	// Used by Uploader in AssetSelect widget
 	var assetselect = req.get('assetselect');
 	var assetid = req.get('assetid');
-	
+
 	if(file){
 		// browsers can sometimes make some pretty goofy guesses at content-type.  let's guess first based on the extension
 		file.setContentType(this.guessContentType(this.getBaseName(file.getName())) || file.getContentType());
-		
+
 		var f;
 		var fhits = app.getHits("CMSFileFolder", "_d:1");
 		var ff = fhits.objects(0,1)[0];
@@ -25,7 +25,7 @@ function upload(){
 			for(var i in f.toc){
 				var item = f.toc[i];
 				try{
-					var content_type = this.guessContentType(this.getBaseName(item.name)); 
+					var content_type = this.guessContentType(this.getBaseName(item.name));
 					if(!content_type)
 						content_type = 'application/octect-stream';
 					var mimepart = new Packages.axiom.util.MimePart(this.getBaseName(item.name), item.data, content_type);
@@ -35,8 +35,8 @@ function upload(){
 					} else {
 						hop_object_file = new File(mimepart);
 					}
-					hop_object_file.id = this.uniqueId(item.name, true); 
-					hop_object_file.setStatus('null');
+					hop_object_file.id = this.uniqueId(item.name, true);
+					hop_object_file.cms_status = 'null';
 
 					root.get(ff.id).add(hop_object_file);
 					if(hop_object_file instanceof Image){
@@ -66,8 +66,8 @@ function upload(){
 			if(f instanceof Image){
 				f.add_cms_thumbnails();
 			}
-			f.id = this.uniqueId(file.getName(), true); 
-			f.setStatus('null');
+			f.id = this.uniqueId(file.getName(), true);
+			f.cms_status = 'null';
 			req.data.add = true;
 			// if-cms-version-enterprise
 			f.publishToLive();
@@ -78,7 +78,7 @@ function upload(){
 			res.status = 500;
 			return "Unable to attach file to filefolder.";
 		}
-		
+
 	}
 }
 

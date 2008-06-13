@@ -49,7 +49,7 @@ function removeReferences(){
  */
 	function nullify(){
 		this.removeReferences();
-		this.setStatus('null');
+		this.cms_status = 'null';
 		for each(child in this.getChildren()){
 			child.nullify();
 		}

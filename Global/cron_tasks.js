@@ -16,7 +16,7 @@ function cms_cleanup(){
 		expiration_time =  72;
 	}
 
-	var for_removal = [obj for each(obj in app.getObjects([], "_status: null")) if(expiration_time < Math.floor((now - obj.lastmodified().getTime()) / ms_to_hours)) ];
+	var for_removal = [obj for each(obj in app.getObjects([], "cms_status: null")) if(expiration_time < Math.floor((now - obj.lastmodified().getTime()) / ms_to_hours)) ];
 
 	// advice hook
 	if(typeof ContentManagementSystem.cmsCleanupAdvice == 'function'){
@@ -42,7 +42,7 @@ function publish_scheduled_tasks(){
 	var task_groups = app.getObjects("CMSTask",filter,{layer:1}).inject({},
 		function(table, task){
 			app.log("Publishing Items from Task: " + task.name);
-			for each(var obj in app.getSources(task, [], new NativeFilter("_status: a OR _status: z","WhitespaceAnalyzer"),{layer:1})){
+			for each(var obj in app.getSources(task, [], new NativeFilter("cms_status: a OR cms_status: z","WhitespaceAnalyzer"),{layer:1})){
 				app.log("Publishing Item: " + obj.getPath());
 				obj.task_approved();
 			}

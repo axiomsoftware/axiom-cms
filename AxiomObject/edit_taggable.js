@@ -8,12 +8,12 @@ function edit_taggable(data){
 			if(!obj){
 				app.log("Couldn't edit "+id+" ... not found in db.");
 				continue;
-			} 
+			}
 			var value = [];
 			if(args.tags){
 				var tags = args.tags.split(',');
 				for(var t in tags){
-					var tag = tags[t].replace(/^\s+/g, '').replace(/\s+$/g, '').toLowerCase(); 
+					var tag = tags[t].replace(/^\s+/g, '').replace(/\s+$/g, '').toLowerCase();
 					if(tag != ''){
 						var tagObj;
 						if(tag in tagCache){
@@ -37,7 +37,7 @@ function edit_taggable(data){
 			}
 			obj.save(args);
 			// if-cms-version-enterprise
-			obj.setStatus('z');
+			obj.cms_status = 'z';
 			// end-cms-if
 		}
 	}
