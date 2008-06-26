@@ -5,16 +5,20 @@
   <div class="section last" id="add_section">
 	<div id="ContentAdd"> </div>
   </div>
-  <div class="box" id="object_detail">
-    <h4>Created:</h4>
-    <p id="obj_created">Test</p>
-    <h4>Last Modified:</h4>
-    <p id="obj_last_modified"></p>
-    <h4>Content-Type:</h4>
-    <p id="obj_content_type"></p>
-    <!-- if-cms-version-enterprise -->
-	<h4>Task Info:</h4>
-	<p id="obj_task_info"></p>
-    <!-- end-cms-if -->
+  <div id="object_detail">
+	<div class="box box-first">
+	  <h4>Created:</h4>
+	  <p id="obj_created">Test</p>
+	  <h4>Last Modified:</h4>
+	  <p id="obj_last_modified"></p>
+	  <h4>Content-Type:</h4>
+	  <p id="obj_content_type"></p>
+	  <!-- if-cms-version-enterprise -->
+	  <h4>Task Info:</h4>
+	  <p id="obj_task_info"></p>
+	  <!-- end-cms-if -->
+	</div>
+	<div id="referenced_box" class="box">
+	</div>
   </div>
 </div>

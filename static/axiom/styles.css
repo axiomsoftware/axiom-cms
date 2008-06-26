@@ -24,6 +24,7 @@ input.cb {border:0px;} /* So checkboxes don't have borders in IE */
 .innerwrap {position:relative; width:100%; min-width:765px;}
 #footer {clear:both;padding-left:25px;}
 #footer a {font-weight:bold;color:#FFF;text-decoration:underline; float:left;}
+#footer .version { float:right; margin-right: 5px; color:#666; }
 .required {color:#ba212a;}
 .alert {font-family:Tahoma; font-size:11px; font-weight:bold; color: #990000}
 
@@ -75,9 +76,13 @@ input.gray {color:#b2b1ad;}
 #content .body .subform {width:96%;}
 #content .body .subform fieldset{padding:1% 2%;}
 #content .body .reference-container { margin: 1% 2%;  }
-#content .body .columnLeft .box {border:1px solid #b0b4b6; background:#efefde; padding:5px; width:185px; margin:0 auto;}
+#content .body .columnLeft .box {border:1px solid #b0b4b6; background:#efefde; padding:5px; width:185px; margin:0 auto; margin-top: 10px;} 
+#content .body .columnLeft .box-first { margin-top: 0px }
 #content .body .columnLeft .box p {margin: 3px 0 10px; font-size:1em;}
+
 #content .body .columnLeft #object_detail {display:none;}
+#content .body .columnLeft #referenced_box ul { list-style:none; padding-left: 0px; margin: 3px 0pt 10px;}
+
 
 #content .body fieldset {margin:15px 0 0 0; border:0;}
 #content .body fieldset .set {width:42%; margin:0 5% 0 0; float:left;}
@@ -95,7 +100,7 @@ input.gray {color:#b2b1ad;}
 #content .body .subform2 h3 {font-family:"Arial","sans-serif"; border-bottom:0; color:#353535;}
 #content .body .subform2 h3 span {font-size:0.8em;}
 #content .body .subform2 h3 span a {padding:0 2px; text-decoration:underline; color:#4c6571;}
-#content .body .controls {border-right: 1px solid #b0b4b6; border-bottom: 1px solid #b0b4b6; background: transparent url(images/content_form_bg.gif); margin:0px; height: 56px; padding:0px 10px 0px 0; /*width:100%;*/ margin-top:-2%; *margin-top:-2.5%;}
+#content .body .controls {border-right: 1px solid #b0b4b6; border-bottom: 1px solid #b0b4b6; background: transparent url(images/content_form_bg.gif); margin:0px; height: 56px; padding:0px 10px 0px 0; /*width:100%;*/ margin-top:-24px; *margin-top:-2.5%;}
 #content .body .controls h1 {float:left; margin:0; padding: 15px 0 0 0;}
 #content .body .controls .task_info {position: relative; top:20px; padding-right:15px; float:right;}
 #content .body .controls .task_info label { display:inline; }
@@ -133,6 +138,7 @@ fieldset.asset_information fieldset {padding-bottom:10px;}
 #content .body fieldset.ax-time_to, #content .body fieldset.ax-time_from{display:inline;}
 
 #content .body fieldset.ax-_location #_location_display {background:#F6F6F6; width:30%;}
+#content .body fieldset.ax-_location #_location_buttons { margin-top: 5px; }
 #content .body fieldset.ax-refmsc div div label {display:inline;}
 #content .body fieldset.ax-tags div div.tags_edit img {float:right;}
 #content .body fieldset div .info{ color: #777; }
@@ -326,7 +332,7 @@ th,td {white-space: normal; text-align: left; padding:0px;border: 1px solid #AAA
 #content .body .columnLeft .section-only .button {padding:3px 6px 4px 6px;}
 #content .body .columnRight {width:auto; overflow:hidden; margin:0 1px 0 225px; border: 1px solid #b8b8b8; overflow-y: hidden !important; border-right:0px; background:#fff; /*padding:41px 0 45px;*/ *margin-bottom:1px;  min-height:550px;padding-top:2%;} 
 * html #content .body .columnRight {padding-bottom:48px; width:100%;}
-#content .body .columnRight .edit_content{ height:560px; overflow: scroll; *width:100% !important;} 
+#content .body .columnRight .edit_content{ height:577px; overflow: scroll; *width:100% !important;} 
 #content .body .columnRight .edit_content h1 {margin-left:12px !important;}
 #content .body .fixed { height:593px; overflow: hidden; *width:auto !important;}
 #content .body .columnRight .contentHeader {float:left;width:98%;padding-left:1%;padding-bottom:1%;}

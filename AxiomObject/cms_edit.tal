@@ -13,7 +13,7 @@
         <a alt="Cancel" class="button form-button" href="javascript:void(0)" tal:attr="onclick: add ? 'axiom.deleteNewAdd(\''+this.getURI()+'\')' : 'axiom.dirtyProps={}; axiom.showContent()'" title="Cancel">Cancel</a>
       </div>
       <!-- if-cms-version-enterprise -->
-      <div class="task_info alert_info" tal:if="this.lockedByOther()" tal:var="task: this._task ? this._task.getTarget() : false">
+      <div class="task_info alert_info" tal:if="this.lockedByOther()" tal:var="task: this._task?  this._task.getTarget() : false">
         <div>
           <img tal:attr="src: app.getStaticMountpoint('/axiom/images/alert.gif')"/>
           This content is included in an existing task.<br/>
@@ -74,6 +74,18 @@
     if (task_info) { 
 		task_info.innerHTML = '${task_info.replace(/'/g, "\\'")}'; 
 	};
+
+
+	var refs = '${this.ref_list().*.toXMLString().replace(/'/g, "\\'").replace(/\n/g, '')}';
+	var ref_container = dojo.byId('referenced_box');
+	if(refs.match(/^\s*$/)){
+	   ref_container.style.display = 'none';
+	} else {
+	   ref_container.style.display = 'block';
+	   ref_container.innerHTML = refs;
+	}
+	dojo.byId("referenced_list")
+
  	axiom.showObjectDetail();
 
     //dojo.addOnLoad(function() { dojo.byId('edit').getElementsByTagName('input')[0].focus(); });

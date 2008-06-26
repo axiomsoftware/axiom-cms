@@ -189,7 +189,7 @@ var axiom = {
 					}
 				}
 			}
-		}
+		};
 		var edit = dojo.byId(id);
 		dojo.lang.forEach(edit.getElementsByTagName('textarea'), validate_lambda);
 		dojo.lang.forEach(edit.getElementsByTagName('select'), validate_lambda);
@@ -604,7 +604,7 @@ var axiom = {
 				this.widget.selectNode.insertBefore(opt, last);
 				this.widget.selectNode.selectedIndex = len-1;
 				this.widget.close();
-			}
+			};
 			axiom.openModal({ widget: widget });
 		}
 

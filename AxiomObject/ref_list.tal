@@ -1,0 +1,16 @@
+<div xmlns:tal="http://axiomstack.com/tale" tal:var="located: !(this._parent.getPath() == '/' || this.getPath().match(/^\/cms/)), refs: app.getSources(this)">
+  <wrap tal:if="located || refs.length" tal:omit="true">
+	<h4 tal:if="located">Attached To:</h4>
+	<ul tal:if="located">
+	  <li>
+		<a tal:attr="href: this._parent.getURI()" tal:content="this._parent.title" target="_new"/>
+	  </li>
+	</ul>
+	<h4 tal:if="refs.length">Referenced By:</h4>
+	<ul tal:if="refs.length">
+	  <li tal:repeat="obj: refs">
+		<a tal:attr="href: obj.getURI()" tal:content="obj.title" target="_new"/>
+	  </li>
+	</ul>
+  </wrap>
+</div>

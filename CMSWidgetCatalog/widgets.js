@@ -1,7 +1,7 @@
 function location(attr_name, props){
 	return <fieldset xmlns:tal="http://axiomstack.com/tale" xmlns:talout="http://axiom.com/talout" class="ax-_location" id="ax-_location">
         <div><div class="error_message">hidden error message </div>
-        <label for="_location_widget">Location</label>
+        <label for="_location_widget">URL</label>
         <div id="_location_widget">Loading...</div>
         <script type="text/javascript" tal:text="%" talout:text="$"> //<![CDATA[
 

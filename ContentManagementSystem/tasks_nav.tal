@@ -5,14 +5,21 @@
   <div tal:condition="not:this/isContentContributor" class="section last" id="task_filter_section">
 	<div id="TaskFilter"> </div>
   </div>
-  <div class="box" id="object_detail">
-    <h4>Created:</h4>
-    <p id="obj_created">Test</p>
-    <h4>Last Modified:</h4>
-    <p id="obj_last_modified"></p>
-    <h4>Content-Type:</h4>
-    <p id="obj_content_type"></p>
-	<h4>Task Info:</h4>
-	<p id="obj_task_info"></p>
+  <div id="object_detail">
+	<div class="box">
+	  <h4>Created:</h4>
+	  <p id="obj_created">Test</p>
+	  <h4>Last Modified:</h4>
+	  <p id="obj_last_modified"></p>
+	  <h4>Content-Type:</h4>
+	  <p id="obj_content_type"></p>
+	  <!-- if-cms-version-enterprise -->
+	  <h4>Task Info:</h4>
+	  <p id="obj_task_info"></p>
+	  <!-- end-cms-if -->
+	</div>
+	<div class="box">
+	  <h4>Referenced</h4>
+	</div>
   </div>
 </div>
