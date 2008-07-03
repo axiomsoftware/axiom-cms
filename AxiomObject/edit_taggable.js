@@ -4,7 +4,7 @@ function edit_taggable(data){
 	for(var id in data){
 		if(!id.match(/^http/) && id != ''){
 			var args = data[id];
-			var obj = app.getObjects(['File', 'Image'], new NativeFilter('id: '+id, 'WhitespaceAnalyzer'))[0];
+			var obj = app.getObjects(['File', 'Image'], {id: id})[0];
 			if(!obj){
 				app.log("Couldn't edit "+id+" ... not found in db.");
 				continue;
