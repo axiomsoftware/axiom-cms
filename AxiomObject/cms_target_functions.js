@@ -96,7 +96,7 @@ function targetTypesJSON(property) {
 }
 
 function parentTypesJSON(property){
-	return this.zipListToJSON(app.__app__.getPrototypeByName(this._prototype).getTypeProperties().getProperty('_parenttypes'));
+	return this.zipListToJSON(app.__app__.getPrototypeByName(this._prototype).getTypeProperties().getProperty('_parentTypes'));
 }
 
 function zipListToJSON(targets){
