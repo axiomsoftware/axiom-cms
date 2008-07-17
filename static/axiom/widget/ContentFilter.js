@@ -39,6 +39,9 @@ dojo.widget.defineWidget(
 			return this.prototypeList.value;
 		},
 		getKeywords:function(){
+			if(dojo.html.hasClass(this.keywordInput, 'gray')){
+				   return '';
+			}
 			return this.keywordInput.value;
 		},
 		setPrototype:function(prototype) {
