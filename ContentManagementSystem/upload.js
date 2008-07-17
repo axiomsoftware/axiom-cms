@@ -130,14 +130,14 @@ function uniqueId(name, is_path){
 	if(is_path)
 		name = this.getBaseName(name);
 	name = name.replace(/\s/g, '_').replace(/[^\w\_\-\+\.]/g, '');
-	var hits = app.getHits(["File", "Image"], new NativeFilter('id: '+ name, 'WhitespaceAnalyzer'), {maxlength: 1});
+	var hits = app.getHits(["File", "Image"], {id: name}, {maxlength: 1});
 	var i = 1;
 	var unique_name = name;
 	while(hits.total > 0){
 		var pieces = name.split(/\./);
 		unique_name = [pieces[0], '_', i, '.', pieces[1]].join('');
 		i++;
-		hits = app.getHits(["File", "Image"], new NativeFilter('id: '+unique_name, 'WhitespaceAnalyzer'), {maxlength: 1});
+		hits = app.getHits(["File", "Image"], {id: unique_name}, {maxlength: 1});
 	}
 	return unique_name;
 }
