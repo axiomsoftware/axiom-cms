@@ -58,7 +58,7 @@ dojo.widget.defineWidget(
 			if(this.searchURL == 'cms/runSearch')
 				this.searchURL = this.appPath + 'cms/runSearch';
 			if(this.ajaxLoader) this.ajaxLoader.src = axiom.staticPath+'/axiom/images/ajax-loader.gif';
-			
+
 			if(this.lock) this.lock.src = axiom.staticPath+'/axiom/images/lock.gif';
 
 			dojo.event.kwConnect({srcObj: this.pagination_input,
@@ -73,8 +73,8 @@ dojo.widget.defineWidget(
 
 		},
 		goToPage:function(evt){
-			if(evt.type == 'click' || evt.keyCode == 13){ 
-				axiom.cfilter.goToPage(this.pagination_input, this.length,this.pages);
+			if(evt.type == 'click' || evt.keyCode == 13){
+			(this == axiom.browsetable ? axiom.browsecfilter : axiom.cfilter).goToPage(this.pagination_input, this.length,this.pages);
 			}
 		},
 		mouseoutRowHandler:function(evt){
@@ -82,7 +82,7 @@ dojo.widget.defineWidget(
 				dojo.html.removeClass(evt.currentTarget, 'highlight');
 			}
 		},
-		stopBubble: function(evt) { 
+		stopBubble: function(evt) {
 			evt.cancelBubble = true;
 		},
 		toggleSelect: function(evt){
@@ -108,7 +108,7 @@ dojo.widget.defineWidget(
  						}
  					}
 				}
-			} else{  
+			} else{
 				this.unhighlightRow(row);
 				this.onUnselect(row);
 			}
@@ -134,7 +134,7 @@ dojo.widget.defineWidget(
 			}
 		},
 		insertButtonRow:function(data){
-	 		var row = this.results_body.insertRow(document.createElement('tr')); 
+	 		var row = this.results_body.insertRow(document.createElement('tr'));
  			var select_spacer = document.createElement('td');
 			dojo.html.addClass(row, 'invisible');
 			row.appendChild(select_spacer);
@@ -168,12 +168,12 @@ dojo.widget.defineWidget(
 				buttons.push(button);
 
 				if(button_obj.callback){
-					dojo.event.kwConnect({srcObj:button, 
+					dojo.event.kwConnect({srcObj:button,
 								 		  srcFunc: 'onclick',
 										  adviceObj: this,
 										  adviceFunc: button_obj.callback
 										 });
-				} 
+				}
 			}
 			var expand_txt = document.createElement('span');
 			expand_txt.className='table_info_txt';
@@ -208,7 +208,7 @@ dojo.widget.defineWidget(
 						input.checked = true;
 					}
 				}
-				
+
 				dojo.event.kwConnect({srcObj: input,
 									  srcFunc: 'onclick',
 									  adviceObj: this,
@@ -231,7 +231,7 @@ dojo.widget.defineWidget(
 			row.appendChild(selector);
 
 
-			// begin adding content to the visible row 
+			// begin adding content to the visible row
 			for(var i in data.cols){
 				var col = document.createElement('td');
 
@@ -239,7 +239,7 @@ dojo.widget.defineWidget(
 				var content = data.cols[i].content;
 				if(dojo.dom.isNode(content))
 					col.appendChild(content);
-				else 
+				else
 					col.innerHTML = content;
 
 				row.appendChild(col);
@@ -252,21 +252,21 @@ dojo.widget.defineWidget(
 			if(!data.noHighlight){
 				dojo.event.kwConnect({srcObj:row,
 									  srcFunc: 'onmouseover',
-									  adviceFunc: function(){ dojo.html.addClass(row, 'highlight'); } 
-									 }); 
+									  adviceFunc: function(){ dojo.html.addClass(row, 'highlight'); }
+									 });
 				dojo.event.kwConnect({srcObj:row,
 									  srcFunc: 'onmouseout',
 									  adviceObj: this,
 									  adviceFunc: 'mouseoutRowHandler'
-									 });  
+									 });
 			}
 			dojo.event.kwConnect({srcObj:row,
 								  srcFunc: 'onclick',
 								  adviceObj: this,
 								  adviceFunc: function(){this.toggleRow(row)}
-								 });  
+								 });
 			return row;
-		}, 
+		},
 		insertRow:function(obj){
 			var cols = [];
 
@@ -276,14 +276,14 @@ dojo.widget.defineWidget(
 				edit.src = axiom.staticPath+"/axiom/images/icon_edit.gif";
 				dojo.html.setClass(edit, 'action');
  				edit.title = "Edit";
-				edit.alt = "Edit"; 
+				edit.alt = "Edit";
 				dojo.event.kwConnect({srcObj: edit,
 									  srcFunc: 'onclick',
 									  adviceFunc: function(evt){evt.cancelBubble = true; axiom.loadEdit((obj.href == '/'?'':obj.href)+'/cms_edit') } });
 			} else{
 				edit.src = axiom.staticPath+"/axiom/images/icon_edit_off.gif";
 				edit.title = "You do not have permission to edit this object";
-				edit.alt = "You do not have permission to edit this object"; 
+				edit.alt = "You do not have permission to edit this object";
 			}
 			cols.push({content: edit, 'class': 'col_action'});
 
@@ -305,7 +305,7 @@ dojo.widget.defineWidget(
 			dojo.event.kwConnect({ srcObj: location,
 								   srcFunc: 'onclick',
 								   adviceFunc: function(evt){
-									   evt.cancelBubble = true; 
+									   evt.cancelBubble = true;
 									   // if-cms-version-enterprise
 									   window.open(obj.href.replace(/\/$/,'') + '/task_preview');
 									   // end-cms-if
@@ -320,7 +320,7 @@ dojo.widget.defineWidget(
 			if(uri.length > 60){
 				uri = uri.substring(0, 60)+'...';
 			}
-			location.innerHTML = uri; 
+			location.innerHTML = uri;
 			cols.push({content: location, 'class': 'col_location'});
 
 			// content type
@@ -341,17 +341,17 @@ dojo.widget.defineWidget(
 			// info row creation
 			var task_text = '';
 			if(obj.task){
-				task_text = 'In Task:  '+obj.task.task_id+ ' - '+obj.task.name+' - '+obj.task.status; 
+				task_text = 'In Task:  '+obj.task.task_id+ ' - '+obj.task.name+' - '+obj.task.status;
 			}
 			this.results_body.appendChild(this.createInfoRow({
 				id: obj._id+'created',
                 omitSelector: true,
 				cols: [ {content: obj.created},
-						{content: task_text ? '<img src="'+axiom.staticPath+'/axiom/images/arrow-right.gif" />' : ''}, 
-						{content: task_text} ] 
+						{content: task_text ? '<img src="'+axiom.staticPath+'/axiom/images/arrow-right.gif" />' : ''},
+						{content: task_text} ]
 			}));
-			
-			this.results_body.appendChild(this.createInfoRow({id: obj._id+ 'edited', 
+
+			this.results_body.appendChild(this.createInfoRow({id: obj._id+ 'edited',
 															  cols: [{content: obj.lastmodified},
 																	 {content:  ''},
 																	 {content: obj.task ? obj.task.cms_createdby : ''}]
@@ -369,7 +369,7 @@ dojo.widget.defineWidget(
 			var dark_row_select_spacer = document.createElement('td');
 			row.appendChild(dark_row_select_spacer);
 			dojo.html.addClass(dark_row_select_spacer, 'info_spacer');
-			
+
 			var total_cols = data.cols.length + 2;
 			for(var i in data.cols){
 				var row_content = document.createElement('td');
@@ -383,16 +383,16 @@ dojo.widget.defineWidget(
 					row_content.setAttribute('colSpan', colspan);
 					total_cols += colspan - 1;
 				}
-				row.appendChild(row_content); 
+				row.appendChild(row_content);
 			}
 			var spacers = (this.numCols || 6) - total_cols + 1;
 			for(i=0; i< spacers; i++){
-				row.appendChild(document.createElement('td')); 
+				row.appendChild(document.createElement('td'));
 			}
-			
+
 			var cells = row.getElementsByTagName('td');
 			dojo.html.addClass(cells[cells.length-1], 'last-cell');
-			
+
 			return row;
 		},
 		collapseRow:function(row){
@@ -464,7 +464,7 @@ dojo.widget.defineWidget(
 						else
 							row.style.display = 'table-row';
 					}
-				} 
+				}
 			}
 		},
 		handleResults:function(type, data, req){
@@ -475,7 +475,7 @@ dojo.widget.defineWidget(
 			// clear previous selections
 			this.widget.selectedRows = {};
 			this.widget.nonDeletableObjects = {};
-			
+
 			this.widget.page = data.page;
 			this.widget.pages = data.pages;
 			this.widget.length = data.length;
@@ -486,7 +486,7 @@ dojo.widget.defineWidget(
 			for(var i in data.results){
 				this.widget.insertRow(data.results[i]);
 			}
-			
+
 
 			var delete_data = {text:'Delete', callback: 'deleteObjects'};
 			// if-cms-version-standard|workgroup
@@ -536,7 +536,7 @@ dojo.widget.defineWidget(
 					this.prevSet = false;
 				}
 			}
-			
+
 			if(data.nextenabled){
 				this.next_page_img.src = axiom.staticPath+ '/axiom/images/icon_page_next_enabled.gif';
 				if (!this.nextSet) {
@@ -548,7 +548,7 @@ dojo.widget.defineWidget(
 				}
 			} else{
 				this.next_page_img.src = axiom.staticPath+ '/axiom/images/icon_page_next_disabled.gif';
-				this.next_page_img.style.cursor = 'default'; 
+				this.next_page_img.style.cursor = 'default';
 				if (this.nextSet) {
 					dojo.event.kwDisconnect({srcObj: this.next_page_img,
 										 srcFunc: 'onclick',
@@ -561,6 +561,6 @@ dojo.widget.defineWidget(
 		clearTable:function(){
 			dojo.dom.removeChildren(this.results_body);
 		}
-		
+
 	}
 );
