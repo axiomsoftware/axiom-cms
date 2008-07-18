@@ -32,14 +32,14 @@ dojo.widget.defineWidget(
 		previewcontainer:null,
 		widgetInterface:'picker',
 		instanceName:'',
-		
+
 		width: '',
 		height: '',
 		filesize: '',
 		altText: '',
 		filename: '',
 		previewImg: '',
-		
+
 		current_asset:null,
 		original_asset:null,
 
@@ -120,7 +120,7 @@ dojo.widget.defineWidget(
 			} else {
 				this._setPreview();
 			}
-			
+
 			if(this.widgetInterface == 'picker') {
 				//Since no image selected for now
 				dojo.event.kwConnect({
@@ -143,7 +143,7 @@ dojo.widget.defineWidget(
 			}
 		},
 
-		/** Clears any selected asset out 
+		/** Clears any selected asset out
 			- updates preview, and updates field */
 		noasset:function() {
 			this._setPreview();
@@ -176,7 +176,7 @@ dojo.widget.defineWidget(
 			closebutton.className = 'asset_close';
 			closebutton.src = axiom.staticPath + '/axiom/images/button_close.gif';
 			closebutton.onclick = function() { widgetRef._closeDialog(); };
-			
+
 			/** ***************** */
 			/** Screen #1         */
 			var instructions,bodyRight,controls;
@@ -231,7 +231,7 @@ dojo.widget.defineWidget(
 		resetasset:function() {
 			if(this.original_asset){
 				this._setCurrentAsset(this.original_asset);
-				this._setPreview(this.original_asset); 
+				this._setPreview(this.original_asset);
 			} else {
 				this.noasset();
 			}
@@ -248,10 +248,10 @@ dojo.widget.defineWidget(
 			if(typeof(o)!='undefined') {
 				var imgsrc,previewimg=document.createElement('img'),previewfile=document.createElement('p');
 				var height,width;
-				if(o.height < maxheight && o.width < maxwidth) { 
+				if(o.height < maxheight && o.width < maxwidth) {
 					// Show real image
 					imgsrc=(this.assetType=="Image")?o.hopobjHref:o.thumb_on; // Display image or thumbnail icon depending on asset type
-				} else { 
+				} else {
 					if (o.height/o.width > (maxheight/previewmaxwidth)) {
 						//Go by height
 						var height=maxheight,width;
@@ -261,7 +261,7 @@ dojo.widget.defineWidget(
 						var width=previewmaxwidth,height;
 						height=(width/o.width)*o.height;
 					};
-					
+
 					imgsrc=(o.preview!="null")?o.preview:o.thumb_on; // Display image or thumbnail icon depending on asset type
 				};
 				previewimg.src=imgsrc;
@@ -274,7 +274,7 @@ dojo.widget.defineWidget(
 				var previewimg=document.createElement('p');
 				previewimg.innerHTML=this.strings.no_image;
 			};
-			this.previewcontainer.innerHTML='';	
+			this.previewcontainer.innerHTML='';
 			this.previewcontainer.appendChild(previewimg);
 			if(previewfile) { this.previewcontainer.appendChild(previewfile); }
 
@@ -465,11 +465,12 @@ dojo.widget.defineWidget(
 			buffer[buffer.length] = '<label>File to upload:</label>';
 			// Kludge for getting Uploading working in IE6 -- requires the old regular file input
 			if(dojo.render.html.ie) {
-				buffer[buffer.length] = '<input id="assetSelectorDialog_Upload" class="file_dialog" type="file" onkeydown="return false" name="file"/>';				
+				buffer[buffer.length] = '<input id="assetSelectorDialog_Upload" class="file_dialog" type="file" onkeydown="return false" name="file"/>';
 			} else {
 				buffer[buffer.length] = '<input type="text" id="assetSelectorDialog_UploadText" readonly="true" />';
 				buffer[buffer.length] = '<div class="browse-wrapper"><a href="javascript:void(0)" class="button form-button">'+this.strings.uploadButton+'</a><input id="assetSelectorDialog_Upload" type="file" name="file" onchange="dojo.byId(\'assetSelectorDialog_UploadText\').value=this.value" /></div>';
 			}
+			buffer[buffer.length] =	'<input id="nounzip" type="hidden" value="nounzip" name="nounzip"/>';
 			buffer[buffer.length] = '<input type="submit" value="'+this.strings.nextButton+'" class="button" />';
 			buffer[buffer.length] = '</form>';
 			controls.innerHTML = buffer.join('');
@@ -525,7 +526,7 @@ dojo.widget.defineWidget(
 						load:function(type,data,evt){ assets.appendChild(widgetRef._makeAsset(data)); }
 					});
 
-//					dojo.widget.byId(widget_id).resetResults(widget_id); 
+//					dojo.widget.byId(widget_id).resetResults(widget_id);
 				},
 				postContent: dojo.json.serialize(formdata),
 				preventCache: true,
@@ -561,7 +562,7 @@ dojo.widget.defineWidget(
 		/** Takes JSON from search service, and form node where search took place
 			-Creates all the necessary pagination controls and hooks it all up. */
 		_processResults:function(data,form){
-			if(data.total > 0) { 
+			if(data.total > 0) {
 				var len,datas=[],i,asset,assets,instruct,numPages,pageNum=1,pages=[],showPage,showNextPage,showPrevPage,next,prev,pagination,currentPageOfPages,widgetRef=this;
 
 				/** Original form submission details in case
@@ -635,9 +636,9 @@ dojo.widget.defineWidget(
 				result.innerHTML=this.strings.searchNoResults;
 				this.rightside.innerHTML='';
 				this.rightside.appendChild(result);
-			}; 
+			};
 		},
-		
+
 		showImageConfigView:function(o) {
 			var outer,dialog,inner,widgetRef;
 			widgetRef = this;
@@ -648,169 +649,169 @@ dojo.widget.defineWidget(
 			inner = document.createElement('div');
 			inner.className = 'body';
 			inner.id = "asset_image_selector";
-			
+
 			/** ***************** */
 			/** Screen #2        */
 			var thumb_preview = document.createElement('div');
 			thumb_preview.className = 'thumb_preview';
-			
+
 			// current file properties
 			var previewImg = document.createElement('img');
 			previewImg.src = this.previewURL;
 			previewImg.alt = this.filename;
-			
+
 			var specs = document.createElement('div');
 			specs.innerHTML = 'Specifications';
-			
+
 			var attrList = document.createElement('ul');
 			var filename = document.createElement('li');
 			var size = document.createElement('li');
 			var dimensions = document.createElement('li');
-			
+
 			filename.innerHTML = '<strong>'+this.strings.editFilenameLabel+'</strong> '+ this.filename;
 			size.innerHTML = '<strong>'+this.strings.editSizeLabel+'</strong> ' + this.filesize;
 			dimensions.innerHTML = '<strong>'+this.strings.editDimensionsLabel+'</strong> ' + this.width + 'x' + this.height;
-			
+
 			attrList.appendChild(filename);
 			attrList.appendChild(size);
 			attrList.appendChild(dimensions);
-			
+
 			thumb_preview.appendChild(previewImg);
 			thumb_preview.appendChild(specs);
 			thumb_preview.appendChild(attrList);
-			
+
 			inner.appendChild(thumb_preview);
-			
+
 			var editform = document.createElement('form');
 			editform.className = 'asset_image_form';
 			editform.action = 'javascript:void(0)';
 
 			// link/url field
 			var editformTitle = document.createElement('h3');
-			editformTitle.innerHTML = 'Image Attributes'; 
-			
+			editformTitle.innerHTML = 'Image Attributes';
+
 			var linkurlFieldset = document.createElement('fieldset');
 			linkurlFieldset.className = "linkurl";
-		
+
 			var linkurl = this.createFormElement('input','text',this.objectId+'_linkurl','');
 			linkurl.id = this.objectId +"_linkurl";
 			linkurl.className = "linkurlTextbox";
-			
+
 			var linkurlSubText = document.createElement('span');
 			linkurlSubText.className = "subtext";
 			linkurlSubText.innerHTML = this.strings.editLinkSubText;
-			
+
 			var linkurlLabel = document.createElement('label');
 			linkurlLabel['for'] = linkurl.id;
 			linkurlLabel.innerHTML =  this.strings.editLinkLabel;
-			
+
 			var linker = document.createElement('a');
 			linker.href = "javascript:void(0);"
 			linker.onclick = function() {widgetRef.showLinker();}
 			linker.innerHTML = '<img src="'+axiom.staticPath+'/axiom/images/icon_link.gif" alt="Link" />';
-			
+
 			var newWindowCheck = this.createFormElement('input','checkbox',this.objectId+'_windowcheck','');
 			newWindowCheck.id = this.objectId+'_windowcheck';
 			newWindowCheck.className = 'cb';
-			
+
 			var newWindowCheckLabel = document.createElement('label');
 			newWindowCheckLabel['for'] = newWindowCheck.id;
 			newWindowCheckLabel.className = "windowCheckLabel";
 			newWindowCheckLabel.innerHTML = this.strings.editWindowCheckLabel;
-			
+
 			linkurlFieldset.appendChild(linkurlLabel);
 			linkurlFieldset.appendChild(linkurl);
 			linkurlFieldset.appendChild(linker);
 			linkurlFieldset.appendChild(linkurlSubText);
 			linkurlFieldset.appendChild(newWindowCheckLabel);
 			linkurlFieldset.appendChild(newWindowCheck);
-			
+
 			var altFieldset = document.createElement('fieldset');
 			altFieldset.className = "altdesc";
-			
+
 			var altField = this.createFormElement('input','text',this.objectId+'_altfield',o.altText);
 			altField.id = this.objectId +"_altfield";
-			
+
 			var altFieldLabel = document.createElement('label');
 			altFieldLabel['for'] = altField.id;
 			altFieldLabel.innerHTML =  this.strings.editaltFieldLabel;
-			
+
 			altFieldset.appendChild(altFieldLabel);
 			altFieldset.appendChild(altField);
-			
+
 			editform.appendChild(editformTitle);
 			editform.appendChild(linkurlFieldset);
 			editform.appendChild(altFieldset);
-			
+
 			// width/height
 			var widthheightFieldset = document.createElement('fieldset');
 			widthheightFieldset.className = "widthheight";
-						
+
 			var width = this.createFormElement('input','text',this.objectId+'_image_width',o.width);
 			width.id = this.objectId +"_image_width";
-			
+
 			var widthFieldset = document.createElement('fieldset');
 			widthFieldset.appendChild(width);
-			
+
 			var height = this.createFormElement('input','text',this.objectId+'_image_height',o.height);
 			height.id = this.objectId +"_image_height";
-			
+
 			var widthLabel = document.createElement('label');
 			widthLabel['for'] = width.id;
 			widthLabel.innerHTML = this.strings.editWidthLabel;
-			
+
 			var widthFieldset = document.createElement('fieldset');
 			widthFieldset.appendChild(widthLabel);
 			widthFieldset.appendChild(width);
-			
+
 			var heightLabel = document.createElement('label');
 			heightLabel['for'] = height.id;
 			heightLabel.innerHTML =this.strings.editHeightLabel;
-			
+
 			var heightFieldset = document.createElement('fieldset');
 			heightFieldset.appendChild(heightLabel);
 			heightFieldset.appendChild(height);
-			
+
 			widthheightFieldset.appendChild(widthFieldset);
 			widthheightFieldset.appendChild(heightFieldset);
-			
+
 			editform.appendChild(widthheightFieldset);
-			
+
 			// hspace/vspace
 			var hvspaceFieldset = document.createElement('fieldset');
 			hvspaceFieldset.className = "hvspace";
-			
+
 			var hspace = this.createFormElement('input','text',this.objectId+'_image_hspace','');
 			hspace.id = this.objectId +"_image_hspace";
-			
+
 			var vspace = this.createFormElement('input','text',this.objectId+'_image_vspace','');
 			vspace.id = this.objectId +"_image_vspace";
-			
+
 			var hspaceLabel = document.createElement('label');
 			hspaceLabel['for'] = hspace.id;
 			hspaceLabel.innerHTML = this.strings.editHSpaceLabel;
-			
+
 			var vspaceLabel = document.createElement('label');
 			vspaceLabel['for'] = vspace.id;
 			vspaceLabel.innerHTML = this.strings.editVSpaceLabel;
-			
+
 			var hpspaceFieldset = document.createElement('fieldset');
 			hpspaceFieldset.appendChild(hspaceLabel);
 			hpspaceFieldset.appendChild(hspace);
-			
+
 			var vspaceFieldset = document.createElement('fieldset');
 			vspaceFieldset.appendChild(vspaceLabel);
 			vspaceFieldset.appendChild(vspace);
-			
+
 			hvspaceFieldset.appendChild(hpspaceFieldset);
 			hvspaceFieldset.appendChild(vspaceFieldset);
-			
+
 			editform.appendChild(hvspaceFieldset);
 
 			// align
 			var alignFieldset = document.createElement('fieldset');
 			alignFieldset.className = 'alignment';
-			
+
 			var align = document.createElement('select');
 			align.id = this.objectId +"_image_align";
 			var option = null;
@@ -820,16 +821,16 @@ dojo.widget.defineWidget(
 				option.innerHTML = this.strings.editAlignValues[i].name;
 				align.appendChild(option);
 			}
-			
+
 			var alignLabel = document.createElement('label');
 			alignLabel['for'] = align.id;
 			alignLabel.innerHTML = this.strings.editAlignLabel;
-			
+
 			alignFieldset.appendChild(alignLabel);
 			alignFieldset.appendChild(align);
-			
+
 			editform.appendChild(alignFieldset);
-			
+
 			var submitButton = document.createElement('a');
 			submitButton.innerHTML = 'OK';
 			submitButton.className = 'button form-button';
@@ -846,7 +847,7 @@ dojo.widget.defineWidget(
 				hspace = dojo.byId(obj+'_image_hspace').value?' hspace="'+dojo.byId(obj+'_image_hspace').value+'"':'';
 				vspace = dojo.byId(obj+'_image_vspace').value?' vspace="'+dojo.byId(obj+'_image_vspace').value+'"':'';
 				align = dojo.byId(obj+'_image_align').value?' align="'+dojo.byId(obj+'_image_align').value+'"':'';
-				
+
 				var output = '';
 				if(href) { output+='<a href="'+href+'"'+target+'>'; }
 				output+='<img src="'+widgetRef.current_asset.value+'"'+alt+height+width+hspace+vspace+align+' border="0"/>';
@@ -858,7 +859,7 @@ dojo.widget.defineWidget(
 				} else {
 					window.parent.FCKeditorAPI.GetInstance(widgetRef.instanceName).InsertHtml(output);
 				}
-				widgetRef._closeDialog();				
+				widgetRef._closeDialog();
 			};
 
 			var cancelButton = document.createElement('a');
@@ -874,10 +875,10 @@ dojo.widget.defineWidget(
 			buttonDiv.className = "controls";
 			buttonDiv.appendChild(submitButton);
 			buttonDiv.appendChild(cancelButton);
-			
+
 			editform.appendChild(buttonDiv);
 			/** ***************** */
-			
+
 			inner.appendChild(editform);
 
 			outer.appendChild(inner);
@@ -902,7 +903,7 @@ dojo.widget.defineWidget(
 			this._closeDialog();
 		},
 
-		
+
 		showLinker:function() {
 			dialog=this._getDialog();
 			dialog.hide();
@@ -926,7 +927,7 @@ dojo.widget.defineWidget(
 			axiom.browsecfilter.search(null, null, null, 12);
 			axiom.browsemodal.show();
 		},
-	
+
 		/** Returns the dialog widget used for this widget
 			Makes one if necessary */
 		_getDialog:function() {
