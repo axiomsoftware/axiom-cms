@@ -56,7 +56,7 @@ dojo.widget.defineWidget(
 				if(this.items[obj.path] && !checked) {
 					delete(this.items[obj.path]);
 				} else if(!this.items[obj.path] && checked) {
-					this.items[obj.path] = title;
+					this.items[obj.path] = entry;
 				}
 			} else if(checked) {
 				this.item = entry;
@@ -69,13 +69,13 @@ dojo.widget.defineWidget(
 			if(published_only) { t += '&published_only='+published_only; }
 			if (this.multiple) { t += "&select_type=checkbox"; }
 			else { t += "&select_type=radio"; }
-			return "?prototype=" + prototype + "&keywords=" + 
+			return "?prototype=" + prototype + "&keywords=" +
 				keywords + "&length=10&sort_field=" + field + "&sort_direction=" + direction + "&property=" + this.property + t;
 		},
 		insertRow:function(obj){
 			var location = document.createElement('a');
 			location.id = obj.href;
-			location.href = obj.href; 
+			location.href = obj.href;
 			var uri = obj.path.match(/^\/cms/) ? '' : obj.href;
 			if(uri.length > 60){
 				uri = uri.substring(0, 60)+'...';
@@ -84,8 +84,8 @@ dojo.widget.defineWidget(
 			this.selectedRows[obj.path] = (obj.path == axiom.browsetable.defaultValue || dojo.lang.inArray(axiom.browsetable.defaultValues,obj.path));
 			var row = this.createRow({
 				cols: [{content: obj.title, 'class': 'col_title'},
-					   {content: location, 'class': 'col_location'},
-					   {content:obj.contenttype, 'class':'col_type'}], 
+					   {content: location, 'class': 'col_location', title: obj.path},
+					   {content:obj.contenttype, 'class':'col_type'}],
 				id: obj.path,
 				input_type: this.multiple ? 'checkbox' : 'radio',
 				input_name: 'objectselect'
@@ -96,9 +96,9 @@ dojo.widget.defineWidget(
 		handleResults:function(type, data, req){
 			this.widget.loading.style.display = 'none';
 			this.widget.tablewrap.style.display = 'block';
-			
+
 			this.widget.selectedRows = {};
-			
+
 			this.widget.page = data.page;
 			this.widget.pages = data.pages;
 			this.widget.length = data.length;

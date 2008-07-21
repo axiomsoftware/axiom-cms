@@ -60,7 +60,7 @@ dojo.widget.defineWidget(
 			bCells[1].title = aValue;
 		},
 		goTop:function() {
-			var rows = this.table.getElementsByTagName("tr");			
+			var rows = this.table.getElementsByTagName("tr");
 			for(var i=1;i<rows.length;i++) {
 				if(rows[i].className=="selected") {
 					for(var j=0;j<i-1;j++) {
@@ -73,8 +73,8 @@ dojo.widget.defineWidget(
 			var rows = this.table.getElementsByTagName("tr");
 			for(var i=1;i<rows.length;i++) {
 				if(rows[i].className=="selected") {
-					if(i>1) { 
-						this.swapRows(i,i-1); 
+					if(i>1) {
+						this.swapRows(i,i-1);
 						this.update();
 						return;
 					}
@@ -94,7 +94,7 @@ dojo.widget.defineWidget(
 			}
 		},
 		goBottom:function() {
-			var rows = this.table.getElementsByTagName("tr");			
+			var rows = this.table.getElementsByTagName("tr");
 			for(var i=1;i<rows.length;i++) {
 				if(rows[i].className=="selected") {
 					for(var j=0;j<rows.length-i;j++) {
@@ -134,8 +134,8 @@ dojo.widget.defineWidget(
                 this.refbody.style.display="block";
                 this.visibilityOn(this.toggleLink);
                 this.showToggle();
-            } else { 
-                this.refbody.style.display="none"; 
+            } else {
+                this.refbody.style.display="none";
                 this.visibilityOff(this.toggleLink);
                 this.hideToggle();
             }
@@ -156,10 +156,10 @@ dojo.widget.defineWidget(
 		},
 		addLocations:function(widget, values) {
 			for (var i in values) {
-				if(!widget.items[i]) { widget.addRow(values[i],i); }
+				if(!widget.items[i]) { widget.addRow(values[i][0], i, values[i][1].uri); }
 			}
 			for (var i in widget.items) {
-				if(!values[i]) { widget.deleteRef(i); } 
+				if(!values[i]) { widget.deleteRef(i); }
 			}
 
 		},
@@ -177,7 +177,7 @@ dojo.widget.defineWidget(
 						return true;
 					}
 				}
-			}			
+			}
 		},
 		browse:function() {
 			//var path = this.objectPath + this.objectId + '/';
@@ -199,9 +199,9 @@ dojo.widget.defineWidget(
 				axiom.browsecfilter.setLength(12);
 				axiom.browsecfilter.search(null, null, null, 12);
 				this.dialog.show();
-			} 
+			}
 		},
-		addRow:function(title, path) {
+		addRow:function(title, path, uri) {
 			var widgetRef = this;
 			var row = document.createElement('tr');
 			row.onclick = function() {
@@ -210,21 +210,22 @@ dojo.widget.defineWidget(
 					tmp[i].className="";
 				}
 				this.className="selected";
-			}
+			};
 			var col = document.createElement('td');
 			col.className = 'ref_title';
 			col.innerHTML = title?title:'&nbsp;';
-			row.appendChild(col);            
+			row.appendChild(col);
 			col = document.createElement('td');
 			col.className = 'ref_path';
-			col.innerHTML = (path.length > 50) ? (path.substring(0,50)+ '...') : path;
-			//col.innerHTML = 'fish';
+
+			var shown = (uri || path);
+			col.innerHTML = (shown.length > 50) ? (shown.substring(0,50)+ '...') : shown;
 			col.alt = path;
 			col.title = path;
 			row.appendChild(col);
 			col = document.createElement('td');
 			col.className = 'ref_delete';
-			link = document.createElement('a');
+			var link = document.createElement('a');
 			link.innerHTML = "Remove";
 			link.href="javascript:void(0);";
 			link.onclick = function() {
@@ -232,12 +233,12 @@ dojo.widget.defineWidget(
 					var tmp = widgetRef.table.getElementsByTagName("tr");
 					for(var i=0;i<tmp.length;i++) {
 					    if(tmp[i]==this.parentNode.parentNode) { widgetRef.table.tBodies[0].deleteRow(i);break; }
-					}					
+					}
 				} else {
 					widgetRef.table.removeChild(this.parentNode.parentNode);
 				}
 				widgetRef.update();
-			}
+			};
 			col.appendChild(link);
 			row.appendChild(col);
 			if(dojo.render.html.ie) { // Can't appendChild to table in IE, so we appendChild to tBodies[0]
@@ -255,14 +256,14 @@ dojo.widget.defineWidget(
 				col = document.createElement('th');
 				col.innerHTML = this.column_headers[i];
 				row.appendChild(col);
-			} 
+			}
 			if(dojo.render.html.ie) {
 				this.table.tBodies[0].appendChild(row);
 			} else {
 				this.table.appendChild(row);
 			}
 			for (var i = 0; i < data.length; i++) {
-				this.addRow(unescape(data[i][0]), data[i][1]);
+				this.addRow(unescape(data[i][0]), data[i][1], data[i][2]);
 			}
 
 		},
@@ -281,11 +282,11 @@ dojo.widget.defineWidget(
 			this.img_up.src = axiom.staticPath+'/axiom/images/icon_up.gif';
 			this.img_down.src = axiom.staticPath+'/axiom/images/icon_down.gif';
 			this.img_bottom.src = axiom.staticPath+'/axiom/images/icon_bottom.gif';
-            
+
             this.toggleSpan = dojo.byId('ax-'+this.id).getElementsByTagName('span')[0];
             this.toggleLink = this.toggleSpan.getElementsByTagName('a')[0];
             if(this.data.length) {
-                this.refbody.style.display="block"; 
+                this.refbody.style.display="block";
             } else {
                 this.hideToggle();
             }
@@ -326,12 +327,12 @@ dojo.widget.defineWidget(
 						     srcObj:this.img_bottom,
 						     srcFunc:'onclick',
 						     adviceObj:this,
-						     adviceFunc:'goBottom'});			
+						     adviceFunc:'goBottom'});
 			var widget = this;
 			dojo.event.kwConnect({
 						     srcObj:this,
 						     srcFunc:'update',
-						     adviceFunc:function(){axiom.dirtyProps[widget.id]=true;}});			
+						     adviceFunc:function(){axiom.dirtyProps[widget.id]=true;}});
 
 		}
 	}

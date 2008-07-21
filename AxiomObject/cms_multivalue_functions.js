@@ -12,7 +12,7 @@ function multiValueJSON(property) {
         for (var i = 0;i<this[prop].length;i++) {
             o = this[prop][i].getTarget();
             if (o) {
-                json += '["'+escape(o.title)+'","'+o.getPath()+'"]';
+                json += '["'+escape(o.title)+'","'+o.getPath()+'","'+o.getURI()+'"]';
                 if (i!=last) { json += ','; }
             }
         }

@@ -74,7 +74,7 @@ dojo.widget.defineWidget(
 		},
 		goToPage:function(evt){
 			if(evt.type == 'click' || evt.keyCode == 13){
-			(this == axiom.browsetable ? axiom.browsecfilter : axiom.cfilter).goToPage(this.pagination_input, this.length,this.pages);
+				(this == axiom.browsetable ? axiom.browsecfilter : axiom.cfilter).goToPage(this.pagination_input, this.length,this.pages);
 			}
 		},
 		mouseoutRowHandler:function(evt){
@@ -236,6 +236,9 @@ dojo.widget.defineWidget(
 				var col = document.createElement('td');
 
 				dojo.html.setClass(col, data.cols[i]['class']);
+				if(data.cols[i].title){
+					col.title = data.cols[i].title;
+				}
 				var content = data.cols[i].content;
 				if(dojo.dom.isNode(content))
 					col.appendChild(content);

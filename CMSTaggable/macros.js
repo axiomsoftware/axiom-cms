@@ -1,6 +1,6 @@
-function custom_edit_function(){ 
-	return 'axiom.submitMultiEdit(\''+this.getURI()+'edit_taggable\',"'+this.id+'");'
-}  
+function custom_edit_function(){
+	return 'axiom.submitMultiEdit(\''+this.getURI()+'edit_taggable\',"'+this.id+'");';
+}
 
 
 /**
@@ -82,7 +82,7 @@ function req_remove_tag(){ this.remove_tag(req.get("tag")); }
 
 /**
  *  Search aggregation of tag titles
- */ 
+ */
 function generateTagString(){
 	var results = [];
 	if(this.tags){
