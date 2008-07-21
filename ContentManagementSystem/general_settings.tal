@@ -13,7 +13,7 @@
   <fieldset>
     <table>
         <tr>
-            <td class="settingLabel"><label for="archive_period">Achive Closed Tasks After</label></td>
+            <td class="settingLabel"><label for="archive_period">Archive Closed Tasks After</label></td>
             <td>
                 <select id="archive_period" name="archive_period">
             	  <option tal:attr="selected: (this.archive_period == 30)" value="30">30 days</option>
