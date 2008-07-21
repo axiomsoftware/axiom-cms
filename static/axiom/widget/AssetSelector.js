@@ -706,8 +706,8 @@ dojo.widget.defineWidget(
 			linkurlLabel.innerHTML =  this.strings.editLinkLabel;
 
 			var linker = document.createElement('a');
-			linker.href = "javascript:void(0);"
-			linker.onclick = function() {widgetRef.showLinker();}
+			linker.href = "javascript:void(0);";
+			linker.onclick = function() {widgetRef.showLinker();};
 			linker.innerHTML = '<img src="'+axiom.staticPath+'/axiom/images/icon_link.gif" alt="Link" />';
 
 			var newWindowCheck = this.createFormElement('input','checkbox',this.objectId+'_windowcheck','');
@@ -918,7 +918,7 @@ dojo.widget.defineWidget(
 				dojo.byId(objRef).value = url;
 				dialog.show();
 			}
-			axiom.browsetable.exitCallBack = function(){axiom.browsemodal.hide();}
+			axiom.browsetable.exitCallBack = function(){axiom.browsemodal.hide(); dialog.show();};
 			axiom.browsetable.callingWidget = this;
 			axiom.browsetable.setContext('assetselector');
 			axiom.browsetable.toggleHrefValues();
