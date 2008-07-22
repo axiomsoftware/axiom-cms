@@ -49,6 +49,7 @@ function potentialTargets() {
 	if (keywords) {
 		filter = cms.parseKeywordSearch(keywords, 'cms_searchable_content').queries.concat(['NOT _id:'+this._id]).join(' OR ');
 	}
+	filter = new AndFilter(filter, new OrFilter({cms_status: 'a'}, {cms_status: 'z'}));
 
 	// application hook
 	if(typeof cms.cmsCustomQueryFilter == 'function'){
