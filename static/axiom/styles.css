@@ -332,9 +332,9 @@ th,td {white-space: normal; text-align: left; padding:0px;border: 1px solid #AAA
 #content .body .columnLeft .section-only .button {padding:3px 6px 4px 6px;}
 #content .body .columnRight {width:auto; overflow:hidden; margin:0 1px 0 225px; border: 1px solid #b8b8b8; overflow-y: hidden !important; border-right:0px; background:#fff; /*padding:41px 0 45px;*/ *margin-bottom:1px;  min-height:550px;padding-top:2%;} 
 * html #content .body .columnRight {padding-bottom:48px; width:100%;}
-#content .body .columnRight .edit_content{ height:577px; overflow: scroll; *width:100% !important;} 
+#content .body .columnRight .edit_content{ /*height:577px;*/ overflow: scroll; *width:100% !important;} 
 #content .body .columnRight .edit_content h1 {margin-left:12px !important;}
-#content .body .fixed { height:593px; overflow: hidden; *width:auto !important;}
+#content .body .fixed { /*height:593px;*/ overflow: hidden; *width:auto !important;}
 #content .body .columnRight .contentHeader {float:left;width:98%;padding-left:1%;padding-bottom:1%;}
 #content .body .columnRight .contentHeader p { float:left; margin-right:10px;margin-top:0px;}
 .loading {width:100%; padding:25px 0; text-align:center;}

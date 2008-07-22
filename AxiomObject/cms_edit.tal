@@ -87,7 +87,7 @@
 	dojo.byId("referenced_list")
 
  	axiom.showObjectDetail();
-
+    axiom.adjustHeight();
     //dojo.addOnLoad(function() { dojo.byId('edit').getElementsByTagName('input')[0].focus(); });
 	//]]>
     </script>

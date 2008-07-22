@@ -57,10 +57,21 @@ var axiom = {
 			axiom.editBaseClass = dojo.html.getClass(dojo.widget.byId("EditBody").domNode);
 			axiom.contentBaseClass = dojo.html.getClass(dojo.widget.byId("ContentBody").domNode);
 		}
+		window.onresize =  axiom.adjustHeight;
+		axiom.adjustHeight();
+
 		axiom.initValidation();
 	},
 	editBaseClass : '',
 	contentBaseClass: 'body',
+	adjustHeight: function(){
+		var height = (window.innerHeight ||document.documentElement.clientHeight);
+		var edit_content = dojo.byId("edit_content");
+		if(edit_content){
+			edit_content.style.height = (height-219)+'px';
+		}
+		dojo.byId("ContentBody").style.height = (height-190)+'px';
+	},
 	hideMessage:function(){
 		var messages = dojo.byId("Messages");
 		if(messages){
