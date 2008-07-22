@@ -413,7 +413,7 @@ function datetime(attr_name, props){ // Requires Dojo
 							this.datevalue.setMinutes(minutes);
 							dojo.byId('%{attr_name}').value = Date.parse(this.datevalue);
 						}
-						axiom.dirtyProps['-->{attr_name}<!--'] = true;
+						axiom.dirtyProps['%{attr_name}'] = true;
 					}
 				};
 				dt_%{attr_name}.init();
@@ -421,7 +421,6 @@ function datetime(attr_name, props){ // Requires Dojo
 						       srcFunc: 'onValueChanged',
 						       adviceFunc: function(){ axiom.dirtyProps['%{attr_name}'] = true;}
 						     });
-
 
 		      //]]></script>
 		</div>
