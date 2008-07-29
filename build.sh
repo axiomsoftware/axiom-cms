@@ -11,3 +11,4 @@ bzr commit -m "enterprise autobuild"
 cd ../cms-standard-build
 bzr add
 bzr commit -m "standard autobuild" # bzr test
+ # bzr test number 2
