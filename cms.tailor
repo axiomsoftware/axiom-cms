@@ -4,7 +4,7 @@ verbose = True
 [project]
 target = bzr:target
 start-revision = INITIAL
-root-directory = /cygdrive/s/cms-bzr
+root-directory = /cygdrive/s/cuervo/modules/cms-src
 state-file = tailor.state
 source = svn:source
 subdir = .
