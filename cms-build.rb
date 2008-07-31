@@ -82,7 +82,7 @@ clean_dir 'cms-enterprise'
 clean_dir 'cms-standard'
 
 Find.find('.') do |file|
-  if file =~ /\.svn|cms-(standard|workgroup|enterprise)/ || (ARGV[0] == '-ns' && file =~/dojo|ext-2.1|FCKeditor/)
+  if file =~ /\.svn|\.bzr|cms-(standard|workgroup|enterprise)/ || (ARGV[0] == '-ns' && file =~/dojo|ext-2.1|FCKeditor/)
     Find.prune 
   end
   
