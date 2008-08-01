@@ -1,4 +1,3 @@
-
 function lockedByOther(){
 	if(!this._task)
 		return false;
@@ -53,7 +52,7 @@ function isAdmin(){
 /**
  *  Retrieve the value of a property defined for this prototype from cms.xml
  *  Returns boolean true or false if the property value is "true" or "false".
- *  Otherwise, returns a string.  If property is not found, returns the default 
+ *  Otherwise, returns a string.  If property is not found, returns the default
  *  value or undefined if no default is given.
  */
 function getCMSProperty(key, default_value){
@@ -75,19 +74,19 @@ function getCMSProperty(key, default_value){
 }
 
 
-/** 
+/**
  *  Return a boolean indicating if the object can be added in the cms
  */
-function addable(){ 
+function addable(){
 	var val = this.getCMSProperty('addable', true);
 	return val;
 }
 
 
-/** 
+/**
  *  Return a boolean indicating if the object can be edited in the cms
  */
-function editable(){ 
+function editable(){
 	// if-cms-version-enterprise
 	if (this._task) {
 		var task = this._task.getTarget();
@@ -102,14 +101,14 @@ function editable(){
 	if(typeof this.cmsEditableAdvice == 'function') // application hook
 		return this.cmsEditableAdvice(val);
 	return val;
-	
+
 }
 
 
-/** 
+/**
  *  Return a boolean indicating if the object can be deleted in the cms
  */
-function deleteable(){ 
+function deleteable(){
 	var val = this.getCMSProperty('deleteable', true);
 	if(typeof this.cmsDeletableAdvice == 'function') // application hook
 		return this.cmsDeleteableAdvice(val);

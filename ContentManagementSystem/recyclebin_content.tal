@@ -1,0 +1,6 @@
+<div class="columnRight">
+  <div id="Messages"></div>
+  <div id="ContentWrapper">
+	<div id="RecycleBinTable"> </div>
+  </div>
+</div>
