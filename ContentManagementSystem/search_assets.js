@@ -96,7 +96,7 @@ function search_assets(){
 	var query_tags = app.getObjects("CMSTag", {});
 	var objects = [];
 	var highlight = [];
-	var contentTypeProp = getProperty('propertyFilesIgnoreCase') == 'true' ? '_contenttype' : '_contentType';
+	var contentTypeProp = app.getProperty('propertyFilesIgnoreCase') == 'true' ? '_contenttype' : '_contentType';
 	var object_types = [];
 	if(types.match(/All|Image/i))
 		object_types.push('Image');
