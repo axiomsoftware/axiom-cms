@@ -18,6 +18,8 @@ rsync --exclude=".bzr" --delete -avr cms-standard/* ../cms-standard-build
 cd ../cms-enterprise-build
 bzr add
 bzr commit -m "$CHANGES"
+#bzr commit -m "cms autobuild"
 cd ../cms-standard-build
 bzr add
-bzr commit -m "$CHANGES" 
+bzr commit -m "cms autobuild" 
+#bzr commit -m "$CHANGES" 
