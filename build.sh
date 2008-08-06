@@ -1,4 +1,5 @@
 #!/bin/bash
+cd /opt/bzr/cms-trunk
 bzr update
 ruby cms-build.rb
 
