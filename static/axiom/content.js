@@ -68,9 +68,12 @@ var axiom = {
 		var height = (window.innerHeight ||document.documentElement.clientHeight);
 		var edit_content = dojo.byId("edit_content");
 		if(edit_content){
-			edit_content.style.height = (height-219)+'px';
+			edit_content.style.height = (height-185)+'px';
 		}
-		dojo.byId("ContentBody").style.height = (height-190)+'px';
+		var colRight = dojo.byId("columnRight");
+		if(colRight){
+			dojo.byId("columnRight").style.height= (height-170)+'px';
+		}
 	},
 	hideMessage:function(){
 		var messages = dojo.byId("Messages");

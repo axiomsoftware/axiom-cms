@@ -19,7 +19,7 @@
 		<div class="searchtags"><label for="keywords">Keyword(s):</label><img class="tag_icon" tal:attributes="onclick string:updateTags(true); src string:${app/getStaticMountpoint}/axiom/images/icon_tags.gif; alt string:Tags;" /></div>
 		<div id="tag_window"><span tal:define="window_id string:left_nav_tags; input_id string:keywords; searchmode string:true" tal:replace="list_tags"/></div>
 		<input class="textbox" type="text" name="keywords" id="keywords" /> 
-		<p>Searches title, file name and content of document types.</p>
+		<p>Searches title, file name and content.</p>
 	  </fieldset>
 	  <fieldset>
 		<input class="button" type="submit" value="Search" />
@@ -28,7 +28,7 @@
 	</form>
   </div>
 
-  <div class="section second">
+  <div class="section last">
 	<h2>Add Items</h2>
 	<form id="upload_file" name="upload_file" method="post" enctype="multipart/form-data" action="upload">
 	  <fieldset>
@@ -44,13 +44,7 @@
 		<input class="button" type="button" onclick="uploadFile()" value="Upload" />
 	  </fieldset>
 	</form>
-	<a onclick="axiom.tags.toggleWindow('supportedFileTypes')" href="javascript:void(0);" id="filetypes">Supported File Types</a>
-  </div>
-  
-  <div class="section last">
-	<h2>Manage Asset Tags</h2>
-	<p>View and delete existing asset tags.</p>
+	<a onclick="axiom.tags.toggleWindow('supportedFileTypes')" href="javascript:void(0);">Supported File Types</a><br/>
 	<a href="javascript:void(0);" onclick="manageTags()">Manage Tags</a> 
   </div>
-
 </div>
