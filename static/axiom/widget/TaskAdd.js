@@ -11,7 +11,7 @@ dojo.require("dojo.event.*");
 dojo.require("dojo.widget.*");
 
 dojo.widget.defineWidget(
-	"axiom.widget.TaskAdd", 
+	"axiom.widget.TaskAdd",
 	dojo.widget.HtmlWidget,
 	function(){},
 	{
@@ -36,12 +36,12 @@ dojo.widget.defineWidget(
 			}
 			dojo.html.addClass(this.addButton, 'disabled');
 			this.errorMessage.style.display='none';
-			var data = { 
+			var data = {
 				name: this.nameField.value,
 				description: this.descField.value };
-			
+
 			var date = this.datePicker.getDate();
-			if(date)
+			if(date && this.datePicker.inputNode.value != '')
 				data.due_date = date.getTime();
 
 			dojo.io.bind({url:this.appPath+'cms/add_task',
