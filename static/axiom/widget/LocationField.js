@@ -32,7 +32,8 @@ dojo.widget.defineWidget(
 		exit:function(widget) {
 			this.dialog = dojo.widget.byId("BrowseDialog");
 			if(this.dialog) {
-				axiom.browsecfilter.find_desc.style.display = 'inline';				
+				axiom.browsecfilter.find_desc.style.display = 'inline';
+				axiom.browsecfilter.publishedOnly = false;
 				this.dialog.hide();
 			} else {
 				widget.remote.close();
@@ -60,6 +61,7 @@ dojo.widget.defineWidget(
 				axiom.browsetable.exitCallBack = this.exit;
 				axiom.browsetable.callingWidget = this;
 				axiom.browsetable.searchURL = this.href + "potentialTargets";
+				axiom.browsecfilter.publishedOnly = true;
 				axiom.browsecfilter.setTargetTypes(this.parentTypes);
 				axiom.browsecfilter.find_desc.style.display = 'none';
 				//axiom.browsecfilter.reset();
@@ -75,7 +77,7 @@ dojo.widget.defineWidget(
 				this.remote.callingWidget = this;
 			}
 		},
-		populate:function(text){ 
+		populate:function(text){
 		      if(this.initialText.match(/^\d*$/) && this.currentText == this.idField.value){
 				  this.idField.value = text;
 				  this.scrub();
@@ -104,11 +106,11 @@ dojo.widget.defineWidget(
 			dojo.event.kwConnect({ srcObj:this.browseButton,
 								   srcFunc:'onclick',
 								   adviceObj:this,
-								   adviceFunc:'browse'});         
+								   adviceFunc:'browse'});
 			dojo.event.kwConnect({ srcObj:this.clearButton,
 								   srcFunc:'onclick',
 								   adviceObj:this,
-								   adviceFunc:'clearLocation'});         
+								   adviceFunc:'clearLocation'});
 			dojo.event.kwConnect({ srcObj:this.idField,
 								   srcFunc:'onkeyup',
 								   adviceObj:this,
