@@ -501,6 +501,8 @@ dojo.widget.defineWidget(
 			var buttons;
 			if (this.widget.widgetType == "UserTable") {
 				buttons = this.widget.insertButtonRow([delete_data]);
+			} else if(this.widget.buttonData){
+				this.widget.insertButtonRow(this.widget.buttonData);
 			} else {
 				var copy_data = {text:'Copy', callback: 'copyObjects'};
 				buttons = this.widget.insertButtonRow([delete_data,copy_data]);

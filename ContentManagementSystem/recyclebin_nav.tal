@@ -1,2 +1,4 @@
-<div class="columnLeft"> </div>
+<div class="columnLeft">
+  <div id="RecycleBinFilter"> </div>
+ </div>
 

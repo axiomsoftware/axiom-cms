@@ -4,10 +4,10 @@ var users = {
 		dojo.require('axiom.widget.UserTable');
 		dojo.require('axiom.widget.UserFilter');
 		users.ctable = dojo.widget.createWidget("axiom:UserTable",
-							{appPath:axiom.appPath, 
+							{appPath:axiom.appPath,
 							 searchURL: 'searchUsers'},
 							dojo.byId("UserTable"));
-		
+
 		users.cfilter = dojo.widget.createWidget("axiom:UserFilter",
 												 {prototypes:["CMSUser"],
 												  appPath:axiom.appPath},
@@ -32,11 +32,11 @@ var users = {
 	delete_user: function(href, username){
 		axiom.openModal({ content: "Delete user <strong>"+username+"</strong>?",
 				  confirmdialog: true,
-				  callback: function(){ 
+				  callback: function(){
 					  dojo.io.bind({url:href+'/cms_delete',
 							load: users.fire_search
 						       });
-					  
+
 				  }
 				});
 	},
@@ -46,15 +46,15 @@ var users = {
 		var edit = dojo.widget.byId('EditBody');
 		edit.setUrl(href);
 		edit.show();
-		
+
 	},
 	load_search: function(){
 		dojo.widget.byId('EditBody').hide();
 		users.fire_search();
 		dojo.widget.getWidgetsByType('UserTable')[0].show();
-		
+
 	},
-	fire_search: function(evt){ 
+	fire_search: function(evt){
 		var widget = dojo.widget.getWidgetsByType('UserFilter')[0];
 		widget.search(evt, "CMSUser", widget.getKeywords());
 	},
@@ -72,7 +72,7 @@ var users = {
 			dojo.io.bind({ url:axiom.appPath+'cms/add_user',
 						   load: function(load,data,evt){
 							   if(data.errors.length != 0){
-								   axiom.openModal({  content: data.errors.join('<br/>') 
+								   axiom.openModal({  content: data.errors.join('<br/>')
 												   });
 							   }
 							   else{

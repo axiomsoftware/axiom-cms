@@ -43,7 +43,7 @@ dojo.widget.defineWidget(
 			this.results_body.appendChild(row);
 			dojo.event.kwConnect({ srcObj: edit_icon,
 								   srcFunc: 'onclick',
-								   adviceFunc: function(){users.load_edit(user.edit_url)}
+								   adviceFunc: function(){users.load_edit(user.edit_url);}
 								 });
 
 		},

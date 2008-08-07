@@ -21,6 +21,7 @@ dojo.widget.defineWidget(
 		numCols: 3,
 		approveButton: null,
 		rejectButton: null,
+		buttonData: [{text: "Restore", callback:"restoreObjects"}, {text: "Delete", callback:"deleteObjects"}],
 		templatePath:new dojo.uri.dojoUri('../axiom/widget/resources/RecycleBinTable.html'),
 		templateCssPath:new dojo.uri.dojoUri('../axiom/widget/resources/RecycleBinTable.css'),
 		insertRow: function(item){
@@ -34,42 +35,10 @@ dojo.widget.defineWidget(
 				});
 			this.results_body.appendChild(row);
 		},
-		toggleRow:function(){}, // override for no-op
-		deleteObjects:function(){
-			if(!dojo.html.hasClass(this.deleteButton, 'form-button-disabled')){
-				var objects = [];
-				for(var id in this.selectedRows){
-					objects.push(id);
-				}
-				var content;
-				if(objects.length == 1){
-					var cells = dojo.byId(objects[0]).getElementsByTagName('td');
-					content = "Delete user <b>"+cells[2].innerHTML+" "+cells[3].innerHTML+"</b>?";
-				} else {
-					content = "Delete the selected users? This action cannot be undone.";
-				}
-				axiom.openModal({ confirmdialog: true,
-								  content: content,
-								  callback: function(){
-									  dojo.io.bind({ url: 'delete_users',
-													 method: 'post',
-													 contentType: 'text/json',
-													 load: function(){ users.cfilter.search()},
-													 postContent: dojo.json.serialize({users: objects}),
-													 error: function(){
-														 axiom.openModal({content: "Error connecting to server."});
-													 }
-												   });
-								  }
 
-
-				});
-			}
-		},
 		postCreate:function() {
 			this.ajaxLoader.src = axiom.staticPath + '/axiom/images/ajax-loader.gif';
 			this.tablewrap.style.display = 'block';
-			this.searchUrl = this.appPath+ 'cms/recycle_bin_contents';
 
 			dojo.event.kwConnect({srcObj: this.pagination_input,
 								  srcFunc: 'onkeypress',
