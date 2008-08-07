@@ -19,7 +19,7 @@ function getPageNumber(start, length, numhits, total) {
 }
 
 /** Parses a user-entered query string, searching the entered field (defaults to 'searchable_content'
- * Returns: { queries: [an array of Lucene query strings], 
+ * Returns: { queries: [an array of Lucene query strings],
  *            highlight: [an array of entered terms for highlighting search results] }
  */
 function parseKeywordSearch(keywords, search_field){
@@ -42,44 +42,44 @@ function parseKeywordSearch(keywords, search_field){
 
 	// look for exact matches
 	var exact_regex = /\"([^\"]+)\"/g;
-	matches = keywords.match(exact_regex);
+	var matches = keywords.match(exact_regex);
 	for(var i in matches)
 		query.push(field+': '+matches[i]);
 	keywords = keywords.replace(exact_regex, '');
-	
+
 	// any remaining terms are stemmed (e.g. "chew" matches "chewbacca" as well)
 	var stem_terms = keywords.split(/\s+/);
 	for(var i in stem_terms){
-		stem_terms[i] = stem_terms[i].replace(/^\*|\*$/, ''); 
+		stem_terms[i] = stem_terms[i].replace(/^\*|\*$/, '');
 		if(stem_terms[i] != ''){
 			query.push(field+': '+stem_terms[i]+'*');
 			highlight.push(stem_terms[i]);
 		}
 	}
-	
+
 	// escape reserved characters
 	for(q in query)
-		query[q] = query[q].replace(/([+\-&!(){}\[\]\'|^~\?])/g, "\\$1").replace('""', ''); 
-	
+		query[q] = query[q].replace(/([+\-&!(){}\[\]\'|^~\?])/g, "\\$1").replace('""', '');
+
 	return {queries: query,
 		highlight: highlight};
 }
 
 function searchUsers(keywords){
 	var prototype = req.data.prototype || ["CMSUser"];
-	var keywords = req.data.keywords || '';
+	keywords = (keywords || req.data.keywords || '');
 	var sort = req.data.sort || false;
 	if(!sort || sort.toSource() == '({})'){
 		sort = {'cms_lastmodified':'desc'};
 	}
 	sort = new Sort(sort);
-	
+
 	var start = parseInt(req.data.start) || 0;
 	var length = parseInt(req.data.length) || 15;
 	app.log('start: '+start);
 	app.log('length: '+length);
 	var query = this.parseKeywordSearch(keywords).queries.join(' AND ');
-	var hits = app.getHits(prototype, (query || '_d: 1'), {sort: sort}); 
+	var hits = app.getHits(prototype, (query || '_d: 1'), {sort: sort});
     var results = hits.objects(start, length);
 	this.writeResults(this.extractUser, hits, results, start, length);
 }
@@ -89,10 +89,10 @@ function runSearch(custom_query) {
 	var keywords = req.data.keywords || '';
 	var sort = req.data.sort || false;
 	if(!sort || sort.toSource() == '({})'){
-		sort = {'cms_lastmodified':'desc'}
+		sort = {'cms_lastmodified':'desc'};
 	}
 	sort = new Sort(sort);
-	
+
 	var start = req.data.start || 0;
 	var length = parseInt(req.data.length) || 15;
 	var published_only = req.data.published_only || false;
@@ -114,7 +114,7 @@ function extractContent(result){
 			title: result.title,
 			task: task ? cms.extractTask(task) : null,
 			addable: result.addable(),
-			editable: result.task_editable(), 
+			editable: result.task_editable(),
 			locked: locked,
 			deletable: (!locked && result.deleteable()),
 			created: result.cms_createdby,
@@ -147,14 +147,14 @@ function extractUser(user){
 }
 
 function search(prototype,keywords,sort,start,length,published_only,context) {
-	var status_filter = published_only?'cms_status: z*':'cms_status: z* OR cms_status: a*'; 
+	var status_filter = published_only?'cms_status: z*':'cms_status: z* OR cms_status: a*';
 	var filter;
 	if(keywords.length != 0){
 		filter = this.parseKeywordSearch(keywords, 'cms_searchable_content').queries.join(' OR ');
 		filter = '('+filter+') AND ( '+status_filter+' )';
 	}
 	else{
-		filter = status_filter; 
+		filter = status_filter;
 	}
 
 	if(typeof this.cmsCustomQueryFilter == "function"){
@@ -172,7 +172,7 @@ function writeResults(extract_func,hits,results,start,length,sort,return_href) {
 
 
 	var result_data = results.map(extract_func);
-	
+
 	var data = {staticPath: root.getURI()+'static',
 			results: result_data,
 			showlen: (hits.length > 15),

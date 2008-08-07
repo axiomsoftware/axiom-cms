@@ -60,10 +60,8 @@ var axiom = {
 		var oldcall = window.onresize;
 		window.onresize = function(){
 			if(oldcall){
-				console.log(oldcall);
 				oldcall();
 			}
-				console.log('adjusting height');
 			axiom.adjustHeight();
 		};
 
