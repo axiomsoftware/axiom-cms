@@ -32,6 +32,7 @@ function users(){
 	res.write(this.frame({title: 'Axiom CMS - Users',
 						  nav: 'users_nav',
 						  content: 'users_content',
+						  class_name: 'users',
 						  omit_top: true,
 						  scripts: ['users.js']}));
 

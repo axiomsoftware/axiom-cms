@@ -3,7 +3,6 @@
   <link tal:repeat="sheet css" tal:attributes="href string:${app/getStaticMountpoint}/axiom/${sheet}" rel="stylesheet" type="text/css"/>
    <!--[if IE 7]><style> 
  	   #header .tabs li {padding: 4px 0px 6px;}
-	   #content .body .columnRight { width:100%;}
 	   #content .body .columnRightAsset { width:auto;}
 	   </style>
    <![endif]-->

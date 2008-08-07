@@ -57,9 +57,15 @@ var axiom = {
 			axiom.editBaseClass = dojo.html.getClass(dojo.widget.byId("EditBody").domNode);
 			axiom.contentBaseClass = dojo.html.getClass(dojo.widget.byId("ContentBody").domNode);
 		}
-		window.onresize =  axiom.adjustHeight;
-		axiom.adjustHeight();
+		var oldcall = window.onresize;
+		window.onresize = function(){
+			if(oldcall){
+				oldcall();
+			}
+			axiom.adjustHeight();
+		};
 
+		axiom.adjustHeight();
 		axiom.initValidation();
 	},
 	editBaseClass : '',
@@ -68,9 +74,12 @@ var axiom = {
 		var height = (window.innerHeight ||document.documentElement.clientHeight);
 		var edit_content = dojo.byId("edit_content");
 		if(edit_content){
-			edit_content.style.height = (height-219)+'px';
+			edit_content.style.height = (height-185)+'px';
 		}
-		dojo.byId("ContentBody").style.height = (height-190)+'px';
+		var colRight = dojo.byId("columnRight");
+		if(colRight){
+			dojo.byId("columnRight").style.height= (height-170)+'px';
+		}
 	},
 	hideMessage:function(){
 		var messages = dojo.byId("Messages");

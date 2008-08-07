@@ -155,13 +155,13 @@ function referenceTitle(property) {
 	if (this.getTypePropertyValue(property+'.type')=='MultiValue(Reference)') { if (ref.length==0) {return '';} ref = this[property][0]; }
 	var target = ref.getTarget();
 	if (!target) { return ''; }
-	var title = target.title
+	var title = target.title;
 	if (title) { title = title.replace(/'/g, '\\\''); }
 	return title;
 }
 
 function deleteablePrototype() {
-	invalidPrototypes=['ContentFolder','ContentManagementSystem','CMSTagFolder','CMSTaggable']
+	var invalidPrototypes=['ContentFolder','ContentManagementSystem','CMSTagFolder','CMSTaggable'];
 
 	for(var i=0;i<invalidPrototypes.length;i++) {
 		if(this._prototype==invalidPrototypes[i]) {

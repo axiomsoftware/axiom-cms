@@ -21,6 +21,7 @@ function jsonFromResults(results) {
  *  of the objects that can be referenced via this property.
  */
 function potentialTargets() {
+	var published_only = req.data.published_only;
 	var prototype = (req.data.prototype || '');
 	var keywords = (req.data.keywords || '');
 	var property = (req.data.property || '');
@@ -35,6 +36,7 @@ function potentialTargets() {
 	var cms_searchable_types = cms.getSearchablePrototypes();
 	var qmethod = path?'getObjects':'getHits';
 
+	var status_filter = published_only ? {cms_status: 'z'} : new OrFilter({cms_status: 'a'}, {cms_status: 'z'});
 	if (property == '_location') { types = cms_searchable_types; }
 	if (prototype) { types = prototype.split(','); } //search overrides targetTypes
 	if (!types) { types = cms_searchable_types; }
@@ -45,11 +47,11 @@ function potentialTargets() {
 	}
 	sort = new Sort(sort);
 
-	var filter = "_d: 1 AND (cms_status: z OR cms_status: a) NOT _id: "+this._id;
+	var filter = "_d: 1 NOT _id: "+this._id;
 	if (keywords) {
 		filter = cms.parseKeywordSearch(keywords, 'cms_searchable_content').queries.concat(['NOT _id:'+this._id]).join(' OR ');
 	}
-	filter = new AndFilter(filter, new OrFilter({cms_status: 'a'}, {cms_status: 'z'}));
+	filter = new AndFilter(filter, status_filter);
 
 	// application hook
 	if(typeof cms.cmsCustomQueryFilter == 'function'){

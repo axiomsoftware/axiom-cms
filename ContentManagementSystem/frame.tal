@@ -26,7 +26,7 @@
   </script>
   <script type="text/javascript" tal:repeat="script: scripts" tal:attr="src: app.getStaticMountpoint('/axiom/'+script)"> </script>
   
-  <body style="cursor: default;" tal:attr="'class': 'assets_frame'"> 
+  <body style="cursor: default;" tal:attr="'class': (data.class_name || 'assets_frame')"> 
   <div class="outerwrap">
 	<div class="innerwrap">
 	  <span tal:if="!data.omit_top" tal:replace="this.cms_top()" />  

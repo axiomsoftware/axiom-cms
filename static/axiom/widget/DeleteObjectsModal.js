@@ -41,10 +41,10 @@ dojo.widget.defineWidget(
 				} else {
 					message = this.objects.length +' content objects have been added to task '+ task_id + ' for deletion.';
 				}
-				this.doTaskAction({url: axiom.cmsPath + 'add_to_delete_task',  
+				this.doTaskAction({url: axiom.cmsPath + 'add_to_delete_task',
 								   params:   {objects: this.objects, task_id: task_id},
 								   message:  message,
-								   callback: function(){axiom.cfilter.search()}
+								   callback: function(){axiom.cfilter.search();}
 								  });
 
 			} else{
@@ -101,10 +101,12 @@ dojo.widget.defineWidget(
 			this.mainContent.appendChild(task_label);
 
 			var task_list = document.createElement('select');
-			task_list.innerHTML = "<option>--Choose One--</option>";
+			var opt = document.createElement('option');
+			opt.innerHTML = '--Choose One--';
+			task_list.appendChild(opt);
 			for(var i in axiom.myAssignedTasks){
 				var task = axiom.myAssignedTasks[i];
-				var opt = document.createElement('option');
+				opt = document.createElement('option');
 				opt.innerHTML = task.task_id + ' - ' +task.name;
 				opt.value = task.task_id + ' - ' +task.name;
 				task_list.appendChild(opt);

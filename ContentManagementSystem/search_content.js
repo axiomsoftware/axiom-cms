@@ -42,7 +42,7 @@ function parseKeywordSearch(keywords, search_field){
 
 	// look for exact matches
 	var exact_regex = /\"([^\"]+)\"/g;
-	matches = keywords.match(exact_regex);
+	var matches = keywords.match(exact_regex);
 	for(var i in matches)
 		query.push(field+': '+matches[i]);
 	keywords = keywords.replace(exact_regex, '');
@@ -83,7 +83,7 @@ function recycle_bin_contents(keywords){
 
 function searchUsers(keywords){
 	var prototype = req.data.prototype || ["CMSUser"];
-	keywords = req.data.keywords || '';
+	keywords = (keywords || req.data.keywords || '');
 	var sort = req.data.sort || false;
 	if(!sort || sort.toSource() == '({})'){
 		sort = {'cms_lastmodified':'desc'};
