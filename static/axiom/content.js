@@ -57,9 +57,17 @@ var axiom = {
 			axiom.editBaseClass = dojo.html.getClass(dojo.widget.byId("EditBody").domNode);
 			axiom.contentBaseClass = dojo.html.getClass(dojo.widget.byId("ContentBody").domNode);
 		}
-		window.onresize =  axiom.adjustHeight;
-		axiom.adjustHeight();
+		var oldcall = window.onresize;
+		window.onresize = function(){
+			if(oldcall){
+				console.log(oldcall);
+				oldcall();
+			}
+				console.log('adjusting height');
+			axiom.adjustHeight();
+		};
 
+		axiom.adjustHeight();
 		axiom.initValidation();
 	},
 	editBaseClass : '',

@@ -4,7 +4,7 @@ dojo.require("dojo.io.IframeIO")
 dojo.require("dojo.html.*");
 dojo.require("dojo.widget.ContentPane");
 dojo.require("axiom.widget.Asset");
-var current_thumbs = []; 
+var current_thumbs = [];
 var lastTags = '';
 var lastKeywords = '';
 var lastTypes = 'all';
@@ -33,7 +33,7 @@ function queryAssets(keywords, types, batch_size, sort, page_num){
 }
 function deleteTags(){
 	var tag_list = dojo.byId('tag_container').getElementsByTagName('input');
-	var checked_len = 0; 
+	var checked_len = 0;
 	for (i in tag_list){ if(tag_list[i].checked) checked_len++; }
 	var input_len = tag_list.length;
 	var submitted = 0;
@@ -46,25 +46,29 @@ function deleteTags(){
 		}
 	}
 }
-function tagSearch(evt){ 
+function tagSearch(evt){
 	if(typeof evt == "object")
 		evt = (evt.target.textContent || evt.target.innerText)
 	dojo.byId('keywords').value = 'tag:"'+evt+'"';
 	queryAssets('tag:"'+ evt+'"', 'all', batch_size, lastSort);
 }
 
-function fireLastQuery(page){ 
-	if(!page || typeof page != "number") 
+function fireLastQuery(page){
+	if(!page || typeof page != "number")
 		page = current_page;
 	queryAssets(lastKeywords, lastTypes, batch_size, lastSort, page);
 }
-function recalculateBatchSize(){
+function recalculateBatchSize(force_reload){
 	// FIXME FIXME hardcodin' size of assets for now...
-	var thumbs = dojo.byId('thumbs');
+	var thumbs = dojo.byId('columnRight');
 	rows = Math.floor(thumbs.offsetHeight/170);
 	cols = Math.floor(thumbs.offsetWidth/165);
 	batch_size = rows*cols;
-	dojo.byId('batch_size').value = batch_size;
+	var old_size = dojo.byId('batch_size').value;
+	if(force_reload || old_size != batch_size){
+		dojo.byId('batch_size').value = batch_size;
+		fireLastQuery();
+	}
 }
 
 function nextPage(){
@@ -79,7 +83,7 @@ function previousPage(){
 
 function gotoPage(page){
 	// kludge since &lt; and &gt; comparisons bork xml well-formedness
-	page = parseInt(page,10)
+	page = parseInt(page,10);
 	if(Math.max(1, page) == page)
 		if(Math.min(last_page+1, page) == page)
 			fireLastQuery(page);
@@ -88,16 +92,16 @@ function fileclick(evt){
 	dojo.byId('filename').click(evt);
 }
 function stopPropagation(evt){
-	if (!evt) 
+	if (!evt)
 		var evt = window.event;
 	evt.cancelBubble = true;
-	if (evt.stopPropagation) evt.stopPropagation(); 
+	if (evt.stopPropagation) evt.stopPropagation();
 }
-function load_thumbs(load, data, evt){ 
+function load_thumbs(load, data, evt){
     lastKeywords = dojo.byId('keywords').value;
 	lastTypes = dojo.byId('types').value;
 	lastSort = dojo.byId('hidden_sort').value;
-	
+
 	var pane = dojo.widget.byId('thumbs');
 	dojo.lang.forEach(current_thumbs, function(thumb){
 		thumb.destroy();
@@ -105,7 +109,7 @@ function load_thumbs(load, data, evt){
 	pane.setContent('');
 	var len = data.objs.length;
 	var res_text = dojo.byId('results_found');
-	res_text.innerHTML = data.total+ " result"+((data.total == 1)?"":"s")+" found"; 
+	res_text.innerHTML = data.total+ " result"+((data.total == 1)?"":"s")+" found";
 
 	current_page = data.current;
 	last_page = Math.ceil(data.total/batch_size);
@@ -119,12 +123,12 @@ function load_thumbs(load, data, evt){
 				buttons[0].src = axiom.staticPath+'/axiom/images/icon_page_back_enabled.gif';
 			else
 				buttons[0].src = axiom.staticPath+'/axiom/images/icon_page_back_disabled.gif';
-			
+
 			if(current_page != last_page)
 				buttons[1].src = axiom.staticPath+'/axiom/images/icon_page_next_enabled.gif';
 			else
 				buttons[1].src = axiom.staticPath+'/axiom/images/icon_page_next_disabled.gif';
-			
+
 			pages.style.display = 'block';
 		}
 		else{
@@ -133,7 +137,7 @@ function load_thumbs(load, data, evt){
 	}
 	display_lambda(dojo.byId('pages'));
 	display_lambda(dojo.byId('pages2'));
-	
+
 	dojo.byId('sort_by').style.display='inline';
 	dojo.lang.forEach(data.objs, function(asset){
 		asset.appPath= axiom.appPath;
@@ -145,7 +149,7 @@ function load_thumbs(load, data, evt){
 }
 
 function updateTags(display){
-	dojo.io.bind({url: axiom.cmsPath + 'cmsTagList', 
+	dojo.io.bind({url: axiom.cmsPath + 'cmsTagList',
 				  load: function(load, data, evt){
 					  dojo.byId('tag_window').innerHTML=data;
 					  if(display)
@@ -193,7 +197,7 @@ function assetEdit(content,is_href,hide_nav, widget){
 
 	axiom.browsetable.multiple = false; // Initialize table to be singular select
 	axiom.browsetable.defaultValue = "";
-	axiom.browsetable.defaultValues = []; 
+	axiom.browsetable.defaultValues = [];
 	axiom.clearOnSubmitMethods();
 	axiom.addSubmitMethod(fireLastQuery);
 	hideSearchUtils();
@@ -236,7 +240,7 @@ function uploadFile(){
 				  },
 	              error: function(){ axiom.openModal({content: 'Could not connect to server.'})},
 				  method: "post",
-				  transport: "IframeTransport"  
+				  transport: "IframeTransport"
 			     });
 	showLoading();
 }
@@ -246,17 +250,22 @@ function showLoading(){
 }
 
 function pageInit(){
+	axiom.showingThumbs = true;
 	new dojo.io.FormBind({ formNode: dojo.byId('search_form'),
 						   load: load_thumbs,
 						   mimetype: 'text/javascript' });
 	dojo.require("dojo.dnd.HtmlDragMove");
 	new dojo.dnd.HtmlDragMoveSource(dojo.byId("supportedFileTypes"));
 	new dojo.dnd.HtmlDragMoveSource(dojo.byId("tag_window"));
-	dojo.event.kwConnect({ srcObj: window,
-						   srcFunc: 'onresize',
-						   adviceFunc:  function(){ if(axiom.showingThumbs){ recalculateBatchSize(); fireLastQuery(); } }
-						 });
-	
+	var oldcall = window.onresize;
+	window.onresize =  function(){
+		if(oldcall){
+			oldcall();
+		}
+		if(axiom.showingThumbs){
+			recalculateBatchSize();
+		}
+	};
 	var sort_by = dojo.byId('sort_by');
 	if(sort_by){
 		dojo.event.kwConnect({ srcObj: sort_by,
@@ -274,13 +283,11 @@ function pageInit(){
 						   srcObj: document.getElementsByTagName('body')[0],
 						   adviceFunc: function(){ dojo.lang.forEach(current_thumbs, function(w){ if(w.domNode) {w.allOff();} } );}
 						 });
-	recalculateBatchSize();
-	fireLastQuery();
-	
+	recalculateBatchSize(true);
 }
 function gotoKey(evt){
 	if(evt.keyCode == 13)
-		gotoPage((evt.srcElement ? evt.srcElement.value : evt.target.value))
+		gotoPage((evt.srcElement ? evt.srcElement.value : evt.target.value));
 }
 
 var batchTitle = '';
@@ -296,7 +303,7 @@ function kludgeTextareas(){
 	batchAlt = '';
 }
 function toggleTemplate(){
-	if(templateHidden){ 
+	if(templateHidden){
 		dojo.byId('template_trigger').innerHTML = 'Collapse';
 		dojo.lfx.html.wipeIn(dojo.byId('template'), 300).play();
 	} else{
@@ -330,7 +337,7 @@ function applyBatch(){
 	batchAlt = newAlt;
 	batchCredit = newCredit;
 }
-function cancelBatch(){ 
+function cancelBatch(){
 	var rows = dojo.byId('content_table').getElementsByTagName('tr');
 	var len = rows.length;
 	var hrefs = [];
@@ -343,7 +350,7 @@ function cancelBatch(){
 	// before they're all deleted
 	assetEdit('<div style="width:100%;text-align:center;padding:25px 0;">Loading...<br/><img src="'+axiom.staticPath + '/axiom/images/ajax-loader.gif" alt="Loading..." /></div>');
 	dojo.byId('columnLeft').style.display = 'block';
-	dojo.byId('columnRight').style.margin = axiom.oldLeftMargin; 
+	dojo.byId('columnRight').style.margin = axiom.oldLeftMargin;
 	if(hrefs.length != 0){
 		var delete_lambda = function(){ dojo.io.bind({url:hrefs.pop()+'/cms_delete',
 			load:(hrefs.length == 0)?fireLastQuery:delete_lambda})
@@ -361,13 +368,13 @@ function fire_submit(){
 		var id = rows[i].id;
 		objs[id] = '';
 		var textareas = rows[i].getElementsByTagName('textarea');
-		if(textareas.length != 4) 
+		if(textareas.length != 4)
 			continue;
 		if(textareas[0].value == "")
 			error_message += 'Title is required for '+id+'<br/>';
 		if(textareas[1].value == "")
 			error_message += 'Tags are required for '+id+'<br/>';
-		
+
 		objs[id] = {title: textareas[0].value,
 					tags:  textareas[1].value,
 					alt:   textareas[2].value,
@@ -378,12 +385,12 @@ function fire_submit(){
 					   method: 'post',
 					   postContent: dojo.json.serialize(objs),
 					   contentType: 'text/json',
-					   load: function(){ 
+					   load: function(){
 						   var colRight = dojo.byId('columnRight');
 						   assetEdit('<div style="width:100%;text-align:center;padding:25px 0;">Loading...<br/><img src="'+axiom.staticPath + '/axiom/images/ajax-loader.gif" alt="Loading..." /></div>');
 						   dojo.byId('columnLeft').style.display = 'block';
 						   colRight.style.margin = axiom.oldLeftMargin;
-						   fireLastQuery(); 
+						   fireLastQuery();
 					   }
 					 });
 	}else{
@@ -394,7 +401,7 @@ function fire_submit(){
 function resetForm(){
     var key = document.getElementById("keywords");
     key.value = "";
-    
+
     var types = document.getElementById("types");
     types.options[0].selected = "selected";
 }
