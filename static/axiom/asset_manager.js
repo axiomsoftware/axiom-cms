@@ -372,8 +372,6 @@ function fire_submit(){
 			continue;
 		if(textareas[0].value == "")
 			error_message += 'Title is required for '+id+'<br/>';
-		if(textareas[1].value == "")
-			error_message += 'Tags are required for '+id+'<br/>';
 
 		objs[id] = {title: textareas[0].value,
 					tags:  textareas[1].value,
