@@ -43,6 +43,7 @@ function recyclebin(){
 						  nav: 'recyclebin_nav',
 						  content: 'recyclebin_content',
 						  omit_top: true,
+						  class_name: 'users',
 						  scripts: ['recyclebin.js']}));
 
 }

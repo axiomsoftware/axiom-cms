@@ -19,8 +19,6 @@ dojo.widget.defineWidget(
 		appPath:'',
 		data: {},
 		numCols: 3,
-		approveButton: null,
-		rejectButton: null,
 		buttonData: [{text: "Restore", callback:"restoreObjects"}, {text: "Delete", callback:"deleteObjects"}],
 		templatePath:new dojo.uri.dojoUri('../axiom/widget/resources/RecycleBinTable.html'),
 		templateCssPath:new dojo.uri.dojoUri('../axiom/widget/resources/RecycleBinTable.css'),
@@ -35,7 +33,16 @@ dojo.widget.defineWidget(
 				});
 			this.results_body.appendChild(row);
 		},
+		restoreObjects: function(){
 
+		},
+		deleteObjects: function(){
+			var objects = [];
+			for(var id in this.selectedRows){
+				objects.push({title: dojo.byId(id).getElementsByTagName('td')[2].innerHTML,
+							  id: id});
+			}
+		},
 		postCreate:function() {
 			this.ajaxLoader.src = axiom.staticPath + '/axiom/images/ajax-loader.gif';
 			this.tablewrap.style.display = 'block';
