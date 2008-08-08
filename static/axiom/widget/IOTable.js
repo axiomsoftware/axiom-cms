@@ -77,7 +77,6 @@ dojo.widget.defineWidget(
 						   contentType: 'text/json',
 						   postContent: dojo.json.serialize(args),
 						   error: function(evt, data, type){
-							   this.widget.domNode.innerHTML = '';
 							   axiom.openModal({content:"Error connecting to server."});
 						   },
 						   method: 'post',

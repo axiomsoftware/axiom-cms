@@ -147,6 +147,7 @@ function extractTask(task){
 function extractTrashBag(bag){
 	var item = bag.getChildren()[0];
 	return {
+		_id: bag._id,
 		title: item.title,
 		location: bag.oldlocation,
 		num_children: item.getChildren().length
