@@ -518,3 +518,8 @@ th.col_by { width:5%; border-right: 1px solid #b0b4b6; }
 
 .users #content .body { height: 600px; }
 .users #content .body .columnRight{ min-height: 530px; }
+
+.body .recycleBinTable thead tr th.col_title,
+.body .recycleBinTable tbody tr td.col_title { border-left: 1px solid #b0b4b6; } 
+.body .recycleBinTable thead tr th.col_children,
+.body .recycleBinTable tbody tr td.col_children { border-right: 1px solid #b0b4b6; } 

@@ -489,7 +489,9 @@ dojo.widget.defineWidget(
 			for(var i in data.results){
 				this.widget.insertRow(data.results[i]);
 			}
-
+			if(data.results.length == 0 && typeof this.widget.insertNoObjectsRow == 'function'){
+				this.widget.insertNoObjectsRow();
+			}
 
 			var delete_data = {text:'Delete', callback: 'deleteObjects'};
 			// if-cms-version-standard|workgroup

@@ -21,7 +21,6 @@ dojo.widget.defineWidget(
 		numCols: 3,
 		buttonData: [{text: "Restore", callback:"restoreObjects"}, {text: "Delete", callback:"deleteObjects"}],
 		templatePath:new dojo.uri.dojoUri('../axiom/widget/resources/RecycleBinTable.html'),
-		templateCssPath:new dojo.uri.dojoUri('../axiom/widget/resources/RecycleBinTable.css'),
 		insertRow: function(item){
 			var row_id = item._id;
 			var row = this.createRow(
@@ -64,6 +63,10 @@ dojo.widget.defineWidget(
 		},
 		onUnselect:function(row){
 			this.toggleButtons();
+		},
+		insertNoObjectsRow: function(){
+			dojo.require('axiom.widget.TaskTable');
+			axiom.widget.TaskTable.prototype.insertNoObjectsRow.call(this, "No objects in recycle bin.");
 		},
 		postCreate:function() {
 			this.ajaxLoader.src = axiom.staticPath + '/axiom/images/ajax-loader.gif';
