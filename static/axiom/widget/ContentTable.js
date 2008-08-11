@@ -524,7 +524,6 @@ dojo.widget.defineWidget(
 				this.widget.deleteButton = buttons[0];
 				this.widget.setupPagination(data);
 			}
-
 		},
 		setupPagination:function(data){
 			if(data.pagination){

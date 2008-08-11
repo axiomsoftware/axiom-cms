@@ -1,4 +1,4 @@
-function preprocess_data(data){
+xfunction preprocess_data(data){
 	var schema = this.getSchema();
 	for(var i in data){
 		if (schema[i]) {
