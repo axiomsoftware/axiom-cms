@@ -153,8 +153,8 @@ dojo.widget.defineWidget(
 					edit.alt = "Edit";
 					dojo.event.kwConnect({srcObj: edit,
 										  srcFunc: 'onclick',
-										  adviceFunc: function(evt){evt.cancelBubble = true; axiom.loadEdit((obj.href == '/'?'':obj.href)+'/cms_edit') } });
-				} else{
+										  adviceFunc: function(evt){evt.cancelBubble = true; axiom.loadEdit((obj.href == '/'?'':obj.href)+'/cms_edit'); } });
+				} else {
 					edit.src = axiom.staticPath+"/axiom/images/icon_edit_off.gif";
 					edit.title = "You do not have permission to edit this object";
 					edit.alt = "You do not have permission to edit this object";
