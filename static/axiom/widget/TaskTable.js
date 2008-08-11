@@ -121,16 +121,16 @@ dojo.widget.defineWidget(
 			return result;
 		},
 		refresh:function(args){
-			dojo.dom.removeChildren(this.results_body)
+			dojo.dom.removeChildren(this.results_body);
 			this.selectedRows = {};
 			this.search(args);
 		},
-		insertNoObjectsRow:function(){
+		insertNoObjectsRow:function(content){
 			this.columnHeaders.style.display = 'none';
        		this.results_body.appendChild(this.createRow({	id: 'empty-row',
 															noHighlight: true,
 															omitSelector: true,
-															cols: [{content: "You have no tasks at this time.",
+															cols: [{content: content || "You have no tasks at this time.",
 																	colspan: this.numCols,
 																	'class': 'noObjects'}]
 														 }));

@@ -67,9 +67,9 @@ dojo.widget.defineWidget(
 									  dojo.io.bind({ url: 'delete_users',
 													 method: 'post',
 													 contentType: 'text/json',
-													 load: function(){ users.cfilter.search()},
+													 load: function(){ users.cfilter.search();},
 													 postContent: dojo.json.serialize({users: objects}),
-													 error: function(){
+													 error: function(e){
 														 axiom.openModal({content: "Error connecting to server."});
 													 }
 												   });
