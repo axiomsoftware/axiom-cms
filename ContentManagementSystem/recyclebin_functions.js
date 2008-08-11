@@ -30,7 +30,7 @@ function restore_objects(data){
 			}
 		}
 	}
-	return msgs.join("<br/>");
+	return msgs.length ? msgs.join("<br/>") : "Objects restored.";
 }
 
 function purge_recycled_objects(){

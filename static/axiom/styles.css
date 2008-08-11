@@ -189,7 +189,7 @@ div.browsewrapper {border:1px solid #878a8b;background:#aebabf;padding:8px;min-h
 .body .pages .nextButton {margin:0 3px; *position:relative; *left:6px; *margin-left:6px;}
 .body .pages .button {padding:3px 5px 4px 5px; position:relative; top:-1px; *top:0;}
 .body .results tbody td .table_info_txt { float:right; font-family: Tahoma; font-size: 9px; color:#666;}
-.body .tablewrap {clear:both; /*border:1px solid #b0b4b6; background:#cfd4d7;*/ width:90%; padding:1%; margin: 0 auto;padding-top:7px; margin-left:9px;}
+.body .tablewrap {clear:both; /*border:1px solid #b0b4b6; background:#cfd4d7;*/ width:90%; padding:1%; padding-top:7px; margin-left: 0 9px;}
 .body .tablewrap .table-info {padding-left:36px; *padding-left:32px; color:#555; font-size:9px;margin-bottom:6px;}
 .body .results {font-size:1em; width:99%; margin:0; padding:0; border-bottom:0; border-collapse:collapse;}
 .body .results thead tr td {margin: 1px; background: url(images/table_header_bg.gif) 0 0 repeat-x; height: 29px;}
@@ -470,7 +470,7 @@ body.login .loginbox div, .adminbox div {padding-bottom:10px;}
 #SimpleFormBuilder table tr {border-bottom:#b0b4b7 1px solid;}
 /*end SimpleFormBuilder table styles */
 
-#Messages { display:none; margin:0 6% 0 3%; font-family: Tahoma; font-size: 12px; color: #006600; font-weight: bold; padding: 5px; 7px 7px 2px;}
+#Messages { display:none; margin:0 6% 0 40px; font-family: Tahoma; font-size: 12px; color: #006600; font-weight: bold; padding: 5px; 7px 7px 2px;}
 
 /* modal styles */
 .ax-modal {border:2px solid #b0b4b7; border-bottom:5px solid #c8cbce; width:367px; background: #fff; font-family:Tahoma; font-size: 11px; color: #333;}
