@@ -22,6 +22,7 @@ dojo.widget.defineWidget(
 		prototypeList:null,
 		searchButton:null,
 		searchTerm:'',
+		searchPrototype:'',
 		resetButton:null,
 		resultTable:null,
 		contentAdd:null,
@@ -84,6 +85,7 @@ dojo.widget.defineWidget(
 			this.searchlength = this.initialLength;
 			this.setPrototype("");
 			this.searchTerm = '';
+			this.searchPrototype = '';
 			this.keywordInput.value = '';
 		},
 		reset:function() {
@@ -103,6 +105,12 @@ dojo.widget.defineWidget(
 				this.searchTerm = k;
 			} else {
 				this.searchTerm = '';
+			}
+
+			if (p) {
+				this.searchPrototype = p;
+			} else {
+				this.searchPrototype = '';
 			}
 
 			this.runSearch(p, k, this.sortObj, -1, len, this.publishedOnly);
@@ -129,7 +137,7 @@ dojo.widget.defineWidget(
 		},
 		go:function(start, length) {
 			this.searchlength = length;
-			this.runSearch(this.getPrototype(), this.searchTerm, this.sortObj, start, length);
+			this.runSearch(this.searchPrototype, this.searchTerm, this.sortObj, start, length);
 		},
 		goToPage:function(textnode,l,pages) {
 			var page = parseInt(textnode.value, 10);
