@@ -471,6 +471,15 @@ dojo.widget.defineWidget(
 			}
 		},
 		handleResults:function(type, data, req){
+			if (this.widget == axiom.ctable) {
+				if (this.widget.searchterm) {
+					if (axiom.cfilter.searchTerm) {
+						this.widget.searchterm.innerHTML = '<strong>Your search: "' + axiom.cfilter.searchTerm + '"</strong>';
+					} else {
+						this.widget.searchterm.innerHTML = '';
+					}
+				}
+			}
 			this.widget.loading.style.display = 'none';
 			this.widget.tablewrap.style.display = 'block';
 			this.widget.data = data;
