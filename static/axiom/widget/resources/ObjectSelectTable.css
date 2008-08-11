@@ -1,3 +1,4 @@
 .ContentTable{ display: none; }
 .loading { width:100%; text-align:center; padding:25px 0; }
 .col_sort { display:none; }
+#browsecontent .term {float:left; padding:10px 0 0 15px;}
