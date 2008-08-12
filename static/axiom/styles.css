@@ -523,3 +523,6 @@ th.col_by { width:5%; border-right: 1px solid #b0b4b6; }
 .body .recycleBinTable tbody tr td.col_title { border-left: 1px solid #b0b4b6; } 
 .body .recycleBinTable thead tr th.col_children,
 .body .recycleBinTable tbody tr td.col_children { border-right: 1px solid #b0b4b6; } 
+
+#SEOSettings label { vertical-align:top; display:inline; }
+#SEOSettings #new_robot_wrapper { display: none; margin-bottom: 15px; }

@@ -17,15 +17,14 @@ dojo.widget.defineWidget(
 	{
 		modules: {},
 		templatePath:new dojo.uri.dojoUri('../axiom/widget/resources/GeneralSettings.html'),
-		//templateCssPath:new dojo.uri.dojoUri('../axiom/widget/resources/GeneralSettings.css'),
 		loadSettings: function(evt,data,req){
 			this.widget.content.innerHTML = data;
 		},
 		save: function(){
 			if(axiom.validateForm('general_settings')){
-				axiom.submitEdit({edit_url: axiom.cmsPath+'save', 
+				axiom.submitEdit({edit_url: axiom.cmsPath+'save',
 								  form_id: 'general_settings',
-								  callback: function() { window.close() },
+								  callback: function() { window.close(); },
 								  submit_all: true});
 			}
 		},
@@ -33,7 +32,7 @@ dojo.widget.defineWidget(
 			dojo.io.bind({ url:         'general_settings',
 						   load:        this.loadSettings,
 						   widget:      this});
-						 
+
 		}
 	}
 );

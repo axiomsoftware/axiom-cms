@@ -19,17 +19,27 @@ dojo.widget.defineWidget(
 		templatePath:new dojo.uri.dojoUri('../axiom/widget/resources/SettingsNav.html'),
 		templateCssPath:new dojo.uri.dojoUri('../axiom/widget/resources/SettingsNav.css'),
 		registerModule: function(widget, name){
-			this.modules[name] = widget;
 			var item = document.createElement('li');
 			var link = document.createElement('a');
 			link.innerHTML = name;
-			dojo.event.kwConnect({srcObj: link,
+			dojo.event.kwConnect({srcObj: item,
 								  srcFunc: 'onclick',
-								  adviceObj: widget,
-								  adviceFunc: 'show'});
+								  adviceFunc: function(){axiom.settings.nav.showWidget(name);}
+								 });
 			link.href= "javascript:void(0);";
 			item.appendChild(link);
+			this.modules[name] = {widget:widget, nav: item};
 			this.modulesList.appendChild(item);
+		},
+		showWidget: function(name){
+			for(var i in this.modules){
+				this.modules[i].widget.hide();
+				dojo.html.removeClass(this.modules[i].nav, 'active');
+
+			}
+			dojo.html.addClass(this.modules[name].nav, 'active');
+			this.modules[name].widget.show();
+
 		},
 		saveAll: function(){
 			for(var name in this.modules)

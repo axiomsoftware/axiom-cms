@@ -5,6 +5,9 @@
 	  <div id="SettingsTable"> 
 		<div id="General">
 		</div>
+		<div id="SEO">
+		  SEO stuff here.
+		</div>
 	  </div>
 	</div>
   </div>
