@@ -3,6 +3,8 @@
   <div dojoattachpoint="loading" class="loading">Refreshing Search Results...<br/><img dojoattachpoint="ajaxLoader"  alt="Loading..." /></div>
   <div dojoattachpoint="tablewrap" xmlns:tal="http://xml.zope.org/namespaces/tal" class="ContentTable">
 	<div class="pagination">
+	  <div class="term" dojoattachpoint="searchterm">
+ 	  </div>
 	  <div class="pages" dojoattachpoint="pagination_block" style="display:none">
 		<img dojoattachpoint="previous_page_img" class="prevButton" alt="Previous Page"/>
 		Page&nbsp;<strong dojoattachpoint="page_num"> </strong>&nbsp;of&nbsp;<strong dojoattachpoint="page_total"> </strong>

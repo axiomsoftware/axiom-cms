@@ -471,6 +471,15 @@ dojo.widget.defineWidget(
 			}
 		},
 		handleResults:function(type, data, req){
+			if (this.widget == axiom.ctable) {
+				if (this.widget.searchterm) {
+					if (axiom.cfilter.searchTerm) {
+						this.widget.searchterm.innerHTML = '<strong>Your search: "' + axiom.cfilter.searchTerm + '"</strong>';
+					} else {
+						this.widget.searchterm.innerHTML = '';
+					}
+				}
+			}
 			this.widget.loading.style.display = 'none';
 			this.widget.tablewrap.style.display = 'block';
 			this.widget.data = data;
@@ -501,19 +510,20 @@ dojo.widget.defineWidget(
 			// end-cms-if
 
 			var buttons;
-			if (this.widget.widgetType == "UserTable") {
-				buttons = this.widget.insertButtonRow([delete_data]);
-			} else if(this.widget.buttonData){
-				buttons = this.widget.insertButtonRow(this.widget.buttonData);
-				this.widget.buttons = buttons;
-			} else {
-				var copy_data = {text:'Copy', callback: 'copyObjects'};
-				buttons = this.widget.insertButtonRow([delete_data,copy_data]);
-				this.widget.copyButton = buttons[1];
+			if(data.results.length != 0){
+				if (this.widget.widgetType == "UserTable") {
+					buttons = this.widget.insertButtonRow([delete_data]);
+				} else if(this.widget.buttonData){
+					buttons = this.widget.insertButtonRow(this.widget.buttonData);
+					this.widget.buttons = buttons;
+				} else {
+					var copy_data = {text:'Copy', callback: 'copyObjects'};
+					buttons = this.widget.insertButtonRow([delete_data,copy_data]);
+					this.widget.copyButton = buttons[1];
+				}
+				this.widget.deleteButton = buttons[0];
+				this.widget.setupPagination(data);
 			}
-			this.widget.deleteButton = buttons[0];
-			this.widget.setupPagination(data);
-
 		},
 		setupPagination:function(data){
 			if(data.pagination){

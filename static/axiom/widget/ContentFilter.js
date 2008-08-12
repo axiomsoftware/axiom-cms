@@ -21,6 +21,7 @@ dojo.widget.defineWidget(
 		keywordInput:null,
 		prototypeList:null,
 		searchButton:null,
+		searchTerm:'',
 		resetButton:null,
 		resultTable:null,
 		contentAdd:null,
@@ -82,6 +83,7 @@ dojo.widget.defineWidget(
 			this.sortfdirection = '';
 			this.searchlength = this.initialLength;
 			this.setPrototype("");
+			this.searchTerm = '';
 			this.keywordInput.value = '';
 		},
 		reset:function() {
@@ -96,6 +98,13 @@ dojo.widget.defineWidget(
 			var p = (prototype || this.getPrototype());
 			var k = (keyword || (this.keywordInput.value == 'Keyword' ? '' : this.keywordInput.value));
         	var len = (length || this.searchlength);
+
+			if (k) {
+				this.searchTerm = k;
+			} else {
+				this.searchTerm = '';
+			}
+
 			this.runSearch(p, k, this.sortObj, -1, len, this.publishedOnly);
 		},
 		sort:function(sortObj){
@@ -120,7 +129,7 @@ dojo.widget.defineWidget(
 		},
 		go:function(start, length) {
 			this.searchlength = length;
-			this.runSearch(this.getPrototype(), this.getKeywords(), this.sortObj, start, length);
+			this.runSearch(this.getPrototype(), this.searchTerm, this.sortObj, start, length);
 		},
 		goToPage:function(textnode,l,pages) {
 			var page = parseInt(textnode.value, 10);

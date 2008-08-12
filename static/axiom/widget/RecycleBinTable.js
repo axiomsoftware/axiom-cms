@@ -49,10 +49,10 @@ dojo.widget.defineWidget(
 						 });
 		},
 		restoreObjects: function(){
-			this.submitObjects('restore_objects', recyclebin.cfilter.search);
+			this.submitObjects('restore_objects', function(evt,text,res){ axiom.showMessage(text); recyclebin.cfilter.search(); });
 		},
 		deleteObjects: function(){
-			this.submitObjects('purge_recycled_objects', recyclebin.cfilter.search);
+			this.submitObjects('purge_recycled_objects', function(evt,text,res){ axiom.showMessage(text); recyclebin.cfilter.search(); });
 		},
 		toggleButtons: function(){
 			this.checkButton([], this.buttons[0]);

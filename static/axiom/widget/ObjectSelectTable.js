@@ -94,6 +94,15 @@ dojo.widget.defineWidget(
 		},
 		toggleRow:function(){}, // override for no-op
 		handleResults:function(type, data, req){
+			if (this.widget == axiom.browsetable) {
+				if (this.widget.searchterm) {
+					if (axiom.browsecfilter.searchTerm) {
+						this.widget.searchterm.innerHTML = '<strong>Your search: "' + axiom.browsecfilter.searchTerm + '"</strong>';
+					} else {
+						this.widget.searchterm.innerHTML = '';
+					}
+				}
+			} 
 			this.widget.loading.style.display = 'none';
 			this.widget.tablewrap.style.display = 'block';
 
