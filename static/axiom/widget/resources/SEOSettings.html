@@ -1,16 +1,2 @@
-<div id="SEOSettings" >
-  <h2>SEO Settings</h2>
-  <h3>Robots</h3>
-  <div>Specify which urls search robots should told to ignore.  Gort! Klaatu brada nikto!</div>
-  <form id="seo_settings" dojoattachpoint="robot_content">
-	
-  </form>
-  <div id="new_robot_wrapper" dojoattachpoint="new_robot_wrapper">
-	Name: <input dojoattachevent="keypress:enterOnNewRobotHandler"  dojoattachpoint="new_robot_field"/> 
-	<a dojoattachevent="click:newRobot" class="button form-button">OK</a>
-	<a dojoattachevent="click:hideNewRobot" class="button form-button">Cancel</a>
-  </div>
-  <a class="button form-button" href="javascript:void(0);" dojoattachpoint="addButton" dojoattachevent="click:showNewRobot">
-	Add Specific Robot 
-  </a>
+<div id="SEOSettings" dojoattachpoint="content">
 </div>
