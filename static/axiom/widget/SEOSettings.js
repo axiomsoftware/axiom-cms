@@ -30,16 +30,19 @@ dojo.widget.defineWidget(
 
 		},
 		save: function(){
-			if(axiom.validateForm('general_settings')){
-// 				axiom.submitEdit({edit_url: axiom.cmsPath+'save',
-// 								  form_id: 'general_settings',
-// 								  callback: function() { window.close(); },
-// 								  submit_all: true});
-			}
+			axiom.submitEdit({edit_url: 'foozle',//axiom.cmsPath+'save',
+							  form_id: 'seo_settings',
+							  callback: function() { axiom.showMessage("Settings saved."); },
+							  submit_all: true});
 		},
 		showNewRobot: function(){
 			this.new_robot_field.value = '';
 			this.new_robot_wrapper.style.display = 'block';
+			this.addButton.style.display = 'none';
+		},
+		hideNewRobot: function(){
+			this.new_robot_wrapper.style.display = 'none';
+			this.addButton.style.display = 'inline';
 		},
 		enterOnNewRobotHandler: function(evt){
 			if(evt.keyCode == 13){
@@ -48,7 +51,7 @@ dojo.widget.defineWidget(
 		},
 		newRobot: function(){
 				this.makeRobotField(this.new_robot_field.value, []);
-				this.new_robot_wrapper.style.display = 'none';
+				this.hideNewRobot();
 		},
 		postCreate: function(){
  			dojo.io.bind({ url:         'robot_settings',

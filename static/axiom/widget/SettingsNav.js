@@ -43,7 +43,7 @@ dojo.widget.defineWidget(
 		},
 		saveAll: function(){
 			for(var name in this.modules)
-				this.modules[name].save();
+				this.modules[name].widget.save();
 		}
 	}
 );
