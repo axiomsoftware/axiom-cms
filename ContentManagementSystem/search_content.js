@@ -89,11 +89,17 @@ function searchUsers(keywords){
 		sort = {'cms_lastmodified':'desc'};
 	}
 	sort = new Sort(sort);
-
 	var start = parseInt(req.data.start) || 0;
 	var length = parseInt(req.data.length) || 15;
 	var query = this.parseKeywordSearch(keywords).queries.join(' AND ');
-	var hits = app.getHits(prototype, (query || '_d: 1'), {sort: sort});
+	var statusfilter = new Filter({cms_status:"z"});
+	var filter;
+	if (query) {
+		filter = new AndFilter(new NativeFilter(query),statusfilter);
+	} else {
+		filter = statusfilter;
+	}
+	var hits = app.getHits(prototype, filter, {sort: sort});
     var results = hits.objects(start, length);
 	this.writeResults(this.extractUser, hits, results, start, length);
 }
