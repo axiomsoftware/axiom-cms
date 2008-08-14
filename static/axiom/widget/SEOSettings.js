@@ -19,19 +19,27 @@ dojo.widget.defineWidget(
 
 		templatePath:new dojo.uri.dojoUri('../axiom/widget/resources/SEOSettings.html'),
 		save: function(){
-			dojo.io.bind({url: 'foozle',//axiom.cmsPath+'save',
+			this.content.innerHTML = '<div style="width:100%;text-align:center;padding:25px 0;">Loading...<br/><img src="'+axiom.staticPath + '/axiom/images/ajax-loader.gif" alt="Loading..." /></div>';
+			dojo.io.bind({url: 'upload_seo_files',
 						  formNode: 'seo_settings',
-						  load: function() { axiom.showMessage("Settings saved."); },
-						  error: function(){ },
+						  load: function() {
+							  axiom.showMessage("Files saved.");
+							  this.widget.reload();
+						  },
+						  error: function(e,t){ axiom.showMessage(t.message); },
+						  mimetype: 'text/html',
 						  method: "post",
+						  widget: this,
 						  transport: "IframeTransport"
 						 });
 		},
-		postCreate: function(){
+		reload: function(){
 			dojo.io.bind({ url:         'robot_settings',
 						   load:        this.loadSettings,
 						   widget:      this});
-
+		},
+		postCreate: function(){
+			this.reload();
 		}
 	}
 );
