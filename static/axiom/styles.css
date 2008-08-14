@@ -526,3 +526,4 @@ th.col_by { width:5%; border-right: 1px solid #b0b4b6; }
 
 #SEOSettings label { vertical-align:top; display:inline; }
 #SEOSettings #new_robot_wrapper { display: none; margin-bottom: 15px; }
+.settings #Messages { margin-left: 15px; }
