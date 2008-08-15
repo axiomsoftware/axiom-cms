@@ -32,7 +32,7 @@
 
 <div id="content_table">
   <table cellspacing="0" border="0" class="template_items">
-    <tr><th class="colthumb"> </th><th class="colfile">Filename</th><th class="colcontent">Content Type</th><th class="coltitle"><span class="required">*</span>Title</th><th class="coltags"><span class="required">*</span>Tags</th><th class="colcaption">Caption/Alternate Text</th><th class="colcredit">Credit</th></tr>
+    <tr><th class="colthumb"> </th><th class="colfile">Filename</th><th class="colcontent">Content Type</th><th class="coltitle"><span class="required">*</span>Title</th><th class="coltags">Tags</th><th class="colcaption">Caption/Alternate Text</th><th class="colcredit">Credit</th></tr>
     <swx tal:repeat="file files" tal:omit-tag="string:true">
       <tr tal:define="id file/id" tal:attributes="id id;name file/getURI"> 
 	<td class="colthumb"><img tal:attributes="src file/thumb_on"/> </td>

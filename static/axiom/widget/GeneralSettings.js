@@ -24,7 +24,7 @@ dojo.widget.defineWidget(
 			if(axiom.validateForm('general_settings')){
 				axiom.submitEdit({edit_url: axiom.cmsPath+'save',
 								  form_id: 'general_settings',
-								  callback: function() { window.close(); },
+								  callback: function() { axiom.showMessage("Settings saved."); },
 								  submit_all: true});
 			}
 		},

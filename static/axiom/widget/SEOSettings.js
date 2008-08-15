@@ -9,53 +9,37 @@ dojo.require("dojo.lang.common");
 dojo.require("dojo.html.*");
 dojo.require("dojo.event.*");
 dojo.require("dojo.widget.*");
+dojo.require("axiom.widget.GeneralSettings");
 
 dojo.widget.defineWidget(
 	"axiom.widget.SEOSettings",
-	dojo.widget.HtmlWidget,
+	axiom.widget.GeneralSettings,
 	function(){},
 	{
-		modules: {},
-		templatePath:new dojo.uri.dojoUri('../axiom/widget/resources/SEOSettings.html'),
-		loadSettings: function(evt,data,req){
-			for(var i in data){
-				this.widget.makeRobotField(i, data[i]);
-			}
-		},
-		makeRobotField: function(name, list){
-				var fieldset = document.createElement('fieldset');
-				fieldset.innerHTML = '<label>'+(name=='__all__'?'All Robots':name)+': </label><textarea name="'+name+'">'
-										 +list.join('\n')+'</textarea>';
-				this.robot_content.appendChild(fieldset);
 
-		},
+		templatePath:new dojo.uri.dojoUri('../axiom/widget/resources/SEOSettings.html'),
 		save: function(){
-			if(axiom.validateForm('general_settings')){
-// 				axiom.submitEdit({edit_url: axiom.cmsPath+'save',
-// 								  form_id: 'general_settings',
-// 								  callback: function() { window.close(); },
-// 								  submit_all: true});
-			}
+			this.content.innerHTML = '<div style="width:100%;text-align:center;padding:25px 0;">Loading...<br/><img src="'+axiom.staticPath + '/axiom/images/ajax-loader.gif" alt="Loading..." /></div>';
+			dojo.io.bind({url: 'upload_seo_files',
+						  formNode: 'seo_settings',
+						  load: function() {
+							  axiom.showMessage("Files saved.");
+							  this.widget.reload();
+						  },
+						  error: function(e,t){ axiom.showMessage(t.message); },
+						  mimetype: 'text/html',
+						  method: "post",
+						  widget: this,
+						  transport: "IframeTransport"
+						 });
 		},
-		showNewRobot: function(){
-			this.new_robot_field.value = '';
-			this.new_robot_wrapper.style.display = 'block';
-		},
-		enterOnNewRobotHandler: function(evt){
-			if(evt.keyCode == 13){
-				this.newRobot();
-			}
-		},
-		newRobot: function(){
-				this.makeRobotField(this.new_robot_field.value, []);
-				this.new_robot_wrapper.style.display = 'none';
+		reload: function(){
+			dojo.io.bind({ url:         'robot_settings',
+						   load:        this.loadSettings,
+						   widget:      this});
 		},
 		postCreate: function(){
- 			dojo.io.bind({ url:         'robot_settings',
- 						   load:        this.loadSettings,
-						   mimetype: 'text/json',
- 						   widget:      this});
-
+			this.reload();
 		}
 	}
 );

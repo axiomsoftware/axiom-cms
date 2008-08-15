@@ -6,8 +6,12 @@ function restore_objects(data){
 		var item = bag.getChildren()[0];
 		var new_location = bag.oldlocation.replace(/\/[^\/]+$/, '');
 		var errors = item.save({_location: new_location});
-		if(!errors){
+		var restore = function(obj){
 			bag._parent.remove(bag);
+			obj.publishToLive();
+		};
+		if(!errors){
+			restore(item);
 		} else {
 			// try readable probably-unique location
 			errors = item.save({_location: new_location+'_restored'});
@@ -16,14 +20,14 @@ function restore_objects(data){
 												+ 'currently located there.  It has been restored to ';
 			if(!errors){
 				msgs.push(new_location_msg+new_location+'_restored instead.');
-				bag._parent.remove(bag);
+				restore(item);
 			} else {
 				// try guaranteed unique path
 				var time = (new Date()).getTime();
 				errors = item.save({_location: new_location+'_'+time});
 				if(!errors){
 					msgs.push(new_location_msg+new_location+'_'+time+' instead.');
-					bag._parent.remove(bag);
+					restore(item);
 				} else{
 					msgs.push('The server encounted an internal error while trying to restore object "'+item.title+'": '+errors.toSource());
 				}
