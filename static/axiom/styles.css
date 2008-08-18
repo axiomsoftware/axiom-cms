@@ -474,6 +474,8 @@ body.login .loginbox div, .adminbox div {padding-bottom:10px;}
 
 /* modal styles */
 .ax-modal {border:2px solid #b0b4b7; border-bottom:5px solid #c8cbce; width:367px; background: #fff; font-family:Tahoma; font-size: 11px; color: #333;}
+.ax-modal .section-title { color: #666; font-weight: bold;  }
+.ax-modal label { color: #000; font-weight: normal; display: inline;}
 *html .ax-modal {border:2px solid #b0b4b7; border-bottom:5px solid #c8cbce; width:340px; background: #fff; font-family:Tahoma; font-size: 11px; color: #333;}
 .ax-modal #edit-task{margin:0; padding:0;}
 .ax-modal .title .modal-icon{ float:left; padding:7px 5px 0px 5px;} 
