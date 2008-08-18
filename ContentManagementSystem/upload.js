@@ -95,6 +95,7 @@ function guessContentType(name){
 		'xls': 'application/excel',
 		'xlt': 'application/excel',
 		'doc': 'application/msword',
+		'dot': 'application/msword',
 		'psd': 'application/photoshop',
 		'ppt': 'application/mspowerpoint',
 		'pot': 'application/mspowerpoint',
