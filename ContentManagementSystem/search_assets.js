@@ -124,7 +124,6 @@ function search_assets(){
 		sort_params['title'] = 'asc';
 	var sort_obj = new Sort(sort_params);
 
-	var objects = [];
 	var total = 0;
 	var hits;
 	if((!keywords || keywords.replace(/^\s+/, '').replace(/\s+$/, '') == '') && types.match(/all/i)){
@@ -148,7 +147,7 @@ function search_assets(){
 					subq.push('NOT ' + contentTypeProp + ': '+mimetype);
 				}
 			}
-			var typefilter = '('+subq.join(' ')+')';
+			typefilter = '('+subq.join(' ')+')';
 		}
 		q.queries = q.queries.join(' OR ');
 		var final_query = '';
@@ -166,13 +165,16 @@ function search_assets(){
 		if(typeof this.cmsCustomQueryFilter == "function")
 			final_filter = new AndFilter(final_filter, this.cmsCustomQueryFilter(context));
 
-		app.log(final_query);
 		hits = app.getHits(object_types, final_filter, {sort: sort_obj});
 		highlight = q.highlight;
 	}
 
-	var total = hits.total;
-	var objects = hits.objects(start_idx, batch_size);
+	total = hits.total;
+	while(total < start_idx){
+		start_idx -= batch_size;
+		page_num--;
+	}
+	objects = hits.objects(start_idx, batch_size);
 
 	var len = objects.length;
 	var results = [];
@@ -187,21 +189,21 @@ function search_assets(){
 		}
 
 		results.push({id: asset.id,
-			      title: (asset.title || ''),
-			      filename: asset.getFileName(),
-			      thumb_on: asset.thumb_on(),
-			      thumb_off: asset.thumb_off(),
-			      preview: asset.preview_href(),
-			      width: ((asset._prototype == "Image")?asset.getWidth():0),
-			      height: ((asset._prototype == "Image")?asset.getHeight():0),
-			      filesize: parseInt((filesize > 0)?Math.ceil(filesize/1024):0),
-			      path: asset.getURI()+'/',
-			      allTags: asset.ajax_tag_list(),
-			      searchTags: highlight_copy,
-			      hopobjHref: asset.getURI()+'/',
-			      rootHref: root.getURI(),
-			      altText: (asset.alt||''),
-			      contentType: asset.getContentType()})
+					  title: (asset.title || ''),
+					  filename: asset.getFileName(),
+					  thumb_on: asset.thumb_on(),
+					  thumb_off: asset.thumb_off(),
+					  preview: asset.preview_href(),
+					  width: ((asset._prototype == "Image")?asset.getWidth():0),
+					  height: ((asset._prototype == "Image")?asset.getHeight():0),
+					  filesize: parseInt((filesize > 0)?Math.ceil(filesize/1024):0),
+					  path: asset.getURI()+'/',
+					  allTags: asset.ajax_tag_list(),
+					  searchTags: highlight_copy,
+					  hopobjHref: asset.getURI()+'/',
+					  rootHref: root.getURI(),
+					  altText: (asset.alt||''),
+					  contentType: asset.getContentType()});
 	}
 	return {total: total, current: (page_num || 1), objs: results};
 }

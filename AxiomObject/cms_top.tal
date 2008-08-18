@@ -1,7 +1,9 @@
 <div id="header" xmlns:tal="http://axiomstack.com/tale" tal:var="cms: app.getHits('ContentManagementSystem', {}).objects(0,1)[0]"> 
   <ul class="utility">
+
 	<swx tal:omit="true" tal:if="this.isAdmin()">
-	  <li><a target="blank" tal:attr="onclick: 'window.open(\''+cms.getURI('settings')+'\', \'Settings\', \'width=1024,height=700,resizable,scrollbars\')' ">Settings</a></li>
+	  <li><a target="blank" tal:attr="onclick: 'window.open(\''+cms.getURI('recyclebin')+'\', \'RecycleBin\', \'width=1024,height=700,resizable=yes,scrollbars=yes\')' ">Recycle Bin</a></li>
+	  <li><a target="blank" tal:attr="onclick: 'window.open(\''+cms.getURI('settings')+'\', \'Settings\', \'width=1024,height=700,resizable=yes,scrollbars=yes\')' ">Settings</a></li>
 	  <li><a target="blank" tal:attr="onclick: 'window.open(\''+cms.getURI('users')+'\', \'Users\', \'width=1024,height=700,resizable=yes,scrollbars=yes\')' ">Users</a></li>
 	</swx>
 	<li class="last"><a href="#" onclick="axiom.logout()">Logout</a></li>

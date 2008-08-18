@@ -12,7 +12,7 @@ dojo.require("dojo.widget.*");
 dojo.require("axiom.widget.ContentTable");
 
 dojo.widget.defineWidget(
-	"axiom.widget.UserTable", 
+	"axiom.widget.UserTable",
 	axiom.widget.ContentTable,
 	function(){},
 	{
@@ -27,10 +27,10 @@ dojo.widget.defineWidget(
 			var row_id = user._id ;
 			var edit_icon = document.createElement('img');
 			edit_icon.src = axiom.staticPath +'/axiom/images/icon_edit.gif';
-									
+
 			var row = this.createRow(
 				{id: row_id,
-				 cols: [{content: edit_icon,       'class': 'col_action' }, 
+				 cols: [{content: edit_icon,       'class': 'col_action' },
 						{content: user.first_name, 'class': 'col_first_name'},
 						{content: user.last_name,  'class': 'col_last_name' },
 						{content: user.username,   'class': 'col_username' },
@@ -43,16 +43,16 @@ dojo.widget.defineWidget(
 			this.results_body.appendChild(row);
 			dojo.event.kwConnect({ srcObj: edit_icon,
 								   srcFunc: 'onclick',
-								   adviceFunc: function(){users.load_edit(user.edit_url)}
+								   adviceFunc: function(){users.load_edit(user.edit_url);}
 								 });
-			
+
 		},
 		toggleRow:function(){}, // override for no-op
 		deleteObjects:function(){
 			if(!dojo.html.hasClass(this.deleteButton, 'form-button-disabled')){
 				var objects = [];
 				for(var id in this.selectedRows){
-					objects.push(id); 
+					objects.push(id);
 				}
 				var content;
 				if(objects.length == 1){
@@ -67,15 +67,15 @@ dojo.widget.defineWidget(
 									  dojo.io.bind({ url: 'delete_users',
 													 method: 'post',
 													 contentType: 'text/json',
-													 load: function(){ users.cfilter.search()},
+													 load: function(){ users.cfilter.search();},
 													 postContent: dojo.json.serialize({users: objects}),
-													 error: function(){ 
+													 error: function(e){
 														 axiom.openModal({content: "Error connecting to server."});
 													 }
 												   });
 								  }
-					
-					
+
+
 				});
 			}
 		},
@@ -99,8 +99,8 @@ dojo.widget.defineWidget(
 			users.cfilter.go(this.start+this.length,this.length);
 		},
 		goToPage:function(evt){
-			if(evt.type == 'click' || evt.keyCode == 13){ 
-				users.cfilter.goToPage(this.pagination_input, this.length,this.pages); 
+			if(evt.type == 'click' || evt.keyCode == 13){
+				users.cfilter.goToPage(this.pagination_input, this.length,this.pages);
 			}
 		},
 		postCreate:function() {

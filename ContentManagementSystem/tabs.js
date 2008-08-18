@@ -37,6 +37,17 @@ function users(){
 						  scripts: ['users.js']}));
 
 }
+
+function recyclebin(){
+	res.write(this.frame({title: 'Axiom CMS - Recycle Bin',
+						  nav: 'recyclebin_nav',
+						  content: 'recyclebin_content',
+						  omit_top: true,
+						  class_name: 'users',
+						  scripts: ['recyclebin.js']}));
+
+}
+
 function settings(){
 	res.write(this.frame({title: 'Axiom CMS - Settings',
 						  nav: 'settings_nav',

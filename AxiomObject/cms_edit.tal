@@ -27,6 +27,7 @@
           <option tal:attr="value: task.path, selected: (this._task ? (task.task_id == this._task.getTarget().task_id ? 'true' : false) : false)" 
 				  tal:content="task.task_id+' - '+task.name" tal:repeat="task: root.get('cms').my_assigned_tasks()"/>
           <option value="ADD NEW TASK">ADD NEW TASK</option>
+          <option tal:if="session.user.hasRole('Administrator')" value="BYPASS">BYPASS TASK CREATION</option>
         </select>
         <div class="error_message">hidden error message</div>
       </div>

@@ -498,7 +498,9 @@ dojo.widget.defineWidget(
 			for(var i in data.results){
 				this.widget.insertRow(data.results[i]);
 			}
-
+			if(data.results.length == 0 && typeof this.widget.insertNoObjectsRow == 'function'){
+				this.widget.insertNoObjectsRow();
+			}
 
 			var delete_data = {text:'Delete', callback: 'deleteObjects'};
 			// if-cms-version-standard|workgroup
@@ -508,16 +510,20 @@ dojo.widget.defineWidget(
 			// end-cms-if
 
 			var buttons;
-			if (this.widget.widgetType == "UserTable") {
-				buttons = this.widget.insertButtonRow([delete_data]);
-			} else {
-				var copy_data = {text:'Copy', callback: 'copyObjects'};
-				buttons = this.widget.insertButtonRow([delete_data,copy_data]);
-				this.widget.copyButton = buttons[1];
+			if(data.results.length != 0){
+				if (this.widget.widgetType == "UserTable") {
+					buttons = this.widget.insertButtonRow([delete_data]);
+				} else if(this.widget.buttonData){
+					buttons = this.widget.insertButtonRow(this.widget.buttonData);
+					this.widget.buttons = buttons;
+				} else {
+					var copy_data = {text:'Copy', callback: 'copyObjects'};
+					buttons = this.widget.insertButtonRow([delete_data,copy_data]);
+					this.widget.copyButton = buttons[1];
+				}
+				this.widget.deleteButton = buttons[0];
+				this.widget.setupPagination(data);
 			}
-			this.widget.deleteButton = buttons[0];
-			this.widget.setupPagination(data);
-
 		},
 		setupPagination:function(data){
 			if(data.pagination){

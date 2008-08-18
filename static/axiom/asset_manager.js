@@ -1,6 +1,6 @@
 dojo.require("dojo.event.*");
 dojo.require("dojo.io.*");
-dojo.require("dojo.io.IframeIO")
+dojo.require("dojo.io.IframeIO");
 dojo.require("dojo.html.*");
 dojo.require("dojo.widget.ContentPane");
 dojo.require("axiom.widget.Asset");
@@ -47,15 +47,17 @@ function deleteTags(){
 	}
 }
 function tagSearch(evt){
-	if(typeof evt == "object")
-		evt = (evt.target.textContent || evt.target.innerText)
+	if(typeof evt == "object"){
+		evt = (evt.target.textContent || evt.target.innerText);
+	}
 	dojo.byId('keywords').value = 'tag:"'+evt+'"';
 	queryAssets('tag:"'+ evt+'"', 'all', batch_size, lastSort);
 }
 
 function fireLastQuery(page){
-	if(!page || typeof page != "number")
+	if(!page || typeof page != "number"){
 		page = current_page;
+	}
 	queryAssets(lastKeywords, lastTypes, batch_size, lastSort, page);
 }
 function recalculateBatchSize(force_reload){
@@ -134,7 +136,7 @@ function load_thumbs(load, data, evt){
 		else{
 			pages.style.display = 'none';
 		}
-	}
+	};
 	display_lambda(dojo.byId('pages'));
 	display_lambda(dojo.byId('pages2'));
 
@@ -219,7 +221,7 @@ function uploadFile(){
 					  if(evt.body.innerHTML.match(/File upload size exceeds limit/i)){
 						  var limit = axiom.reqLimit ? (axiom.reqLimit / 1024.0) : 200;
 						  if(limit < 1){
-							  limit = axiom.reqLimit + 'KB'
+							  limit = axiom.reqLimit + 'KB';
 						  } else {
 							  limit = parseInt(limit) + 'MB';
 						  }
@@ -238,7 +240,7 @@ function uploadFile(){
 					  }
 					  axiom.showingThumbs = false;
 				  },
-	              error: function(){ axiom.openModal({content: 'Could not connect to server.'})},
+	              error: function(){ axiom.openModal({content: 'Could not connect to server.'}); },
 				  method: "post",
 				  transport: "IframeTransport"
 			     });
@@ -352,8 +354,9 @@ function cancelBatch(){
 	dojo.byId('columnLeft').style.display = 'block';
 	dojo.byId('columnRight').style.margin = axiom.oldLeftMargin;
 	if(hrefs.length != 0){
-		var delete_lambda = function(){ dojo.io.bind({url:hrefs.pop()+'/cms_delete',
-			load:(hrefs.length == 0)?fireLastQuery:delete_lambda})
+		var delete_lambda = function(){ dojo.io.bind({ url:hrefs.pop()+'/cms_delete',
+													   load:(hrefs.length == 0)?fireLastQuery:delete_lambda
+													 });
 									  };
 		delete_lambda();
 	}

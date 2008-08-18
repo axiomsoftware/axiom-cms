@@ -1,5 +1,5 @@
 function add_user(){
-	
+
 	var first_name = req.data.first_name;
 	var last_name = req.data.last_name;
 	var username = req.data.username;
@@ -16,10 +16,10 @@ function add_user(){
 	if(!username){ errors.push('Please specify a username before proceeding.');}
 	if(!password){ errors.push('Please select a password before proceeding.');}
 	if(!email || !email.match(/\S+@\S+\.\S/)){ errors.push('Please enter a valid email address before proceeding.');}
-	if(!verifypassword || password != verifypassword){ errors.push('The specified passwords do not match.') };
+	if(!verifypassword || password != verifypassword){ errors.push('The specified passwords do not match.'); }
 	if(!password.match(/[\w\d]{5,10}/)){ errors.push('Please verify that your password is 5-10 characters before proceeding.');}
-	if(!add_roles){ errors.push('Please select a Role before proceeding.');} 
-	
+	if(!add_roles){ errors.push('Please select a Role before proceeding.');}
+
 	if(errors.length == 0){
 		var user = new CMSUser();
 		user.id = user._id;
@@ -31,6 +31,6 @@ function add_user(){
 		user.setRoles(add_roles);
 		root.get('cms').get('userfolder').add(user);
 		return {url: user.getURI()+'user_edit', errors:[]};
-	}		
+	}
 	return {errors: errors, url: ''};
 }

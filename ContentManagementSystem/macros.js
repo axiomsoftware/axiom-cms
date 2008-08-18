@@ -141,12 +141,3 @@ function isContentContributor(){
 function currentUser(){
 	return session.user.username;
 }
-
-function getUsersPopupJS(){
-	return "window.open('"+root.getURI('/cms/users')+"','Users','width=1024,height=600,resizable=yes,scrollbars=yes');";
-}
-
-function getSettingsPopupJS(){
-	return "window.open('"+root.getURI('/cms/settings')+"','Users','width=1024,height=600,resizable=yes,scrollbars=yes');";
-}
-

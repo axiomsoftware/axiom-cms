@@ -65,6 +65,22 @@ function parseKeywordSearch(keywords, search_field){
 		highlight: highlight};
 }
 
+function recycle_bin_contents(keywords){
+	keywords = (keywords || req.data.keywords || '');
+	var sort = req.data.sort || false;
+	if(!sort || sort.toSource() == '({})'){
+		sort = {'cms_lastmodified':'desc'};
+	}
+	sort = new Sort(sort);
+
+	var start = parseInt(req.data.start) || 0;
+	var length = parseInt(req.data.length) || 15;
+	var query = this.parseKeywordSearch(keywords).queries.join(' AND ');
+	var hits = app.getHits("CMSTrashBag", (query || '_d: 1'), {sort: sort});
+    var results = hits.objects(start, length);
+	this.writeResults(this.extractTrashBag, hits, results, start, length);
+}
+
 function searchUsers(keywords){
 	var prototype = req.data.prototype || ["CMSUser"];
 	keywords = (keywords || req.data.keywords || '');
@@ -132,6 +148,16 @@ function extractTask(task){
 			description: task.description,
 			status: task.status,
 			cms_createdby: task.cms_createdby};
+}
+
+function extractTrashBag(bag){
+	var item = bag.getChildren()[0];
+	return {
+		_id: bag._id,
+		title: item.title,
+		location: bag.oldlocation,
+		num_children: item.getChildren().length
+	};
 }
 
 function extractUser(user){

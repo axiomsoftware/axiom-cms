@@ -1,9 +1,11 @@
 <div>
-  <div class="columnRight">
+  <div class="columnRight settings">
 	<div id="Messages"></div>
 	<div id="ContentWrapper">
 	  <div id="SettingsTable"> 
 		<div id="General">
+		</div>
+		<div id="SEO">
 		</div>
 	  </div>
 	</div>

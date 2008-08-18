@@ -7,7 +7,7 @@
 	</select>
 	<div id="pages" class="pages" >
 	  <img onclick="previousPage()" tal:attributes="src string:${root/getURI}static/axiom/images/icon_page_back_disabled.gif;" alt="Previous Page"/>
-	  Page <strong> </strong> of <strong> </strong>
+	  Page <strong> </strong>&#160;of <strong> </strong>
 	  <img onclick="nextPage()" tal:attributes="src string:${root/getURI}static/axiom/images/icon_page_next_enabled.gif;" alt="Next Page"/>
 	  <span class="gotopage">Go to page: </span>
 	  <input type="text" name="page" id="page" size="1" onkeypress="gotoKey(event)" />
@@ -18,7 +18,7 @@
   <div class="contentHeader">
 	<div id="pages2" class="pages" >
 	  <img onclick="previousPage()" tal:attributes="src string:${root/getURI}static/axiom/images/icon_page_back_disabled.gif;" alt="Previous Page"/>
-	  Page <strong> </strong> of <strong> </strong>
+	  Page <strong> </strong>&#160;of <strong> </strong>
 	  <img onclick="nextPage()" tal:attributes="src string:${root/getURI}static/axiom/images/icon_page_next_enabled.gif;" alt="Next Page"/>
 	  <span class="gotopage">Go to page: </span>
 	  <input type="text" name="page" id="page2" size="1" onkeypress="gotoKey(event)"/>

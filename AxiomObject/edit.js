@@ -22,6 +22,11 @@ function preprocess_data(data){
 	if(this._action != "Added"){
 		data['_action'] = 'Edited';
 	}
+	// if-cms-version-enterprise
+	if(data['_task'] == 'BYPASS') {
+		data['_task'] = null;
+	}
+	// end-cms-if
 
 	return data;
 }
@@ -37,6 +42,12 @@ function calculateStatus(){
 
 function save(data){
 	// if-cms-version-enterprise
+
+	var bypass = false;
+	if (req.data['_task'] == "BYPASS") {
+		bypass = true;
+	}
+
 	var save_obj = function(data){
 	// end-cms-if
 		data = (data || req.data);
@@ -74,7 +85,14 @@ function save(data){
 		return errors;
 	// if-cms-version-enterprise
  	};
-	return save_obj.call(app.getDraft(this, 1), data);
+
+	var errors = save_obj.call(app.getDraft(this, 1), data);
+
+	if (bypass) {
+		this.publishToLive()
+	}
+
+	return errors;
 	// end-cms-if
 }
 
