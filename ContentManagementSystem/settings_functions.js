@@ -11,8 +11,8 @@ function upload_seo_files(){
 			root.add(file);
 		}
 	};
-
 	replace('robots.txt', req.data.robots);
 	replace('sitemap.xml', req.data.sitemap);
 	replace('favicon.ico', req.data.favicon);
+
 }

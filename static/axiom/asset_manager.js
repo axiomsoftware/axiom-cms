@@ -14,7 +14,6 @@ var rows = 0;
 var batch_size = 0;
 var current_page = 1;
 var last_page = 1;
-var upload_form_bind;
 var edited_widget;
 
 function queryAssets(keywords, types, batch_size, sort, page_num){

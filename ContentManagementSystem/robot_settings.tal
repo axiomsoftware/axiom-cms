@@ -1,20 +1,20 @@
 <div xmlns:tal="http://axiomstack.com/tale">
   <h2>SEO Settings</h2>
-  <form id="seo_settings" method="POST" enctype="multipart/form-data" dojoattachpoint="robot_content">
+  <form id="seo_settings" name="seo_settings" method="post" enctype="multipart/form-data" action="upload_seo_files">
 
 	<h3>robots.txt</h3>
-	<div>Text file that instructs web crawlers to ignore certain urls.</div>
-	<a tal:if="root.get('robots.txt')" href="/robots.txt">Download Current</a> 
-	<input type="file" name="robots"/>
+	<div class="info">Text file that instructs web crawlers to ignore certain urls.</div>
+	<a class="download" tal:if="root.get('robots.txt')" href="/robots.txt">Download Current File</a> 
+	<label for="robots">Upload: </label><input type="file" id="robots" name="robots"/>
 
 	<h3>sitemap.xml</h3>
-	<div>XML file that infroms web crawlers what urls are available for crawling.</div>
-	<a tal:if="root.get('sitemap.xml')" href="/sitemap.xml">Download Current</a>
-	<input type="file" name="sitemap"/>
+	<div class="info">XML file that infroms web crawlers what urls are available for crawling.</div>
+	<a class="download" tal:if="root.get('sitemap.xml')" href="/sitemap.xml">Download Current File</a>
+	<label for="robots">Upload: </label><input type="file" id="sitemap" name="sitemap"/>
 
 	<h3>favicon.ico</h3>
-	<div>Icon file that appears when your site is bookmarked in a web browser.</div>
-	<a tal:if="root.get('favicon.ico')" href="/favicon.ico">Download Current</a>
-	<input type="file" name="favicon"/>
+	<div class="info">Icon file that appears when your site is bookmarked in a web browser.</div>
+	<a class="download" tal:if="root.get('favicon.ico')" href="/favicon.ico">Download Current File</a>
+	<label for="robots">Upload: </label><input type="file" id="favicon" name="favicon"/>
   </form>
 </div>
