@@ -350,16 +350,20 @@ function cancelBatch(){
 	}
 	// chain the delete events so we don't switch back to search results
 	// before they're all deleted
-	assetEdit('<div style="width:100%;text-align:center;padding:25px 0;">Loading...<br/><img src="'+axiom.staticPath + '/axiom/images/ajax-loader.gif" alt="Loading..." /></div>');
+	assetEdit('<div style="width:100%;text-align:center;padding:25px 0;">'
+			  + 'Loading...<br/><img src="'+axiom.staticPath + '/axiom/images/ajax-loader.gif" '
+			  + 'alt="Loading..." /></div>');
 	dojo.byId('columnLeft').style.display = 'block';
 	dojo.byId('columnRight').style.margin = axiom.oldLeftMargin;
 	if(hrefs.length != 0){
-		var delete_lambda = function(){ dojo.io.bind({ url:hrefs.pop()+'/cms_delete',
-													   load:(hrefs.length == 0)?fireLastQuery:delete_lambda
-													 });
-									  };
-		delete_lambda();
-	}
+		dojo.io.bind({ url:'cancel_batch',
+					   method: 'POST',
+					   load:fireLastQuery,
+					   postContent: dojo.json.serialize({_ids: hrefs}),
+					   contentType: 'text/json'
+					 });
+	};
+
 }
 
 function fire_submit(){
