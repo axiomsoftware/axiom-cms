@@ -21,14 +21,14 @@
 		  <tr>
 			<th class="selector"><div class="inputBg"><input type="checkbox" dojoattachevent="onclick:selectAll" /></div></th>
 			<th class="col_actions"></th>
-			<th class="col_title"><a href="javascript:void(0);" onclick="axiom.cfilter.sort({cms_sortabletitle: 'alternate', '_lastmodified':'desc'} );">Title </a> <img class="col_sort" dojoattachpoint="col_title_sort" /></th>
+			<th class="col_title"><a href="javascript:void(0);" onclick="axiom.cfilter.sort({cms_sortabletitle: 'alternate', '_lastmodified':'desc'} );">Title </a> <img class="col_sort" dojoattachpoint="col_sort_cms_sortabletitle" /></th>
 			<th class="col_lock">
 			  <!-- if-cms-version-enterprise -->
 			  <img dojoattachpoint="lock" />
 			  <!-- end-cms-if -->
 			</th>
 			<th class="col_location">Live URL</th>
-			<th class="col_type"><a href="javascript:void(0);" onclick="axiom.cfilter.sort({'cms_sortable_prototype':'alternate', cms_sortabletitle:'asc'});">Content Type</a> <img class="col_sort" dojoattachpoint="col_type_sort" /></th>
+			<th class="col_type"><a href="javascript:void(0);" onclick="axiom.cfilter.sort({'cms_sortable_prototype':'alternate', cms_sortabletitle:'asc'});">Content Type</a> <img class="col_sort" dojoattachpoint="col_sort_cms_sortable_prototype" /></th>
 		  </tr>
 		</thead>
 		<tbody dojoattachpoint="results_body">

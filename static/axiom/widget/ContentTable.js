@@ -25,6 +25,7 @@ dojo.widget.defineWidget(
 		data:{},
 		rowInfoIndex: {},
 		numCols: 5,
+		sortable_fields:['cms_sortabletitle','cms_sortable_prototype'],
         templatePath:new dojo.uri.dojoUri('../axiom/widget/resources/ContentTable.html'),
 		templateCssPath:new dojo.uri.dojoUri('../axiom/widget/resources/ContentTable.css'),
 		previous:function(){
