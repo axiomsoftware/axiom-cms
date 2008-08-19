@@ -175,10 +175,12 @@ dojo.widget.defineWidget(
 										 });
 				}
 			}
-			var expand_txt = document.createElement('span');
-			expand_txt.className='table_info_txt';
-			expand_txt.innerHTML = 'Click row to expand/collapse';
-			button_holder.appendChild(expand_txt);
+			if(!this['axiom:usertable'] && !this['axiom:recyclebintable']){
+				var expand_txt = document.createElement('span');
+				expand_txt.className='table_info_txt';
+				expand_txt.innerHTML = 'Click row to expand/collapse';
+				button_holder.appendChild(expand_txt);
+			}
 			row.appendChild(button_holder);
 			this.results_body.appendChild(row);
 			return buttons;
