@@ -502,6 +502,8 @@ dojo.widget.defineWidget(
 			}
 			if(data.results.length == 0 && typeof this.widget.insertNoObjectsRow == 'function'){
 				this.widget.insertNoObjectsRow();
+			} else if(this.widget.columnHeaders) {
+				this.widget.columnHeaders.style.display = '';
 			}
 
 			var delete_data = {text:'Delete', callback: 'deleteObjects'};
