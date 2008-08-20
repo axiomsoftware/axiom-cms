@@ -37,7 +37,7 @@ dojo.widget.defineWidget(
 			var description = this.descriptionField.value;
 
 			if (this.publishInput.checked) {
-				this.doTaskAction({url: axiom.cmsPath + 'approve_tasks',  
+				this.doTaskAction({url: axiom.cmsPath + 'approve_tasks',
 								   params: {task_ids: task_ids,
 											description: description },
 								   message: this.taskListString(task_ids)+"been approved and published."});
@@ -54,7 +54,7 @@ dojo.widget.defineWidget(
 				} else {
 					if (this.scheduleHour.value == '12') {
 						schedule_date.setHours(12);
-					} else {					
+					} else {
 						schedule_date.setHours(parseInt(this.scheduleHour.value) + 12);
 					}
 				}
@@ -91,41 +91,49 @@ dojo.widget.defineWidget(
 			this.descriptionField = desc;
 			this.mainContent.appendChild(holder);
 
-			var action_label = document.createElement('label');
-			action_label.innerHTML = 'Select an action: ';
-			action_label.style.display = 'block';
-			holder.appendChild(action_label);
+			var action_title = document.createElement('div');
+			action_title.innerHTML = 'Select an action: ';
+			action_title.className = 'section-title';
+			holder.appendChild(action_title);
 			var publishInput;
 			if(dojo.render.html.ie){
-				publishInput = document.createElement('<input type="radio" value="publish" checked="true" name="submitOption"/>');
+				publishInput = document.createElement('<input type="radio" id="publish" value="publish" checked="true" name="submitOption"/>');
 			} else{
 				publishInput = document.createElement('input');
 				publishInput.type = 'radio';
 				publishInput.value = 'publish';
-				publishInput.checked = true; 
+				publishInput.id = 'publish';
+				publishInput.checked = true;
 				publishInput.name = 'submitOption';
 			}
 			holder.appendChild(publishInput);
 			this.publishInput = publishInput;
-			holder.appendChild(document.createTextNode("Approve and Publish to website now"));
+			var publish_label = document.createElement('label');
+			publish_label.innerHTML = "Approve and Publish to website now";
+			publish_label.htmlFor = 'publish';
+			holder.appendChild(publish_label);
 
 			holder.appendChild(document.createElement('br'));
 
 			var scheduleHolder = document.createElement('div');
 			dojo.html.addClass(scheduleHolder, 'approve-schedule');
-				
+
 			var scheduleInput;
 			if(dojo.render.html.ie){
-				scheduleInput = document.createElement('<input type="radio" value="schedule" name="submitOption"/>');
+				scheduleInput = document.createElement('<input type="radio" id="schedule" value="schedule" name="submitOption"/>');
 			} else{
 				scheduleInput = document.createElement('input');
 				scheduleInput.type = 'radio';
+				scheduleInput.id = 'schedule';
 				scheduleInput.value = 'schedule';
 				scheduleInput.name = 'submitOption';
-			}				
+			}
 			holder.appendChild(scheduleInput);
 			this.scheduleInput = scheduleInput;
-			holder.appendChild(document.createTextNode("Approve and Publish at this date and time:"));
+			var schedule_label = document.createElement('label');
+			schedule_label.htmlFor = 'schedule';
+			schedule_label.innerHTML = "Approve and Publish at this date and time:";
+			holder.appendChild(schedule_label);
 			holder.appendChild(document.createElement('br'));
 			scheduleHolder.appendChild(document.createTextNode("Date: "));
 			var dateInput;

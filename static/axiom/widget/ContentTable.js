@@ -175,10 +175,12 @@ dojo.widget.defineWidget(
 										 });
 				}
 			}
-			var expand_txt = document.createElement('span');
-			expand_txt.className='table_info_txt';
-			expand_txt.innerHTML = 'Click row to expand/collapse';
-			button_holder.appendChild(expand_txt);
+			if(!this['axiom:usertable'] && !this['axiom:recyclebintable']){
+				var expand_txt = document.createElement('span');
+				expand_txt.className='table_info_txt';
+				expand_txt.innerHTML = 'Click row to expand/collapse';
+				button_holder.appendChild(expand_txt);
+			}
 			row.appendChild(button_holder);
 			this.results_body.appendChild(row);
 			return buttons;
@@ -498,7 +500,11 @@ dojo.widget.defineWidget(
 			for(var i in data.results){
 				this.widget.insertRow(data.results[i]);
 			}
-
+			if(data.results.length == 0 && typeof this.widget.insertNoObjectsRow == 'function'){
+				this.widget.insertNoObjectsRow();
+			} else if(this.widget.columnHeaders) {
+				this.widget.columnHeaders.style.display = '';
+			}
 
 			var delete_data = {text:'Delete', callback: 'deleteObjects'};
 			// if-cms-version-standard|workgroup
@@ -508,16 +514,20 @@ dojo.widget.defineWidget(
 			// end-cms-if
 
 			var buttons;
-			if (this.widget.widgetType == "UserTable") {
-				buttons = this.widget.insertButtonRow([delete_data]);
-			} else {
-				var copy_data = {text:'Copy', callback: 'copyObjects'};
-				buttons = this.widget.insertButtonRow([delete_data,copy_data]);
-				this.widget.copyButton = buttons[1];
+			if(data.results.length != 0){
+				if (this.widget.widgetType == "UserTable") {
+					buttons = this.widget.insertButtonRow([delete_data]);
+				} else if(this.widget.buttonData){
+					buttons = this.widget.insertButtonRow(this.widget.buttonData);
+					this.widget.buttons = buttons;
+				} else {
+					var copy_data = {text:'Copy', callback: 'copyObjects'};
+					buttons = this.widget.insertButtonRow([delete_data,copy_data]);
+					this.widget.copyButton = buttons[1];
+				}
+				this.widget.deleteButton = buttons[0];
+				this.widget.setupPagination(data);
 			}
-			this.widget.deleteButton = buttons[0];
-			this.widget.setupPagination(data);
-
 		},
 		setupPagination:function(data){
 			if(data.pagination){

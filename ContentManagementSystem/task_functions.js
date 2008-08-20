@@ -145,7 +145,7 @@ function approve_tasks(data){
 
 			var submitter = task.submitter ? task.submitter.getTarget() : session.user;
 			if(table[submitter.username])
-				table[submitter.username].tasks.push(task)
+				table[submitter.username].tasks.push(task);
 			else
 				table[submitter.username] = {tasks: [task], submitter: submitter};
 

@@ -12,7 +12,7 @@ dojo.require("dojo.widget.*");
 dojo.require("axiom.widget.ContentTable");
 
 dojo.widget.defineWidget(
-	"axiom.widget.TaskTable", 
+	"axiom.widget.TaskTable",
 	axiom.widget.ContentTable,
 	function(){},
 	{
@@ -24,7 +24,7 @@ dojo.widget.defineWidget(
 		sortDirections: {},
 		search: function(args){
 			var sortArray = [];
-			for(var i in this.sortObj){ 
+			for(var i in this.sortObj){
 				var f = {};
 				f[i] = this.sortObj[i];
 				sortArray.push(f);
@@ -93,9 +93,9 @@ dojo.widget.defineWidget(
 		insertObjectRows:function(task, row_id, omitEdit){
 			if(task.description || task.rejection_description || task.approval_description){
 				this.results_body.appendChild(this.createInfoRow({	id: row_id+'description',
-																	cols: [{content: (task.approval_description || task.rejection_description || task.description), 
+																	cols: [{content: (task.approval_description || task.rejection_description || task.description),
 																			colspan: this.numCols-2}]
-																 })); 
+																 }));
 				this.rowInfoIndex[row_id] = [row_id+'description'];
 			} else {
 				this.rowInfoIndex[row_id] = [];
@@ -119,19 +119,19 @@ dojo.widget.defineWidget(
 				result = '';
 			}
 			return result;
-		},  
+		},
 		refresh:function(args){
-			dojo.dom.removeChildren(this.results_body)
+			dojo.dom.removeChildren(this.results_body);
 			this.selectedRows = {};
 			this.search(args);
 		},
-		insertNoObjectsRow:function(){
+		insertNoObjectsRow:function(content){
 			this.columnHeaders.style.display = 'none';
        		this.results_body.appendChild(this.createRow({	id: 'empty-row',
 															noHighlight: true,
 															omitSelector: true,
-															cols: [{content: "You have no tasks at this time.", 
-																	colspan: this.numCols, 
+															cols: [{content: content || "You have no tasks at this time.",
+																	colspan: this.numCols,
 																	'class': 'noObjects'}]
 														 }));
 		},
@@ -140,7 +140,7 @@ dojo.widget.defineWidget(
 			var task = this.tasks[evt.currentTarget.parentNode.parentNode.id.match(/^\d+/)[0]];
 			var widget = dojo.widget.createWidget("axiom:EditTaskModal", {appPath: axiom.appPath, staticPath: axiom.staticPath, task:task});
 			axiom.openModal({widget: widget});
-		},	
+		},
 		createObjectRow:function(obj, rowId, omitEdit){
 			// edit button
 			var edit = '';
@@ -150,17 +150,17 @@ dojo.widget.defineWidget(
 					edit.src = axiom.staticPath+"/axiom/images/icon_edit.gif";
 					dojo.html.setClass(edit, 'action');
  					edit.title = "Edit";
-					edit.alt = "Edit"; 
+					edit.alt = "Edit";
 					dojo.event.kwConnect({srcObj: edit,
 										  srcFunc: 'onclick',
-										  adviceFunc: function(evt){evt.cancelBubble = true; axiom.loadEdit((obj.href == '/'?'':obj.href)+'/cms_edit') } });
-				} else{
+										  adviceFunc: function(evt){evt.cancelBubble = true; axiom.loadEdit((obj.href == '/'?'':obj.href)+'/cms_edit'); } });
+				} else {
 					edit.src = axiom.staticPath+"/axiom/images/icon_edit_off.gif";
 					edit.title = "You do not have permission to edit this object";
-					edit.alt = "You do not have permission to edit this object"; 
-				}	
+					edit.alt = "You do not have permission to edit this object";
+				}
 			}
-			var info_text = obj.title; 
+			var info_text = obj.title;
 			if(this.getNamespacedType() != 'axiom:closedtasktable') {
 				var link_text = "Preview";
 				var link_action = "window.open('"+obj.href+"')";

@@ -57,7 +57,7 @@ dojo.widget.defineWidget(
 					} else {
 						if (this.scheduleHour.value == '12') {
 							schedule_date.setHours(12);
-						} else {					
+						} else {
 							schedule_date.setHours(parseInt(this.scheduleHour.value) + 12);
 						}
 					}
@@ -71,7 +71,7 @@ dojo.widget.defineWidget(
 
 			if(axiom.isContentContributor || this.submitInput.checked){
 				if(this.userSelect.value != "-- Choose One --"){
-					this.doTaskAction({url: axiom.cmsPath + 'submit_tasks',  
+					this.doTaskAction({url: axiom.cmsPath + 'submit_tasks',
 									   params: {task_ids: task_ids,
 												assignee: this.userSelect.value},
 									   message: this.taskListString(task_ids)+"been submitted for approval."});
@@ -79,7 +79,7 @@ dojo.widget.defineWidget(
 					this.validateErrorField.style.display = 'block';
 					this.validateErrorField.innerHTML = 'Please select a user.';
 				}
-			} 
+			}
 		},
 		postCreate:function() {
 
@@ -109,7 +109,7 @@ dojo.widget.defineWidget(
 				}
 			}
 			user_select.setAttribute('name', 'assignee');
-			
+
 			// submit options
 			var holder = document.createElement('div');
 			dojo.html.addClass(holder, 'selectLabel');
@@ -133,35 +133,44 @@ dojo.widget.defineWidget(
 				holder.appendChild(label);
 				var publishInput;
 				if(dojo.render.html.ie){
-					publishInput = document.createElement('<input type="radio" value="publish" checked="true" name="submitOption"/>');
+					publishInput = document.createElement('<input type="radio" id="publish" value="publish" checked="true" name="submitOption"/>');
 				} else{
 					publishInput = document.createElement('input');
 					publishInput.type = 'radio';
 					publishInput.value = 'publish';
-					publishInput.checked = true; 
+					publishInput.id = 'publish';
+					publishInput.checked = true;
 					publishInput.name = 'submitOption';
 				}
 				holder.appendChild(publishInput);
 				this.publishInput = publishInput;
-				holder.appendChild(document.createTextNode("Publish to website"));
+
+				var publishLabel = document.createElement('label');
+				publishLabel.htmlFor = 'publish';
+				publishLabel.innerHTML = "Publish to website";
+				holder.appendChild(publishLabel);
 
 				holder.appendChild(document.createElement('br'));
 
 				var scheduleHolder = document.createElement('div');
 				dojo.html.addClass(scheduleHolder, 'submit-schedule');
-				
+
 				var scheduleInput;
 				if(dojo.render.html.ie){
-					scheduleInput = document.createElement('<input type="radio" value="schedule" name="submitOption"/>');
+					scheduleInput = document.createElement('<input type="radio" id="schedule" value="schedule" name="submitOption"/>');
 				} else{
 					scheduleInput = document.createElement('input');
 					scheduleInput.type = 'radio';
 					scheduleInput.value = 'schedule';
+					scheduleInput.id = 'schedule';
 					scheduleInput.name = 'submitOption';
-				}				
+				}
 				holder.appendChild(scheduleInput);
 				this.scheduleInput = scheduleInput;
-				holder.appendChild(document.createTextNode("Publish at this date and time:"));
+				var scheduleLabel = document.createElement('label');
+				scheduleLabel.htmlFor = 'schedule';
+				scheduleLabel.innerHTML = "Publish at this date and time:";
+				holder.appendChild(scheduleLabel);
 				holder.appendChild(document.createElement('br'));
 				scheduleHolder.appendChild(document.createTextNode("Date: "));
 				var dateInput;
@@ -216,22 +225,26 @@ dojo.widget.defineWidget(
 				scheduleHolder.appendChild(meridiem);
 				this.scheduleMeridiem = meridiem;
 				holder.appendChild(scheduleHolder);
-				
+
 				holder.appendChild(document.createElement('br'));
 				holder.appendChild(validateErrorField);
-				
+
 				var submitInput;
 				if(dojo.render.html.ie){
-					submitInput = document.createElement('<input type="radio" value="submit" name="submitOption"/>');
+					submitInput = document.createElement('<input type="radio" id="submit" value="submitOption" name="submitOption"/>');
 				} else {
 					submitInput = document.createElement('input');
 					submitInput.type = 'radio';
 					submitInput.value = 'submit';
+					submitInput.id = 'submitOption';
 					submitInput.name = 'submitOption';
 				}
 				holder.appendChild(submitInput);
 				this.submitInput = submitInput;
-				holder.appendChild(document.createTextNode("Submit for approval to:"));
+				var submitLabel = document.createElement('label');
+				submitLabel.htmlFor = 'submitOption';
+				submitLabel.innerHTML = "Submit for approval to:";
+				holder.appendChild(submitLabel);
 				holder.appendChild(user_select);
 			}
 			this.mainContent.appendChild(holder);

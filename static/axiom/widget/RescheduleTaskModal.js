@@ -55,7 +55,7 @@ dojo.widget.defineWidget(
 					} else {
 						if (this.scheduleHour.value == '12') {
 							schedule_date.setHours(12);
-						} else {					
+						} else {
 							schedule_date.setHours(parseInt(this.scheduleHour.value) + 12);
 						}
 					}
@@ -95,12 +95,12 @@ dojo.widget.defineWidget(
 			holder.appendChild(label);
 			var publishInput;
 			if(dojo.render.html.ie){
-				publishInput = document.createElement('<input type="radio" value="publish" checked="true" name="submitOption"/>');
+				publishInput = document.createElement('<input type="radio" id="publish" value="publish" checked="true" name="submitOption"/>');
 			} else{
 				publishInput = document.createElement('input');
 				publishInput.type = 'radio';
 				publishInput.value = 'publish';
-				publishInput.checked = true; 
+				publishInput.checked = true;
 				publishInput.name = 'submitOption';
 			}
 			holder.appendChild(publishInput);
@@ -111,7 +111,7 @@ dojo.widget.defineWidget(
 
 			var scheduleHolder = document.createElement('div');
 			dojo.html.addClass(scheduleHolder, 'reschedule');
-			
+
 			var scheduleInput;
 			if(dojo.render.html.ie){
 				scheduleInput = document.createElement('<input type="radio" value="schedule" name="submitOption"/>');
@@ -120,7 +120,7 @@ dojo.widget.defineWidget(
 				scheduleInput.type = 'radio';
 				scheduleInput.value = 'schedule';
 				scheduleInput.name = 'submitOption';
-			}				
+			}
 			holder.appendChild(scheduleInput);
 			this.scheduleInput = scheduleInput;
 			holder.appendChild(document.createTextNode("Publish at this date and time:"));
@@ -178,10 +178,10 @@ dojo.widget.defineWidget(
 			scheduleHolder.appendChild(meridiem);
 			this.scheduleMeridiem = meridiem;
 			holder.appendChild(scheduleHolder);
-				
+
 			holder.appendChild(document.createElement('br'));
 			holder.appendChild(validateErrorField);
-				
+
 
 			this.mainContent.appendChild(holder);
 

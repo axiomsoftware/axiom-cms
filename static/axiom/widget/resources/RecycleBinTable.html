@@ -1,0 +1,32 @@
+<div id="ContentTable" dojoattachpoint="table"> 
+
+  <div dojoattachpoint="loading" class="loading">Refreshing Search Results...<br/><img dojoattachpoint="ajaxLoader"  alt="Loading..." /></div>
+  <div dojoattachpoint="tablewrap" class="ContentTable">
+
+	<div class="pagination">
+	  <div class="pages" dojoattachpoint="pagination_block" style="display:none">
+		<img dojoattachpoint="previous_page_img" alt="Previous Page"/>
+		Page <strong dojoattachpoint="page_num"> </strong> of <strong dojoattachpoint="page_total"> </strong>
+		<img dojoattachpoint="next_page_img" alt="Next Page"/>
+		<span class="gotopage">Go to page: </span>
+		<input type="text" name="page" id="page" size="1" dojoattachpoint="pagination_input" />
+		<a href="javascript:void(0);" dojoattachpoint="pagination_button" class="button" alt="Go" title="Go">Go</a>
+	  </div>
+	</div> 
+	<div class="tablewrap">    
+	  <table class="results recycleBinTable">
+		<thead dojoattachpoint="columnHeaders">
+		  <tr>
+			<th class="selector"><input type="checkbox" dojoattachevent="onclick:selectAll" /></th>
+			<th class="col_title"><a href="javascript:void(0);" onclick="recyclebin.cfilter.sort([{title:'alternate'}]);">Title</a></th>
+			<th class="col_location"><a href="javascript:void(0);" onclick="recyclebin.cfilter.sort([{oldlocation:'alternate'}]);">Original Location</a></th>
+		  </tr>
+		</thead>
+		<tbody dojoattachpoint="results_body">
+
+	  </tbody> 
+	</table>
+  </div>
+  </div>
+  
+</div>
