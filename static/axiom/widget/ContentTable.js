@@ -24,6 +24,7 @@ dojo.widget.defineWidget(
 		prevSet:false,
 		data:{},
 		rowInfoIndex: {},
+		noContentText: 'No results found.',
 		numCols: 5,
         templatePath:new dojo.uri.dojoUri('../axiom/widget/resources/ContentTable.html'),
 		templateCssPath:new dojo.uri.dojoUri('../axiom/widget/resources/ContentTable.css'),
@@ -528,6 +529,18 @@ dojo.widget.defineWidget(
 				this.widget.deleteButton = buttons[0];
 				this.widget.setupPagination(data);
 			}
+		},
+		insertNoObjectsRow:function(content){
+			if(this.columnHeaders){
+				this.columnHeaders.style.display = 'none';
+			}
+       		this.results_body.appendChild(this.createRow({	id: 'empty-row',
+															noHighlight: true,
+															omitSelector: true,
+															cols: [{content: content || this.noContentText ||"You have no tasks at this time.",
+																	colspan: this.numCols,
+																	'class': 'noObjects'}]
+														 }));
 		},
 		setupPagination:function(data){
 			if(data.pagination){
