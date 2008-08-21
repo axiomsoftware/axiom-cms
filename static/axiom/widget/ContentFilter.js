@@ -133,6 +133,23 @@ dojo.widget.defineWidget(
 				var direction = this.sortDirections[field] || 'asc';
 				obj[field] = direction;
 				this.sortDirections[field] = (direction == 'asc'? 'desc': 'asc');
+				this.display_arrow(field, direction);
+			}
+		},
+		clear_arrows: function() {
+			for (var i in this.sortDirections) {
+				if (this.resultTable['col_sort_' + i]) {
+					var imgtag = this.resultTable['col_sort_' + i];
+					imgtag.style.display = 'none';
+				}
+			}
+		},
+		display_arrow: function(field, direction) {
+			this.clear_arrows();
+			if (this.resultTable['col_sort_' + field]) {
+				var imgtag = this.resultTable['col_sort_' + field];
+				imgtag.style.display = 'inline';
+				imgtag.src = axiom.staticPath + '/axiom/images/icon_sort_' + direction + '.gif';
 			}
 		},
 		go:function(start, length) {

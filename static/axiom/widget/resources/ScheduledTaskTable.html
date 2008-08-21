@@ -7,14 +7,17 @@
 		  <th class="selector"> <div class="inputBg"><input type="checkbox" dojoattachpoint="select_all" dojoattachevent="onClick:selectAll"/></div></th>
 		  <th class="col_id">
 			<a href="javascript:void(0);" onclick="axiom.tasks.taskPanel.scheduledTable.sort({task_id: 'alternate', status:'desc'} );">ID</a>
-			<img class="col_sort" dojoattachpoint="col_name_sort" />
+			<img class="col_sort" dojoattachpoint="col_sort_task_id" />
 		  </th>
 		  <th class="col_name" colspan="2">
 			<a href="javascript:void(0);" onclick="axiom.tasks.taskPanel.scheduledTable.sort({cms_sortable_name: 'alternate', task_id:'desc'} );">Task Name</a> 
-			<img class="col_sort" dojoattachpoint="col_name_sort" />
+			<img class="col_sort" dojoattachpoint="col_sort_cms_sortable_name" />
 		  </th>
 		  <th class="col_items">Items</th>
-		  <th class="col_publish_date">Publish Date</th>
+		  <th class="col_publish_date">
+			<a href="javascript:void(0);" onclick="axiom.tasks.taskPanel.scheduledTable.sort({publish_date: 'alternate', task_id:'desc'} );">Publish Date</a> 
+			<img class="col_sort" dojoattachpoint="col_sort_publish_date" />
+		  </th>
 		  <th class="col_by">Approved By</th>
 		</tr>
 	  </thead>

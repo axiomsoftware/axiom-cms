@@ -62,23 +62,6 @@ dojo.widget.defineWidget(
 			if(this.ajaxLoader) this.ajaxLoader.src =this.staticPath+'/axiom/images/ajax-loader.gif';
 		},
 		runSearch:function(prototype, keywords, sort, start, length, published_only) {
-			if (this.sortable_fields) {
-				for (var i = 0; i < this.sortable_fields.length; i++) {
-					var field = this.sortable_fields[i];
-					if (sort[field]) {
-						if (this['col_sort_' + field]) {
-							var imgtag = this['col_sort_' + field];
-							imgtag.style.display = 'inline';
-							imgtag.src = axiom.staticPath + '/axiom/images/icon_sort_' + sort[field] + '.gif';
-						}
-					} else {
-						if (this['col_sort_' + field]) {
-							var imgtag = this['col_sort_' + field];
-							imgtag.style.display = 'none';
-						}
-					}
-				}
-			}
 			var surl = this.searchURL;
 			var args = this.getArgObject(prototype, keywords, sort, start, length, published_only);
 			surl = surl.replace(/\/\//g, '/');

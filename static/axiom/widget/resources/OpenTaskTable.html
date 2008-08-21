@@ -8,20 +8,20 @@
 		  <th class="col_action"> </th>
 		  <th class="col_open_id">
 			<a href="javascript:void(0);" onclick="axiom.tasks.taskPanel.openTable.sort({task_id: 'alternate', status:'desc'} );">ID</a>
-			<img class="col_sort" dojoattachpoint="col_name_sort" />
+			<img class="col_sort" dojoattachpoint="col_sort_task_id" />
 		  </th>
 		  <th class="col_name" colspan="2">
 			<a href="javascript:void(0);" onclick="axiom.tasks.taskPanel.openTable.sort({cms_sortable_name: 'alternate', task_id:'desc'} );">Task Name</a> 
-			<img class="col_sort" dojoattachpoint="col_name_sort" />
+			<img class="col_sort" dojoattachpoint="col_sort_cms_sortable_name" />
 		  </th>
 		  <th class="col_items">Items</th>
 		  <th class="col_due_date">
 			<a href="javascript:void(0);" onclick="axiom.tasks.taskPanel.openTable.sort({due_date:'alternate', task_id:'desc'});">Due Date</a> 
-			<img class="col_sort" dojoattachpoint="col_due_date_sort" />
+			<img class="col_sort" dojoattachpoint="col_sort_due_date" />
 		  </th>
 		  <th class="col_status">
 			<a href="javascript:void(0);" onclick="axiom.tasks.taskPanel.openTable.sort({status:'alternate', task_id:'desc'});">Status</a> 
-			<img class="col_sort" dojoattachpoint="col_due_date_sort" />
+			<img class="col_sort" dojoattachpoint="col_sort_status" />
 		  </th>
 		  <th class="col_requested_by">By</th>
 		</tr>

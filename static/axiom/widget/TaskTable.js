@@ -52,10 +52,27 @@ dojo.widget.defineWidget(
 					var direction = (field in this.sortDirections) ? this.sortDirections[field] : 'desc';
 					sortObj[field] = direction;
 					this.sortDirections[field] = (direction == 'asc'? 'desc': 'asc');
+					this.display_arrow(field, direction);
 				}
 			}
 			this.sortObj = sortObj;
 			this.refresh();
+		},
+		clear_arrows: function() {
+			for (var i in this.sortObj) {
+				if (this['col_sort_' + i]) {
+					var imgtag = this['col_sort_' + i];
+					imgtag.style.display = 'none';
+				}
+			}
+		},
+		display_arrow: function(field, direction) {
+			this.clear_arrows();
+			if (this['col_sort_' + field]) {
+				var imgtag = this['col_sort_' + field];
+				imgtag.style.display = 'inline';
+				imgtag.src = axiom.staticPath + '/axiom/images/icon_sort_' + direction + '.gif';
+			}
 		},
 		insertResults:function(data){
 			try{
