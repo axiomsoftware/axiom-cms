@@ -64,7 +64,7 @@ axiom.Mail = function(smtp) {
         System.getProperty("mail.charset", "ISO-8859-15")
     );
 
-    var host = smtp || getProperty("smtp");
+    var host = smtp || app.getProperty("smtp");
     if (host != null) {
         props.put("mail.smtp.host", host);
     }
