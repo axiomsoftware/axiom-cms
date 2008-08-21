@@ -24,6 +24,7 @@ dojo.widget.defineWidget(
 		prevSet:false,
 		data:{},
 		rowInfoIndex: {},
+		noContentText: 'No results found.',
 		numCols: 5,
 		sortable_fields:['cms_sortabletitle','cms_sortable_prototype'],
         templatePath:new dojo.uri.dojoUri('../axiom/widget/resources/ContentTable.html'),
@@ -176,10 +177,12 @@ dojo.widget.defineWidget(
 										 });
 				}
 			}
-			var expand_txt = document.createElement('span');
-			expand_txt.className='table_info_txt';
-			expand_txt.innerHTML = 'Click row to expand/collapse';
-			button_holder.appendChild(expand_txt);
+			if(!this['axiom:usertable'] && !this['axiom:recyclebintable']){
+				var expand_txt = document.createElement('span');
+				expand_txt.className='table_info_txt';
+				expand_txt.innerHTML = 'Click row to expand/collapse';
+				button_holder.appendChild(expand_txt);
+			}
 			row.appendChild(button_holder);
 			this.results_body.appendChild(row);
 			return buttons;
@@ -501,6 +504,8 @@ dojo.widget.defineWidget(
 			}
 			if(data.results.length == 0 && typeof this.widget.insertNoObjectsRow == 'function'){
 				this.widget.insertNoObjectsRow();
+			} else if(this.widget.columnHeaders) {
+				this.widget.columnHeaders.style.display = '';
 			}
 
 			var delete_data = {text:'Delete', callback: 'deleteObjects'};
@@ -525,6 +530,18 @@ dojo.widget.defineWidget(
 				this.widget.deleteButton = buttons[0];
 				this.widget.setupPagination(data);
 			}
+		},
+		insertNoObjectsRow:function(content){
+			if(this.columnHeaders){
+				this.columnHeaders.style.display = 'none';
+			}
+       		this.results_body.appendChild(this.createRow({	id: 'empty-row',
+															noHighlight: true,
+															omitSelector: true,
+															cols: [{content: content || this.noContentText ||"You have no tasks at this time.",
+																	colspan: this.numCols,
+																	'class': 'noObjects'}]
+														 }));
 		},
 		setupPagination:function(data){
 			if(data.pagination){

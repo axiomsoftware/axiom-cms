@@ -8,10 +8,10 @@ function upload_seo_files(){
 			}
 			var file = new File(mimepart);
 			file.id = name;
+			file.cms_status = 'null';
 			root.add(file);
 		}
 	};
-
 	replace('robots.txt', req.data.robots);
 	replace('sitemap.xml', req.data.sitemap);
 	replace('favicon.ico', req.data.favicon);

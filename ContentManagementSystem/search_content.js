@@ -155,8 +155,7 @@ function extractTrashBag(bag){
 	return {
 		_id: bag._id,
 		title: item.title,
-		location: bag.oldlocation,
-		num_children: item.getChildren().length
+		location: bag.oldlocation
 	};
 }
 

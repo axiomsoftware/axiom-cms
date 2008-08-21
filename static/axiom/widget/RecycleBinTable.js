@@ -26,8 +26,7 @@ dojo.widget.defineWidget(
 			var row = this.createRow(
 				{id: row_id,
 				 cols: [{content: item.title,        'class': 'col_title' },
-						{content: item.location,     'class': 'col_location' },
-						{content: item.num_children, 'class': 'col_children' }
+						{content: item.location,     'class': 'col_location' }
 					   ]
 				});
 			this.results_body.appendChild(row);
@@ -52,7 +51,15 @@ dojo.widget.defineWidget(
 			this.submitObjects('restore_objects', function(evt,text,res){ axiom.showMessage(text); recyclebin.cfilter.search(); });
 		},
 		deleteObjects: function(){
-			this.submitObjects('purge_recycled_objects', function(evt,text,res){ axiom.showMessage(text); recyclebin.cfilter.search(); });
+			axiom.openModal({content: "Permanently delete these objects?",
+							 callback: function(){
+								 recyclebin.ctable.submitObjects('purge_recycled_objects',
+																	   function(evt,text,res){
+																		   axiom.showMessage(text);
+																		   recyclebin.cfilter.search();
+																	   });
+							 },
+							 confirmdialog: true});
 		},
 		toggleButtons: function(){
 			this.checkButton([], this.buttons[0]);

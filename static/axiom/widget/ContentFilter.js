@@ -160,10 +160,12 @@ dojo.widget.defineWidget(
 				}
 			}
 			list.sort(function(a,b){return a.innerHTML.localeCompare(b.innerHTML);});
-			var all = document.createElement('option');
-			all.value = this.prototypes['All'];
-			all.innerHTML = 'All Content Types';
-			list = [all].concat(list);
+			if(list.length > 1){
+				var all = document.createElement('option');
+				all.value = this.prototypes['All'];
+				all.innerHTML = 'All Content Types';
+				list = [all].concat(list);
+			}
 			for (var i in list){
 				this.prototypeList.appendChild(list[i]);
 			}

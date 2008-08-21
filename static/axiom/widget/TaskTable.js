@@ -125,16 +125,6 @@ dojo.widget.defineWidget(
 			this.selectedRows = {};
 			this.search(args);
 		},
-		insertNoObjectsRow:function(content){
-			this.columnHeaders.style.display = 'none';
-       		this.results_body.appendChild(this.createRow({	id: 'empty-row',
-															noHighlight: true,
-															omitSelector: true,
-															cols: [{content: content || "You have no tasks at this time.",
-																	colspan: this.numCols,
-																	'class': 'noObjects'}]
-														 }));
-		},
 		editTask:function(evt){
 			this.stopBubble(evt);
 			var task = this.tasks[evt.currentTarget.parentNode.parentNode.id.match(/^\d+/)[0]];
