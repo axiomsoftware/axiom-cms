@@ -23,6 +23,7 @@ dojo.widget.defineWidget(
 		templatePath:new dojo.uri.dojoUri('../axiom/widget/resources/EditTaskModal.html'),
 		templateCssPath:new dojo.uri.dojoUri('../axiom/widget/resources/EditTaskModal.css'),
 		editCallback:function(evt,data,req){
+			axiom.lastTaskID = data.task_id;
 			axiom.loadEdit(this.widget.appPath + 'cms/cms_add?prototype='+this.widget.prototype+'&task_id='+data.task_id);
 			this.widget.close();
 		},
@@ -60,6 +61,7 @@ dojo.widget.defineWidget(
 			}
 			this.datePicker = dojo.widget.createWidget('DropdownDatePicker', {inputName:'due_date'}, this.datePickerNode);
 			this.modalIcon.src = axiom.staticPath + '/axiom/images/icon_add.gif';
+			this.nameField.value = axiom.currentUserFullName + "'s Task " + parseInt(axiom.lastTaskID + 1);
 		}
 	}
 );

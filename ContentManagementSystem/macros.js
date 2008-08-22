@@ -141,3 +141,14 @@ function isContentContributor(){
 function currentUser(){
 	return session.user.username;
 }
+
+function currentUserFullName(){
+	var user = session.user;
+	if (user.first_name && user.last_name) {
+		return user.first_name + " " + user.last_name;
+	}
+	if (user.first_name && !user.last_name) {
+		return user.first_name;
+	}
+	return user.username;
+}

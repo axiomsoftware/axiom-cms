@@ -361,6 +361,10 @@ function add_task(data){
 			my_assigned_tasks: this.my_assigned_tasks()};
 }
 
+function get_last_task_id() {
+	return parseInt(app.getFields("last_id","CMSTaskContainer", {}, {maxlength: 1})[0]);
+}
+
 function my_pending_tasks(user){
 	user = (user || session.user);
 	var sort = this.getSort(req.data.sort || [{task_id: 'asc'}]);

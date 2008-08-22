@@ -20,8 +20,9 @@ dojo.widget.defineWidget(
 		templatePath:new dojo.uri.dojoUri('../axiom/widget/resources/TaskAdd.html'),
 		templateCssPath:new dojo.uri.dojoUri('../axiom/widget/resources/TaskAdd.css'),
 		onAdd:function(evt, data, req){
+			axiom.lastTaskID = data.task_id;
 			dojo.html.removeClass(this.widget.addButton, 'disabled');
-			this.widget.nameField.value = '';
+			this.widget.nameField.value = axiom.currentUserFullName + "'s Task " + parseInt(axiom.lastTaskID + 1);;
 			this.widget.descField.value = '';
 			this.widget.datePicker.inputNode.value = '';
 			axiom.tasks.taskPanel.refreshAll();
@@ -63,6 +64,7 @@ dojo.widget.defineWidget(
 		postCreate:function() {
 			this.datePicker = dojo.widget.createWidget('DropdownDatePicker', {}, this.dueDate);
 			this.datePicker.inputNode.style.width = "88%";
+			this.nameField.value = axiom.currentUserFullName + "'s Task " + parseInt(axiom.lastTaskID + 1);
 			dojo.event.kwConnect({ srcObj: this.addButton,
 								   srcFunc: 'onclick',
 								   adviceObj: this,
