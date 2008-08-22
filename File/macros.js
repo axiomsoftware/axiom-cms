@@ -100,6 +100,7 @@ function iconsTable(){
 			'application/vnd.oasis.opendocument.text': {on: 'odt_on.gif', off: 'odt_off.gif'},
 			'application/vnd.oasis.opendocument.presentation': {on: 'odp_on.gif', off: 'odp_off.gif'},
 			'application/vnd.oasis.opendocument.spreadsheet': {on: 'ods_on.gif', off: 'ods_off.gif'},
+			'application/vnd.oasis.opendocument.spreadsheet-template': {on: 'ods_on.gif', off: 'ods_off.gif'},
 			'audio/mpeg3':                   {on: 'mp3_on.gif', off: 'mp3_off.gif'},
 			'audio/mpeg':                    {on: 'mp3_on.gif', off: 'mp3_off.gif'},
 			'audio/x-wav':                   {on: 'mp3_on.gif', off: 'mp3_off.gif'},

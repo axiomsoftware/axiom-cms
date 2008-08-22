@@ -212,6 +212,7 @@ function assetEdit(content,is_href,hide_nav, widget){
 }
 
 function uploadFile(){
+	showLoading();
 	dojo.io.bind({url: axiom.cmsPath + 'upload',
 				  formNode: dojo.byId('upload_file'),
 				  mimetype: 'text/html',
@@ -243,7 +244,6 @@ function uploadFile(){
 				  method: "post",
 				  transport: "IframeTransport"
 			     });
-	showLoading();
 }
 
 function showLoading(){
