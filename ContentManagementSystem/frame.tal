@@ -11,6 +11,8 @@
 	axiom.reqLimit = ${app.getProperties()['uploadLimit']}; 
 
 	axiom.isContentContributor = ${this.isContentContributor()};
+	axiom.isContentEditor = ${this.isContentEditor()};
+	axiom.isAdministrator = ${this.isAdministrator()};
 	axiom.adminsAndEditors = ${this.getAdminsAndEditors()};
 	axiom.allUsers = ${this.getUserList()};
 	axiom.currentUser = '${this.currentUser()}';

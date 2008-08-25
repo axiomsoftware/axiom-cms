@@ -33,13 +33,21 @@ dojo.widget.defineWidget(
 			// end-cms-if
 		},
 		addToTask:function(){
-			if(this.taskField.value != "--Choose One--"){
-				var task_id = this.taskField.value.match(/^\d*/)[0];
+			if(this.taskField.value){
+				var task_id = this.taskField.value;
 				var message;
 				if(this.objects.length < 2 ){
-					message = this.objects[0].title + ' has been added to task ' + task_id + ' for deletion.';
+					if (task_id == 'BYPASS') {
+						message = this.objects[0].title + ' has been deleted.';
+					} else {
+						message = this.objects[0].title + ' has been added to task ' + task_id + ' for deletion.';
+					}
 				} else {
-					message = this.objects.length +' content objects have been added to task '+ task_id + ' for deletion.';
+					if (task_id == 'BYPASS') {
+						message = this.objects.length + ' content objects have been deleted.';
+					} else {
+						message = this.objects.length + ' content objects have been added to task '+ task_id + ' for deletion.';
+					}
 				}
 				this.doTaskAction({url: axiom.cmsPath + 'add_to_delete_task',
 								   params:   {objects: this.objects, task_id: task_id},
@@ -58,7 +66,7 @@ dojo.widget.defineWidget(
 			if(this.objects.length < 2 ){
 				message = this.objects[0].title + ' has been deleted.';
 			} else {
-				message = this.objects.length +' content objects have been deleted.';
+				message = this.objects.length + ' content objects have been deleted.';
 			}
 
 			dojo.io.bind({ url: axiom.cmsPath + 'delete_objects',
@@ -103,6 +111,7 @@ dojo.widget.defineWidget(
 			var task_list = document.createElement('select');
 			var opt = document.createElement('option');
 			opt.innerHTML = '--Choose One--';
+			opt.value = '';
 			task_list.appendChild(opt);
 			for(var i in axiom.myAssignedTasks){
 				var task = axiom.myAssignedTasks[i];
@@ -110,6 +119,12 @@ dojo.widget.defineWidget(
 				opt.innerHTML = task.task_id + ' - ' +task.name;
 				opt.value = task.task_id + ' - ' +task.name;
 				task_list.appendChild(opt);
+			}
+			if (axiom.isAdministrator) {
+				var bypassopt = document.createElement('option');
+				bypassopt.innerHTML = 'BYPASS TASK CREATION';
+				bypassopt.value = 'BYPASS';
+				task_list.appendChild(bypassopt);
 			}
 			this.taskField = task_list;
 			this.mainContent.appendChild(task_list);

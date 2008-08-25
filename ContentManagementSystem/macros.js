@@ -36,6 +36,7 @@ function copy_objects() {
 				count++;
 			}
 			par.add(copy);
+			copy.cms_status = 'z';
 		}
 	}
 }
@@ -133,9 +134,16 @@ function getAllUsers() {
     return users;
 }
 
-
 function isContentContributor(){
 	return session.user.hasRole("Content Contributor");
+}
+
+function isContentEditor(){
+	return session.user.hasRole("Content Editor");
+}
+
+function isAdministrator(){
+	return session.user.hasRole("Administrator");
 }
 
 function currentUser(){

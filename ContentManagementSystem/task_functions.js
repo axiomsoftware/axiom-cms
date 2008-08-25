@@ -1,5 +1,9 @@
 function add_copy_to_task(data) {
 	data = (data || req.data);
+	var bypass = false;
+	if (data.task_id == "BYPASS") {
+		bypass = true;
+	}
 	var task = app.getHits("CMSTask", {task_id: data.task_id}).objects(0,1)[0];
 	var filters = data.objects.map(function(obj){ return new Filter({"_id": obj.id}); });
 	var filter = new AndFilter(new OrFilter(filters), new NativeFilter("cms_status: z OR cms_status: a", "WhitespaceAnalyzer"));
@@ -35,9 +39,14 @@ function add_copy_to_task(data) {
 				count++;
 			}
 			par.add(copy);
+			copy.cms_status = 'z';
 		}
-		copy._task = new Reference(task);
-		copy._action = "Added";
+		if (bypass) {
+			copy.publishToLive();
+		} else {
+			copy._task = new Reference(task);
+			copy._action = "Added";
+		}
 	}
 }
 
@@ -45,16 +54,24 @@ function add_copy_to_task(data) {
 
 function add_to_delete_task(data){
 	data = (data || req.data);
+	var bypass = false;
+	if (data.task_id == "BYPASS") {
+		bypass = true;
+	}
 	var task = app.getHits("CMSTask", {task_id: data.task_id}).objects(0,1)[0];
 	var filters = data.objects.map(function(obj){ return new Filter({'_id': obj.id}); });
 	var conn = app.getDbSource('_default').getConnection(false);
 	var objs = app.getObjects([], new OrFilter(filters)).map(function(obj){ return app.getDraft(obj, 1); });
 	for each(var obj in objs){
-		obj._task = new Reference(task);
-		obj._action = "Deleted";
-		obj.cms_lastmodified = new Date();
+		if (bypass) {
+			obj.cms_delete();
+			obj.publishToLive();
+		} else {
+			obj._task = new Reference(task);
+			obj._action = "Deleted";
+			obj.cms_lastmodified = new Date();
 
-		auditLogObjectAction({task_id:       task.task_id,
+			auditLogObjectAction({task_id:       task.task_id,
 							  username:      task.admin_actor,
 							  title:         obj.title,
 							  object_id:     obj._id,
@@ -63,6 +80,7 @@ function add_to_delete_task(data){
 							  action:        'Deleted',
 							  added_to_task: 'TRUE'},
 							 conn);
+		}
 	}
 }
 
