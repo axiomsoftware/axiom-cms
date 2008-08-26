@@ -20,11 +20,11 @@
 		  <tr>
 			<th class="selector"><input type="checkbox" dojoattachevent="onclick:selectAll" /></th>
 			<th class="col_action"></th>
-			<th class="col_first_name"><a href="javascript:void(0);" onclick="users.cfilter.sort([{first_name:'alternate'}, {last_name: 'asc'}]);">First Name</a></th>
-			<th class="col_last_name"><a href="javascript:void(0);" onclick="users.cfilter.sort([{last_name:'alternate'}, {first_name: 'asc'}]);">Last Name</a></th>
-			<th class="col_username"><a href="javascript:void(0);" onclick="users.cfilter.sort([{username:'alternate'}, {last_name: 'asc'}]);">Username</a></th>
-			<th class="col_role"><a href="javascript:void(0);" onclick="users.cfilter.sort([{search_roles:'alternate'}, {last_name: 'asc'}]);">Role</a></th>
-			<th class="col_email"><a href="javascript:void(0);" onclick="users.cfilter.sort([{email:'alternate'}, {last_name: 'asc'}]);">Email</a></th>
+			<th class="col_first_name"><a href="javascript:void(0);" onclick="users.cfilter.sort([{sortable_first_name:'alternate'}, {last_name: 'asc'}]);">First Name</a> <img class="col_sort" dojoattachpoint="col_sort_sortable_first_name" /></th>
+			<th class="col_last_name"><a href="javascript:void(0);" onclick="users.cfilter.sort([{sortable_last_name:'alternate'}, {first_name: 'asc'}]);">Last Name</a> <img class="col_sort" dojoattachpoint="col_sort_sortable_last_name" /></th>
+			<th class="col_username"><a href="javascript:void(0);" onclick="users.cfilter.sort([{sortable_username:'alternate'}, {last_name: 'asc'}]);">Username</a> <img class="col_sort" dojoattachpoint="col_sort_sortable_username" /></th>
+			<th class="col_role"><a href="javascript:void(0);" onclick="users.cfilter.sort([{sortable_roles:'alternate'}, {last_name: 'asc'}]);">Role</a> <img class="col_sort" dojoattachpoint="col_sort_sortable_roles" /></th>
+			<th class="col_email"><a href="javascript:void(0);" onclick="users.cfilter.sort([{sortable_email:'alternate'}, {last_name: 'asc'}]);">Email</a> <img class="col_sort" dojoattachpoint="col_sort_sortable_email" /></th>
 		  </tr>
 		</thead>
 		<tbody dojoattachpoint="results_body">
