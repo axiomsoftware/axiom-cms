@@ -20,7 +20,7 @@ dojo.widget.defineWidget(
 		templatePath:new dojo.uri.dojoUri('../axiom/widget/resources/TaskAdd.html'),
 		templateCssPath:new dojo.uri.dojoUri('../axiom/widget/resources/TaskAdd.css'),
 		onAdd:function(evt, data, req){
-			axiom.lastTaskID = data.task_id;
+			axiom.lastTaskID++;
 			dojo.html.removeClass(this.widget.addButton, 'disabled');
 			this.widget.nameField.value = axiom.currentUserFullName + "'s Task " + parseInt(axiom.lastTaskID + 1);;
 			this.widget.descField.value = '';

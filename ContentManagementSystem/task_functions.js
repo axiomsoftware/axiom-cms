@@ -380,7 +380,9 @@ function add_task(data){
 }
 
 function get_last_task_id() {
-	return parseInt(app.getFields("last_id","CMSTaskContainer", {}, {maxlength: 1})[0]);
+	var user = session.user;
+	var filter = new Filter({creator: user.username});
+	return parseInt(app.getHitCount("CMSTask", filter));
 }
 
 function my_pending_tasks(user){
