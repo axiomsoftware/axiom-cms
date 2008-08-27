@@ -138,7 +138,7 @@ dojo.widget.defineWidget(
 				var task = axiom.myAssignedTasks[i];
 				var opt = document.createElement('option');
 				opt.innerHTML = task.task_id + ' - ' +task.name;
-				opt.value = task.task_id + ' - ' +task.name;
+				opt.value = task.task_id;
 				task_list.appendChild(opt);
 			}
 			if (axiom.isAdministrator) {

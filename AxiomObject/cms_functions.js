@@ -8,6 +8,7 @@ function cms_delete() {
 			if(bin){
 				var bag = new CMSTrashBag();
 				bag.oldlocation = this.getPath();
+				bag.olduri = this.getURI();
 				bin.add(bag);
 				this.edit({'_location': bag.getPath()});
 				this.nullify();
