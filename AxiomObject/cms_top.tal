@@ -2,7 +2,9 @@
   <ul class="utility">
 
 	<swx tal:omit="true" tal:if="this.isAdmin()">
+	  <!-- if-cms-version-enterprise -->
 	  <li><a target="blank" tal:attr="onclick: 'window.open(\''+cms.getURI('recyclebin')+'\', \'RecycleBin\', \'width=1024,height=700,resizable=yes,scrollbars=yes\')' ">Recycle Bin</a></li>
+  	  <!-- end-cms-if -->
 	  <li><a target="blank" tal:attr="onclick: 'window.open(\''+cms.getURI('settings')+'\', \'Settings\', \'width=1024,height=700,resizable=yes,scrollbars=yes\')' ">Settings</a></li>
 	  <li><a target="blank" tal:attr="onclick: 'window.open(\''+cms.getURI('users')+'\', \'Users\', \'width=1024,height=700,resizable=yes,scrollbars=yes\')' ">Users</a></li>
 	</swx>
