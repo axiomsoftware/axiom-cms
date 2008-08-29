@@ -16,6 +16,7 @@ dojo.widget.defineWidget(
 	function(){},
 	{
 		modules: {},
+		visible_module: '',
 		templatePath:new dojo.uri.dojoUri('../axiom/widget/resources/SettingsNav.html'),
 		templateCssPath:new dojo.uri.dojoUri('../axiom/widget/resources/SettingsNav.css'),
 		registerModule: function(widget, name){
@@ -38,12 +39,17 @@ dojo.widget.defineWidget(
 
 			}
 			dojo.html.addClass(this.modules[name].nav, 'active');
+			this.visible_module = name;
 			this.modules[name].widget.show();
+			axiom.showMessage('');
 
 		},
 		saveAll: function(){
-			for(var name in this.modules)
-				this.modules[name].widget.save();
+			for(var name in this.modules) {
+				if (this.visible_module == name) {
+					this.modules[name].widget.save();
+				}
+			}
 		}
 	}
 );
