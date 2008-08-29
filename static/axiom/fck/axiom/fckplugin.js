@@ -114,13 +114,37 @@ FCKLinkSelect.prototype.Execute = function()
 	var linkDialogID = fckRef + '_LinkDialog';
 	var LinkSelectRef = this;
 
-	var SelectedText,SelectedRange;
+	var SelectedText,SelectedRange,SelectedURL,NewWindow = false;
 	if(dojo.render.html.ie) {
 		SelectedRange = FCK.EditorDocument.selection.createRange();
+		if (SelectedRange.htmlText.match(/<A[^>]*>.*<\/A>/g)) {
+			var linkHtml = SelectedRange.htmlText.match(/<A[^>]*>.*<\/A>/g)[0];
+			var tmpa = document.createElement(linkHtml);
+			if (tmpa.href) {
+				SelectedURL = tmpa.href;
+			}
+			if (tmpa.target) {
+				if (tmpa.target == '_blank') {
+					NewWindow = true;
+				}
+			}
+		}
 		SelectedText = FCK.EditorDocument.selection.createRange().text;
 	} else {
-		SelectedText = FCK.EditorWindow.getSelection().toString();
+		var sel = FCK.EditorWindow.getSelection();
+		if (sel.anchorNode.parentNode) {
+			if (sel.anchorNode.parentNode.href) {
+				SelectedURL = sel.anchorNode.parentNode.href;
+			}
+			if (sel.anchorNode.parentNode.target) {
+				if (sel.anchorNode.parentNode.target == '_blank') {
+					NewWindow = true;
+				}
+			}
+		}
+		SelectedText = sel.anchorNode.textContent;
 	}
+
 
 	// Destroy previous instances of Link Dialog
 	var linkdialog = dojo.widget.byId(linkDialogID);
@@ -139,10 +163,10 @@ FCKLinkSelect.prototype.Execute = function()
 	buffer[buffer.length] = '<option value="mailto:">Email</option>';
 	buffer[buffer.length] = '</select>';
 	buffer[buffer.length] = '<label for="'+fckRef+'_url">Link Address:</label>';
-	buffer[buffer.length] = '<input type="text" id="'+fckRef+'_url" value="http://" />';
+	buffer[buffer.length] = '<input type="text" id="'+fckRef+'_url" value="' + (SelectedURL ? SelectedURL : 'http://') + '" />';
 	buffer[buffer.length] = '<label for="'+fckRef+'_text">Link Text:</label>';
 	buffer[buffer.length] = '<input type="text" id="'+fckRef+'_text" value="'+( SelectedText.replace(/\"/g, "&quot;") || '')+'"/></div>';
-	buffer[buffer.length] = '<div class="linkwindow"><input class="cb" type="checkbox" id="'+fckRef+'_newwindow" value="http://" /><label for="'+fckRef+'_newwindow">Open in new window</label></div>';
+	buffer[buffer.length] = '<div class="linkwindow"><input class="cb" type="checkbox" id="'+fckRef+'_newwindow" ' + (NewWindow ? 'checked="true"' : '')  + '" /><label for="'+fckRef+'_newwindow">Open in new window</label></div>';
 	d.innerHTML = buffer.join('');
 	var bb = doc.createElement("div");
 	bb.className = "linkbrowse";
