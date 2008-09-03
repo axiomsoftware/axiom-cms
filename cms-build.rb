@@ -6,7 +6,8 @@ include FileUtils::Verbose
 
 # ./CMSTask
 # ./CMSTaskContainer
-       
+# ./static/axiom/widget/TaskTable.js       
+
 enterprise_files = %w{ 
 ./ContentManagementSystem/task_functions.js 
 ./ContentManagementSystem/tasks_nav.tal
@@ -16,7 +17,7 @@ enterprise_files = %w{
 ./ContentManagementSystem/reports_content.tal
 ./ContentManagementSystem/reports_nav.tal
 ./static/axiom/widget/AddTaskModal.js
-./static/axiom/widget/TaskTable.js
+
 ./static/axiom/widget/PendingTaskTable.js
 ./static/axiom/widget/resources/PendingTaskTable.css
 ./static/axiom/widget/resources/PendingTaskTable.html
