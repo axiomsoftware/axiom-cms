@@ -6,6 +6,10 @@
 
   </div>
 
+  <div id="ContentTree"></div>
+  <div id="TreeDetails"></div>
+
+
   <div id="BrowseDialog" style="display:none;">
 	<div class="browsewrapper">
 	  <div id="browsecontent">

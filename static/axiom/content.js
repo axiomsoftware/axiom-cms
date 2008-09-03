@@ -3,6 +3,11 @@ var axiom = {
 		dojo.require('dojo.json');
 		dojo.require('dojo.dom');
 		dojo.require("dojo.io.XhrIframeProxy");
+		dojo.require("dojo.lang.*");
+		dojo.require("dojo.widget.*");
+		dojo.require("dojo.widget.Tree");
+		dojo.require("dojo.widget.TreeSelector");
+
 		if(dojo.byId("ContentFilter")){ // no initialization needed if we're not on the content tab
 			dojo.require("axiom.widget.ContentFilter");
 			dojo.require("axiom.widget.ContentAdd");
@@ -28,6 +33,14 @@ var axiom = {
 			axiom.cfilter.registerAdd(axiom.cadd);
 			axiom.cfilter.registerTable(axiom.ctable);
 			axiom.cfilter.search();
+
+			// Experimental Tree Code
+			axiom.tree = dojo.widget.createWidget("Tree", {toggle: "fade"});
+			dojo.byId("ContentTree").appendChild(axiom.tree.domNode);
+			var rootNode = dojo.widget.createWidget("TreeNode", {title: "Root (Root)",objectId:"0"});
+			axiom.tree.addChild(rootNode);
+			axiom.update_tree(rootNode,'0');
+			// End Experimental Tree Code
 
 			// Display the ContentPane with the Search Table
 			axiom.showContent();
@@ -692,6 +705,42 @@ var axiom = {
 		dojo.io.bind({url: axiom.appPath+ 'cms/Logout',
 					  load: function(){ window.location = axiom.appPath+ 'cms/Login'; }
 					 });
+	},
+	update_tree: function(node,nodeid) {
+		dojo.io.bind({ 
+			url: axiom.cmsPath + 'tree',
+			load: function(evt, data, type){
+				for (var i = 0; i < data.length; i++) {
+					var widgetdata = {
+						title: (data[i].title ? data[i].title : 'Untitled Object') + ' (' + data[i].prototype + ')',
+						objectId:data[i]._id,
+						object:data[i],
+						isFolder: data[i].hasChildren,
+						childIconSrc: axiom.staticPath + '/axiom/images/icon_copy.gif', // Temporary Image
+						onTreeClick: function(){
+							if (!this.object.expanded) {
+								axiom.update_tree(this,this.object._id);
+								this.object.expanded = true;
+							}
+							if (!this.isExpanded) {
+								this.expand();
+							} else {
+								this.collapse();
+							}
+
+						},
+						//onIconClick: function(){ console.log("onIconClick") },
+						//onTitleClick: function(){ axiom.tree_details(this.object) }
+					}
+					var new_node = dojo.widget.createWidget("TreeNode",widgetdata);
+					node.addChild(new_node);
+					//axiom.update_tree(new_node,data[i]._id);
+				}
+			},
+			content: {nodeid:nodeid},
+			preventCache: true,
+			mimetype: 'text/json',
+			method: 'post' });
 	},
 	dirtyProps:{}
 };
