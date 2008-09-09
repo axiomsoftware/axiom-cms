@@ -15,7 +15,7 @@ var axiom = {
 
 			// Set loading message to ajax loader gif
 			var ajaxLoader = axiom.staticPath + '/axiom/images/ajax-loader.gif';
-			dojo.widget.byId("EditBody").loadingMessage='<div style="width:100%;text-align:center;padding:25px 0;">Loading...<br/><img src="'+ajaxLoader+'" alt="Loading..." /></div>';
+			dojo.widget.byId("EditBody").loadingMessage = '<div style="width:100%;text-align:center;padding:25px 0;">Loading...<br/><img src="'+ajaxLoader+'" alt="Loading..." /></div>';
 
 			// Initialize the first set of widgets
 			axiom.cfilter = dojo.widget.createWidget("axiom:ContentFilter",{prototypes:axiom.searchPrototypes,
@@ -32,15 +32,9 @@ var axiom = {
 
 			axiom.cfilter.registerAdd(axiom.cadd);
 			axiom.cfilter.registerTable(axiom.ctable);
-			axiom.cfilter.search();
 
-			// Experimental Tree Code
-			axiom.tree = dojo.widget.createWidget("Tree", {toggle: "fade"});
-			dojo.byId("ContentTree").appendChild(axiom.tree.domNode);
-			var rootNode = dojo.widget.createWidget("TreeNode", {title: "Root (Root)",objectId:"0"});
-			axiom.tree.addChild(rootNode);
-			axiom.update_tree(rootNode,'0');
-			// End Experimental Tree Code
+			axiom.initialize_tree();
+
 
 			// Display the ContentPane with the Search Table
 			axiom.showContent();
@@ -411,6 +405,24 @@ var axiom = {
 		dojo.byId('object_detail').style.display = 'none';
 	},
 
+	showContentTable: function() {
+		axiom.hideContentTree();
+		dojo.byId('TableWrapper').style.display = 'block';
+	},
+
+	hideContentTable: function() {
+		dojo.byId('TableWrapper').style.display = 'none';
+	},
+
+	showContentTree: function() {
+		axiom.hideContentTable();
+		dojo.byId('TreeWrapper').style.display = 'block';
+	},
+
+	hideContentTree: function() {
+		dojo.byId('TreeWrapper').style.display = 'none';
+	},
+
 	getFormData: function(id, submitAll){
 		var edit = dojo.byId(id);
 		var data = {};
@@ -706,41 +718,55 @@ var axiom = {
 					  load: function(){ window.location = axiom.appPath+ 'cms/Login'; }
 					 });
 	},
+	initialize_tree: function() {
+		axiom.tree = dojo.widget.createWidget("Tree", {toggle: "fade"});
+		dojo.byId("ContentTree").appendChild(axiom.tree.domNode);
+		var rootNode = dojo.widget.createWidget("TreeNode", {widgetId:'Tree_0',title: "Root",objectId:"0"});
+		axiom.tree.addChild(rootNode);
+		axiom.update_tree(rootNode,'0');
+	},
 	update_tree: function(node,nodeid) {
 		dojo.io.bind({ 
 			url: axiom.cmsPath + 'tree',
 			load: function(evt, data, type){
 				for (var i = 0; i < data.length; i++) {
 					var widgetdata = {
+						widgetId: 'Tree_' + data[i]._id,
 						title: (data[i].title ? data[i].title : 'Untitled Object') + ' (' + data[i].prototype + ')',
 						objectId:data[i]._id,
 						object:data[i],
 						isFolder: data[i].hasChildren,
 						childIconSrc: axiom.staticPath + '/axiom/images/icon_copy.gif', // Temporary Image
 						onTreeClick: function(){
-							if (!this.object.expanded) {
-								axiom.update_tree(this,this.object._id);
-								this.object.expanded = true;
-							}
+							axiom.update_tree(this,this.object._id);
 							if (!this.isExpanded) {
 								this.expand();
 							} else {
 								this.collapse();
 							}
 
-						},
+						}
+						//TODO: Edit on Double Click
 						//onIconClick: function(){ console.log("onIconClick") },
-						//onTitleClick: function(){ axiom.tree_details(this.object) }
+						//onTitleClick: function(){ axiom.update_details(this.object) }
 					}
-					var new_node = dojo.widget.createWidget("TreeNode",widgetdata);
-					node.addChild(new_node);
-					//axiom.update_tree(new_node,data[i]._id);
+					var existing = dojo.widget.byId('Tree_' + data[i]._id);
+					if (existing) {
+						existing.edit(widgetdata);
+					} else {
+						var new_node = dojo.widget.createWidget("TreeNode",widgetdata);
+						node.addChild(new_node);
+					}
 				}
 			},
 			content: {nodeid:nodeid},
 			preventCache: true,
 			mimetype: 'text/json',
 			method: 'post' });
+	},
+	update_details: function(obj) {
+		//TODO: Update the Box on the left
+		axiom.showObjectDetail();
 	},
 	dirtyProps:{}
 };
