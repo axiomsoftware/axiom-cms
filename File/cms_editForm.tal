@@ -38,6 +38,7 @@
       <li><strong>Size</strong>: <span tal:replace="this/getFileSizeKB"/></li>
       <li tal:condition="this/getWidth" ><strong>Dimensions</strong>: <span tal:replace="string:${this/getWidth} x ${this/getHeight}"/> </li>
     </ul>
+	<div class="download_link"><strong><a tal:attributes="href this/getURI">Download</a></strong></div>
 	<div tal:condition="not:add">
 	  <form id="replace" name="replace" method="post" enctype="multipart/form-data" tal:attributes="action string:${this/getURI}/replace">
 		<label>Replace Asset:</label>
