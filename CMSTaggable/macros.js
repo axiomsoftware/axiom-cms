@@ -13,7 +13,7 @@ function has_tag(tag_name){
 		var len = this.tags.length;
 		for(var i=0; i< len; i++){
 		    if(this.tags[i] && this.tags[i].getTarget() && this.tags[i].getTarget().title == tag_name){
-			return this.tags[i].getTarget();
+				return this.tags[i].getTarget();
 		    }
 		}
 	}
