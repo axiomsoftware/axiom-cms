@@ -20,6 +20,7 @@ dojo.widget.defineWidget(
 		title: '',
 		searchUrl: '',
 		tasks: {},
+
 		sortObj: {cms_lastmodified: 'desc', task_id: 'desc'},
 		sortDirections: {},
 		search: function(args){
@@ -90,7 +91,7 @@ dojo.widget.defineWidget(
 			}
 
 			if(objs == 0) {
-				this.insertNoObjectsRow();
+				this.insertNoObjectsRow('No tasks found.');
 			} else{
 				var rows = this.results_body.getElementsByTagName('tr');
 				var cells = rows[rows.length-1].getElementsByTagName('td');

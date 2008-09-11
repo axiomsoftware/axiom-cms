@@ -15,7 +15,7 @@ dojo.require("axiom.widget.SubmitTaskModal");
 dojo.require("axiom.widget.DeleteTaskModal");
 
 dojo.widget.defineWidget(
-	"axiom.widget.OpenTaskTable", 
+	"axiom.widget.OpenTaskTable",
 	axiom.widget.TaskTable,
 	function(){},
 	{
@@ -45,14 +45,14 @@ dojo.widget.defineWidget(
 								  adviceObj: this,
 								  adviceFunc:  'editTask'});
 			var row = this.createRow({id: row_id,
-				cols: [ {content: edit_icon,      'class': 'col_action' }, 
-				{content: task.task_id,   'class': 'col_open_id' }, 
+				cols: [ {content: edit_icon,      'class': 'col_action' },
+				{content: task.task_id,   'class': 'col_open_id' },
 				{content: task.name,      'class': 'col_task_name', colspan: '2'},
 				{content: task.objects.length,  'class': 'col_task_items' },
 				{content: this.formatDate(task.due_date),  'class': 'col_due_date' },
 				{content: status,         'class': 'col_status' },
 				{content: (task.admin_actor || task.creator)+' on '+this.formatDate(task.lastmodified,true),   'class': 'col_by' }]
-					  })
+					  });
 			this.results_body.appendChild(row);
 			if(task.status.match(/Incomplete|Rejected/)){
 				dojo.html.addClass(row, 'submittable');
@@ -84,7 +84,7 @@ dojo.widget.defineWidget(
 		},
 		handleResults:function(type, data, req){
 			if(this.widget.insertResults(data)){
-				var buttons = this.widget.insertButtonRow([{text: "Submit", callback: 'submitTasks'}, {text: "Delete", callback: 'deleteTasks'}, ]);
+				var buttons = this.widget.insertButtonRow([{text: "Submit", callback: 'submitTasks'}, {text: "Delete", callback: 'deleteTasks'} ]);
 				this.widget.submitButton = buttons[0];
 				this.widget.deleteButton = buttons[1];
 			}
