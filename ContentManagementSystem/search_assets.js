@@ -121,7 +121,7 @@ function search_assets(){
 	if(sort && sort == "type")
 		sort_params[contentTypeProp] = 'asc';
 	else
-		sort_params['title'] = 'asc';
+		sort_params['cms_sortabletitle'] = 'asc';
 	var sort_obj = new Sort(sort_params);
 
 	var total = 0;

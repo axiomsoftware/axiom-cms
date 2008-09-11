@@ -3,7 +3,7 @@
 	<p id="results_found"> </p>
 	<select id="sort_by">
 	  <option value="type" selected="selected">Sort By Type</option>
-	  <option value="alpha" selected="selected">Sort By Name</option>
+	  <option value="alpha" selected="selected">Sort By Title</option>
 	</select>
 	<div id="pages" class="pages" >
 	  <img onclick="previousPage()" tal:attributes="src string:${root/getURI}static/axiom/images/icon_page_back_disabled.gif;" alt="Previous Page"/>
