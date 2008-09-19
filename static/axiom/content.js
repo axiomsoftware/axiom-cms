@@ -5,13 +5,13 @@ var axiom = {
 		dojo.require("dojo.io.XhrIframeProxy");
 		dojo.require("dojo.lang.*");
 		dojo.require("dojo.widget.*");
-		dojo.require("dojo.widget.Tree");
-		dojo.require("dojo.widget.TreeSelector");
 
 		if(dojo.byId("ContentFilter")){ // no initialization needed if we're not on the content tab
 			dojo.require("axiom.widget.ContentFilter");
 			dojo.require("axiom.widget.ContentAdd");
 			dojo.require("axiom.widget.ContentTable");
+			dojo.require("dojo.widget.TreeSelector");
+			dojo.require("axiom.widget.AxiomTreeNode");
 
 			// Set loading message to ajax loader gif
 			var ajaxLoader = axiom.staticPath + '/axiom/images/ajax-loader.gif';
@@ -257,7 +257,11 @@ var axiom = {
 		dojo.html.setClass(edit.domNode, axiom.editBaseClass);
 		if(classname){ dojo.html.addClass(content.domNode, classname); }
 		axiom.showingThumbs = true;
-		axiom.hideObjectDetail();
+		if (axiom.tree_visible && axiom.selected_node) {
+			axiom.showObjectDetail();
+		} else {
+			axiom.hideObjectDetail();
+		}
 		axiom.showLeftNav();
 		document.title = (axiom.title || "Axiom CMS");
 		content.style.display='block';
@@ -406,7 +410,9 @@ var axiom = {
 	},
 
 	showContentTable: function() {
+		axiom.tree_visible = false;
 		axiom.hideContentTree();
+		axiom.hideObjectDetail();
 		dojo.byId('TableWrapper').style.display = 'block';
 	},
 
@@ -415,13 +421,19 @@ var axiom = {
 	},
 
 	showContentTree: function() {
+		axiom.tree_visible = true;
 		axiom.hideContentTable();
+		if (axiom.selected_node) {
+			axiom.selected_node.update_details();
+		}
 		dojo.byId('TreeWrapper').style.display = 'block';
 	},
 
 	hideContentTree: function() {
 		dojo.byId('TreeWrapper').style.display = 'none';
 	},
+
+	tree_visible: false,
 
 	getFormData: function(id, submitAll){
 		var edit = dojo.byId(id);
@@ -721,10 +733,27 @@ var axiom = {
 	initialize_tree: function() {
 		axiom.tree = dojo.widget.createWidget("Tree", {toggle: "fade"});
 		dojo.byId("ContentTree").appendChild(axiom.tree.domNode);
-		var rootNode = dojo.widget.createWidget("TreeNode", {widgetId:'Tree_0',title: "Root",objectId:"0"});
+		var widgetdata = {
+			widgetId: 'Tree_0',
+			title: 'Root',
+			objectId: '0',
+			isFolder: true,
+			onTreeClick: function(){
+				axiom.update_tree(this,'0');
+				if (!this.isExpanded) {
+					this.expand();
+				} else {
+					this.collapse();
+				}
+			},
+			onTitleClick: function() { this.update_details(); }
+
+		}
+		var rootNode = dojo.widget.createWidget("axiom:AxiomTreeNode", widgetdata);
 		axiom.tree.addChild(rootNode);
-		axiom.update_tree(rootNode,'0');
+		//axiom.update_tree(rootNode,'0');
 	},
+	selected_node:null,
 	update_tree: function(node,nodeid) {
 		dojo.io.bind({ 
 			url: axiom.cmsPath + 'tree',
@@ -732,9 +761,9 @@ var axiom = {
 				for (var i = 0; i < data.length; i++) {
 					var widgetdata = {
 						widgetId: 'Tree_' + data[i]._id,
-						title: (data[i].title ? data[i].title : 'Untitled Object') + ' (' + data[i].prototype + ')',
-						objectId:data[i]._id,
-						object:data[i],
+						title: data[i].title + ' (' + data[i].prototype + ')',
+						objectId: data[i]._id,
+						object: data[i],
 						isFolder: data[i].hasChildren,
 						childIconSrc: axiom.staticPath + '/axiom/images/icon_copy.gif', // Temporary Image
 						onTreeClick: function(){
@@ -744,17 +773,14 @@ var axiom = {
 							} else {
 								this.collapse();
 							}
-
-						}
-						//TODO: Edit on Double Click
-						//onIconClick: function(){ console.log("onIconClick") },
-						//onTitleClick: function(){ axiom.update_details(this.object) }
+						},
+						onTitleClick: function() { this.update_details(); }
 					}
 					var existing = dojo.widget.byId('Tree_' + data[i]._id);
 					if (existing) {
 						existing.edit(widgetdata);
 					} else {
-						var new_node = dojo.widget.createWidget("TreeNode",widgetdata);
+						var new_node = dojo.widget.createWidget("axiom:AxiomTreeNode",widgetdata);
 						node.addChild(new_node);
 					}
 				}
@@ -763,10 +789,6 @@ var axiom = {
 			preventCache: true,
 			mimetype: 'text/json',
 			method: 'post' });
-	},
-	update_details: function(obj) {
-		//TODO: Update the Box on the left
-		axiom.showObjectDetail();
 	},
 	dirtyProps:{}
 };
