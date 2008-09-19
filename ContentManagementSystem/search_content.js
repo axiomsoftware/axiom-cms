@@ -155,7 +155,7 @@ function extractTrashBag(bag){
 	return {
 		_id: bag._id,
 		title: item.title,
-		location: bag.olduri
+		location: /^\/cms/.test(bag.olduri) ? '' : bag.olduri 
 	};
 }
 

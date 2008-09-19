@@ -331,9 +331,9 @@ th,td {white-space: normal; text-align: left; padding:0px;border: 1px solid #AAA
 /*#content .body .columnLeft .last a {color:#4D666D;text-decoration:underline;font-size:1.2em;}*/
 #content .body .columnLeft .section-only  {border-bottom:0px;}
 #content .body .columnLeft .section-only .button {padding:3px 6px 4px 6px;}
-#content .body .columnRight {width:auto; overflow: auto; overflow-x: hidden; margin:0 1px 0 225px; border: 1px solid #b8b8b8; border-right:0px; background:#fff; *margin-bottom:1px; padding-top:2%;position: relative; height:500px;} 
+#content .body .columnRight {width:auto; overflow: auto; overflow-x: hidden; margin:0 1px 0 225px; border: 1px solid #b8b8b8; border-right:0px; background:#fff; *margin-bottom:1px; padding-top:2%;position: relative; height:597px; min-height:597px;} 
 * html #content .body .columnRight {padding-bottom:48px; width:100%;} 
-#content .body .columnRight .edit_content{overflow: scroll; *width:100% !important;} 
+#content .body .columnRight .edit_content{overflow: scroll; *width:100% !important; min-height: 581px;} 
 #content .body .columnRight .edit_content h1 {margin-left:12px !important;}
 #content .body .fixed { overflow: hidden; *width:auto !important;}
 #content .body .columnRight .contentHeader {float:left;width:98%;padding-left:1%;padding-bottom:1%;}
@@ -533,3 +533,5 @@ th.col_by { width:5%; border-right: 1px solid #b0b4b6; }
 #SEOSettings .info { margin-bottom: 10px; }
 #SEOSettings #new_robot_wrapper { display: none; margin-bottom: 15px; }
 .settings #Messages { margin-left: 15px; }
+
+.download_link { margin-bottom: 10px;}

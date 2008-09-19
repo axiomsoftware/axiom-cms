@@ -448,8 +448,8 @@ function extract_task(task){
 						 });
 		}
 		stmt.close();
-	} else{
-		objects = app.getSources(task, [], new NativeFilter("cms_status: a OR cms_status: z","WhitespaceAnalyzer")).map(
+	} else {
+		objects = app.getSources(task, [], new NativeFilter("cms_status: a OR cms_status: z","WhitespaceAnalyzer"), {sort: new Sort({'cms_sortabletitle':'asc'})}).map(
 			function(obj){
 				return {title:      obj.title,
 						editable:   obj.task_editable(),

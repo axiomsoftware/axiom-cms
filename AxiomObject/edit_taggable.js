@@ -35,6 +35,9 @@ function edit_taggable(data){
 				value = value.join(',');
 				args['tags'] = value;
 			}
+			if(args.ax_id && obj.setFileName){
+				obj.setFileName(args.ax_id);
+			}
 			obj.save(args);
 			// if-cms-version-enterprise
 			obj.cms_status = 'z';

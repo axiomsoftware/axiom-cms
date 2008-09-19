@@ -11,7 +11,7 @@ function replace(){
 		this.id = cms.uniqueId(clean_name);
 	if(this instanceof Image)
 		this.add_cms_thumbnails();
-	res.write(this.getURI()); 
+	return this.getURI();
 }
 
 function getPreviewStyle(){
@@ -40,7 +40,7 @@ function ellipsedFileName(){
 }
 
 function generateContent(){
-	return [(this.title||''), 
+	return [(this.title||''),
 			(this.getFileName()||''),
 			(this.getContent()||'')].join(' ');
 }
@@ -89,9 +89,9 @@ function preview_href(){
 }
 
 function iconsTable(){
-	
-	return {'application/vnd.ms-excel':      {on: 'xls_on.gif', off: 'xls_off.gif'},  
-			'application/excel':             {on: 'xls_on.gif', off: 'xls_off.gif'}, 
+
+	return {'application/vnd.ms-excel':      {on: 'xls_on.gif', off: 'xls_off.gif'},
+			'application/excel':             {on: 'xls_on.gif', off: 'xls_off.gif'},
 			'application/msword':            {on: 'doc_on.gif', off: 'doc_off.gif'},
 			'application/mspowerpoint':      {on: 'ppt_on.gif', off: 'ppt_off.gif'},
 			'application/pdf':               {on: 'pdf_on.gif', off: 'pdf_off.gif'},
@@ -105,16 +105,16 @@ function iconsTable(){
 			'audio/mpeg':                    {on: 'mp3_on.gif', off: 'mp3_off.gif'},
 			'audio/x-wav':                   {on: 'mp3_on.gif', off: 'mp3_off.gif'},
 			'audio/wav':                   {on: 'mp3_on.gif', off: 'mp3_off.gif'},
-			'video/mpeg':                    {on: 'mov_on.gif', off: 'mov_off.gif'}, 
+			'video/mpeg':                    {on: 'mov_on.gif', off: 'mov_off.gif'},
 			'video/quicktime':               {on: 'mov_on.gif', off: 'mov_off.gif'},
 			'video/x-ms-wmv':                {on: 'mov_on.gif', off: 'mov_off.gif'},
 			'text/plain':                    {on: 'text_on.gif', off: 'text_off.gif'},
-			'text/richtext':                 {on: 'rtf_on.gif', off: 'rtf_off.gif'}, 
+			'text/richtext':                 {on: 'rtf_on.gif', off: 'rtf_off.gif'},
 			'text/rtf':                      {on: 'rtf_on.gif', off: 'rtf_off.gif'},
 			'application/rtf':               {on: 'rtf_on.gif', off: 'rtf_off.gif'},
-			'default':                       {on: 'default_on.gif', off: 'default_on.gif'} 
+			'default':                       {on: 'default_on.gif', off: 'default_on.gif'}
 	       };
-	
+
 }
 
 function getAssetObject(){

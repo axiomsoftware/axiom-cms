@@ -89,7 +89,7 @@ function save(data){
 	var errors = save_obj.call(app.getDraft(this, 1), data);
 
 	if (bypass) {
-		this.publishToLive()
+		this.publishToLive();
 	}
 
 	return errors;
