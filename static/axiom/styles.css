@@ -57,9 +57,11 @@ input.cb {border:0px;} /* So checkboxes don't have borders in IE */
 .header #ContentFilter select,  .header #ContentAdd select {width:200px;}
 .header #ContentFilter input,  .header #ContentAdd input {width:100px; padding-left:2px;}
 
+
 input.gray {color:#b2b1ad;}
 #ContentFilter span, #ContentAdd span {font-family: "Georgia";font-size:1.5em;}
 #ContentFilter span.button-wrapper {float:right; display:inline;}
+#ContentFilter div.fields-wrapper {float:left;}
 #ContentFilter span.button-wrapper img {cursor: pointer; margin-right:5px;}
 #content .separator {clear:both;overflow:hidden; width:100%; background:#FFF; height:10px; border:solid #b8b8b8; border-width:1px 0;}
 #content .border {clear:both;overflow:hidden; width:100%; background:#FFF; padding-top:0px; height:3px; border-top:0px !important;border-bottom:solid #b8b8b8; border-width:1px 0;}
@@ -165,6 +167,7 @@ table.calendarContainer td, table.calendarContainer th {border:0 !important}
 #BrowseDialog {min-height:450px;_height:450px;}
 div.browsewrapper {border:1px solid #878a8b;background:#aebabf;padding:8px;min-height:434px;_height:434px;_width:564px;}
 #browsecontent {background:#FFF url(images/body_bg.gif) 0 0 repeat; width:900px;padding-bottom:10px;}
+#browsecontent #ContentFilter {width:100%;}
 #browsecontent .body .pagination {width:95.5%;}
 #browsecontent .body .pages {padding:10px 7px 10px 0;}
 #browsecontent .body {width:100%;_width:auto;min-height:422px;_height:422px;}
