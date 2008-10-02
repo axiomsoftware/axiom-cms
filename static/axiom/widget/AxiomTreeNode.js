@@ -49,10 +49,34 @@ dojo.widget.defineWidget(
 		},
 
 		postCreate: function() {
-			dojo.event.kwConnect({srcObj: this.titleNode,
+			if (this.object) {
+				// if-cms-version-enterprise
+				if (this.object.task_info != 'None') {
+					var img = document.createElement("img");
+					img.src = axiom.staticPath + '/axiom/images/lock.gif';
+					this.afterLabelNode.appendChild(img);
+				}
+				if (!this.object.task_editable) {
+					this.titleNode.style.color = '#CCC';
+				}
+				// end-cms-if
+
+				if (!this.object.editable) {
+					this.titleNode.style.color = '#CCC';
+				}
+
+				// if-cms-version-standard
+				if (this.object.editable) {
+				// end-cms-if
+				// if-cms-version-enterprise
+				if (this.object.editable && this.object.task_editable) {
+				// end-cms-if
+					dojo.event.kwConnect({srcObj: this.titleNode,
 								  srcFunc: 'ondblclick',
 								  adviceObj: this,
 								  adviceFunc: 'display_edit'});
+				}
+			}
 		}
 
 	}

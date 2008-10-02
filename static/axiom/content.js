@@ -33,8 +33,8 @@ var axiom = {
 			axiom.cfilter.registerAdd(axiom.cadd);
 			axiom.cfilter.registerTable(axiom.ctable);
 
+			axiom.cfilter.search();
 			axiom.initialize_tree();
-
 
 			// Display the ContentPane with the Search Table
 			axiom.showContent();
@@ -730,6 +730,7 @@ var axiom = {
 					  load: function(){ window.location = axiom.appPath+ 'cms/Login'; }
 					 });
 	},
+	search_initialized: false,
 	initialize_tree: function() {
 		axiom.tree = dojo.widget.createWidget("Tree", {toggle: "fade", templateCssPath: axiom.staticPath + "/axiom/widget/resources/AxiomTree.css"});
 		dojo.byId("ContentTree").appendChild(axiom.tree.domNode);
