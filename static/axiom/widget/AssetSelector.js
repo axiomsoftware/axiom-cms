@@ -488,7 +488,7 @@ dojo.widget.defineWidget(
 				return false;
 			}
 			if(this.assetType=="Image") {
-				var validexts = ['.gif','.jpg','.jpeg','.bmp','.png','.psd','.psp','.tif'];
+				var validexts = ['.gif','.jpg','.jpeg','.bmp','.png','.psd','.psp','.tif','.tiff'];
 				if(!dojo.lang.inArray(validexts,extension)) {
 					axiom.openModal({content:this.strings.errorSelectImage});
 					return false;
