@@ -651,8 +651,9 @@ var axiom = {
 				 var results = [];
 				 var len = inputs.length;
 				 for(var i=0; i<len; i++){
-					 if(inputs[i] && inputs[i].checked)
+					if(inputs[i] && inputs[i].checked) {
 						 results.push(inputs[i].value);
+					}
 				 }
 				 var textarea = dojo.byId(textareaId);
 				 var value = textarea.value+'';
@@ -662,7 +663,13 @@ var axiom = {
 						 if(value.indexOf(results[tag]) != -1)
 							 results[tag]= '';
 					 }
-					 textarea.value += ' '+results.join(' ');
+					 if (results.length) {
+						 if (textarea.value) {
+							 textarea.value += ' '+results.join(' ');
+						 } else {
+							 textarea.value = results.join(' ');
+						 }
+					 }
 				 }
 				 else{
 					 value = value.length ? value.split(/\s*,\s*/) : [];
