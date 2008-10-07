@@ -85,7 +85,7 @@ dojo.widget.defineWidget(
 		      }
 		},
 		scrub:function(){
-			this.idField.value = this.idField.value.replace(/\s+/g, '_').replace(/[^\w\.]+/g, '');
+			this.idField.value = this.idField.value.replace(/\s+/g, '-').replace(/[^\w-]/g, '');
 			if(!this.filemode){
 				this.idField.value = this.idField.value.toLowerCase();
 			}

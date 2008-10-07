@@ -153,8 +153,9 @@ function updateTags(display){
 	dojo.io.bind({url: axiom.cmsPath + 'cmsTagList',
 				  load: function(load, data, evt){
 					  dojo.byId('tag_window').innerHTML=data;
-					  if(display)
+					  if(display) {
 						  axiom.tags.toggleWindow('left_nav_tags');
+					  }
 				  },
 				  mimetype: 'text/html',
 				  preventCache: true
