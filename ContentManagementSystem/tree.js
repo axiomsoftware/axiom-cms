@@ -9,6 +9,7 @@ function tree() {
 		return {
 			_id: obj._id,
 			title: obj.title ? obj.title: 'Untitled Object',
+			icon_uri: obj.getTreeIconURI(),
 			location: obj.getURI(),
 			prototype: obj.getPrettyName().toString() ? obj.getPrettyName().toString() : obj._prototype,
 			hasChildren: obj.hasChildren(),

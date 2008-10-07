@@ -123,3 +123,17 @@ function cancel_delete(){
 function getLocationPaths(){
 	return app.__app__.getPrototypeByName(this._prototype).getProperty('_location.paths');
 }
+
+function getTreeIconURI() {
+
+	if (this._prototype == "ContentManagementSystem") {
+		return app.getStaticMountpoint('/axiom/images/tree_cms.gif');
+	}
+
+	if (this._prototype == "CMSContentFolder") {
+		return app.getStaticMountpoint('/axiom/images/tree_contentfolder.gif');
+	}
+
+	return app.getStaticMountpoint('/' + this.getCMSProperty('treeicon','axiom/images/tree_default.gif'));
+
+}

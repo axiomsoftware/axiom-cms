@@ -743,7 +743,7 @@ var axiom = {
 		dojo.byId("ContentTree").appendChild(axiom.tree.domNode);
 		var widgetdata = {
 			widgetId: 'Tree_0',
-			title: 'Content',
+			childIconSrc: axiom.staticPath + '/axiom/images/tree_root.gif',
 			objectId: '0',
 			isFolder: true
 		}
@@ -764,7 +764,7 @@ var axiom = {
 						objectId: data[i]._id,
 						object: data[i],
 						isFolder: data[i].hasChildren,
-						childIconSrc: axiom.staticPath + '/axiom/images/icon_copy.gif', // Temporary Image
+						childIconSrc: data[i].icon_uri,
 						onTreeClick: function(){
 							if (!this.isExpanded) {
 								axiom.update_tree(this,this.object._id);
