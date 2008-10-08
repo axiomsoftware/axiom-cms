@@ -16,6 +16,7 @@ dojo.widget.defineWidget(
 	dojo.widget.TreeNode,
 	function(){},
 	{
+		current_children: [],
 		display_edit: function(e) {
 			var url = (this.object.location == '/' ? '' : this.object.location) + '/cms_edit';
 			axiom.loadEdit(url);
@@ -46,6 +47,14 @@ dojo.widget.defineWidget(
 			}
 			this.markSelected();
 			axiom.selected_node = this;
+		},
+
+		clear_children: function() {
+			for (var i = 0; i < this.current_children.length; i++) {
+				var child = dojo.widget.byId('Tree_' + this.current_children[i]);
+				this.removeNode(child);
+			}
+			this.current_children = [];
 		},
 
 		postCreate: function() {

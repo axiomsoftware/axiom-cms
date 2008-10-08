@@ -65,13 +65,6 @@ dojo.widget.defineWidget(
 			var surl = this.searchURL;
 			var args = this.getArgObject(prototype, keywords, sort, start, length, published_only);
 			surl = surl.replace(/\/\//g, '/');
-			if (this == axiom.ctable) {
-				if (axiom.search_initialized) {
-					axiom.showContentTable();
-				} else {
-					axiom.search_initialized = true;
-				}
-			}
 			this.tablewrap.style.display = 'none';
 			if(this.loading) {
 				this.loading.style.display = 'block';

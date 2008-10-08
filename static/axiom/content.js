@@ -355,12 +355,12 @@ var axiom = {
 			dojo.html.removeClass(save_button, 'form-button-disabled');
 		} else {
 			axiom.dirtyProps = {};
-			axiom.showContent();
 			if(axiom.cfilter){
 				axiom.cfilter.sort({'cms_lastmodified': 'desc'});
 			}else if(axiom.tasks){
 				axiom.tasks.taskPanel.refreshAll();
 			}
+			axiom.showContent();
 
 		}
 	},
@@ -423,6 +423,8 @@ var axiom = {
 	showContentTree: function() {
 		axiom.tree_visible = true;
 		axiom.hideContentTable();
+		axiom.showMessage('');
+		axiom.hideMessage();
 		if (axiom.selected_node) {
 			axiom.selected_node.update_details();
 		}
@@ -433,7 +435,7 @@ var axiom = {
 		dojo.byId('TreeWrapper').style.display = 'none';
 	},
 
-	tree_visible: false,
+	tree_visible: true,
 
 	getFormData: function(id, submitAll){
 		var edit = dojo.byId(id);
@@ -757,6 +759,7 @@ var axiom = {
 		dojo.io.bind({ 
 			url: axiom.cmsPath + 'tree',
 			load: function(evt, data, type){
+				node.clear_children();
 				for (var i = 0; i < data.length; i++) {
 					var widgetdata = {
 						widgetId: 'Tree_' + data[i]._id,
@@ -775,13 +778,9 @@ var axiom = {
 						},
 						onTitleClick: function() { this.update_details(); }
 					}
-					var existing = dojo.widget.byId('Tree_' + data[i]._id);
-					if (existing) {
-						existing.edit(widgetdata);
-					} else {
-						var new_node = dojo.widget.createWidget("axiom:AxiomTreeNode",widgetdata);
-						node.addChild(new_node);
-					}
+					node.current_children.push(data[i]._id);
+					var new_node = dojo.widget.createWidget("axiom:AxiomTreeNode",widgetdata);
+					node.addChild(new_node);
 				}
 			},
 			content: {nodeid:nodeid},
