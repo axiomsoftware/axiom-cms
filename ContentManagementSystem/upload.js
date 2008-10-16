@@ -136,9 +136,11 @@ function uniqueId(name, is_path){
 	var hits = app.getHits(["File", "Image"], {id: name}, {maxlength: 1});
 	var i = 1;
 	var unique_name = name;
+	var pieces = name.split(/\./);
+	var name_wo_ext = pieces[0];
+	var ext = pieces[1];
 	while(hits.total > 0){
-		var pieces = name.split(/\./);
-		unique_name = [pieces[0], '_', i, '.', pieces[1]].join('');
+	    unique_name = [name_wo_ext, '_', i, (ext)?'.':'', ext].join('');
 		i++;
 		hits = app.getHits(["File", "Image"], {id: unique_name}, {maxlength: 1});
 	}
