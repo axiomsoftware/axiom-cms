@@ -188,8 +188,8 @@ div.browsewrapper {border:1px solid #878a8b;background:#aebabf;padding:8px;min-h
 .body .pages img {cursor:pointer !important; position:relative; top:-1px; *top:0;}
 .body .pages #page {width:27px; padding:1px 0 0 2px; height:16px;}
 .body .pages .pageBg {background:#ebebeb !important; width:31px !important; padding:4px 2px 6px 2px; display:inline !important; position:relative; top:-1px; *padding:2px !important; *margin-right:5px !important; *top:1px !important;}
-.body .pages .prevButton {margin:0 3px; *margin:0 2px; }
-.body .pages .nextButton {margin:0 3px; *position:relative; *left:6px; *margin-left:6px;}
+.body .pages .prevButton, #pages img, #pages2 img {margin:0 3px; *margin:0 2px; }
+.body .pages .nextButton, #pages img, #pages2 img {margin:0 3px; *position:relative; *left:6px; *margin-left:6px;}
 .body .pages .button {padding:3px 5px 4px 5px; position:relative; top:-1px; *top:0;}
 .body .results tbody td .table_info_txt { float:right; font-family: Tahoma; font-size: 9px; color:#666;}
 .body .tablewrap {clear:both; /*border:1px solid #b0b4b6; background:#cfd4d7;*/ width:90%; padding:1%; padding-top:7px; margin-left: 0 9px;}
