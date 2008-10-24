@@ -447,8 +447,8 @@ var axiom = {
 
 	unloadFCKInstance: function(id) {
 		var xhtml = FCKeditorAPI.GetInstance(id+'_fcktext').GetXHTML();
-		var empty_tag_re = /<(strong|em|u|strike|a)[^>]*>\s*<\/\1>/g;
-		var only_br_re = /<(strong|em|u|strike|a)[^>]*>\s*<br\s*\/>\s*<\/\1>/g;
+		var empty_tag_re = /<(strong|em|u|strike|a(?!\s+name="[^"]*"))[^>]*>\s*<\/\1>/g;
+		var only_br_re = /<(strong|em|u|strike|a(?!\s+name="[^"]*"))[^>]*>\s*<br\s*\/>\s*<\/\1>/g;
 		xhtml = xhtml.replace(empty_tag_re,'').replace(only_br_re,'<br />');
 		dojo.byId(id).value = xhtml; // Set hidden "input" to new markup value
 		//dojo.byId(id+'_preview').innerHTML = xhtml; // Show new markup in preview div
