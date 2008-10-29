@@ -183,7 +183,7 @@ dojo.widget.defineWidget(
 									   cols: cols.concat([{content:' Action: ' +obj._action},
 														  {content: info_text},
 														  {content: ''},
-														  {content: 'Content Type: '+obj._prototype, colspan:'2'}])});
+														  {content: 'Content Type: '+obj._prototype, colspan:'3'}])});
 		}
 	}
 );

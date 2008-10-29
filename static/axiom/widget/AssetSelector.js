@@ -69,6 +69,8 @@ dojo.widget.defineWidget(
 			searchNoResults:"Sorry, your search returned no results.",
 			errorSelectItem:"Please select an item first.",
 			errorSelectImage:"Please select a valid image type.",
+			errorSelectAudio:"Please select a valid audio file type.",
+			errorSelectVideo:"Please select a valid video file type.",
 			tagIconTitle:"Tags",
 			addItem:"Add Item",
 			uploadLabel:"File to upload:",
@@ -486,12 +488,28 @@ dojo.widget.defineWidget(
 				return false;
 			}
 			if(this.assetType=="Image") {
-				var validexts = ['.gif','.jpg','.jpeg','.bmp','.png','bmp'];
+				var validexts = ['.gif','.jpg','.jpeg','.bmp','.png','.psd','.psp','.tif','.tiff'];
 				if(!dojo.lang.inArray(validexts,extension)) {
 					axiom.openModal({content:this.strings.errorSelectImage});
 					return false;
 				}
 			}
+			if(this.assetType=="Audio") {
+				var validexts = ['.aac','.au','.m4a','.m3u','.mp3','.ogg','.wav'];
+				if(!dojo.lang.inArray(validexts,extension)) {
+					axiom.openModal({content:this.strings.errorSelectAudio});
+					return false;
+				}
+			}
+			if(this.assetType=="Video") {
+				var validexts = ['.asf','.asx','.avi','.divx','.flv','.mkv','.mov','.mp4','.mpg','.mpeg','.ogm','.qt','.rm','.rmvb','.swf'];
+				if(!dojo.lang.inArray(validexts,extension)) {
+					axiom.openModal({content:this.strings.errorSelectVideo});
+					return false;
+				}
+			}
+
+
 			return true;
 		},
 
