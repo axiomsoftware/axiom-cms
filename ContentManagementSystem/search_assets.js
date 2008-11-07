@@ -119,10 +119,13 @@ function search_assets(){
 	var context = (req.data.context || 'assetManager');
 
 	var sort_params = {};
-	if(sort && sort == "type")
+	if(sort && sort == "type"){
 		sort_params[contentTypeProp] = 'asc';
-	else
+	} else if(sort && sort == 'last_modified'){
+		sort_params['cms_lastmodified'] = 'desc';
+	} else {
 		sort_params['cms_sortabletitle'] = 'asc';
+	}
 	var sort_obj = new Sort(sort_params);
 
 	var total = 0;
