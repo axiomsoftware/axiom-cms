@@ -1,10 +1,15 @@
 <div id="columnRight" class="columnRight" xmlns:tal="http://xml.zope.org/namespaces/tal">
   <div id="Messages"> </div>
   <div id="ContentWrapper">
-	<div id="TableWrapper"><div id="ContentTable"></div></div>
+	<div id="TableWrapper">
+	  <div id="ContentTable"></div>
+	</div>
+	<!-- if-cms-version-enterprise -->
 	<div id="TreeWrapper">
-		<div style="float:right;margin:0 48px 15px 0;"><a href="javascript:void(0);" onclick="axiom.showContentTable()">List View &gt;</a></div>
-		<div id="ContentTree"></div></div>
+	  <div style="float:right;margin:0 48px 15px 0;"><a href="javascript:void(0);" onclick="axiom.showContentTable()">List View &gt;</a></div>
+	  <div id="ContentTree"></div>
+	</div>
+	<!-- end-cms-if -->
   </div>
 
   <div dojoType="ContentPane" executeScripts="true" scriptSeperation="false" cacheContent="false" id="EditBody">

@@ -3,16 +3,18 @@ var axiom = {
 		dojo.require('dojo.json');
 		dojo.require('dojo.dom');
 		dojo.require("dojo.io.XhrIframeProxy");
+	    // if-cms-version-enterprise
 		dojo.require("dojo.lang.*");
 		dojo.require("dojo.widget.*");
-
+	    // end-cms-if
 		if(dojo.byId("ContentFilter")){ // no initialization needed if we're not on the content tab
 			dojo.require("axiom.widget.ContentFilter");
 			dojo.require("axiom.widget.ContentAdd");
 			dojo.require("axiom.widget.ContentTable");
+			// if-cms-version-enterprise
 			dojo.require("dojo.widget.TreeSelector");
 			dojo.require("axiom.widget.AxiomTreeNode");
-
+			// end-cms-if
 			// Set loading message to ajax loader gif
 			var ajaxLoader = axiom.staticPath + '/axiom/images/ajax-loader.gif';
 			dojo.widget.byId("EditBody").loadingMessage = '<div style="width:100%;text-align:center;padding:25px 0;">Loading...<br/><img src="'+ajaxLoader+'" alt="Loading..." /></div>';
@@ -34,10 +36,14 @@ var axiom = {
 			axiom.cfilter.registerTable(axiom.ctable);
 
 			axiom.cfilter.search();
+			// if-cms-version-enterprise
 			axiom.initialize_tree();
-
+			// end-cms-if
 			// Display the ContentPane with the Search Table
 			axiom.showContent();
+			// if-cms-version-standard
+			axiom.showContentTable();
+			// end-cms-if
 		}
 
 		dojo.require("axiom.widget.AxiomModal");
@@ -257,11 +263,16 @@ var axiom = {
 		dojo.html.setClass(edit.domNode, axiom.editBaseClass);
 		if(classname){ dojo.html.addClass(content.domNode, classname); }
 		axiom.showingThumbs = true;
+		// if-cms-version-enterprise
 		if (axiom.tree_visible && axiom.selected_node) {
 			axiom.showObjectDetail();
 		} else {
 			axiom.hideObjectDetail();
 		}
+		// end-cms-if
+		// if-cms-version-standard
+		axiom.hideObjectDetail();
+		// end-cms-if
 		axiom.showLeftNav();
 		document.title = (axiom.title || "Axiom CMS");
 		content.style.display='block';
@@ -410,8 +421,10 @@ var axiom = {
 	},
 
 	showContentTable: function() {
-		axiom.tree_visible = false;
+	    // if-cms-version-enterprise
+	    axiom.tree_visible = false;
 		axiom.hideContentTree();
+	    // end-cms-if
 		axiom.hideObjectDetail();
 		dojo.byId('TableWrapper').style.display = 'block';
 	},
@@ -419,8 +432,9 @@ var axiom = {
 	hideContentTable: function() {
 		dojo.byId('TableWrapper').style.display = 'none';
 	},
+    // if-cms-version-enterprise
+    showContentTree: function() {
 
-	showContentTree: function() {
 		axiom.tree_visible = true;
 		axiom.hideContentTable();
 		axiom.showMessage('');
@@ -436,7 +450,7 @@ var axiom = {
 	},
 
 	tree_visible: true,
-
+    // end-cms-if
 	getFormData: function(id, submitAll){
 		var edit = dojo.byId(id);
 		var data = {};
@@ -739,7 +753,8 @@ var axiom = {
 					  load: function(){ window.location = axiom.appPath+ 'cms/Login'; }
 					 });
 	},
-	search_initialized: false,
+    search_initialized: false,
+    // if-cms-version-enterprise
 	initialize_tree: function() {
 		axiom.tree = dojo.widget.createWidget("Tree", {toggle: "fade", templateCssPath: axiom.staticPath + "/axiom/widget/resources/AxiomTree.css"});
 		dojo.byId("ContentTree").appendChild(axiom.tree.domNode);
@@ -756,7 +771,7 @@ var axiom = {
 	},
 	selected_node:null,
 	update_tree: function(node,nodeid) {
-		dojo.io.bind({ 
+		dojo.io.bind({
 			url: axiom.cmsPath + 'tree',
 			load: function(evt, data, type){
 				node.clear_children();
@@ -788,6 +803,7 @@ var axiom = {
 			mimetype: 'text/json',
 			method: 'post' });
 	},
+    // end-cms-if
 	dirtyProps:{}
 };
 dojo.addOnLoad(axiom.init);
