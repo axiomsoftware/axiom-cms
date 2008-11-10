@@ -3,14 +3,21 @@ var axiom = {
 		dojo.require('dojo.json');
 		dojo.require('dojo.dom');
 		dojo.require("dojo.io.XhrIframeProxy");
+	    // if-cms-version-enterprise
+		dojo.require("dojo.lang.*");
+		dojo.require("dojo.widget.*");
+	    // end-cms-if
 		if(dojo.byId("ContentFilter")){ // no initialization needed if we're not on the content tab
 			dojo.require("axiom.widget.ContentFilter");
 			dojo.require("axiom.widget.ContentAdd");
 			dojo.require("axiom.widget.ContentTable");
-
+			// if-cms-version-enterprise
+			dojo.require("dojo.widget.TreeSelector");
+			dojo.require("axiom.widget.AxiomTreeNode");
+			// end-cms-if
 			// Set loading message to ajax loader gif
 			var ajaxLoader = axiom.staticPath + '/axiom/images/ajax-loader.gif';
-			dojo.widget.byId("EditBody").loadingMessage='<div style="width:100%;text-align:center;padding:25px 0;">Loading...<br/><img src="'+ajaxLoader+'" alt="Loading..." /></div>';
+			dojo.widget.byId("EditBody").loadingMessage = '<div style="width:100%;text-align:center;padding:25px 0;">Loading...<br/><img src="'+ajaxLoader+'" alt="Loading..." /></div>';
 
 			// Initialize the first set of widgets
 			axiom.cfilter = dojo.widget.createWidget("axiom:ContentFilter",{prototypes:axiom.searchPrototypes,
@@ -27,10 +34,16 @@ var axiom = {
 
 			axiom.cfilter.registerAdd(axiom.cadd);
 			axiom.cfilter.registerTable(axiom.ctable);
-			axiom.cfilter.search();
 
+			axiom.cfilter.search();
+			// if-cms-version-enterprise
+			axiom.initialize_tree();
+			// end-cms-if
 			// Display the ContentPane with the Search Table
 			axiom.showContent();
+			// if-cms-version-standard
+			axiom.showContentTable();
+			// end-cms-if
 		}
 
 		dojo.require("axiom.widget.AxiomModal");
@@ -250,7 +263,16 @@ var axiom = {
 		dojo.html.setClass(edit.domNode, axiom.editBaseClass);
 		if(classname){ dojo.html.addClass(content.domNode, classname); }
 		axiom.showingThumbs = true;
+		// if-cms-version-enterprise
+		if (axiom.tree_visible && axiom.selected_node) {
+			axiom.showObjectDetail();
+		} else {
+			axiom.hideObjectDetail();
+		}
+		// end-cms-if
+		// if-cms-version-standard
 		axiom.hideObjectDetail();
+		// end-cms-if
 		axiom.showLeftNav();
 		document.title = (axiom.title || "Axiom CMS");
 		content.style.display='block';
@@ -344,12 +366,12 @@ var axiom = {
 			dojo.html.removeClass(save_button, 'form-button-disabled');
 		} else {
 			axiom.dirtyProps = {};
-			axiom.showContent();
 			if(axiom.cfilter){
 				axiom.cfilter.sort({'cms_lastmodified': 'desc'});
 			}else if(axiom.tasks){
 				axiom.tasks.taskPanel.refreshAll();
 			}
+			axiom.showContent();
 
 		}
 	},
@@ -398,6 +420,37 @@ var axiom = {
 		dojo.byId('object_detail').style.display = 'none';
 	},
 
+	showContentTable: function() {
+	    // if-cms-version-enterprise
+	    axiom.tree_visible = false;
+		axiom.hideContentTree();
+	    // end-cms-if
+		axiom.hideObjectDetail();
+		dojo.byId('TableWrapper').style.display = 'block';
+	},
+
+	hideContentTable: function() {
+		dojo.byId('TableWrapper').style.display = 'none';
+	},
+    // if-cms-version-enterprise
+    showContentTree: function() {
+
+		axiom.tree_visible = true;
+		axiom.hideContentTable();
+		axiom.showMessage('');
+		axiom.hideMessage();
+		if (axiom.selected_node) {
+			axiom.selected_node.update_details();
+		}
+		dojo.byId('TreeWrapper').style.display = 'block';
+	},
+
+	hideContentTree: function() {
+		dojo.byId('TreeWrapper').style.display = 'none';
+	},
+
+	tree_visible: true,
+    // end-cms-if
 	getFormData: function(id, submitAll){
 		var edit = dojo.byId(id);
 		var data = {};
@@ -693,6 +746,57 @@ var axiom = {
 					  load: function(){ window.location = axiom.appPath+ 'cms/Login'; }
 					 });
 	},
+    search_initialized: false,
+    // if-cms-version-enterprise
+	initialize_tree: function() {
+		axiom.tree = dojo.widget.createWidget("Tree", {toggle: "fade", templateCssPath: axiom.staticPath + "/axiom/widget/resources/AxiomTree.css"});
+		dojo.byId("ContentTree").appendChild(axiom.tree.domNode);
+		var widgetdata = {
+			widgetId: 'Tree_0',
+			childIconSrc: axiom.staticPath + '/axiom/images/tree_root.gif',
+			objectId: '0',
+			isFolder: true
+		}
+		var rootNode = dojo.widget.createWidget("axiom:AxiomTreeNode", widgetdata);
+		axiom.tree.addChild(rootNode);
+		axiom.update_tree(rootNode,'0');
+		rootNode.expand();
+	},
+	selected_node:null,
+	update_tree: function(node,nodeid) {
+		dojo.io.bind({
+			url: axiom.cmsPath + 'tree',
+			load: function(evt, data, type){
+				node.clear_children();
+				for (var i = 0; i < data.length; i++) {
+					var widgetdata = {
+						widgetId: 'Tree_' + data[i]._id,
+						title: data[i].title + ' (' + data[i].prototype + ')',
+						objectId: data[i]._id,
+						object: data[i],
+						isFolder: data[i].hasChildren,
+						childIconSrc: data[i].icon_uri,
+						onTreeClick: function(){
+							if (!this.isExpanded) {
+								axiom.update_tree(this,this.object._id);
+								this.expand();
+							} else {
+								this.collapse();
+							}
+						},
+						onTitleClick: function() { this.update_details(); }
+					}
+					node.current_children.push(data[i]._id);
+					var new_node = dojo.widget.createWidget("axiom:AxiomTreeNode",widgetdata);
+					node.addChild(new_node);
+				}
+			},
+			content: {nodeid:nodeid},
+			preventCache: true,
+			mimetype: 'text/json',
+			method: 'post' });
+	},
+    // end-cms-if
 	dirtyProps:{}
 };
 dojo.addOnLoad(axiom.init);

@@ -16,6 +16,7 @@ enterprise_files = %w{
 ./ContentManagementSystem/report_functions.js
 ./ContentManagementSystem/reports_content.tal
 ./ContentManagementSystem/reports_nav.tal
+./ContentManagementSystem/tree.js
 ./static/axiom/widget/AddTaskModal.js
 
 ./static/axiom/widget/PendingTaskTable.js

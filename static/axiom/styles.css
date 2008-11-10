@@ -85,6 +85,9 @@ input.gray {color:#b2b1ad;}
 #content .body .columnLeft #object_detail {display:none;}
 #content .body .columnLeft #referenced_box ul { list-style:none; padding-left: 0px; margin: 3px 0pt 10px;}
 
+#content #ContentWrapper {height:100%;}
+#content #TableWrapper {display:none;}
+#content #ContentTree {clear:right; margin:auto; width:90%; border:1px solid #b0b4b6; padding:25px; overflow:auto;}
 
 #content .body fieldset {margin:15px 0 0 0; border:0;}
 #content .body fieldset .set {width:42%; margin:0 5% 0 0; float:left;}

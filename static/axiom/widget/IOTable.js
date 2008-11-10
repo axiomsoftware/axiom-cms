@@ -65,7 +65,6 @@ dojo.widget.defineWidget(
 			var surl = this.searchURL;
 			var args = this.getArgObject(prototype, keywords, sort, start, length, published_only);
 			surl = surl.replace(/\/\//g, '/');
-
 			this.tablewrap.style.display = 'none';
 			if(this.loading) {
 				this.loading.style.display = 'block';

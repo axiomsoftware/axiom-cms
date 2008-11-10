@@ -97,6 +97,13 @@ dojo.widget.defineWidget(
 			this.searchlength = len;
 		},
 		search:function(evt, prototype, keyword, length) {
+			if (this == axiom.cfilter) {
+				if (axiom.search_initialized) {
+					axiom.showContentTable();
+				} else {
+					axiom.search_initialized = true;
+				}
+			}
 			var p = (prototype || this.getPrototype());
 			var k = (keyword || (this.keywordInput.value == 'Keyword' ? '' : this.keywordInput.value));
         	var len = (length || this.searchlength);
