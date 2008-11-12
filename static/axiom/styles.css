@@ -88,6 +88,8 @@ input.gray {color:#b2b1ad;}
 #content #ContentWrapper {height:100%;}
 #content #TableWrapper {display:none;}
 #content #ContentTree {clear:right; margin:auto; width:90%; border:1px solid #b0b4b6; padding:25px; overflow:auto;}
+#ContentTree .dojoTreeNodeLabel {margin-left:-3px;font-family:Arial;font-size:1em;font-variant:normal;line-height:normal;font-style:normal;font-size-adjust:0;}
+#ContentTree .dojoTreeNodeLabelTitle {padding-left:3px;font-weight:400;}
 
 #content .body fieldset {margin:15px 0 0 0; border:0;}
 #content .body fieldset .set {width:42%; margin:0 5% 0 0; float:left;}
@@ -161,6 +163,9 @@ fieldset.asset_information fieldset {padding-bottom:10px;}
 #content .body fieldset.ax-refssp div .SingleSelect input { width:300px; }
 #content .body fieldset.ax-refssa div span input { width:300px; }
 #content .body fieldset.ax-wysiwyg .wysiwyg_preview {padding:5px;border:1px solid #aeafb1;cursor:pointer;height:400px;overflow-y:auto; width:98%}
+
+#content .body fieldset #LocationField .message {overflow:hidden;display:none;margin:15px 10px;border:1px dotted red;padding:10px;}
+#content .body fieldset #LocationField .message label, #content .body fieldset #LocationField .message input {float:left;}
 
 /* Calendar Popup for Date widgets */
 table.calendarContainer {font-size:1.4em}
