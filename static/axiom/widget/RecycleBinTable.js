@@ -25,9 +25,10 @@ dojo.widget.defineWidget(
 			var row_id = item._id;
 			var row = this.createRow(
 				{id: row_id,
-				 cols: [{content: item.title,        'class': 'col_title' },
-						{content: item.location,     'class': 'col_location' }
-					   ]
+				 cols: [
+				     {content: (item.title || 'No Title'), 'class': 'col_title' },
+				     {content: (item.location || 'No Location'), 'class': 'col_location' }
+				 ]
 				});
 			this.results_body.appendChild(row);
 		},
