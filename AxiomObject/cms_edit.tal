@@ -5,7 +5,7 @@
       <h1 tal:attr="title:add ? 'ADD '+this.getPrettyName() : 'EDIT '+this.title">
           <img alt="Edit Icon" tal:attr="src: app.getStaticMountpoint('axiom/images/icon_edit.gif')" tal:if="!add" title="Edit Icon"/>
           <img alt="Add Icon" tal:attr="src: app.getStaticMountpoint('axiom/images/icon_add.gif')" tal:if="add" title="Add Icon"/>
-          <span tal:replace="add ? 'ADD '+this.getPrettyName().ellipse(40) : 'EDIT '+this.title.ellipse(40)"/>
+          <span tal:replace="add ? 'ADD '+this.getPrettyName().ellipse(40) : 'EDIT '+(this.title)?this.title.ellipse(40):this.getPrettyName().ellipse(40)"/>
       </h1>
       <div class="buttons">
         <a alt="Preview" class="button form-button" href="javascript:void(0)" tal:attr="onclick: 'axiom.submitEdit({edit_url: \''+this.getURI('save_preview')+'\',form_elem:this, preview: true, callback: function(type, data){window.open(data)}})'" tal:if="this.previewable" title="Preview">Preview</a>
@@ -76,18 +76,7 @@
 		task_info.innerHTML = '${task_info.replace(/'/g, "\\'")}'; 
 	};
 
-
-	var refs = '${this.ref_list().*.toXMLString().replace(/'/g, "\\'").replace(/\n/g, '')}';
-	var ref_container = dojo.byId('referenced_box');
-	if(refs.match(/^\s*$/)){
-	   ref_container.style.display = 'none';
-	} else {
-	   ref_container.style.display = 'block';
-	   ref_container.innerHTML = refs;
-	}
-	dojo.byId("referenced_list")
-
- 	axiom.showObjectDetail();
+ 	axiom.showObjectDetail('${this.getURI()}');
     axiom.adjustHeight();
     //dojo.addOnLoad(function() { dojo.byId('edit').getElementsByTagName('input')[0].focus(); });
 	//]]>

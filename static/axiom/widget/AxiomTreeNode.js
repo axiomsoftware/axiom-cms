@@ -28,17 +28,10 @@ dojo.widget.defineWidget(
 			 	dojo.byId('obj_last_modified').innerHTML = this.object.last_modified;
 			 	dojo.byId('obj_content_type').innerHTML = this.object.prototype;
 		    	var task_info = dojo.byId('obj_task_info');
-			    if (task_info) { 
+			    if (task_info) {
 					task_info.innerHTML = this.object.task_info;
 				}
-				var ref_box = dojo.byId('referenced_box');
-				if (this.object.refs.match(/^\s*$/)) {
-					ref_box.style.display = 'none';
-				} else {
-					ref_box.innerHTML = this.object.refs;
-					ref_box.style.display = 'block';
-				}
-				axiom.showObjectDetail();
+				axiom.showObjectDetail(this.object.location);
 			} else {
 				axiom.hideObjectDetail();
 			}
@@ -59,7 +52,6 @@ dojo.widget.defineWidget(
 
 		postCreate: function() {
 			if (this.object) {
-				// if-cms-version-enterprise
 				if (this.object.task_info != 'None') {
 					var img = document.createElement("img");
 					img.src = axiom.staticPath + '/axiom/images/lock.gif';
@@ -68,18 +60,12 @@ dojo.widget.defineWidget(
 				if (!this.object.task_editable) {
 					this.titleNode.style.color = '#CCC';
 				}
-				// end-cms-if
 
 				if (!this.object.editable) {
 					this.titleNode.style.color = '#CCC';
 				}
 
-				// if-cms-version-standard
-				if (this.object.editable) {
-				// end-cms-if
-				// if-cms-version-enterprise
 				if (this.object.editable && this.object.task_editable) {
-				// end-cms-if
 					dojo.event.kwConnect({srcObj: this.titleNode,
 								  srcFunc: 'ondblclick',
 								  adviceObj: this,

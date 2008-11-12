@@ -265,7 +265,7 @@ var axiom = {
 		axiom.showingThumbs = true;
 		// if-cms-version-enterprise
 		if (axiom.tree_visible && axiom.selected_node) {
-			axiom.showObjectDetail();
+		    axiom.selected_node.update_details();
 		} else {
 			axiom.hideObjectDetail();
 		}
@@ -412,8 +412,32 @@ var axiom = {
 		if (dojo.byId('add_section')) { dojo.byId('add_section').style.display = 'none'; }
 	},
 
-	showObjectDetail: function() {
-		dojo.byId('object_detail').style.display = 'block';
+	showObjectDetail: function(url) {
+	    var ref_container = dojo.byId('referenced_box');
+	    if (ref_container) {
+		ref_container.style.display = 'none';
+	    }
+	    if (url) {
+		var args = {
+		    url: url+((url == '/')?'':'/')+'ref_list',
+		    load: function(type, data, evt) {
+			if (!ref_container) {
+			    ref_container = dojo.byId('referenced_box');
+			}
+			if (ref_container) {
+			    var refs = data.replace(/<!DOCTYPE[^>].*|<div>|<\/div>/g, "");
+			    if (!(refs.match(/^\s*$/))) {
+				ref_container.style.display = 'block';
+				ref_container.innerHTML = refs;
+			    }
+			}
+		    },
+		    preventCache: true,
+		    method: 'get'
+		};
+		dojo.io.bind(args);
+	    }
+	    dojo.byId('object_detail').style.display = 'block';
 	},
 
 	hideObjectDetail: function() {
@@ -434,7 +458,6 @@ var axiom = {
 	},
     // if-cms-version-enterprise
     showContentTree: function() {
-
 		axiom.tree_visible = true;
 		axiom.hideContentTable();
 		axiom.showMessage('');
