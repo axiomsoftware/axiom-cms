@@ -40,6 +40,6 @@ function restore_objects(data){
 function purge_recycled_objects(){
 	var filter = new OrFilter([new Filter(f) for each(f in req.data.objects)]);
 	for each(bag in app.getObjects("CMSTrashBag", filter)){
-			bag._parent.remove(bag);
+			bag.del();
 	}
 }
