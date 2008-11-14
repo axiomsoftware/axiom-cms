@@ -1,1 +1,1 @@
-<script xmlns:tal="http://xml.zope.org/namespaces/tal" type="text/javascript" tal:attributes="src string:${app/getStaticMountpoint}/FCKeditor/fckeditor.js"> </script>
+<script xmlns:tal="http://axiomstack.com/tale" type="text/javascript" tal:attr="src: app.getStaticMountpoint('FCKeditor/fckeditor.js')"> </script>

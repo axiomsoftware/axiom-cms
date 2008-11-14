@@ -1,3 +1,3 @@
-<script type="text/javascript"  xmlns:tal="http://xml.zope.org/namespaces/tal" tal:attributes="src string:${app/getStaticMountpoint}/dojo/dojo.js"> </script>
+<script xmlns:tal="http://axiomstack.com/tale" type="text/javascript" tal:attr="src: app.getStaticMountpoint('dojo/dojo.js')"> </script>
 
 
