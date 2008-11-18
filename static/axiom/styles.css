@@ -422,7 +422,7 @@ td textarea { border: 1px solid #acb0b2;}
 .tags_window { left:250px; z-index:9 }
 .tags_window .taghead h3 {float:left;font-family: "Georgia";font-size:1.6em;}
 .tags_window .taghead a {float:right;color:#4D666D;text-decoration:underline;font-size:1.2em;}
-.tags_window .tag_container {width:98%;padding:10px 1%;_width:100%;}
+.tags_window .tag_container {width:98%;padding:10px 1%;_width:100%; height:375px; overflow-x:hidden; overflow-y:scroll;}
 .tags_window .tag_col {float:left;width:50%;}
 .tags_window .tag_col ul { padding-left:3px; margin-left:0px; }
 .tags_window .tag_col ul li { list-style:none; display:block; margin-left:0px; padding-left:0px;}
