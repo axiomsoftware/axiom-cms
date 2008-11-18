@@ -16,11 +16,9 @@ function tree() {
 			created: obj.cms_createdby,
 			last_modified: obj.cms_lasteditedby,
 			refs: obj.ref_list().*.toXMLString(),
-			// if-cms-version-enterprise
  			task_editable: obj.task_editable(),
 			task_info: obj._task ? obj._task.getTarget().task_id + ' - ' + obj._task.getTarget().name + ' - ' + obj._task.getTarget().status : 'None',
-			// end-cms-if
-			editable: obj.editable()
+			editable: (obj.cms_editForm && obj.editable())
 		}
 	});
 	return children.toSource();
