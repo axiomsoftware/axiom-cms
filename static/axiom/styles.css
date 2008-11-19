@@ -166,9 +166,9 @@ fieldset.asset_information fieldset {padding-bottom:10px;}
 
 #content .body #LocationField .message {overflow:hidden;display:none;margin:15px 10px;border:1px dotted red;padding:10px;}
 #content .body #LocationField .message label, #content .body #LocationField .message input {float:left;}
-#content .body #LocationField .message label {padding-top:3px;}
+#content .body #LocationField .message label {padding-top:3px;color:#333;}
 #content .body #LocationField .message .redirect {display:none;margin-top:5px;}
-#content .body #LocationField .message .redirect p {margin:0;padding:0 0 0 15px;}
+#content .body #LocationField .message .redirect p {margin:0;padding:4px 0 0 15px;}
 #content .body #LocationField .message .redirect div {clear:both;}
 #content .body #LocationField .message input[type="checkbox"] {padding:0;width:3%;margin-left:6px;}
 /* Calendar Popup for Date widgets */
