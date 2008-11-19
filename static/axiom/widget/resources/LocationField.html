@@ -7,10 +7,14 @@
 	  <a href="javascript:void(0);" class="button form-button" alt="Clear Location" title="Clear Location" dojoattachpoint="clearButton">Clear</a>
 	</div>
     <div dojoattachpoint="location_message" class="message">
-      <span><strong>Warning:</strong> This will change the location of <strong dojoattachpoint="number_affected">0</strong> child objects.</span>
-      <p dojoattachpoint="message_redirect" class="redirect">
-	<label for="_current">Would you like to create a redirect to this object from your old location?</label> 
+      <span><strong>Warning:</strong> This will change the location of <strong dojoattachpoint="number_affected">0</strong> attached objects.</span>
+      <div dojoattachpoint="message_redirect" class="redirect">
+	<label for="_current">Check to create a CMS Redirect:</label> 
 	<input dojoattachpoint="_current" type="checkbox" name="_current" id="_current" />
-      </p>
+	<div>
+	  <p>From: <span dojoattachpoint="oldURL"></span></p>
+	  <p>To: <span dojoattachpoint="currentURL"></span></p>
+	</div>
+      </div>
     </div>
 </div>

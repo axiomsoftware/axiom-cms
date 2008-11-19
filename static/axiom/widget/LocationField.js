@@ -62,6 +62,8 @@ dojo.widget.defineWidget(
 		    });
 		    delete affected;
 		    if (!hideRedirect) {
+			this.oldURL.innerHTML =	this.oldPath;
+			this.currentURL.innerHTML = this.currentPath;
 			this.message_redirect.style.display = "block";
 		    } else {
 			this.message_redirect.style.display = "none";
