@@ -40,15 +40,33 @@ dojo.widget.defineWidget(
 			}
 		},
 		setLocation:function(widget, value) {
+		    var old_url = ((widget.pathField.value=="/")?"":widget.pathField.value)+"/"+widget.idField.value+"/getChildCount";
 			widget.pathField.value = value[1].uri;
 			widget.pathValue.value = value[1].path;
 			axiom.dirtyProps['_location'] = true;
 			axiom.dirtyProps['ax_id'] = true;
+		    widget.message_redirect.style.display = "block";
+		    widget.location_message.style.display = "block";
+		    dojo.event.kwConnect({srcObj: widget._current,
+			srcFunc:'onclick',
+			adviceObj:this,
+			adviceFunc:function() {axiom.dirtyProps['_current'] = true;}
+		    });
+		    dojo.io.bind({
+				     url: old_url,
+				     load: function(type, data, evt) {
+					 console.log(data);
+				     	 widget.number_affected.innerHTML = data;
+				     },
+				     method: "get"
+				 });
+
 		},
 		clearLocation:function(evt){
 			this.pathField.value = '';
 			this.pathValue.value = '';
 			axiom.dirtyProps['_location'] = true;
+		    //widget.message_redirect.style.display = "block";
 		},
 		browse:function() {
 			this.dialog = dojo.widget.byId("BrowseDialog");

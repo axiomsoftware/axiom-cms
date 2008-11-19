@@ -166,7 +166,7 @@ fieldset.asset_information fieldset {padding-bottom:10px;}
 
 #content .body fieldset #LocationField .message {overflow:hidden;display:none;margin:15px 10px;border:1px dotted red;padding:10px;}
 #content .body fieldset #LocationField .message label, #content .body fieldset #LocationField .message input {float:left;}
-
+#content .body #LocationField .message .redirect {display:none;}
 /* Calendar Popup for Date widgets */
 table.calendarContainer {font-size:1.4em}
 table.calendarContainer td, table.calendarContainer th {border:0 !important}

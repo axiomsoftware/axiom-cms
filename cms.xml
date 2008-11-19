@@ -1,0 +1,3 @@
+<prototypes>
+  <prototype name="CMSRedirect" displayname="CMS Redirect" addable="true" deletable="true" editable="true" />
+</prototypes>
