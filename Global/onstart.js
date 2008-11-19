@@ -1,6 +1,40 @@
-if(!this['cmsGlobals']){
-	cmsGlobals = {};
+if(!this.cmsGlobals){
+	this.cmsGlobals = {};
 }
+cmsGlobals.loadCMSProperties = function() {
+    var reader = null;
+	try {
+	    // create cms properties
+	    var cmsPropertiesXML = "<prototypes></prototypes>";
+	    var cmsFile = new java.io.File(app.getDir() + java.io.File.separator + "cms.xml");
+	    if (cmsFile.exists()) {
+	    	cmsPropertiesXML = "";
+	    	reader = new java.io.BufferedReader(new java.io.FileReader(cmsFile));
+	    	var line = "";
+			var lines = [];
+	    	while ((line = reader.readLine()) != null) {
+	    		lines.push(line);
+	    	}
+			cmsPropertiesXML = lines.join("");
+	    	reader.close();
+	    } else {
+	    	logEvent("Warning: cms.xml not found.");
+	    }
+    	cmsGlobals.props = new XML(cmsPropertiesXML);
+	} catch(e) {
+		app.log("Error loading cms.xml");
+		app.log(e);
+	} finally{
+		if (reader != null) {
+			try {
+				reader.close();
+			} catch (e) {
+				app.log(e);
+			}
+		}
+	}
+};
+//cmsGlobals.loadCMSProperties();
 
 function cms_init(){
 	cmsGlobals.loadCMSProperties();

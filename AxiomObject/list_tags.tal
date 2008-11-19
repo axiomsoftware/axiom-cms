@@ -1,15 +1,16 @@
-<div tal:attributes="id window_id" xmlns:tal="http://xml.zope.org/namespaces/tal" class="tags_window">
-  <div class="taghead"><h3>Tag Selector</h3> <a href="javascript:void(0);" tal:attributes="onclick string:axiom.tags.toggleWindow('${window_id}')">Close</a></div>
+<div xmlns:tal="http://axiomstack.com/tale" tal:attr="id: window_id" class="tags_window">
+  <div class="taghead"><h3>Tag Selector</h3> <a href="javascript:void(0);" tal:attr="onclick: 'axiom.tags.toggleWindow(\''+window_id+'\')'">Close</a></div>
   <div class="tag_container">
-	<div class="tag_col" tal:repeat="tags this/getPartitionedTags">
-	  <ul tal:repeat-content="tag tags">
+	<div class="tag_col" tal:repeat="tags: this.getPartitionedTags()">
+	  <ul tal:repeat-content="tag: tags">
 		<li>
-		  <input type="checkbox" class="cb" tal:attributes="value tag/title; id tag/title; checked tag/checked"/><label tal:attributes="for tag/id" tal:content="tag/title"> </label>
+		  <input type="checkbox" class="cb" tal:attr="value: tag.title, id: tag.title, checked: tag.checked"/>
+		   <label tal:attr="'for': tag.id" tal:content="tag.title"> </label>
 		</li>
 	  </ul>
 	</div>
   </div>
   <div class="buttons">
-	<a href="javascript:void(0);" class="button form-button" tal:define="searchmode searchmode|?searchmode|:string:false" tal:attributes="onclick string:axiom.tags.saveTags('${input_id}', dojo.byId('${window_id}'), ${searchmode});">OK</a>
+	<a href="javascript:void(0);" class="button form-button" tal:attr="onclick: 'axiom.tags.saveTags(\''+input_id+'\', dojo.byId(\''+window_id+'\'), '+data.searchmode+');'">OK</a> 
   </div>
 </div> 

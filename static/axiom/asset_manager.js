@@ -255,9 +255,6 @@ function pageInit(){
 	new dojo.io.FormBind({ formNode: dojo.byId('search_form'),
 						   load: load_thumbs,
 						   mimetype: 'text/javascript' });
-	dojo.require("dojo.dnd.HtmlDragMove");
-	new dojo.dnd.HtmlDragMoveSource(dojo.byId("supportedFileTypes"));
-	new dojo.dnd.HtmlDragMoveSource(dojo.byId("tag_window"));
 	var oldcall = window.onresize;
 	window.onresize =  function(){
 		if(oldcall){
