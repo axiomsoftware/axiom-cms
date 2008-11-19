@@ -139,5 +139,10 @@ function getTreeIconURI() {
 }
 
 function getChildCount() {
-    return this.getChildren().length;
+    try {
+	return this.getChildren().length;
+    } catch (e) {
+	app.log("Exception in getChildCount: Trying to get the length of the children.\nStacktrace: " + e);
+	return '0';
+    }
 }

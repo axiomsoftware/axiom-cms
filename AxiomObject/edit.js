@@ -94,7 +94,7 @@ function save(data){
 			redir.url = this.getURI();
 			app.log(redir_parent.getURI());
 			redir_parent.add(redir);
-			res.commit();
+			
 			// if-cms-version-enterprise
 			redir.__node__.setLayer(1);
 			if (bypass) {
