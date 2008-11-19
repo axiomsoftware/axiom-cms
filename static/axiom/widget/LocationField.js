@@ -55,7 +55,6 @@ dojo.widget.defineWidget(
 		    dojo.io.bind({
 				     url: old_url,
 				     load: function(type, data, evt) {
-					 console.log(data);
 				     	 widget.number_affected.innerHTML = data;
 				     },
 				     method: "get"
