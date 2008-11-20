@@ -1,16 +1,16 @@
-<div xmlns:tal="http://xml.zope.org/namespaces/tal"  class="subform">
+<div xmlns:tal="http://axiomstack.com/tale" class="subform">
 <fieldset>
-  <fieldset class="ax-textbox ax-first_name" id="ax-first_name"><div><div class="error_message">hidden error message</div><label for="first_name"><span class="required">*</span>First Name</label><input id="first_name" name="first_name" type="text" tal:attributes="value this/first_name" class="validate-empty" onchange="axiom.dirtyProps['first_name']=true" /></div></fieldset>
+  <fieldset class="ax-textbox ax-first_name" id="ax-first_name"><div><div class="error_message">hidden error message</div><label for="first_name"><span class="required">*</span>First Name</label><input id="first_name" name="first_name" type="text" tal:attr="value: this.first_name" class="validate-empty" onchange="axiom.dirtyProps['first_name']=true" /></div></fieldset>
 
-  <fieldset class="ax-textbox ax-last_name" id="ax-last_name"><div><div class="error_message">hidden error message</div><label for="last_name"><span class="required">*</span>Last Name</label><input id="last_name" name="last_name" type="text" tal:attributes="value this/last_name" class="validate-empty" onchange="axiom.dirtyProps['last_name']=true"/></div></fieldset>
+  <fieldset class="ax-textbox ax-last_name" id="ax-last_name"><div><div class="error_message">hidden error message</div><label for="last_name"><span class="required">*</span>Last Name</label><input id="last_name" name="last_name" type="text" tal:attr="value: this.last_name" class="validate-empty" onchange="axiom.dirtyProps['last_name']=true"/></div></fieldset>
 
-  <fieldset class="ax-textbox ax-email" id="ax-email"><div><div class="error_message">hidden error message</div><label for="email"><span class="required">*</span>Email Address:</label><input id="email" name="email" type="text" tal:attributes="value this/email" class="validate-empty" onchange="axiom.dirtyProps['email']=true"/></div></fieldset>
+  <fieldset class="ax-textbox ax-email" id="ax-email"><div><div class="error_message">hidden error message</div><label for="email"><span class="required">*</span>Email Address:</label><input id="email" name="email" type="text" tal:attr="value: this.email" class="validate-empty" onchange="axiom.dirtyProps['email']=true"/></div></fieldset>
 
   <fieldset class="ax-textbox ax-password" id="ax-password"><div><div class="error_message">hidden error message</div><label for="password">New Password</label><input id="password" name="password" type="password" onchange="axiom.dirtyProps['password']=true;axiom.dirtyProps['verifypassword']=true" /></div></fieldset>
 
   <fieldset class="ax-textbox ax-password" id="ax-verifypassword"><div><div class="error_message">hidden error message</div><label for="verifypassword">Verify New Password</label><input id="verifypassword" name="verifypassword" type="password" onchange="axiom.dirtyProps['verifypassword']=true;axiom.dirtyProps['password']=true;"/></div></fieldset>
   
-  <fieldset class="ax-select ax-roles" id="ax-roles"><div><div class="error_message">hidden error message</div><label for="roles"><span class="required">*</span>Role(s)</label><select id="roles" name="roles" class="validate-empty" onchange="axiom.dirtyProps['roles']=true"><option tal:repeat="item javascript:['Administrator', 'Content Editor', 'Content Contributor']" tal:attributes="value item; selected javascript: this.hasRole(data.item)" tal:content="item" /></select></div></fieldset>
+  <fieldset class="ax-select ax-roles" id="ax-roles"><div><div class="error_message">hidden error message</div><label for="roles"><span class="required">*</span>Role(s)</label><select id="roles" name="roles" class="validate-empty" onchange="axiom.dirtyProps['roles']=true"><option tal:repeat="item: ['Administrator', 'Content Editor', 'Content Contributor']" tal:attr="value: item, selected: this.hasRole(item)" tal:content="item" /></select></div></fieldset>
   
 </fieldset>
 

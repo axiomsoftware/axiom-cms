@@ -1,4 +1,4 @@
-<div id="columnRight" xmlns:tal="http://xml.zope.org/namespaces/tal" class="columnRight columnRightAsset">
+<div id="columnRight" xmlns:tal="http://axiomstack.com/tale" class="columnRight columnRightAsset">
   <div class="contentHeader">
 	<p id="results_found"> </p>
 	<select id="sort_by">
@@ -7,9 +7,9 @@
 	  <option value="last_modified">Sort By Last Modified</option>
 	</select>
 	<div id="pages" class="pages" >
-	  <img onclick="previousPage()" tal:attributes="src string:${root/getURI}static/axiom/images/icon_page_back_disabled.gif;" alt="Previous Page"/>
+	  <img onclick="previousPage()" tal:attr="src: app.getStaticMounpoint('axiom/images/icon_page_back_disabled.gif')" alt="Previous Page"/>
 	  Page <strong> </strong>&#160;of <strong> </strong>
-	  <img onclick="nextPage()" tal:attributes="src string:${root/getURI}static/axiom/images/icon_page_next_enabled.gif;" alt="Next Page"/>
+	  <img onclick="nextPage()" tal:attr="src: app.getStaticMountpoint('axiom/images/icon_page_next_enabled.gif')" alt="Next Page"/>
 	  <span class="gotopage">Go to page: </span>
 	  <input type="text" name="page" id="page" size="1" onkeypress="gotoKey(event)" />
 	  <a href="javascript:void(0);" onclick="gotoPage(dojo.byId('page').value)" class="button" alt="Go" title="Go">Go</a>
@@ -18,21 +18,21 @@
   <div id="thumbs" executeScripts="true" scriptSeperation="false" class="assetsPane"  dojoType="ContentPane" noCache="true"> </div>    
   <div class="contentHeader">
 	<div id="pages2" class="pages" >
-	  <img onclick="previousPage()" tal:attributes="src string:${root/getURI}static/axiom/images/icon_page_back_disabled.gif;" alt="Previous Page"/>
+	  <img onclick="previousPage()" tal:attr="src: app.getStaticMountpoint('axiom/images/icon_page_back_disabled.gif')" alt="Previous Page"/>
 	  Page <strong> </strong>&#160;of <strong> </strong>
-	  <img onclick="nextPage()" tal:attributes="src string:${root/getURI}static/axiom/images/icon_page_next_enabled.gif;" alt="Next Page"/>
+	  <img onclick="nextPage()" tal:attr="src: app.getStaticMountpoint('axiom/images/icon_page_next_enabled.gif')" alt="Next Page"/>
 	  <span class="gotopage">Go to page: </span>
 	  <input type="text" name="page" id="page2" size="1" onkeypress="gotoKey(event)"/>
 	  <a href="javascript:void(0);" onclick="gotoPage(dojo.byId('page2').value)" class="button" alt="Go" title="Go">Go</a>
 	</div>
   </div>
-  <div tal:replace="supported" />
+  <div tal:replace="this.supported(data)" />
   <div id="BrowseDialog" style="display:none;">
 	<div class="browsewrapper">
 	  <div id="browsecontent">
-		<span tal:replace="objectSelectTop"/>
+		<span tal:replace="this.objectSelectTop(data)"/>
 		<div class="separator"> </div>
-		<span tal:replace="objects"/>
+		<span tal:replace="this.objects(data)"/>
 	  </div>
 	</div>
   </div>
