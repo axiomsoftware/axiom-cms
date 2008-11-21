@@ -1,8 +1,10 @@
 <div class="columnRightAssets" xmlns:tal="http://xml.zope.org/namespaces/tal">
   <div class="manage_column">
-	<form name="tags" method="get" action="delete_tags">
-	  <h2>Manage Asset Tags</h2>
-	  <p>The tags below indicate the existing tags available in your CMS asset list.  You may view the assets associated with a tag by clicking the number following the tag or delete tags by selecting them and clicking the Delete button.</p>
+    <form name="tags" method="get" action="delete_tags">
+	  <h2 style="float:left;">Manage Asset Tags</h2>
+	  <a style="float:right;" href="javascript:void(0);" onclick="fireLastQuery()">&lt; Return to Asset Search</a>
+      
+	  <p style="clear:both;">The tags below indicate the existing tags available in your CMS asset list.  You may view the assets associated with a tag by clicking the number following the tag or delete tags by selecting them and clicking the Delete button.</p>
 	  
 	  <div id="tag_container" class="tag_container">
 		<div class="tag_col" tal:repeat="tags this/getPartitionedTags">
