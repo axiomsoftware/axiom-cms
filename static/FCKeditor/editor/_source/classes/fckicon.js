@@ -1,6 +1,6 @@
 ﻿/*
  * FCKeditor - The text editor for Internet - http://www.fckeditor.net
- * Copyright (C) 2003-2007 Frederico Caldeira Knabben
+ * Copyright (C) 2003-2008 Frederico Caldeira Knabben
  *
  * == BEGIN LICENSE ==
  *
@@ -74,7 +74,7 @@ FCKIcon.prototype.CreateIconElement = function( document )
 			eIcon = document.createElement( 'IMG' ) ;
 			eIcon.src = FCK_SPACER_PATH ;
 			eIcon.style.backgroundPosition	= '0px ' + sPos ;
-			eIcon.style.backgroundImage		= 'url(' + this.Path + ')' ;
+			eIcon.style.backgroundImage		= 'url("' + this.Path + '")' ;
 		}
 	}
 	else					// It is using a single icon image.
