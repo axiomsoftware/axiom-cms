@@ -8,8 +8,8 @@
 		<div class="tag_col" tal:repeat="tags this/getPartitionedTags">
 		  <ul tal:repeat-content="tag tags">
 			<li>
-			  <input type="checkbox" class="cb" tal:attributes="value tag/getURI; name tag/title; id tag/title;"/>
-			  <label tal:attributes="for tag/title"><span tal:replace="tag/title" /> <a tal:attributes="href string: javascript:void(0); onclick string:tagSearch('${tag/title}')" tal:content="string:(${tag/count})"> </a></label>
+			  <input type="checkbox" class="cb" tal:attributes="value tag/getURI; name tag/title; id string:tm_${tag/title}"/>
+			  <label tal:attributes="for string:tm_${tag/title}"><span tal:replace="tag/title" /> <a tal:attributes="href string: javascript:void(0); onclick string:tagSearch('${tag/title}')" tal:content="string:(${tag/count})"> </a></label>
 			</li>
 		  </ul>
 		</div>
