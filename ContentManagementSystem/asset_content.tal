@@ -7,7 +7,7 @@
 	  <option value="last_modified">Sort By Last Modified</option>
 	</select>
 	<div id="pages" class="pages" >
-	  <img onclick="previousPage()" tal:attr="src: app.getStaticMounpoint('axiom/images/icon_page_back_disabled.gif')" alt="Previous Page"/>
+	  <img onclick="previousPage()" tal:attr="src: app.getStaticMountpoint('axiom/images/icon_page_back_disabled.gif')" alt="Previous Page"/>
 	  Page <strong> </strong>&#160;of <strong> </strong>
 	  <img onclick="nextPage()" tal:attr="src: app.getStaticMountpoint('axiom/images/icon_page_next_enabled.gif')" alt="Next Page"/>
 	  <span class="gotopage">Go to page: </span>

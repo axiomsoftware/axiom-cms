@@ -3,9 +3,9 @@ function getAllTags(){
 	var results = [];
 	var len = tags.length;
 	for(var i=0; i < len; i++){
-		results.push({title: tags[i].title, 
-			      getURI: tags[i].getURI(), 
-			      id: tags[i].id, 
+		results.push({title: tags[i].title,
+			      uri: tags[i].getURI(),
+			      id: tags[i].id,
 			      count: app.getSourceCount(tags[i]),
 			      checked: (this.has_tag && this.has_tag(tags[i].title))?'checked':false
 			     });
@@ -16,7 +16,7 @@ function getAllTags(){
 					       return new java.lang.String(asset1.title).compareTo(new java.lang.String(asset2.title));
 					     });
 
-	return results; 
+	return results;
 }
 
 function getPartitionedTags(){

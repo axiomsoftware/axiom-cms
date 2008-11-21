@@ -31,7 +31,7 @@
   </script>
 
   <div class="thumb_preview">
-    <img tal:var="time: (new Date()).getTime()" tal:attr="src: this.preview_href+'?noCache='+time"/>
+    <img tal:var="time: (new Date()).getTime()" tal:attr="src: this.preview_href()+'?noCache='+time"/>
     <div>Specifications</div>
     <ul>
       <li><strong>Filename</strong>: <span tal:replace="this.ellipsedFileName()"/></li>
@@ -90,8 +90,8 @@
     <fieldset class="ax-tags ax-tags" id="ax-tags">
       <div><div class="error_message">hidden error message</div>
       <div tal:var="window_id: this.id+'_window'" class="tags_edit" >
-	<img class="tag_icon" tal:attr="onclick: axiom.tags.toggleWindow('\'+window_id+'\')', src: app.getStaticMountpoint('axiom/images/icon_tags.gif')"/>
-	<span tal:var="input_id: 'this.id+'_tags'" tal:replace="this.list_tags(data)"/> 
+	<img class="tag_icon" tal:attr="onclick: 'axiom.tags.toggleWindow(\''+window_id+'\')', src: app.getStaticMountpoint('axiom/images/icon_tags.gif')"/>
+	<span tal:var="input_id: this.id+'_tags'" tal:replace="this.list_tags(data)"/> 
 	<label for="tags">Tags</label>
       </div>
       <textarea cols="70" rows="5" class="ax-textarea" name="tags" tal:attr="id: this.id+'_tags'" tal:content="this.getTagString()"  onchange="axiom.dirtyProps['tags']=true"></textarea><div class="tag_button"/>
@@ -102,7 +102,7 @@
     <fieldset class="ax-textarea ax-alt" id="ax-alt">
       <div>
 	<div class="error_message">hidden error message</div>
-	<label for="alt">Caption/Alternate Text</label><textarea cols="70" rows="5" id="alt" name="alt" tal:content="this.alt"  onchange="axiom.dirtyProps['alt']=true"></textarea>
+	<label for="alt">Caption/Alternate Text</label><textarea cols="70" rows="5" id="alt" name="alt" tal:content="this.alt || ''"  onchange="axiom.dirtyProps['alt']=true"></textarea>
 	<div class="info">If you do not specify the asset title will be used.</div>
       </div>
       
@@ -111,7 +111,7 @@
     <fieldset class="ax-textarea ax-credit" id="ax-credit">
       <div>
 	<div class="error_message">hidden error message</div><label for="credit">Credit</label>
-	<textarea cols="70" rows="5" id="credit" name="credit" tal:content="this.credit"  onchange="axiom.dirtyProps['credit']=true"></textarea>
+	<textarea cols="70" rows="5" id="credit" name="credit" tal:content="this.credit || ''"  onchange="axiom.dirtyProps['credit']=true"></textarea>
       </div>
     </fieldset>
   </fieldset>
