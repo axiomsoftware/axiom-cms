@@ -119,7 +119,8 @@ dojo.widget.defineWidget(
 				var objects = [];
 				for(var id in this.selectedRows){
 					objects.push({title: dojo.byId(id).getElementsByTagName('td')[2].innerHTML,
-								  id: id});
+						      id: id,
+						      num_children: "0"});
 				}
 				axiom.openModal({ widget: dojo.widget.createWidget("axiom:DeleteObjectsModal", {appPath:axiom.appPath, staticPath: axiom.staticPath, objects:objects}) });
 			}

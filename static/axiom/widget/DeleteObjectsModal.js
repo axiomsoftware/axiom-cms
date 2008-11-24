@@ -89,14 +89,31 @@ dojo.widget.defineWidget(
 			this.title.innerHTML = "Delete Objects";
 			// end-cms-if
 
+		    var table = doc.createElement("table");
+		    var thead = doc.createElement("thead");
+		    var thead_tr = doc.createElement("tr");
+		    var th_title = doc.createElement("th");
+		    var th_attached = doc.createElement("th");
+		    thead_tr.appendChild(th_title);
+		    thead_tr.appendChild(th_attached);
+		    thead.appendChild(thead_tr);
+		    table.appendChild(thead);
+		    var tbody = doc.createElemenet("tbody");
+
 			var textList = [];
 			for(var i in this.objects){
-				textList.push(this.objects[i].title);
+			    var o = this.objects[i];
+			    console.log(this.objects[i].toSource());
+			    var tr = doc.createElement("tr");
+			    var td_title = doc.createElement("td");
+			    td_title.innerHTML = o.title;
+			    var td_affected = doc.createElement("td");
+			    td_affected.innerHTML = o.num_children;
+			    tr.appendChild(td_title);
+			    tr.appendChild(td_affected);
+			    tbody.appendChild(tr);
 			}
-			var list = document.createElement('textarea');
-			list.innerHTML = textList.join("\n");
-			list.setAttribute('readonly', true);
-			this.mainContent.appendChild(list);
+		    this.mainContent.appendChild(table);
 
 			// if-cms-version-enterprise
 			var error_field = document.createElement('div');
