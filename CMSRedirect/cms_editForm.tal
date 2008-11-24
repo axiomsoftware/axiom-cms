@@ -1,0 +1,70 @@
+<div xmlns:tal="http://xml.zope.org/namespaces/tal"><div class="subform">
+<fieldset  class="ax-textbox ax-title" id="ax-title">
+		<div><div class="error_message">hidden error message </div>
+		<label for="title">Title</label>
+		<input id="title" name="title" onkeyup="dojo.widget.byNode(dojo.byId('_location').parentNode).populate(this.value)" xmlns:tal="http://xml.zope.org/namespaces/tal" tal:attributes="value this/title|string: " type="text"/>
+		</div>
+		<script type="text/javascript">//
+        dojo.event.kwConnect({ srcObj: dojo.byId('title'),
+							   srcFunc: 'onchange',
+  							   adviceFunc: function(evt){ axiom.dirtyProps[ evt.target['name'] ] = true; }
+  							 });
+
+    //</script>
+
+	</fieldset>
+<fieldset  class="ax-_location" id="ax-_location">
+        <div><div class="error_message">hidden error message </div>
+        <label for="_location_widget">URL</label>
+        <div id="_location_widget">Loading...</div>
+        <script xmlns:tal="http://xml.zope.org/namespaces/tal" tal:text="$" type="text/javascript">//
+
+	dojo.require("axiom.widget.LocationField");
+	var loc = dojo.widget.createWidget('axiom:LocationField',
+									   {appPath:axiom.appPath,
+										initialValue: '${this/_parent/getPath}',
+										parentHref:'${this/_parent/getURI}',
+										href:'${this/getURI}/',
+										objectId:'${this/id}',
+										parentTypes: ${this/parentTypesJSON}},
+									   dojo.byId('_location_widget'));
+
+	//</script>
+    </div>
+		</fieldset>
+<fieldset  class="ax-urlselect ax-url" id="ax-url">
+			 <div> <div class="error_message">hidden error message</div>
+		<label for="url">Redirect To</label>
+		<input id="url" name="url" onchange="axiom.dirtyProps['url']=true" xmlns:tal="http://xml.zope.org/namespaces/tal" tal:attributes="value this/url" type="text"/> <img id="icon_url" onclick="urlselecturl.open();" xmlns:tal="http://xml.zope.org/namespaces/tal" tal:attributes="src string:${app/getStaticMountpoint}/axiom/images/icon_link.gif"/> <a class="button form-button" href="javascript:void(0);" onclick="urlselecturl.clear();">Clear</a>
+		<script xmlns:tal="http://xml.zope.org/namespaces/tal" tal:text="$" type="text/javascript">//
+
+				window.urlselecturl = {
+					host:'${root/getURI}/',
+					clear:function() {
+						dojo.byId('url').value = '';
+						axiom.dirtyProps['url'] = true;
+					},
+					open:function() {
+						axiom.browsetable.multiple = false;
+						axiom.browsetable.property = 'url';
+						axiom.browsetable.defaultValue = '${this/url}';
+						axiom.browsetable.defaultValues = [];
+						axiom.browsetable.setCallBack = function(a,b){
+							var url = b[1].uri;
+							dojo.byId('url').value = url;
+							axiom.dirtyProps['url'] = true;
+						}
+						axiom.browsetable.exitCallBack = function(){axiom.browsemodal.hide();}
+						axiom.browsetable.callingWidget = this;
+						axiom.browsetable.searchURL = '/' + axiom.ctable.searchURL;
+						axiom.browsetable.setContext('urlselect');
+						axiom.browsetable.toggleHrefValues();
+						axiom.browsecfilter.setTargetTypes({'All': []});
+						axiom.browsecfilter.search();
+						axiom.browsemodal.show();
+					}
+				};
+
+				//</script>
+			</div>
+		</fieldset></div></div>

@@ -1,7 +1,7 @@
 function auditLogTaskAction(data, conn){
 	var stmt;
 	var exception = false;
-	try{ 
+	try{
 		stmt = conn.createStatement();
 		stmt.execute("INSERT INTO AuditLog_TaskActions (task_id, username, action) VALUES( "+
 					 data.task_id+",'"+

@@ -164,9 +164,13 @@ fieldset.asset_information fieldset {padding-bottom:10px;}
 #content .body fieldset.ax-refssa div span input { width:300px; }
 #content .body fieldset.ax-wysiwyg .wysiwyg_preview {padding:5px;border:1px solid #aeafb1;cursor:pointer;height:400px;overflow-y:auto; width:98%}
 
-#content .body fieldset #LocationField .message {overflow:hidden;display:none;margin:15px 10px;border:1px dotted red;padding:10px;}
-#content .body fieldset #LocationField .message label, #content .body fieldset #LocationField .message input {float:left;}
-
+#content .body #LocationField .message {overflow:hidden;display:none;margin:15px 10px;border:1px dotted red;padding:10px;}
+#content .body #LocationField .message label, #content .body #LocationField .message input {float:left;}
+#content .body #LocationField .message label {padding-top:3px;color:#333;}
+#content .body #LocationField .message .redirect {display:none;margin-top:5px;}
+#content .body #LocationField .message .redirect p {margin:0;padding:4px 0 0 15px;}
+#content .body #LocationField .message .redirect div {clear:both;}
+#content .body #LocationField .message input[type="checkbox"] {padding:0;width:3%;margin-left:6px;}
 /* Calendar Popup for Date widgets */
 table.calendarContainer {font-size:1.4em}
 table.calendarContainer td, table.calendarContainer th {border:0 !important}
