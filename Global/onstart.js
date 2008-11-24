@@ -79,11 +79,13 @@ function cms_init(){
 		bin.id = "recyclebin";
 	}
 
+	// if-cms-version-enterprise
 	if(!app.getObjects("CMSTaskContainer", "_d:1", {maxlength: 1})[0]){
  		var container = new CMSTaskContainer();
 		root.get('cms').add(container);
 		container.id = "task_container";
 	}
+	// end-cms-if
 
 	// setup audit log table
 	var exception = false;
@@ -150,6 +152,61 @@ function cms_init(){
 	// end-cms-if
 }
 
+function getCMSXMLLines(file) {
+    var lines = [];
+    if (file.exists()) {
+	var reader = null;
+	try {
+	    reader = new java.io.BufferedReader(new java.io.FileReader(file));
+	    var line = "";
+	    while ((line = reader.readLine()) != null) {
+		if (line != "<prototypes>" && line != "</prototypes>") {
+		    lines.push(line.trim());
+		}
+	    }
+	    reader.close();
+	} catch(e) {
+	    app.log("Error loading "+file.getName());
+	    app.log(e);
+	} finally{
+	    if (reader != null) {
+		try {
+		    reader.close();
+		} catch (e) {
+		    app.log(e);
+		}
+	    }
+	}
+    }
+
+    return lines;
+}
+
+cmsGlobals.loadCMSProperties = function() {
+    var reader = null;
+    // Application must define a cms.xml for the cms to function properly
+    var cmsPropertiesXML = new XML("<prototypes></prototypes>");
+    var cms_lines = [];
+    try {
+	var cmsFile = new java.io.File(app.getDir() + java.io.File.separator + "cms.xml");
+	cms_lines = getCMSXMLLines(cmsFile);
+    } catch (e) {
+	app.log("Error: File 'cms.xml' was not present in the application. It is required to run the Axiom CMS.");
+    }
+
+    // Find cms.xml for loaded modules (in order of specification) (optional)
+    var modules = app.getProperty("modules").split(",");
+    for each (var mod in modules) {
+	var modcmsFile = new java.io.File("modules/"+mod+"/cms.xml");
+	cms_lines = cms_lines.concat(getCMSXMLLines(modcmsFile));
+    }
+
+    if (cms_lines.length > 0) {
+	cmsPropertiesXML.prototypes += new XMLList(cms_lines.join(""));
+    }
+
+    cmsGlobals.props = cmsPropertiesXML;
+}
 
 /*
 function getCMSPrototypes() {

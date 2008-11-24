@@ -15,6 +15,8 @@ dojo.widget.defineWidget(
 	dojo.widget.HtmlWidget,
 	function(){},
 	{
+	    oldPath:'',
+	    currentPath:'',
 		appPath:'',
 		parentHref:'',
 		objectId:'',
@@ -39,16 +41,62 @@ dojo.widget.defineWidget(
 				widget.remote.close();
 			}
 		},
+	    displayMessage: function(hideRedirect) {
+		if (!(this.parentHref.match(/\/cms/)) && this.currentPath != this.oldPath) {
+		    dojo.event.kwConnect({
+			srcObj: this._current,
+			srcFunc:'onclick',
+			adviceObj:this,
+			adviceFunc:function() {axiom.dirtyProps['_current'] = true;}
+		    });
+		    var affected = this.number_affected;
+		    dojo.io.bind({
+			url: this.oldPath+"/getChildCount",
+			load: function(type, data, evt) {
+			    affected.innerHTML = data;
+			},
+			error: function() {
+			    affected.innerHTML = '0';
+			},
+			method: "get"
+		    });
+		    delete affected;
+		    if (!hideRedirect) {
+			this.oldURL.innerHTML =	this.oldPath;
+			this.currentURL.innerHTML = this.currentPath;
+			this.message_redirect.style.display = "block";
+		    } else {
+			this.message_redirect.style.display = "none";
+		    }
+		    this.location_message.style.display = "block";
+		} else {
+		    this.location_message.style.display = "none";
+		}
+	    },
+	    setCurrentPath: function() {
+		var pf = this.pathField.value;
+		if (pf == "") {
+		    this.currentPath = "";
+		} else if (pf == "/") {
+		    this.currentPath = "/" + this.idField.value;
+		} else {
+		    this.currentPath = pf + "/" + this.idField.value;
+		}
+	    },
 		setLocation:function(widget, value) {
 			widget.pathField.value = value[1].uri;
 			widget.pathValue.value = value[1].path;
 			axiom.dirtyProps['_location'] = true;
 			axiom.dirtyProps['ax_id'] = true;
+			widget.setCurrentPath();
+			widget.displayMessage();
 		},
 		clearLocation:function(evt){
 			this.pathField.value = '';
 			this.pathValue.value = '';
 			axiom.dirtyProps['_location'] = true;
+		    this.setCurrentPath();
+			this.displayMessage(true);
 		},
 		browse:function() {
 			this.dialog = dojo.widget.byId("BrowseDialog");
@@ -103,6 +151,7 @@ dojo.widget.defineWidget(
 			this.pathField.value = this.parentHref.match(/\/cms/)?'':this.parentHref;
 			this.pathValue.value = this.initialValue.match(/\/cms/)?'':this.initialValue;
 			this.idField.value = this.objectId;
+		    this.oldPath = this.currentPath = ((this.pathField.value=="/")?"":this.pathField.value)+"/"+this.idField.value;
 			dojo.event.kwConnect({ srcObj:this.browseButton,
 								   srcFunc:'onclick',
 								   adviceObj:this,
@@ -115,6 +164,11 @@ dojo.widget.defineWidget(
 								   srcFunc:'onkeyup',
 								   adviceObj:this,
 								   adviceFunc:'scrub'});
+			dojo.event.kwConnect({ srcObj:this.idField,
+								   srcFunc:'onblur',
+								   adviceObj:this,
+								   adviceFunc:function() { this.setCurrentPath(); this.displayMessage(); }
+					     });
 			dojo.event.kwConnect({ srcObj:this.idField,
 								   srcFunc:'onblur',
 								   adviceObj:this,
