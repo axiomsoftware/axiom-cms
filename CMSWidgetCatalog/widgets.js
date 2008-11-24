@@ -555,14 +555,14 @@ function textboxcounter(attr_name, props){
 	return <fieldset xmlns:tal="http://axiomstack.com/tale" xmlns:talout="http://axiom.com/talout" tal:attr="'class':'ax-textboxcounter ax-'+attr_name, id:'ax-'+attr_name">
 	           <div> <div class="error_message">hidden error message</div>
 		<label tal:attr="'for':attr_name">{(props.widget.required?new XML('<span class="required">*</span>'):'')}{(props.widget.label?new XMLList(props.widget.label.value):'undefined')}</label>
-		<input type="text" tal:attr="id:attr_name, name:attr_name, maxlength: (props.widget.maxchars || 20), onkeypress:'tbc'+attr_name+'.update()', 'talout:attr': 'value: this'+attr_name,  'class':(props.widget.required?'validate-empty':'')"/>
-		<div class="counter"><span tal:attr="id: 'count-'+attr_name">{(props.widget.maxchars.value || 20)}</span>&#160;Characters Remaining</div>
+		<input type="text" tal:attr="id:attr_name, name:attr_name, maxlength: (props.widget.maxchars ? props.widget.maxchars.value : 20), onkeypress:'tbc'+attr_name+'.update()', 'talout:attr': 'value: this.'+attr_name,  'class':(props.widget.required?'validate-empty':'')"/>
+		<div class="counter"><span tal:attr="id: 'count-'+attr_name">{(props.widget.maxchars ? props.widget.maxchars.value : 20)}</span>&#160;Characters Remaining</div>
 		<script type="text/javascript" tal:text="%"> //<![CDATA[
 
 			   window.tbc%{attr_name} = {
 			       countTag: dojo.byId('%{"count-"+attr_name}'),
 				   inTag: dojo.byId('%{"ax-"+attr_name}').getElementsByTagName("input")[0],
-				   maxChars: %{props.widget.maxchars.value || 20},
+				   maxChars: %{props.widget.maxchars ? props.widget.maxchars.value : 20},
 				   update: function() {
 				       this.countTag.innerHTML = this.maxChars - this.inTag.value.length;
 				       axiom.dirtyProps['%{attr_name}'] = true;
@@ -579,7 +579,7 @@ function textareacounter(attr_name, props){
 	return <fieldset xmlns:tal="http://axiomstack.com/tale" xmlns:talout="http://axiom.com/talout" tal:attr="'class':'ax-textareacounter ax-'+attr_name, id:'ax-'+attr_name" tal:var="maxchars: (props.widget.maxchars? props.widget.maxchars.value: 100)">
 			 <div> <div class="error_message">hidden error message</div>
 		<label tal:attr="'for': attr_name">{(props.widget.required?new XML('<span class="required">*</span>'):'')}{(props.widget.label?new XMLList(props.widget.label.value):'undefined')}</label>
-		<textarea cols="50" rows="5" tal:attr="id:attr_name, name:attr_name, onkeyup:'tac'+attr_name+'.update()', 'class':(props.widget.required?'validate-empty validate-length-'+maxchars:'validate-length-'+maxchars)"> <span tal:attr="'talout:replace':'this.'+attr_name+"/> </textarea>
+		<textarea cols="50" rows="5" tal:attr="id:attr_name, name:attr_name, onkeyup:'tac'+attr_name+'.update()', 'class':(props.widget.required?'validate-empty validate-length-'+maxchars:'validate-length-'+maxchars)"> <span tal:attr="'talout:replace':'this.'+attr_name"/> </textarea>
 		<div class="counter"><span tal:attr="id:'count-'+attr_name" tal:content="maxchars"> </span>&#160;Characters Remaining</div>
 		<script type="text/javascript" tal:text="%" talout:text="$"> //<![CDATA[
 

@@ -10,7 +10,7 @@
   <div id="BrowseDialog" style="display:none;">
 	<div class="browsewrapper">
 	  <div id="browsecontent">
-		<span tal:replace="objectSelectTop"/>
+		<span tal:replace="this.objectSelectTop(data)"/>
 		<div class="separator"> </div>
 		<span tal:replace="this.objects(data)"/>
 	  </div>
