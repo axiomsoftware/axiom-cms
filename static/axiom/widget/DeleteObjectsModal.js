@@ -93,14 +93,13 @@ dojo.widget.defineWidget(
 		    table.setAttribute("id", "Delete");
 		    var thead = document.createElement("thead");
 		    var thead_tr = document.createElement("tr");
-		    thead_tr.setAttribute("style", "border-left:1px solid #b0b4b6;border-right:1px solid #b0b4b6;");
 		    var th_title = document.createElement("th");
-		    th_title.setAttribute("width", "70%");
+		    th_title.setAttribute("width", "60%");
 		    th_title.setAttribute("class", "title");
 		    th_title.appendChild(document.createTextNode("Title"));
 		    var th_affected = document.createElement("th");
 		    th_affected.setAttribute("class", "affected");
-		    th_affected.appendChild(document.createTextNode("# of Affected Objects*"));
+		    th_affected.appendChild(document.createTextNode("Attached Objects (count)*"));
 		    thead_tr.appendChild(th_title);
 		    thead_tr.appendChild(th_affected);
 		    thead.appendChild(thead_tr);
@@ -111,7 +110,6 @@ dojo.widget.defineWidget(
 			for(var i in this.objects){
 			    var o = this.objects[i];
 			    var tr = document.createElement("tr");
-			    tr.setAttribute("style", "border-left:1px solid #b0b4b6;border-right:1px solid #b0b4b6;");
 			    var td_title = document.createElement("td");
 			    td_title.setAttribute("class", "title");
 			    td_title.innerHTML = o.title;
@@ -125,7 +123,7 @@ dojo.widget.defineWidget(
 		    table.appendChild(tbody);
 		    this.mainContent.appendChild(table);
 		    var note = document.createElement("p");
-		    note.appendChild(document.createTextNode("* Affected objects will not be deleted, but will no longer be attached to any object."));
+		    note.appendChild(document.createTextNode("* Attached objects will be automatically detached, but will not be removed from the CMS"));
 		    note.setAttribute("class", "note");
 		    this.mainContent.appendChild(note);
 

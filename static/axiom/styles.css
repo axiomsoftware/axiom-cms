@@ -553,5 +553,5 @@ th.col_by { width:5%; border-right: 1px solid #b0b4b6; }
 /* DeleteObjectsModal */
 .ax-modal .content-wrapper .content #Delete tbody {}
 .ax-modal .content-wrapper .content #Delete {border:1px solid #b0b4b6;}
-.ax-modal .content-wrapper .content #Delete tbody tr td {border-top:1px solid #b0b4b6;background:#fff;padding-left:5px;}
+.ax-modal .content-wrapper .content #Delete tbody tr td {border-top:1px solid #b0b4b6;border-bottom:none;background:#fff;padding-left:5px;}
 .ax-modal .content-wrapper .content p.note {font-size:.8em;margin-bottom:10px;}
