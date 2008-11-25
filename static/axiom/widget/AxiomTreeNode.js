@@ -17,6 +17,7 @@ dojo.widget.defineWidget(
 	function(){},
 	{
 		current_children: [],
+	    parentNode: null,
 		display_edit: function(e) {
 			var url = (this.object.location == '/' ? '' : this.object.location) + '/cms_edit';
 			axiom.loadEdit(url);
