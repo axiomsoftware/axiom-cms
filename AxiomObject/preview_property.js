@@ -5,5 +5,5 @@ function preview_property(){
 		style_file = prop.widget.styles.value;
 	}
 	return this.preview_markup( {styles: style_file,
-				     src_id: req.data.src_id } );
+								 src_id: req.data.src_id } );
 }
