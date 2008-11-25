@@ -89,31 +89,45 @@ dojo.widget.defineWidget(
 			this.title.innerHTML = "Delete Objects";
 			// end-cms-if
 
-		    var table = doc.createElement("table");
-		    var thead = doc.createElement("thead");
-		    var thead_tr = doc.createElement("tr");
-		    var th_title = doc.createElement("th");
-		    var th_attached = doc.createElement("th");
+		    var table = document.createElement("table");
+		    table.setAttribute("id", "Delete");
+		    var thead = document.createElement("thead");
+		    var thead_tr = document.createElement("tr");
+		    thead_tr.setAttribute("style", "border-left:1px solid #b0b4b6;border-right:1px solid #b0b4b6;");
+		    var th_title = document.createElement("th");
+		    th_title.setAttribute("width", "70%");
+		    th_title.setAttribute("class", "title");
+		    th_title.appendChild(document.createTextNode("Title"));
+		    var th_affected = document.createElement("th");
+		    th_affected.setAttribute("class", "affected");
+		    th_affected.appendChild(document.createTextNode("# of Affected Objects*"));
 		    thead_tr.appendChild(th_title);
-		    thead_tr.appendChild(th_attached);
+		    thead_tr.appendChild(th_affected);
 		    thead.appendChild(thead_tr);
 		    table.appendChild(thead);
-		    var tbody = doc.createElemenet("tbody");
+		    var tbody = document.createElement("tbody");
 
 			var textList = [];
 			for(var i in this.objects){
 			    var o = this.objects[i];
-			    console.log(this.objects[i].toSource());
-			    var tr = doc.createElement("tr");
-			    var td_title = doc.createElement("td");
+			    var tr = document.createElement("tr");
+			    tr.setAttribute("style", "border-left:1px solid #b0b4b6;border-right:1px solid #b0b4b6;");
+			    var td_title = document.createElement("td");
+			    td_title.setAttribute("class", "title");
 			    td_title.innerHTML = o.title;
-			    var td_affected = doc.createElement("td");
+			    var td_affected = document.createElement("td");
+			    td_affected.setAttribute("class", "affected");
 			    td_affected.innerHTML = o.num_children;
 			    tr.appendChild(td_title);
 			    tr.appendChild(td_affected);
 			    tbody.appendChild(tr);
 			}
+		    table.appendChild(tbody);
 		    this.mainContent.appendChild(table);
+		    var note = document.createElement("p");
+		    note.appendChild(document.createTextNode("* Affected objects will not be deleted, but will no longer be attached to any object."));
+		    note.setAttribute("class", "note");
+		    this.mainContent.appendChild(note);
 
 			// if-cms-version-enterprise
 			var error_field = document.createElement('div');

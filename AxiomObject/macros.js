@@ -137,12 +137,3 @@ function getTreeIconURI() {
 	return app.getStaticMountpoint('/' + this.getCMSProperty('treeicon','axiom/images/tree_default.gif'));
 
 }
-
-function getChildCount() {
-    try {
-	return this.getChildren().length;
-    } catch (e) {
-	app.log("Exception in getChildCount: Trying to get the length of the children.\nStacktrace: " + e);
-	return '0';
-    }
-}

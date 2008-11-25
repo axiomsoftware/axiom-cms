@@ -160,3 +160,15 @@ function currentUserFullName(){
 	}
 	return user.username;
 }
+
+
+function childCountById() {
+    var ids = req.get("ids");
+    var counts = {};
+
+    for (var id in ids) {
+	counts[id] = app.getObjects([], {_id:id})[0].getChildCount();
+    }
+
+    return counts;
+}
