@@ -29,7 +29,8 @@ function restore_objects(data){
 					msgs.push(new_location_msg+new_location+'_'+time+' instead.');
 					restore(item);
 				} else{
-					msgs.push('The server encounted an internal error while trying to restore object "'+item.title+'": '+errors.toSource());
+				    app.log('RecycleBin Restore Exception: Object Title="'+item.title+'": Server Message="'+errors.toSource()+'"');
+					msgs.push('The server encounted an internal error while trying to restore object "'+item.title+'". Please contact a CMS Administrator for help.');
 				}
 			}
 		}
