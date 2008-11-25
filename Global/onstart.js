@@ -160,7 +160,7 @@ function getCMSXMLLines(file) {
 	    reader = new java.io.BufferedReader(new java.io.FileReader(file));
 	    var line = "";
 	    while ((line = reader.readLine()) != null) {
-		if (line != "<prototypes>" && line != "</prototypes>") {
+		if (!(line.match(/<prototypes>|<\/prototypes>/))) {
 		    lines.push(line.trim());
 		}
 	    }
