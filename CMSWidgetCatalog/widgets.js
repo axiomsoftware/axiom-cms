@@ -94,11 +94,11 @@ function textarea(attr_name, props){
 
 
 function multitext(attr_name, props){
-	return <fieldset xmlns:talout="http://axiom.com/talout" tal:attr="'class':'ax-multitext ax-'+attr_name, id: 'ax-'+attr_name">
+	return <fieldset xmlns:tal="http://axiomstack.com/tale" xmlns:talout="http://axiom.com/talout" tal:attr="'class':'ax-multitext ax-'+attr_name, id: 'ax-'+attr_name">
 		<div> <div class="error_message">hidden error message</div>
 		<label tal:attr="'for': attr_name">{(props.widget.label?new XMLList(props.widget.label.value):'undefined')}</label>
 		<textarea cols="50" rows="5" tal:attr="id: attr_name, name: attr_name">
-      	<span tal:attr="talout:replace: \"(this.\"+attr_name+\" != null) ? this.\"+attr_name+\".join('\n'):' '\"" />
+      	<span tal:attr=" 'talout:replace' : '(this.'+attr_name+' != null) ? this.'+attr_name+'.join(\'\\n\') : \'\''" />
 		</textarea>
 		</div>
 		<script type="text/javascript" tal:text="%" talout:text="$"> //<![CDATA[
@@ -229,7 +229,7 @@ function calendar(attr_name, props){ // Requires Dojo
 		<script type="text/javascript" tal:text="%" talout:text="$"> //<![CDATA[
 
 	dojo.require('dojo.widget.DropdownDatePicker');
-	var d_%{attr_name} = dojo.widget.createWidget('DropdownDatePicker', {inputName:'%{attr_name}',value:'${this.%{attr_name}}',iconURL:'${app.getStaticMountpoint('axiom/images/icon_date.gif')}'}, dojo.byId('%{attr_name}_DatePicker'));
+	var d_%{attr_name} = dojo.widget.createWidget('DropdownDatePicker', {inputName:'%{attr_name}',value:${(this.%{attr_name} || new Date()).getTime()},iconURL:'${app.getStaticMountpoint('axiom/images/icon_date.gif')}'}, dojo.byId('%{attr_name}_DatePicker'));
 	d_%{attr_name}.inputNode.className='%{(props.widget.required?'validate-date':'')}';
     dojo.event.kwConnect({ srcObj:d_%{attr_name},
 						   srcFunc: 'onValueChanged',
@@ -271,14 +271,14 @@ function time(attr_name, props) {
 				<option value="AM">AM</option>
 				<option value="PM">PM</option>
 			</select>
-		<input type="hidden" tal:attr="name: attr_name, id: attr_name, 'talout:attr':'value: this.'+attr_name, 'class': (props.widget.required?'validate-date':'')"  />
+		<input type="hidden" tal:attr="name: attr_name, id: attr_name, 'talout:attr':'value: (this.'+attr_name+' || new Date()).getTime()', 'class': (props.widget.required?'validate-date':'')"  />
 		<script type="text/javascript" tal:text="%" talout:text="$"> //<![CDATA[
 
     window.time_%{attr_name} = {
 				datevalue:null,
 				input:dojo.byId('%{attr_name}'),
 				init: function(){
-					this.datevalue = (this.input.value)?new Date(this.input.value):new Date();
+					this.datevalue = new Date(parseInt(this.input.value,10));
 					var hoursSelect = dojo.byId('timehour_%{attr_name}');
 					var minutesSelect = dojo.byId('timeminute_%{attr_name}');
 					var meridiemSelect = dojo.byId('timemeridiem_%{attr_name}');
@@ -356,12 +356,12 @@ function datetime(attr_name, props){ // Requires Dojo
 				<option value="MST">MST</option>
 				<option value="PST">PST</option>
 		</select>
-		<input type="hidden" tal:attr="name: attr_name, id: attr_name, 'class': (props.widget.required?'validate-date':''), 'talout:attr': 'value: this.'+attr_name" />
+		<input type="hidden" tal:attr="name: attr_name, id: attr_name, 'class': (props.widget.required?'validate-date':''), 'talout:attr': 'value: (this.'+attr_name+'||new Date()).getTime()'" />
 		</div>
 		<script type="text/javascript" tal:text="%" talout:text="$"> //<![CDATA[
 
 				dojo.require('dojo.widget.DropdownDatePicker');
-				var dt_calendar_%{attr_name} = dojo.widget.createWidget('DropdownDatePicker', {inputName:'',value:'${this.%{attr_name}}',iconURL:'${app.getStaticMountpoint('axiom/images/icon_date.gif')}',displayFormat:'MM/dd/yyyy'}, dojo.byId('%{attr_name}_DateTime'));
+				var dt_calendar_%{attr_name} = dojo.widget.createWidget('DropdownDatePicker', {inputName:'',value:${(this.%{attr_name}|| new Date()).getTime()},iconURL:'${app.getStaticMountpoint('axiom/images/icon_date.gif')}',displayFormat:'MM/dd/yyyy'}, dojo.byId('%{attr_name}_DateTime'));
 
 				var dt_%{attr_name} = {
 					calendar:null,
@@ -371,7 +371,7 @@ function datetime(attr_name, props){ // Requires Dojo
 					init: function(){
 						var now = new Date();
 						now.setMinutes(0);
-						this.datevalue = (this.input.value)?new Date(this.input.value):now;
+						this.datevalue = (this.input.value)?new Date(parseInt(this.input.value,10)):now;
 						dojo.byId('%{attr_name}').value = Date.parse(this.datevalue);
 						this.calendar = dt_calendar_%{attr_name};
 						var hoursSelect = dojo.byId('dthour_%{attr_name}');
@@ -542,7 +542,7 @@ function assetselect(attr_name, props){
 						    	refTitle:'${this.referenceTitle('%{attr_name}');}',
 							    assetType:'%{props.widget.assettype?props.widget.assettype.value:'All'}',
 							    objectUrl:'${this.%{attr_name}?this.%{attr_name}.getTarget().getURI():''}/',
-					            objectData:${this.%{attr_name}?this.%{attr_name}.getTarget().getAssetObject():'new Object()'}
+					            objectData:${this.%{attr_name}?this.%{attr_name}.getTarget().getAssetObject():'undefined'}
 						       },
 						       dojo.byId('%{attr_name}_WAS'));
 
@@ -579,7 +579,7 @@ function textareacounter(attr_name, props){
 	return <fieldset xmlns:tal="http://axiomstack.com/tale" xmlns:talout="http://axiom.com/talout" tal:attr="'class':'ax-textareacounter ax-'+attr_name, id:'ax-'+attr_name" tal:var="maxchars: (props.widget.maxchars? props.widget.maxchars.value: 100)">
 			 <div> <div class="error_message">hidden error message</div>
 		<label tal:attr="'for': attr_name">{(props.widget.required?new XML('<span class="required">*</span>'):'')}{(props.widget.label?new XMLList(props.widget.label.value):'undefined')}</label>
-		<textarea cols="50" rows="5" tal:attr="id:attr_name, name:attr_name, onkeyup:'tac'+attr_name+'.update()', 'class':(props.widget.required?'validate-empty validate-length-'+maxchars:'validate-length-'+maxchars)"> <span tal:attr="'talout:replace':'this.'+attr_name"/> </textarea>
+		<textarea cols="50" rows="5" tal:attr="id:attr_name, name:attr_name, onkeyup:'tac'+attr_name+'.update()', 'class':(props.widget.required?'validate-empty validate-length-'+maxchars:'validate-length-'+maxchars)"><span tal:attr="'talout:replace':'this.'+attr_name+' || \'\''"/></textarea>
 		<div class="counter"><span tal:attr="id:'count-'+attr_name" tal:content="maxchars"> </span>&#160;Characters Remaining</div>
 		<script type="text/javascript" tal:text="%" talout:text="$"> //<![CDATA[
 
