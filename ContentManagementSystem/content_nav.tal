@@ -1,4 +1,4 @@
-<div class="columnLeft" xmlns:tal="http://xml.zope.org/namespaces/tal">
+<div class="columnLeft" xmlns:tal="http://axiomstack.com/tale">
   <div class="section first" id="filter_section">
 	<div id="ContentFilter"> </div>
   </div>

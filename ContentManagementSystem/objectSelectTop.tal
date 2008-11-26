@@ -1,6 +1,6 @@
-<div xmlns:tal="http://xml.zope.org/namespaces/tal" class="header">
+<div xmlns:tal="http://axiomstack.com/tale" class="header">
   <div id="BrowseContentFilter">
-    <img id="browsefind" tal:attributes="src string:${app/getStaticMountpoint}/axiom/images/icon_find.gif" alt="Find"/>
+    <img id="browsefind" tal:attributes="src: app.getStaticMountpoint('axiom/images/icon_find.gif')" alt="Find"/>
     <span>Find Content</span>
     <select id="browseprototype" name="prototype"><option value="">All</option></select>
     <input id="browsekeywords" name="keywords" type="text"/>

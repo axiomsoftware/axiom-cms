@@ -67,7 +67,7 @@ def preprocess(lines, version)
 end
 
 def copy_tree_entry(path, dest, version)
-  return if path == '.'
+  return if path == '.' || path =~ /build.properties$/
   file = File.join(dest, path)
   if File.directory? path
     begin

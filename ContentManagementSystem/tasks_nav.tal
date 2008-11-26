@@ -1,8 +1,8 @@
-<div class="columnLeft" xmlns:tal="http://xml.zope.org/namespaces/tal">
-  <div tal:attributes="class this/isContentContributor|?string:section first section-only|:string:section first" id="task_add_section">
+<div class="columnLeft" xmlns:tal="http://axiomstack.com/tale">
+  <div tal:attr="'class': this.isContentContributor()?'section first section-only':'section first'" id="task_add_section">
 	<div id="TaskAdd"> </div>
   </div>
-  <div tal:condition="not:this/isContentContributor" class="section last" id="task_filter_section">
+  <div tal:if="!this.isContentContributor()" class="section last" id="task_filter_section">
 	<div id="TaskFilter"> </div>
   </div>
   <div id="object_detail">

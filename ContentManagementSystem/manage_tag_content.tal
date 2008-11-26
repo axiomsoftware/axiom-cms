@@ -1,4 +1,4 @@
-<div class="columnRightAssets" xmlns:tal="http://xml.zope.org/namespaces/tal">
+<div class="columnRightAssets" xmlns:tal="http://axiomstack.com/tale">
   <div class="manage_column">
     <form name="tags" method="get" action="delete_tags">
 	  <h2 style="float:left;">Manage Asset Tags</h2>
@@ -7,11 +7,11 @@
 	  <p style="clear:both;">The tags below indicate the existing tags available in your CMS asset list.  You may view the assets associated with a tag by clicking the number following the tag or delete tags by selecting them and clicking the Delete button.</p>
 	  
 	  <div id="tag_container" class="tag_container">
-		<div class="tag_col" tal:repeat="tags this/getPartitionedTags">
-		  <ul tal:repeat-content="tag tags">
+		<div class="tag_col" tal:repeat="tags: this.getPartitionedTags()">
+		  <ul tal:repeat-content="tag: tags">
 			<li>
-			  <input type="checkbox" class="cb" tal:attributes="value tag/getURI; name tag/title; id string:tm_${tag/title}"/>
-			  <label tal:attributes="for string:tm_${tag/title}"><span tal:replace="tag/title" /> <a tal:attributes="href string: javascript:void(0); onclick string:tagSearch('${tag/title}')" tal:content="string:(${tag/count})"> </a></label>
+			  <input type="checkbox" class="cb" tal:attr="value: tag.uri, name: tag.title, id: tag.title"/>
+			  <label tal:attr="'for': tag.title"><span tal:replace="tag.title" /> <a href="javascript:void(0)" tal:attr="onclick: 'tagSearch(\''+tag.title+'\')'" tal:content="'('+tag.count+')'"> </a></label>
 			</li>
 		  </ul>
 		</div>

@@ -1,6 +1,6 @@
-<html xmlns:tal="http://xml.zope.org/namespaces/tal">
+<html xmlns:tal="http://axiomstack.com/tale">
 <head>
-	<link type="text/css" rel="stylesheet" tal:attributes="href string:${root/getURI}${styles}" />
+	<link type="text/css" rel="stylesheet" tal:attr="href: root.getURI(styles)" />
 </head>
 <body>
   <script type="text/javascript">

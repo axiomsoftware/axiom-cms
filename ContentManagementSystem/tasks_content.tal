@@ -1,4 +1,4 @@
-<div id="columnRight" class="columnRight" xmlns:tal="http://xml.zope.org/namespaces/tal">
+<div id="columnRight" class="columnRight" xmlns:tal="http://axiomstack.com/tale">
   <div id="Messages"> </div>
   <div id="ContentWrapper">
 	<div id="TaskPanel"> </div>
@@ -10,9 +10,9 @@
   <div id="BrowseDialog" style="display:none;">
 	<div class="browsewrapper">
 	  <div id="browsecontent">
-		<span tal:replace="objectSelectTop"/>
+		<span tal:replace="this.objectSelectTop(data)"/>
 		<div class="separator"> </div>
-		<span tal:replace="objects"/>
+		<span tal:replace="this.objects(data)"/>
 	  </div>
 	</div>
   </div>

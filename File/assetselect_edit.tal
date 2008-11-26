@@ -1,51 +1,50 @@
-<div xmlns:tal="http://xml.zope.org/namespaces/tal">
+<div xmlns:tal="http://axiomstack.com/tale">
 	<h3>Add File</h3>
 	<div class="asset-thumbpreview">
-		<img tal:condition="this/preview_href" tal:attributes="src this/preview_href" style="max-width:200px;max-height:300px;"/>
+		<img tal:if="this.preview_href" tal:attributes="src: this.preview_href" style="max-width:200px;max-height:300px;"/>
 		<div>Specifications</div>
 		<ul>
-			<li><strong>Filename</strong>: <span tal:replace="this/getFileName"/></li>
-			<li><strong>Size</strong>: <span tal:replace="this/getFileSizeKB"/></li>
-			<li  tal:condition="this/getWidth"><strong>Dimensions</strong>: <span tal:replace="string:${this/getWidth} x ${this/getHeight}"/> </li>
+			<li><strong>Filename</strong>: <span tal:replace="this.getFileName()"/></li>
+			<li><strong>Size</strong>: <span tal:replace="this.getFileSizeKB()"/></li>
+			<li tal:if="this.getWidth()"><strong>Dimensions</strong>: <span tal:replace="this.getWidth()+' x '+this.getHeight()"/> </li>
 		</ul>
 	</div>
 
 	<div class="asset-edit">
-		<form tal:attributes="id string:newasset_${asset_id}">
+		<form tal:attr="id: 'newasset_'+asset_id">
 		<fieldset class="asset-title">
 			<div class="error_message">Please specify a title.</div>
 			<div class="title-cont">
 				<label for="title"><span class="required">*</span>Title</label> 
-				<input id="title" name="title" type="text" tal:attributes="value this/title" xmlns:tal="tal"/>
+				<input id="title" name="title" type="text" tal:attr="value: this.title"/>
 			</div>
 			<div class="title-cont">
 				<label for="contentType">Content Type</label>
-				<input id="contentType" class="readonly" readonly="readonly" type="text" tal:attributes="value this/getContentType"/>
+				<input id="contentType" class="readonly" readonly="readonly" type="text" tal:attr="value: this.getContentType()"/>
 			</div>
 		</fieldset>
 		<fieldset class="asset-tags">
 			<div class="error_message">Please specify this file's tags.</div>
-			<label for="tags">Tags</label><img tal:attributes="src string:${app/getStaticMountpoint}/axiom/images/icon_tags.gif;onclick string:dojo.widget.byId('${asset_id}')._showTags(true);" alt="Tags" />
-			<textarea cols="70" rows="5" id="new-tags" name="tags" tal:content="this/tags|string:"></textarea>
+			<label for="tags">Tags</label><img tal:attr="src: app.getStaticMountpoint('axiom/images/icon_tags.gif'), onclick: 'dojo.widget.byId(\''+asset_id+'\')._showTags(true)'" alt="Tags" />
+			<textarea cols="70" rows="5" id="new-tags" name="tags" tal:content="this.tags || ''"></textarea>
 			<div class="info">Use the tag selector to select existing tags. You must use the asset manager to create new tags.</div>
 		</fieldset>
 		<fieldset class="asset-caption">
 			<label for="alt">Caption/Alternate Text</label>
-			<textarea cols="70" rows="5" id="alt" name="alt" tal:content="this/alt|string:"></textarea>
+			<textarea cols="70" rows="5" id="alt" name="alt" tal:content="this.alt || ''"></textarea>
 			<div class="info">If you do not specify the asset title will be used.</div>
 		</fieldset>
 
 		<fieldset class="asset-credit">
 			<label for="credit">Credit</label>
-			<textarea cols="70" rows="5" id="credit" name="credit" tal:content="this/credit|string:"></textarea>
+			<textarea cols="70" rows="5" id="credit" name="credit" tal:content="this.credit || ''"></textarea>
 		</fieldset>
 		</form>
 	</div>
 
 	<div class="controls">
-		<a href="javascript:void(0)" class="button form-button" tal:attributes="onclick string:dojo.widget.byId('${asset_id}').saveNewUpload('${this/getURI}','${this/id}','${asset_id}');" alt="Save" title="Save">Save</a> 
-		<a href="javascript:void(0)" class="button form-button" alt="Cancel" title="Cancel" tal:attributes="onclick string:dojo.widget.byId('${asset_id}').cancelNewUpload('${this/getURI}','${asset_id}');">Cancel</a>
+		<a href="javascript:void(0)" class="button form-button" tal:attr="onclick: 'dojo.widget.byId(\''+asset_id+'\').saveNewUpload(\''+this.getURI()+'\',\''+this.id+'\',\''+asset_id+'\')'" alt="Save" title="Save">Save</a> 
+		<a href="javascript:void(0)" class="button form-button" alt="Cancel" title="Cancel" tal:attr="onclick: 'dojo.widget.byId(\''+asset_id+'\').cancelNewUpload(\''+this.getURI()+'\',\''+asset_id+'\')'">Cancel</a>
 	</div>
-
 
 </div>

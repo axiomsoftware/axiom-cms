@@ -35,7 +35,9 @@ function _fb_generateForm(prototype, widgetName, outputName, writeoption) {
 
 function _fb_writeToFile(outputFile, xml){
 	var w = new java.io.BufferedWriter(new java.io.FileWriter(new java.io.File(outputFile)));
-	w.write(xml.toXMLString().replace(/xmlns:tal(out)?="http:\/\/axiom.com\/(talout)?"/g, "").replace('<div class="form"', '<div xmlns:tal="http://xml.zope.org/namespaces/tal"'));
+
+	// switch old TAL based forms to TALE on the way out
+	w.write(xml.toXMLString().replace(/xmlns:tal(out)?="http:\/\/axiom.com\/(talout)?"/g, "").replace('<div class="form"', '<div xmlns:tal="http://axiomstack.com/tale"').replace(/xmlns:tal="http:\/\/xml.zope.org\/namespaces\/tal"/g, 'xmlns="http://axiomstack.com/tale"'));
 	w.close();
 }
 
@@ -64,7 +66,6 @@ function _fb_append(outputFile, xml){
 		if( !file_xml..*.(@id == widget.@id)[0] )
 			file_xml.fieldset[widget.name()] += widget;
 	}
-	app.log(file_xml.toXMLString());
 	this._fb_writeToFile(outputFile, file_xml);
 }
 
@@ -94,7 +95,7 @@ function _fb_generate(prototype, catalog) {
 	};
 
 	var result = <div class="form"><div class="subform"> </div></div>;
-	var ns_transform = [ { from: new Namespace('talout', 'http://axiom.com/talout'), to: new Namespace('tal', 'http://xml.zope.org/namespaces/tal')} ];
+	var ns_transform = [ { from: new Namespace('talout', 'http://axiom.com/talout'), to: new Namespace('tal', 'http://axiomstack.com/tale')} ];
 	var location = TAL.namespace_transform(this.renderTAL(catalog[location_data.widget]('_location',location_data), location_data), ns_transform);
 	result.div[location.name()] += location;
 	var reference_widgets = <div class="subform reference-container"></div>;
