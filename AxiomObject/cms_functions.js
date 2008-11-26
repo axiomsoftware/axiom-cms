@@ -1,4 +1,9 @@
 function cms_delete() {
+	if(this.cms_status == 'null'){
+		this._parent.remove(this);
+		return;
+	}
+
 	if(this.deleteable()){
 		try {
 			if(typeof this.cmsDeleteAdvice == 'function')
