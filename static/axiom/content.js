@@ -265,7 +265,13 @@ var axiom = {
 		axiom.showingThumbs = true;
 		// if-cms-version-enterprise
 		if (axiom.tree_visible && axiom.selected_node) {
+		    var p_node = axiom.selected_node.parentNode;
+		    if (p_node != null) {
+			axiom.update_tree(p_node, p_node.objectId);
+		    }
 		    axiom.selected_node.update_details();
+		} else if (axiom.tree_visible) {
+		    axiom.update_tree(axiom.rootNode, "0");
 		} else {
 			axiom.hideObjectDetail();
 		}
@@ -779,12 +785,13 @@ var axiom = {
 			childIconSrc: axiom.staticPath + '/axiom/images/tree_root.gif',
 			objectId: '0',
 			isFolder: true
-		}
-		var rootNode = dojo.widget.createWidget("axiom:AxiomTreeNode", widgetdata);
-		axiom.tree.addChild(rootNode);
-		axiom.update_tree(rootNode,'0');
-		rootNode.expand();
+		};
+		axiom.rootNode = dojo.widget.createWidget("axiom:AxiomTreeNode", widgetdata);
+		axiom.tree.addChild(axiom.rootNode);
+		axiom.update_tree(axiom.rootNode,'0');
+		axiom.rootNode.expand();
 	},
+    rootNode: null,
 	selected_node:null,
 	update_tree: function(node,nodeid) {
 		dojo.io.bind({
@@ -811,6 +818,7 @@ var axiom = {
 					}
 					node.current_children.push(data[i]._id);
 					var new_node = dojo.widget.createWidget("axiom:AxiomTreeNode",widgetdata);
+				    new_node.parentNode = node;
 					node.addChild(new_node);
 				}
 			},

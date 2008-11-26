@@ -89,14 +89,43 @@ dojo.widget.defineWidget(
 			this.title.innerHTML = "Delete Objects";
 			// end-cms-if
 
+		    var table = document.createElement("table");
+		    table.setAttribute("id", "Delete");
+		    var thead = document.createElement("thead");
+		    var thead_tr = document.createElement("tr");
+		    var th_title = document.createElement("th");
+		    th_title.setAttribute("width", "60%");
+		    th_title.setAttribute("class", "title");
+		    th_title.appendChild(document.createTextNode("Title"));
+		    var th_affected = document.createElement("th");
+		    th_affected.setAttribute("class", "affected");
+		    th_affected.appendChild(document.createTextNode("Attached Objects (count)*"));
+		    thead_tr.appendChild(th_title);
+		    thead_tr.appendChild(th_affected);
+		    thead.appendChild(thead_tr);
+		    table.appendChild(thead);
+		    var tbody = document.createElement("tbody");
+
 			var textList = [];
 			for(var i in this.objects){
-				textList.push(this.objects[i].title);
+			    var o = this.objects[i];
+			    var tr = document.createElement("tr");
+			    var td_title = document.createElement("td");
+			    td_title.setAttribute("class", "title");
+			    td_title.innerHTML = o.title;
+			    var td_affected = document.createElement("td");
+			    td_affected.setAttribute("class", "affected");
+			    td_affected.innerHTML = o.num_children;
+			    tr.appendChild(td_title);
+			    tr.appendChild(td_affected);
+			    tbody.appendChild(tr);
 			}
-			var list = document.createElement('textarea');
-			list.innerHTML = textList.join("\n");
-			list.setAttribute('readonly', true);
-			this.mainContent.appendChild(list);
+		    table.appendChild(tbody);
+		    this.mainContent.appendChild(table);
+		    var note = document.createElement("p");
+		    note.appendChild(document.createTextNode("* Attached objects will be automatically detached, but will not be removed from the CMS"));
+		    note.setAttribute("class", "note");
+		    this.mainContent.appendChild(note);
 
 			// if-cms-version-enterprise
 			var error_field = document.createElement('div');

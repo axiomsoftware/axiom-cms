@@ -171,6 +171,7 @@ fieldset.asset_information fieldset {padding-bottom:10px;}
 #content .body #LocationField .message .redirect p {margin:0;padding:4px 0 0 15px;}
 #content .body #LocationField .message .redirect div {clear:both;}
 #content .body #LocationField .message input[type="checkbox"] {padding:0;width:3%;margin-left:6px;}
+
 /* Calendar Popup for Date widgets */
 table.calendarContainer {font-size:1.4em}
 table.calendarContainer td, table.calendarContainer th {border:0 !important}
@@ -206,13 +207,13 @@ div.browsewrapper {border:1px solid #878a8b;background:#aebabf;padding:8px;min-h
 .body .results tbody td .table_info_txt { float:right; font-family: Tahoma; font-size: 9px; color:#666;}
 .body .tablewrap {clear:both; /*border:1px solid #b0b4b6; background:#cfd4d7;*/ width:90%; padding:1%; padding-top:7px; margin-left: 0 9px;}
 .body .tablewrap .table-info {padding-left:36px; *padding-left:32px; color:#555; font-size:9px;margin-bottom:6px;}
-.body .results {font-size:1em; width:99%; margin:0; padding:0; border-bottom:0; border-collapse:collapse;}
-.body .results thead tr td {margin: 1px; background: url(images/table_header_bg.gif) 0 0 repeat-x; height: 29px;}
+.body .results, .ax-modal .content-wrapper .content table {font-size:1em; width:99%; margin:0; padding:0; border-bottom:0; border-collapse:collapse;}
+.body .results thead tr td, .ax-modal .content-wrapper .content table tr td {margin: 1px; background: url(images/table_header_bg.gif) 0 0 repeat-x; height: 29px;}
 .body .results thead tr td h2 {color: #333; border:1px solid #fff; padding-left:5px; padding-top:3px; font-family: Georgia; font-size: 16px; height:24px;}
-.body .results thead tr th {color: #333; font-family:"Tahoma"; font-size:12px; background:#f8f9e8; border-top:1px solid #b0b4b6; border-bottom:1px solid #b0b4b6;}
+.body .results thead tr th, .ax-modal .content-wrapper .content table tr th {color: #333; font-family:"Tahoma"; font-size:12px; background:#f8f9e8; border-top:1px solid #b0b4b6; border-bottom:1px solid #b0b4b6;}
 .body .results thead tr th a {color:#000;text-decoration:underline;}
 .body .results thead th,
-.body .results tbody td {padding:4px 5px; border:0; border-top:1px solid #b0b4b6; font-family:"Tahoma"; font-size:11px;  border-bottom:1px solid #b0b4b6; text-align:left; background:transparent;}
+.body .results tbody td, .ax-modal .content-wrapper .content thead th, .ax-modal .content-wrapper .content tbody td{padding:4px 5px; border:0; border-top:1px solid #b0b4b6; font-family:"Tahoma"; font-size:11px;  border-bottom:1px solid #b0b4b6; text-align:left; background:transparent;}
 .body .results thead th.selector{background:#fff; border: 0px; width:3%;}
 .body .results thead .inputBg {background:#dedede !important; width:21px; height:20px; padding-top:1px; *padding-top:0; *height:21px;}
 .body .results thead th.selector input {border:none !important;}
@@ -222,8 +223,8 @@ div.browsewrapper {border:1px solid #878a8b;background:#aebabf;padding:8px;min-h
 .body .results thead th.col_requested_by,
 .body .results thead th.col_email,
 .body .results thead th.col_type{border-right: 1px solid #b0b4b6; }
-.body .results tbody {border-collapse:separate !important;}
-.body .results tbody tr td {background:#FFF;}
+.body .results tbody, .ax-modal .content-wrapper .content tbody {border-collapse:separate !important;}
+.body .results tbody tr td, .ax-modal .content-wrapper .content tr td {background:#FFF;}
 .body .results tbody tr.invisible td{border: 0px; padding-top: 5px; padding-left:0;}
 .body .results tbody tr.invisible td.lastRow{ border-top: 1px solid #b0b4b6; }
 .body .results tbody tr.invisible td a{float: left; margin-top:4px; padding:3px 9px 4px 10px;margin-right:9px;}
@@ -548,3 +549,9 @@ th.col_by { width:5%; border-right: 1px solid #b0b4b6; }
 .settings #Messages { margin-left: 15px; }
 
 .download_link { margin-bottom: 10px;}
+
+/* DeleteObjectsModal */
+.ax-modal .content-wrapper .content #Delete tbody {}
+.ax-modal .content-wrapper .content #Delete {border:1px solid #b0b4b6;}
+.ax-modal .content-wrapper .content #Delete tbody tr td {border-top:1px solid #b0b4b6;border-bottom:none;background:#fff;padding-left:5px;}
+.ax-modal .content-wrapper .content p.note {font-size:.8em;margin-bottom:10px;}

@@ -116,12 +116,26 @@ dojo.widget.defineWidget(
 		},
 		deleteObjects:function(){
 			if(!dojo.html.hasClass(this.deleteButton, 'form-button-disabled')){
-				var objects = [];
-				for(var id in this.selectedRows){
-					objects.push({title: dojo.byId(id).getElementsByTagName('td')[2].innerHTML,
-								  id: id});
+			    dojo.io.bind({
+				url: axiom.cmsPath + 'childCountById',
+				method: 'post',
+				contentType: 'text/json',
+				mimetype: 'text/json',
+				postContent: dojo.json.serialize({ids: this.selectedRows}),
+				load: function(type, data, evt) {
+				    var objects = [];
+				    var num_children = data;
+				    for (var id in num_children) {
+					objects.push({
+					    title: dojo.byId(id).getElementsByTagName('td')[2].innerHTML,
+					    id: id,
+					    num_children: (num_children[id] || '0')
+					});
+				    }
+				    axiom.openModal({ widget: dojo.widget.createWidget("axiom:DeleteObjectsModal", {appPath:axiom.appPath, staticPath: axiom.staticPath, objects:objects}) });
+				    return;
 				}
-				axiom.openModal({ widget: dojo.widget.createWidget("axiom:DeleteObjectsModal", {appPath:axiom.appPath, staticPath: axiom.staticPath, objects:objects}) });
+			    });
 			}
 		},
 		copyObjects:function(){
