@@ -1,4 +1,4 @@
-<div xmlns:tal="http://xml.zope.org/namespaces/tal" class="subform">
+<div xmlns:tal="http://axiomstack.com/tale" class="subform">
   <script type="text/javascript">
 	window.replaceFileError = function(msg){
 			var error_node = dojo.byId('replace_error');
@@ -12,9 +12,9 @@
 			window.replaceFileError('Please select a file before continuing.');
 		} else {
 			var isImage = filename.match(/\.(jpe?g|gif|png)$/);
-			var valid = ('<span tal:replace="this/_prototype"/>' == 'Image') ? isImage : !isImage;
+			var valid = ('<span tal:replace="this._prototype"/>' == 'Image') ? isImage : !isImage;
 			if(valid){
-				dojo.io.bind({url: '<span tal:replace="this/getURI"/>/replace',
+				dojo.io.bind({url: '<span tal:replace="this.getURI('replace')"/>',
     						  formNode: dojo.byId('replace'),
 							  mimetype: 'text/html',
     						  load: function(load,data,evt){ assetEdit((data.body.textContent||data.body.innerText)+'/asset_edit', true);},
@@ -24,23 +24,23 @@
     						 });
     			window.showLoading();
 			} else {
-				window.replaceFileError( ('<span tal:replace="this/_prototype"/>' == 'Image') ? 'Images may only replaced with images.' : 'Non-images may not be replaced with images.');
+				window.replaceFileError( ('<span tal:replace="this._prototype"/>' == 'Image') ? 'Images may only replaced with images.' : 'Non-images may not be replaced with images.');
 			} 
 		}
 	}
   </script>
 
   <div class="thumb_preview">
-    <img tal:define="time javascript:(new Date()).getTime()" tal:attributes="src string:${this/preview_href}?noCache=${time}"/>
+    <img tal:var="time: (new Date()).getTime()" tal:attr="src: this.preview_href()+'?noCache='+time"/>
     <div>Specifications</div>
     <ul>
-      <li><strong>Filename</strong>: <span tal:replace="this/ellipsedFileName"/></li>
-      <li><strong>Size</strong>: <span tal:replace="this/getFileSizeKB"/></li>
-      <li tal:condition="this/getWidth" ><strong>Dimensions</strong>: <span tal:replace="string:${this/getWidth} x ${this/getHeight}"/> </li>
+      <li><strong>Filename</strong>: <span tal:replace="this.ellipsedFileName()"/></li>
+      <li><strong>Size</strong>: <span tal:replace="this.getFileSizeKB()"/></li>
+      <li tal:if="this.getWidth()" ><strong>Dimensions</strong>: <span tal:replace="this.getWidth()+' x '+this.getHeight()"/> </li>
     </ul>
-	<div class="download_link"><strong><a tal:attributes="href this/getURI">Download</a></strong></div>
-	<div tal:condition="not:add">
-	  <form id="replace" name="replace" method="post" enctype="multipart/form-data" tal:attributes="action string:${this/getURI}/replace">
+	<div class="download_link"><strong><a tal:attr="href: this.getURI()">Download</a></strong></div>
+	<div tal:condition="!data.add">
+	  <form id="replace" name="replace" method="post" enctype="multipart/form-data" tal:attr="action: this.getURI('replace')">
 		<label>Replace Asset:</label>
 		<div id="replace_error" class="error_message">hidden error message</div>
 		<input name="replacement" id="replacement" type="file" />
@@ -54,11 +54,11 @@
       <div>
 	<div> 
 	  <label for="title"><span class="required">*</span>Title</label> 
-	  <input id="title" class="validate-empty" name="title" type="text" tal:attributes="value this/title"  onchange="axiom.dirtyProps['title']=true"/> 
+	  <input id="title" class="validate-empty" name="title" type="text" tal:attr="value: this.title"  onchange="axiom.dirtyProps['title']=true"/> 
 	</div>
 	<div>
 	  <label for="contentType">Content Type</label>
-	  <input id="contentType" class="readonly" readonly="readonly" type="text" tal:attributes="value this/getContentType" />
+	  <input id="contentType" class="readonly" readonly="readonly" type="text" tal:attr="value: this.getContentType()" />
 	</div>
       </div>
     </fieldset>
@@ -71,12 +71,12 @@
           dojo.require("axiom.widget.LocationField");
 	      var loc = dojo.widget.createWidget('axiom:LocationField',
 						 {appPath:axiom.appPath,
-						  initialValue: '${this/_parent/getPath}',
-						  parentHref:'${this/_parent/getURI}',
-						  href:'${this/getURI}/',
+						  initialValue: '${this._parent.getPath()}',
+						  parentHref:'${this._parent.getURI()}',
+						  href:'${this.getURI()}/',
 	                      filemode: true,
-						  objectId:'${this/id}',
-						  parentTypes: ${this/parentTypesJSON}},
+						  objectId:'${this.id}',
+						  parentTypes: ${this.parentTypesJSON()}},
 			  dojo.byId('_location_widget'));
 	} catch(e){
 		// dojo quirk: since this gets loaded in a iframe initially, dojo isn't recognized there, 
@@ -89,12 +89,12 @@
     </fieldset>
     <fieldset class="ax-tags ax-tags" id="ax-tags">
       <div><div class="error_message">hidden error message</div>
-      <div tal:define="window_id string:${this/id}_window" class="tags_edit" >
-	<img class="tag_icon" tal:attributes="onclick string:axiom.tags.toggleWindow('${window_id}'); src string:${app/getStaticMountpoint}/axiom/images/icon_tags.gif"/>
-	<span tal:define="input_id string:${this/id}_tags" tal:replace="list_tags"/> 
+      <div tal:var="window_id: this.id+'_window'" class="tags_edit" >
+	<img class="tag_icon" tal:attr="onclick: 'axiom.tags.toggleWindow(\''+window_id+'\')', src: app.getStaticMountpoint('axiom/images/icon_tags.gif')"/>
+	<span tal:var="input_id: this.id+'_tags'" tal:replace="this.list_tags(data)"/> 
 	<label for="tags">Tags</label>
       </div>
-      <textarea cols="70" rows="5" class="ax-textarea" name="tags" tal:attributes="id string:${this/id}_tags" tal:content="this/getTagString|string:"  onchange="axiom.dirtyProps['tags']=true"></textarea><div class="tag_button"/>
+      <textarea cols="70" rows="5" class="ax-textarea" name="tags" tal:attr="id: this.id+'_tags'" tal:content="this.getTagString()"  onchange="axiom.dirtyProps['tags']=true"></textarea><div class="tag_button"/>
       <div class="info">Use the tag selector to select existing tags. You may also key new tags in this area that will be saved to the main tag list.  Separate with commas.</div>
       </div>
     </fieldset>
@@ -102,7 +102,7 @@
     <fieldset class="ax-textarea ax-alt" id="ax-alt">
       <div>
 	<div class="error_message">hidden error message</div>
-	<label for="alt">Caption/Alternate Text</label><textarea cols="70" rows="5" id="alt" name="alt" tal:content="this/alt|string:"  onchange="axiom.dirtyProps['alt']=true"></textarea>
+	<label for="alt">Caption/Alternate Text</label><textarea cols="70" rows="5" id="alt" name="alt" tal:content="this.alt || ''"  onchange="axiom.dirtyProps['alt']=true"></textarea>
 	<div class="info">If you do not specify the asset title will be used.</div>
       </div>
       
@@ -111,7 +111,7 @@
     <fieldset class="ax-textarea ax-credit" id="ax-credit">
       <div>
 	<div class="error_message">hidden error message</div><label for="credit">Credit</label>
-	<textarea cols="70" rows="5" id="credit" name="credit" tal:content="this/credit|string:"  onchange="axiom.dirtyProps['credit']=true"></textarea>
+	<textarea cols="70" rows="5" id="credit" name="credit" tal:content="this.credit || ''"  onchange="axiom.dirtyProps['credit']=true"></textarea>
       </div>
     </fieldset>
   </fieldset>

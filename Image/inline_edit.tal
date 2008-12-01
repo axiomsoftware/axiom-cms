@@ -1,21 +1,20 @@
-<div class="asset_edit" tal:attributes="id this/id" xmlns:tal="http://xml.zope.org/namespaces/tal" xmlns:formbuilder="urn:formbuilder" >
+<div class="asset_edit" tal:attr="id: this.id" xmlns:tal="http://axiomstack.com/tale">
  <div>
     <label for="title">Title</label>
-    <input id="title" name="title" tal:attributes="value this/title" type="text"/>
+    <input id="title" name="title" tal:attr="value: this.title" type="text"/>
   </div>
-  <div><img tal:attributes="src this/preview_href"/> </div>
-  <div tal:content="this/getFileName"> </div> 
-  <div><input readonly="readonly" type="text" tal:attributes="value this/getContentType"/></div>
-  <div tal:define="window_id string:${this/id}_window" class="tags">
+  <div><img tal:attr="src: this.preview_href"/> </div>
+  <div tal:content="this.getFileName()"> </div> 
+  <div><input readonly="readonly" type="text" tal:attr="value: this.getContentType()"/></div>
+  <div tal:var="window_id: this.id+'_window'" class="tags">
     Tags
-    <textarea tal:attributes="id string:${this/id}_tags" tal:content="this/getTagString"> </textarea>
-    <div class="tag_button"><img tal:attributes="onclick string:axiom.tags.axiom.tags.toggleWindow('${window_id}'); src string:${root/getURI}static/axiom/images/tag.gif" />
-    <span tal:define="input_id string:${this/id}_tags" tal:replace="list_tags"/> </div>
+    <textarea tal:attr="id: this.id+'_tags'" tal:content="this.getTagString()"> </textarea>
+    <div class="tag_button"><img tal:attr="onclick: 'axiom.tags.axiom.tags.toggleWindow(\''+window_id+'\')', src: app.getStaticMountpoint('axiom/images/tag.gif')" />
+    <span tal:var="input_id: this.id+'_tags'" tal:replace="this.list_tags(data)"/> </div>
   </div>
-  <div>Caption/Alternate Text <textarea tal:content="this/alt|?this/alt|:string: "> </textarea> </div>
-  <div>Credit <textarea tal:content="this/credit|?this/credit|:string:"> </textarea>  </div> 
-  <img tal:attributes="onclick string:submit_edit('${this/id}'); src string:${root/getURI}static/axiom/images/button_form_save.gif" alt="Save" title="Save" />
-  <img tal:attributes="src string:${root/getURI}static/axiom/images/button_form_preview.gif" alt="Preview" title="Preview" />
-  <img tal:attributes="src string:${root/getURI}static/axiom/images/button_form_cancel_disabled.gif" alt="Cancel" title="Cancel" />
-
+  <div>Caption/Alternate Text <textarea tal:content="this.alt"> </textarea> </div>
+  <div>Credit <textarea tal:content="this.credit"> </textarea>  </div> 
+  <img tal:attr="onclick: 'submit_edit(\''+this.id+\'')', src: app.getStaticMountpoint('axiom/images/button_form_save.gif')" alt="Save" title="Save" />
+  <img tal:attr="src: app.getStaticMountpoint('axiom/images/button_form_preview.gif')" alt="Preview" title="Preview" />
+  <img tal:attr="src: app.getStaticMountpoint('axiom/images/button_form_cancel_disabled.gif')" alt="Cancel" title="Cancel" />
 </div>

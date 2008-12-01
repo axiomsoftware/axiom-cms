@@ -1,17 +1,20 @@
-<div xmlns:tal="http://xml.zope.org/namespaces/tal" >
-  <div style="display:none" id="obj_href" tal:content="this/getURI"> </div>
+<div xmlns:tal="http://axiomstack.com/tale">
+  <div style="display:none" id="obj_href" tal:content="this.getURI()"> </div>
   <div> 
-      <h1><img tal:attributes="src add|?string:${app/getStaticMountpoint}/axiom/images/icon_add.gif|:string:${app/getStaticMountpoint}/axiom/images/icon_edit.gif" alt="Edit Icon" title="Edit Icon"/> <span tal:replace="add|?string:ADD ${this/typeString}|:string:EDIT ${this/title}"/> </h1>
-      <div class="form asset">
-	<div id="edit">
-	  <span tal:replace="cms_editForm"/>
-	</div>
-	<div class="asset-controls">
-	  <a href="javascript:void(0)" class="button form-button" id="save_button" tal:attributes="onclick string:axiom.submitEdit({edit_url:'${this/getURI}/edit_taggable', form_elem:this, obj_id:'${this/id}'})" alt="Save" title="Save">Save</a> 
-	  <a href="javascript:void(0)" class="button form-button" alt="Cancel" title="Cancel" tal:condition="add" tal:attributes="onclick string:axiom.deleteNewAdd('${this/getURI}', fireLastQuery)">Cancel</a>
-	  <a href="javascript:void(0)" class="button form-button" alt="Cancel" title="Cancel" tal:condition="not:add" onclick="fireLastQuery()">Cancel</a>
-	</div>
-      </div>
+    <h1>
+	  <img tal:attr="src: app.getStaticMountpoint('axiom/images/icon_'+(data.add?'add':'edit')+'.gif')" alt="Edit Icon" title="Edit Icon"/> 
+	  <span tal:replace="data.add ? 'ADD '+this.typeString() : 'EDIT '+this.title"/> 
+	</h1>
+    <div class="form asset">
+	  <div id="edit">
+		<span tal:replace="this.cms_editForm(data)"/>
+	  </div>
+	  <div class="asset-controls">
+		<a href="javascript:void(0)" class="button form-button" id="save_button" tal:attr="onclick: 'axiom.submitEdit({edit_url:\''+this.getURI('edit_taggable')+'\', form_elem:this, obj_id:\''+this.id+'\'})'" alt="Save" title="Save">Save</a> 
+		<a href="javascript:void(0)" class="button form-button" alt="Cancel" title="Cancel" tal:if="data.add" tal:attr="onclick: 'axiom.deleteNewAdd(\''+this.getURI()+'\', fireLastQuery)'">Cancel</a>
+		<a href="javascript:void(0)" class="button form-button" alt="Cancel" title="Cancel" tal:if="!data.add" onclick="fireLastQuery()">Cancel</a>
+	  </div>
+    </div>
   </div>
 </div>
 

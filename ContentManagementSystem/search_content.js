@@ -75,11 +75,13 @@ function recycle_bin_contents(keywords){
 
 	var start = parseInt(req.data.start) || 0;
 	var length = parseInt(req.data.length) || 15;
-	var query = this.parseKeywordSearch(keywords).queries.join(' AND ');
-	var hits = app.getHits("CMSTrashBag", (query || '_d: 1'), {sort: sort});
+	var query = this.parseKeywordSearch(keywords, 'cms_searchable_content').queries.join(' AND ');
+	query = new AndFilter({_parentproto: "CMSTrashBag"}, new NativeFilter(query || '_d: 1'));
+	var hits = app.getHits([], (query || '_d: 1'), {sort: sort});
     var results = hits.objects(start, length);
 	this.writeResults(this.extractTrashBag, hits, results, start, length);
 }
+
 
 function searchUsers(keywords){
 	var prototype = req.data.prototype || ["CMSUser"];
@@ -150,8 +152,8 @@ function extractTask(task){
 			cms_createdby: task.cms_createdby};
 }
 
-function extractTrashBag(bag){
-	var item = bag.getChildren()[0];
+function extractTrashBag(item){
+	var bag = item._parent;
 	return {
 		_id: bag._id,
 		title: item.title,

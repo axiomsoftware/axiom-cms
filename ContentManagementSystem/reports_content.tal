@@ -1,4 +1,4 @@
-<div id="columnRight" class="columnRight" xmlns:tal="http://xml.zope.org/namespaces/tal">
+<div id="columnRight" class="columnRight" xmlns:tal="http://axiomstack.com/tale">
   <div id="Messages"> </div>
   <div id="ContentWrapper">
 	<div id="ReportPanel">
@@ -27,7 +27,7 @@
 		  <!-- end-cms-if -->
 		</p>
 	  </div>
-	  <div tal:condition="not:this/isContentContributor" class="report-section">
+	  <div tal:if="!this.isContentContributor()" class="report-section">
 		<h2>Administrative Reports</h2>
 		<p><a href="javascript:void(0);" onclick="axiom.reports.generator.showUsersReport()">Users Report</a>
 		  &#150; View a list of CMS users' roles, last logins, 

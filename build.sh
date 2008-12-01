@@ -1,25 +1,27 @@
 #!/bin/bash
+echo "running cms build"
 cd /opt/bzr/cms-trunk
-bzr update
-ruby cms-build.rb
 
-rsync --exclude=".bzr" --delete -avr cms-enterprise/* ../cms-enterprise-build
-rsync --exclude=".bzr" --delete -avr cms-standard/* ../cms-standard-build
+/usr/local/bin/bzr update
+/usr/local/bin/ruby cms-build.rb
+
+/usr/local/bin/rsync --exclude="./usr/local/bin/bzr" --delete -avr cms-enterprise/* ../cms-enterprise-build
+/usr/local/bin/rsync --exclude="./usr/local/bin/bzr" --delete -avr cms-standard/* ../cms-standard-build
 
 # if [ -e .lastrev ] ; then
 # 	LASTREV=`cat .lastrev`
 # else
 # 	LASTREV=1
 # fi
-# bzr revno > .lastrev
+# /usr/local/bin/bzr revno > .lastrev
 
-# CHANGES=`bzr log -r $LASTREV..`
+# CHANGES=`/usr/local/bin/bzr log -r $LASTREV..`
 # echo $CHANGES
 cd ../cms-enterprise-build
-bzr add
-#bzr commit -m "$CHANGES"
-bzr commit -m "cms autobuild"
+/usr/local/bin/bzr add
+#/usr/local/bin/bzr commit -m "$CHANGES"
+/usr/local/bin/bzr commit -m "cms autobuild"
 cd ../cms-standard-build
-bzr add
-bzr commit -m "cms autobuild" 
-#bzr commit -m "$CHANGES" 
+/usr/local/bin/bzr add
+/usr/local/bin/bzr commit -m "cms autobuild" 
+#/usr/local/bin/bzr commit -m "$CHANGES" 

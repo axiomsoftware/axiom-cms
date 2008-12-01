@@ -70,7 +70,7 @@ function potentialTargets() {
     }
 
 	if (req.data.json) {
-		if (hits instanceof Hits) {
+		if (hits.objects) {
 			hits = hits.objects(start, length);
 		}
 		res.setContentType('text/javascript');

@@ -1,7 +1,7 @@
-<div xmlns:tal="http://xml.zope.org/namespaces/tal" id="columnLeft" class="columnLeft">
+<div xmlns:tal="http://axiomstack.com/tale" id="columnLeft" class="columnLeft">
   <div class="section">
 	<h2>Asset Search</h2>
-	<form id="search_form" name="search_form" tal:attributes="action this/is_assets|?string:${this/getURI}/search_assets|:string:${this/getURI}/assets" method="post">
+	<form id="search_form" name="search_form" tal:attr="action: this.getURI(this.is_assets() ? 'search_assets' : 'assets')" method="post">
 	  <fieldset>
 		<label for="types">Search For:</label>
 		<input type="hidden" name="sort" id="hidden_sort" value="alpha" />
@@ -16,8 +16,8 @@
 		</select>
 	  </fieldset>
 	  <fieldset>
-		<div class="searchtags"><label for="keywords">Keyword(s):</label><img class="tag_icon" tal:attributes="onclick string:updateTags(true); src string:${app/getStaticMountpoint}/axiom/images/icon_tags.gif; alt string:Tags;" /></div>
-		<div id="tag_window"><span tal:define="window_id string:left_nav_tags; input_id string:keywords; searchmode string:true" tal:replace="list_tags"/></div>
+		<div class="searchtags"><label for="keywords">Keyword(s):</label><img class="tag_icon" onclick="updateTags(true)" tal:attr="src: app.getStaticMountpoint('axiom/images/icon_tags.gif')" alt="Tags" /></div>
+		<div id="tag_window"><span tal:var="window_id:'left_nav_tags', input_id:'keywords', searchmode:true" tal:replace="this.list_tags(data)"/></div>
 		<input class="textbox" type="text" name="keywords" id="keywords" /> 
 		<p>Searches title, file name and content.</p>
 	  </fieldset>
