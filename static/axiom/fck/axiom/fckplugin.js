@@ -1,9 +1,9 @@
 /**
  * Axiom Asset/Image Selector Plugin
  * -------------------------------------
- * 
+ *
  */
- 
+
 
 var FCKImageSelect = function() { this.Name = 'ImageSelect'; }
 
@@ -12,7 +12,7 @@ FCKImageSelect.prototype.Execute = function() {
 	widget.assetType = 'Image';
 	if(window.parent.dojo.render.html.ie)
 		widget.textRange = window.parent.FCKeditorAPI.GetInstance(widget.instanceName).EditorDocument.selection.createRange();
-	widget.selectasset(); 
+	widget.selectasset();
 }
 
 FCKImageSelect.prototype.GetState = function() { return FCK_TRISTATE_OFF; }
@@ -26,18 +26,18 @@ FCKToolbarItems.RegisterItem( 'ImageSelect', oImageSelectItem ) ;
 /**
  * Axiom Asset/File Selector Plugin
  * -------------------------------------
- * 
+ *
  */
- 
+
 
 var FCKFileSelect = function() { this.Name = 'FileSelect'; }
 
-FCKFileSelect.prototype.Execute = function() { 
+FCKFileSelect.prototype.Execute = function() {
 	var widget = window.parent.dojo.widget.byId('fck_wysiwyg_selector');
 	widget.assetType = 'Document';
 	if(window.parent.dojo.render.html.ie)
 		widget.textRange = window.parent.FCKeditorAPI.GetInstance(widget.instanceName).EditorDocument.selection.createRange();
-	widget.selectasset(); 
+	widget.selectasset();
 }
 
 FCKFileSelect.prototype.GetState = function() { return FCK_TRISTATE_OFF; }
@@ -51,18 +51,18 @@ FCKToolbarItems.RegisterItem( 'FileSelect', oFileSelectItem ) ;
 /**
  * Axiom Asset/Audio Selector Plugin
  * -------------------------------------
- * 
+ *
  */
- 
+
 
 var FCKAudioSelect = function() { this.Name = 'AudioSelect'; }
 
-FCKAudioSelect.prototype.Execute = function() { 
+FCKAudioSelect.prototype.Execute = function() {
 	var widget = window.parent.dojo.widget.byId('fck_wysiwyg_selector');
 	widget.assetType = 'Audio';
 	if(window.parent.dojo.render.html.ie)
 		widget.textRange = window.parent.FCKeditorAPI.GetInstance(widget.instanceName).EditorDocument.selection.createRange();
-	widget.selectasset(); 
+	widget.selectasset();
 }
 
 FCKAudioSelect.prototype.GetState = function() { return FCK_TRISTATE_OFF; }
@@ -76,17 +76,17 @@ FCKToolbarItems.RegisterItem( 'AudioSelect', oAudioSelectItem ) ;
 /**
  * Axiom Asset/Video Selector Plugin
  * -------------------------------------
- * 
+ *
  */
- 
+
 var FCKVideoSelect = function() { this.Name = 'VideoSelect'; }
 
-FCKVideoSelect.prototype.Execute = function() { 
+FCKVideoSelect.prototype.Execute = function() {
 	var widget = window.parent.dojo.widget.byId('fck_wysiwyg_selector');
 	widget.assetType = 'Video';
 	if(window.parent.dojo.render.html.ie)
 		widget.textRange = window.parent.FCKeditorAPI.GetInstance(widget.instanceName).EditorDocument.selection.createRange();
-	widget.selectasset(); 
+	widget.selectasset();
 }
 
 FCKVideoSelect.prototype.GetState = function() { return FCK_TRISTATE_OFF; }
@@ -100,9 +100,9 @@ FCKToolbarItems.RegisterItem( 'VideoSelect', oVideoSelectItem ) ;
 /**
  * Axiom Link Selector Plugin
  * -------------------------------------
- * 
+ *
  */
- 
+
 var FCKLinkSelect = function() { this.Name='LinkSelect'; }
 
 FCKLinkSelect.prototype.Execute = function()
@@ -132,17 +132,37 @@ FCKLinkSelect.prototype.Execute = function()
 		SelectedText = FCK.EditorDocument.selection.createRange().text;
 	} else {
 		var sel = FCK.EditorWindow.getSelection();
-		if (sel.anchorNode.parentNode) {
-			if (sel.anchorNode.parentNode.href) {
-				SelectedURL = sel.anchorNode.parentNode.href;
+	    var el = null;
+	    if (sel.anchorNode instanceof HTMLBodyElement) {
+		el = FCKSelection.GetSelectedElement();
+	    } else if (sel.anchorNode.parentNode.nodeName == "A") {
+		console.log("Existing A");
+		el = sel.anchorNode.parentNode;
+		console.log("EL");
+		console.log(el);
+
+		for ( var i = 0 ; i < sel.rangeCount ; i++ )
+		{
+		    console.log("Range: " + i);
+		    console.log(sel.getRangeAt(i));
+		    console.log(sel.getRangeAt(i).endContainer.parentNode == el);
+		}
+
+		FCKSelection.SelectNode(el);
+	    } else {
+		el = {textContent: sel + ""};
+	    }
+		if (el) {
+			if (el.href) {
+				SelectedURL = el.href;
 			}
-			if (sel.anchorNode.parentNode.target) {
-				if (sel.anchorNode.parentNode.target == '_blank') {
+			if (el.target) {
+				if (el.target == '_blank') {
 					NewWindow = true;
 				}
 			}
 		}
-		SelectedText = sel.anchorNode.textContent;
+		SelectedText = el.textContent;
 	}
 
 
@@ -182,7 +202,7 @@ FCKLinkSelect.prototype.Execute = function()
 		axiom.browsetable.defaultValue = '';
 		axiom.browsetable.defaultValues = [];
 		axiom.browsetable.setCallBack = function(a,b){
-			var url = b[1].uri; 
+			var url = b[1].uri;
 			doc.getElementById(fckRef+"_url").value = url;
 			if(doc.getElementById(fckRef+"_text").value == '')
 				doc.getElementById(fckRef+"_text").value = b[0];
@@ -191,8 +211,8 @@ FCKLinkSelect.prototype.Execute = function()
 		axiom.browsetable.exitCallBack = function(){axiom.browsemodal.hide();linkdialog.show();}
 		axiom.browsetable.callingWidget = this;
 		axiom.browsetable.searchURL = '/' + axiom.ctable.searchURL;
-		axiom.browsetable.setContext('wysiwyg'); 
-		axiom.browsetable.toggleHrefValues(); 
+		axiom.browsetable.setContext('wysiwyg');
+		axiom.browsetable.toggleHrefValues();
 		axiom.browsecfilter.resetTargetTypes();
 		axiom.browsecfilter.publishedOnly = true;
 		axiom.browsecfilter.search(null, null, null, 12);
@@ -211,7 +231,7 @@ FCKLinkSelect.prototype.Execute = function()
 		var target;
 		if(doc.getElementById(fckRef+"_newwindow").checked==true) { target="_blank"; }
 		var linktext = ( doc.getElementById(fckRef+"_text").value || SelectedText || url)
-		
+
 		// Create the new Link node -- seperate code paths for IE and Firefox due to IE losing focus when clicking into the link dialog
 		if(dojo.render.html.ie) {
 			var markup;
@@ -231,7 +251,8 @@ FCKLinkSelect.prototype.Execute = function()
 			oLink.href = url;
 			oLink.innerHTML = linktext;
 			if(target) { oLink.target = target; }
-			FCK.Focus();
+		    FCK.InsertElement(oLink);
+			//FCK.Focus();
 			//FCK.Selection.SelectNode(oLink);
 		}
 
@@ -240,10 +261,10 @@ FCKLinkSelect.prototype.Execute = function()
 	var cancelbutton = doc.createElement("a");
 	cancelbutton.innerHTML = "Cancel";
 	cancelbutton.className = "button form-button";
-	cancelbutton.onclick = function() { 
+	cancelbutton.onclick = function() {
 		axiom.browsecfilter.publishedOnly = false;
-		linkdialog.hide(); 
-	}	
+		linkdialog.hide();
+	}
 	b.appendChild(okbutton);
 	b.appendChild(cancelbutton);
 	dialog.appendChild(b);
