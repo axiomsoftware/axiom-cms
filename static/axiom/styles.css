@@ -208,7 +208,7 @@ div.browsewrapper {border:1px solid #878a8b;background:#aebabf;padding:8px;min-h
 .body .tablewrap {clear:both; /*border:1px solid #b0b4b6; background:#cfd4d7;*/ width:90%; padding:1%; padding-top:7px; margin-left: 0 9px;}
 .body .tablewrap .table-info {padding-left:36px; *padding-left:32px; color:#555; font-size:9px;margin-bottom:6px;}
 .body .results, .ax-modal .content-wrapper .content table {font-size:1em; width:99%; margin:0; padding:0; border-bottom:0; border-collapse:collapse;}
-.body .results thead tr td, .ax-modal .content-wrapper .content table tr td {margin: 1px; background: url(images/table_header_bg.gif) 0 0 repeat-x; height: 29px;}
+.body .results thead tr td {margin: 1px; background: url(images/table_header_bg.gif) 0 0 repeat-x; height: 29px;}
 .body .results thead tr td h2 {color: #333; border:1px solid #fff; padding-left:5px; padding-top:3px; font-family: Georgia; font-size: 16px; height:24px;}
 .body .results thead tr th, .ax-modal .content-wrapper .content table tr th {color: #333; font-family:"Tahoma"; font-size:12px; background:#f8f9e8; border-top:1px solid #b0b4b6; border-bottom:1px solid #b0b4b6;}
 .body .results thead tr th a {color:#000;text-decoration:underline;}
@@ -224,7 +224,7 @@ div.browsewrapper {border:1px solid #878a8b;background:#aebabf;padding:8px;min-h
 .body .results thead th.col_email,
 .body .results thead th.col_type{border-right: 1px solid #b0b4b6; }
 .body .results tbody, .ax-modal .content-wrapper .content tbody {border-collapse:separate !important;}
-.body .results tbody tr td, .ax-modal .content-wrapper .content tr td {background:#FFF;}
+.body .results tbody tr td {background:#FFF;}
 .body .results tbody tr.invisible td{border: 0px; padding-top: 5px; padding-left:0;}
 .body .results tbody tr.invisible td.lastRow{ border-top: 1px solid #b0b4b6; }
 .body .results tbody tr.invisible td a{float: left; margin-top:4px; padding:3px 9px 4px 10px;margin-right:9px;}
