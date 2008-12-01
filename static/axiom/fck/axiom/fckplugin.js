@@ -136,18 +136,7 @@ FCKLinkSelect.prototype.Execute = function()
 	    if (sel.anchorNode instanceof HTMLBodyElement) {
 		el = FCKSelection.GetSelectedElement();
 	    } else if (sel.anchorNode.parentNode.nodeName == "A") {
-		console.log("Existing A");
 		el = sel.anchorNode.parentNode;
-		console.log("EL");
-		console.log(el);
-
-		for ( var i = 0 ; i < sel.rangeCount ; i++ )
-		{
-		    console.log("Range: " + i);
-		    console.log(sel.getRangeAt(i));
-		    console.log(sel.getRangeAt(i).endContainer.parentNode == el);
-		}
-
 		FCKSelection.SelectNode(el);
 	    } else {
 		el = {textContent: sel + ""};
@@ -208,7 +197,7 @@ FCKLinkSelect.prototype.Execute = function()
 				doc.getElementById(fckRef+"_text").value = b[0];
 			linkdialog.show();
 		}
-		axiom.browsetable.exitCallBack = function(){axiom.browsemodal.hide();linkdialog.show();}
+	    axiom.browsetable.exitCallBack = function(){axiom.browsemodal.hide();linkdialog.show();};
 		axiom.browsetable.callingWidget = this;
 		axiom.browsetable.searchURL = '/' + axiom.ctable.searchURL;
 		axiom.browsetable.setContext('wysiwyg');
@@ -252,8 +241,6 @@ FCKLinkSelect.prototype.Execute = function()
 			oLink.innerHTML = linktext;
 			if(target) { oLink.target = target; }
 		    FCK.InsertElement(oLink);
-			//FCK.Focus();
-			//FCK.Selection.SelectNode(oLink);
 		}
 
 		linkdialog.hide();
