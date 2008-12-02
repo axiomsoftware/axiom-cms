@@ -10,7 +10,7 @@ function location(attr_name, props){
 									   {appPath:axiom.appPath,
 										initialValue: '${this._parent.getPath()}',
 										parentHref:'${this._parent.getURI()}',
-										href:'${this.getURI()}.',
+										href:'${this.getURI()}/',
 										objectId:'${this.id}',
 										parentTypes: ${this.parentTypesJSON()}},
 									   dojo.byId('_location_widget'));
