@@ -42,7 +42,7 @@
 	axiom.currentFCKInstance = null;
 	dojo.require("axiom.widget.AssetSelector");
 	axiom.FCKAssetSelect = dojo.widget.createWidget('axiom:AssetSelector',{
-			appPath:'${root.getURI()}/',
+			appPath:'${root.getURI()+((root.getURI().lastIndexOf('/') == root.getURI().length-1)?"":"/")}',
 			id:'fck_wysiwyg_selector', 
 			widgetInterface:'wysiwyg',
 			instanceName:'', 

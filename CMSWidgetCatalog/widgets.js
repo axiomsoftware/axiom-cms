@@ -193,17 +193,16 @@ function radio(attr_name, props){
 		<div class="error_message">hidden error message</div>
 		<label>{(props.widget.required?new XML('<span class="required">*</span>'):'')}{(props.widget.label?new XMLList(props.widget.label.value):'undefined')}</label>
 		<div tal:attr="'talout:repeat-content':'item: '+(props.widget.list?props.widget.list.value:'[]')">
-		<input type="radio" class="cb" tal:attr="name: attr_name, 'talout:attr' : 'value: item, id: item, checked: (this.'+attr_name+' == data.item)?\'true\':undefined'" />
-		<label tal:attr="'talout:attr' : '\'for\' : item'"><span talout:replace="item" /></label>
-		</div>
-		<script type="text/javascript" tal:text="%" talout:text="$"> <![CDATA[
-
-                dojo.event.kwConnect({ srcObj: dojo.byId('%{attr_name}'),
+		<input type="radio" class="cb" tal:attr="name: attr_name, 'talout:attr' : 'value: item, id: \''+attr_name+'_\'+item, checked: (this.'+attr_name+' == data.item)?\'true\':undefined'" />
+		<label tal:attr="'talout:attr' : '\'for\' : \''+attr_name+'_\'+item'"><span talout:replace="item" /></label>
+		<script type="text/javascript" tal:text="%" talout:text="$">//<![CDATA[
+                dojo.event.kwConnect({ srcObj: dojo.byId('%{attr_name}_${item}'),
 									   srcFunc: 'onchange',
   									   adviceFunc: function(evt){ axiom.dirtyProps[ evt.target['name'] ] = true; }
   									 });
 
 		//]]></script>
+		</div>
 		</fieldset>;
 }
 
