@@ -255,6 +255,12 @@ function pageInit(){
 	new dojo.io.FormBind({ formNode: dojo.byId('search_form'),
 						   load: load_thumbs,
 						   mimetype: 'text/javascript' });
+
+	// if we take out this require statement, strange onclick behavior
+	// begins occuring.  accept the voodoo and leave it here though we
+	// aren't going to make anything draggable.
+	dojo.require("dojo.dnd.HtmlDragMove");
+
 	var oldcall = window.onresize;
 	window.onresize =  function(){
 		if(oldcall){
