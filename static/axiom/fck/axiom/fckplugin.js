@@ -150,8 +150,10 @@ FCKLinkSelect.prototype.Execute = function()
 					NewWindow = true;
 				}
 			}
+		    SelectedText = el.textContent;
+		} else {
+		    SelectedText = "";
 		}
-		SelectedText = el.textContent;
 	}
 
 
