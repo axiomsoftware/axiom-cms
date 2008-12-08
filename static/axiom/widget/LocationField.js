@@ -15,6 +15,7 @@ dojo.widget.defineWidget(
 	dojo.widget.HtmlWidget,
 	function(){},
 	{
+	    allowExtended:false,
 	    showMessage:true,
 	    oldPath:'',
 	    currentPath:'',
@@ -136,7 +137,10 @@ dojo.widget.defineWidget(
 		      }
 		},
 		scrub:function(){
-			this.idField.value = this.idField.value.replace(/\s+/g, '-').replace(/[^\w-]/g, '');
+		    this.idField.value = this.idField.value.replace(/\s+/g, '-');
+			if (!this.allowExtended) {
+			    this.idField.value = this.idField.value.replace(/[^\w-]/g, '');
+			}
 			if(!this.filemode){
 				this.idField.value = this.idField.value.toLowerCase();
 			}
