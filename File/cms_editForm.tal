@@ -75,6 +75,7 @@
 						  parentHref:'${this._parent.getURI()}',
 						  href:'${this.getURI()}/',
 	                      filemode: true,
+			      showMessage: false,
 						  objectId:'${this.id}',
 						  parentTypes: ${this.parentTypesJSON()}},
 			  dojo.byId('_location_widget'));
