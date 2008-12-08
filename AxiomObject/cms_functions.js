@@ -1,4 +1,5 @@
 function cms_delete() {
+    var complete_removal = req.get("full_removal");
 	if(this.cms_status == 'null'){
 		this._parent.remove(this);
 		return;
@@ -10,18 +11,18 @@ function cms_delete() {
 				this.cmsDeleteAdvice();
 			var t = this.title;
 			var bin = app.getObjects("CMSRecycleBin", "_d:1", {maxlength:1})[0];
-			if(bin){
+			if(bin && !complete_removal){
 				var bag = new CMSTrashBag();
 				bag.oldlocation = this.getPath();
 				bag.olduri = this.getURI();
 				bin.add(bag);
 				this.edit({'_location': bag.getPath()});
 				this.nullify();
-			} else{
-				app.log("Couldn't find instance of CMSRecycleBin, deleting "+this._prototype+ " with _id "+this._id);
+			} else {
+				if (!bin) { app.log("Couldn't find instance of CMSRecycleBin, deleting "+this._prototype+ " with _id "+this._id); }
 				this._parent.remove(this);
 			}
-			return { deleted: (t|| "Untitled Object")};
+		    return { deleted: (t|| "Untitled Object") };
 		} catch(e) {
 			res.status=500;
 			return {error:e.message};
