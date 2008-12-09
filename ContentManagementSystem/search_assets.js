@@ -123,9 +123,10 @@ function search_assets(){
 		sort_params[contentTypeProp] = 'asc';
 	} else if(sort && sort == 'last_modified'){
 		sort_params['cms_lastmodified'] = 'desc';
-	} else {
-		sort_params['cms_sortabletitle'] = 'asc';
 	}
+
+	sort_params['cms_sortabletitle'] = 'asc';
+
 	var sort_obj = new Sort(sort_params);
 
 	var total = 0;
