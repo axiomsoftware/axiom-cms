@@ -174,7 +174,7 @@ dojo.widget.defineWidget(
 			dojo.event.kwConnect({ srcObj:this.idField,
 								   srcFunc:'onblur',
 								   adviceObj:this,
-								   adviceFunc:function() { this.setCurrentPath(); this.displayMessage(); }
+					       adviceFunc:function() { this.setCurrentPath(); this.displayMessage(this.showMessage, true); }
 					     });
 			dojo.event.kwConnect({ srcObj:this.idField,
 								   srcFunc:'onblur',
