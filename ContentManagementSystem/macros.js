@@ -12,6 +12,7 @@ function copy_objects() {
 		var accessname = fixed_prefix + objs[i].id;
 		copy.id = accessname;
 		copy.cms_lastmodified = new Date();
+	    var par = null;
 		if (data.clear_url == "true") {
 			var p = objs[i]._prototype;
 			var folder = this.get(p);
@@ -21,23 +22,19 @@ function copy_objects() {
 				folder.title = p + " Folder";
 				root.get("cms").add(folder);
 			}
-			var count = 1;
-			while (folder.get(copy.id)) {
-				copy.id = accessname + "_" + count;
-				count++;
-			}
-			folder.add(copy);
+		    par = folder;
+
 			copy.cms_status = 'a';
 		} else {
-			var par = objs[i]._parent;
-			var count = 1;
-			while (par.get(copy.id)) {
-				copy.id = accessname + "_" + count;
-				count++;
-			}
-			par.add(copy);
+			par = objs[i]._parent;
 			copy.cms_status = 'z';
 		}
+	    var count = 1;
+	    while (par.get(copy.id)) {
+		copy.id = accessname + "_" + count;
+		count++;
+	    }
+	    par.add(copy);
 	}
 }
 

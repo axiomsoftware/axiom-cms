@@ -10,8 +10,8 @@
 		<div class="tag_col" tal:repeat="tags: this.getPartitionedTags()">
 		  <ul tal:repeat-content="tag: tags">
 			<li>
-			  <input type="checkbox" class="cb" tal:attr="value: tag.uri, name: tag.title, id: tag.title"/>
-			  <label tal:attr="'for': tag.title"><span tal:replace="tag.title" /> <a href="javascript:void(0)" tal:attr="onclick: 'tagSearch(\''+tag.title+'\')'" tal:content="'('+tag.count+')'"> </a></label>
+			  <input type="checkbox" class="cb" tal:attr="value: tag.uri, name: tag.title, id: 'manage_'+tag.title"/>
+			  <label tal:attr="'for': 'manage_'+tag.title"><span tal:replace="tag.title" /> <a href="javascript:void(0)" tal:attr="onclick: 'tagSearch(\''+tag.title+'\')'" tal:content="'('+tag.count+')'"> </a></label>
 			</li>
 		  </ul>
 		</div>

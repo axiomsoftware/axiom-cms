@@ -341,6 +341,7 @@ dojo.widget.defineWidget(
 				uri = uri.substring(0, 60)+'...';
 			}
 			location.innerHTML = uri;
+		    location.title = uri;
 			cols.push({content: location, 'class': 'col_location'});
 
 			// content type

@@ -4,8 +4,8 @@
 	<div class="tag_col" tal:repeat="tags: this.getPartitionedTags()">
 	  <ul tal:repeat-content="tag: tags">
 		<li>
-		  <input type="checkbox" class="cb" tal:attr="value: tag.title, id: tag.title, checked: tag.checked"/>
-		   <label tal:attr="'for': tag.id" tal:content="tag.title"> </label>
+		  <input type="checkbox" class="cb" tal:attr="value: tag.title, id: window_id+'_'+tag.title, checked: tag.checked"/>
+		   <label tal:attr="'for': window_id+'_'+tag.id" tal:content="tag.title"> </label>
 		</li>
 	  </ul>
 	</div>

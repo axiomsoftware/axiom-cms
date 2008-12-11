@@ -115,47 +115,21 @@ FCKLinkSelect.prototype.Execute = function()
 	var LinkSelectRef = this;
 
 	var SelectedText,SelectedRange,SelectedURL,NewWindow = false;
-	if(dojo.render.html.ie) {
-		SelectedRange = FCK.EditorDocument.selection.createRange();
-		if (SelectedRange.htmlText.match(/<A[^>]*>.*<\/A>/g)) {
-			var linkHtml = SelectedRange.htmlText.match(/<A[^>]*>.*<\/A>/g)[0];
-			var tmpa = document.createElement(linkHtml);
-			if (tmpa.href) {
-				SelectedURL = tmpa.href;
-			}
-			if (tmpa.target) {
-				if (tmpa.target == '_blank') {
-					NewWindow = true;
-				}
-			}
-		}
-		SelectedText = FCK.EditorDocument.selection.createRange().text;
-	} else {
-		var sel = FCK.EditorWindow.getSelection();
-	    var el = null;
-	    if (sel.anchorNode instanceof HTMLBodyElement) {
-		el = FCKSelection.GetSelectedElement();
-	    } else if (sel.anchorNode.parentNode.nodeName == "A") {
-		el = sel.anchorNode.parentNode;
-		FCKSelection.SelectNode(el);
-	    } else {
-		el = {textContent: sel + ""};
-	    }
-		if (el) {
-			if (el.href) {
-				SelectedURL = el.href;
-			}
-			if (el.target) {
-				if (el.target == '_blank') {
-					NewWindow = true;
-				}
-			}
-		    SelectedText = el.textContent;
-		} else {
-		    SelectedText = "";
-		}
-	}
 
+    var el = FCKSelection.GetSelectedElement();
+    if (!el || !(el.innerHTML)) {
+	el = FCKSelection.GetParentElement();
+    }
+    if (el && el.innerHTML) {
+	SelectedURL = el.getAttribute('href');
+	SelectedText = el.innerHTML;
+	if (el.getAttribute('target')) {
+	    NewWindow = true;
+	}
+	FCKSelection.SelectNode(el);
+    } else {
+	SelectedText = '';
+    }
 
 	// Destroy previous instances of Link Dialog
 	var linkdialog = dojo.widget.byId(linkDialogID);
@@ -174,9 +148,9 @@ FCKLinkSelect.prototype.Execute = function()
 	buffer[buffer.length] = '<option value="mailto:">Email</option>';
 	buffer[buffer.length] = '</select>';
 	buffer[buffer.length] = '<label for="'+fckRef+'_url">Link Address:</label>';
-	buffer[buffer.length] = '<input type="text" id="'+fckRef+'_url" value="' + (SelectedURL ? SelectedURL : 'http://') + '" />';
+	buffer[buffer.length] = '<input type="text" id="'+fckRef+'_url" value="' + (SelectedURL || 'http://') + '" />';
 	buffer[buffer.length] = '<label for="'+fckRef+'_text">Link Text:</label>';
-	buffer[buffer.length] = '<input type="text" id="'+fckRef+'_text" value="'+( SelectedText.replace(/\"/g, "&quot;") || '')+'"/></div>';
+	buffer[buffer.length] = '<input type="text" id="'+fckRef+'_text" value="'+(SelectedText.replace(/\"/g, "&quot;") || '')+'"/></div>';
 	buffer[buffer.length] = '<div class="linkwindow"><input class="cb" type="checkbox" id="'+fckRef+'_newwindow" ' + (NewWindow ? 'checked="true"' : '')  + '" /><label for="'+fckRef+'_newwindow">Open in new window</label></div>';
 	d.innerHTML = buffer.join('');
 	var bb = doc.createElement("div");
@@ -223,27 +197,11 @@ FCKLinkSelect.prototype.Execute = function()
 		if(doc.getElementById(fckRef+"_newwindow").checked==true) { target="_blank"; }
 		var linktext = ( doc.getElementById(fckRef+"_text").value || SelectedText || url)
 
-		// Create the new Link node -- seperate code paths for IE and Firefox due to IE losing focus when clicking into the link dialog
-		if(dojo.render.html.ie) {
-			var markup;
-			if(target) {
-				markup = '<a href="'+url+'" target="_blank">'+linktext+'</a>'
-			} else {
-				markup = '<a href="'+url+'">'+linktext+'</a>';
-			}
-			FCK.EditorWindow.focus();
-			SelectedRange.pasteHTML(markup);
-			SelectedRange.select();
-		} else {
-			var oLink = FCK.CreateLink(url)[0];
-			if (!oLink){
-				oLink=FCK.CreateElement('a');
-			}
-			oLink.href = url;
-			oLink.innerHTML = linktext;
-			if(target) { oLink.target = target; }
-		    FCK.InsertElement(oLink);
-		}
+	    var oLink=FCK.CreateElement('a');
+	    oLink.setAttribute('href', url);
+	    oLink.innerHTML = linktext;
+	    if(target) { oLink.setAttribute('target', target); }
+	    FCK.InsertElement(oLink);
 
 		linkdialog.hide();
 	}

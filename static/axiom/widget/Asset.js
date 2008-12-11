@@ -50,10 +50,10 @@ dojo.widget.defineWidget(
 			this.lock = true;
 		},
 		stopPropagation: function(evt){
-			if (!evt) 
+			if (!evt)
 				var evt = window.event;
 			evt.cancelBubble = true;
-			if (evt.stopPropagation) evt.stopPropagation(); 
+			if (evt.stopPropagation) evt.stopPropagation();
 		},
 		allOff: function(){
 			if(!this.mouseOver){
@@ -100,7 +100,7 @@ dojo.widget.defineWidget(
 			this.tagVisible = !this.tagVisible;
 		},
 		suicide:function(){
-			dojo.io.bind({url:this.hopobjHref + 'cms_delete',
+			dojo.io.bind({url:this.hopobjHref + 'cms_delete?full_removal=true',
 				      load: fireLastQuery});
 		},
 		deleteObj:function(){
@@ -132,7 +132,7 @@ dojo.widget.defineWidget(
 					this.zoomVisible = false;
 					this.zoom.style.display = 'none';
 				}
-				dojo.html.removeClass(this.domNode, 'hover'); 
+				dojo.html.removeClass(this.domNode, 'hover');
 				var menu_items = this.actionMenu.getElementsByTagName('img');
 				var len = menu_items.length;
 				for(var i=0; i< len; i++){
@@ -144,7 +144,7 @@ dojo.widget.defineWidget(
 				}
 			}
 		},
-		postCreate:function(){ 
+		postCreate:function(){
 			if(this.filename.length > 20){
 				var short_name = this.filename.substring(0,20) + '...';
 				this.zoom_file_name.innerHTML = '('+short_name+')';
@@ -172,10 +172,10 @@ dojo.widget.defineWidget(
 			if(this.allTags.length > 0){
 				var localTags = this.searchTags;
 				var tagContainer = this.tag;
-				dojo.lang.forEach(this.allTags, function(tag){ 
+				dojo.lang.forEach(this.allTags, function(tag){
 							  var tagNode = document.createElement('a');
 							  if(dojo.lang.inArray(localTags, tag)){
-								  dojo.html.addClass(tagNode,'hasTag'); 
+								  dojo.html.addClass(tagNode,'hasTag');
 							  }
 							  tagNode.href = "javascript:void(0);";
 							  tagNode.innerHTML = tag;

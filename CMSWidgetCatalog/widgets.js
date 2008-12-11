@@ -29,10 +29,10 @@ function dropdown_location(attr_name, props){
 
 	dojo.require("axiom.widget.DropdownLocationField");
 	var loc = dojo.widget.createWidget('axiom:DropdownLocationField',
-									   {appPath:'${root.getURI()}.',
+									   {appPath:'${root.getURI()}/',
 										initialValue: '${this._parent.getPath()}',
-										parentHref:'${this._parent.getURI()}.',
-										href:'${this.getURI()}.',
+										parentHref:'${this._parent.getURI()}/',
+										href:'${this.getURI()}/',
 										paths: ${this.getLocationPaths()},
 										objectId:'${this.id}'},
 									   dojo.byId('_location_widget'));

@@ -15,6 +15,8 @@ dojo.widget.defineWidget(
 	dojo.widget.HtmlWidget,
 	function(){},
 	{
+	    allowExtended:false,
+	    showMessage:true,
 	    oldPath:'',
 	    currentPath:'',
 		appPath:'',
@@ -41,36 +43,38 @@ dojo.widget.defineWidget(
 				widget.remote.close();
 			}
 		},
-	    displayMessage: function(hideRedirect) {
-		if (!(this.parentHref.match(/\/cms/)) && this.currentPath != this.oldPath) {
-		    dojo.event.kwConnect({
-			srcObj: this._current,
-			srcFunc:'onclick',
-			adviceObj:this,
-			adviceFunc:function() {axiom.dirtyProps['_current'] = true;}
-		    });
-		    var affected = this.number_affected;
-		    dojo.io.bind({
-			url: this.oldPath+"/getChildCount",
-			load: function(type, data, evt) {
-			    affected.innerHTML = data;
-			},
-			error: function() {
-			    affected.innerHTML = '0';
-			},
-			method: "get"
-		    });
-		    delete affected;
-		    if (!hideRedirect) {
-			this.oldURL.innerHTML =	this.oldPath;
-			this.currentURL.innerHTML = this.currentPath;
-			this.message_redirect.style.display = "block";
+	    displayMessage: function(showMessage, showRedirect) {
+		if (showMessage) {
+		    if (!(this.parentHref.match(/\/cms/)) && this.currentPath != this.oldPath) {
+			dojo.event.kwConnect({
+						 srcObj: this._current,
+						 srcFunc:'onclick',
+						 adviceObj:this,
+						 adviceFunc:function() {axiom.dirtyProps['_current'] = true;}
+					     });
+			var affected = this.number_affected;
+			dojo.io.bind({
+					 url: this.oldPath+"/getChildCount",
+					 load: function(type, data, evt) {
+					     affected.innerHTML = data;
+					 },
+					 error: function() {
+					     affected.innerHTML = '0';
+					 },
+					 method: "get"
+				     });
+			delete affected;
+			if (showRedirect) {
+			    this.oldURL.innerHTML =	this.oldPath;
+			    this.currentURL.innerHTML = this.currentPath;
+			    this.message_redirect.style.display = "block";
+			} else {
+			    this.message_redirect.style.display = "none";
+			}
+			this.location_message.style.display = "block";
 		    } else {
-			this.message_redirect.style.display = "none";
+			this.location_message.style.display = "none";
 		    }
-		    this.location_message.style.display = "block";
-		} else {
-		    this.location_message.style.display = "none";
 		}
 	    },
 	    setCurrentPath: function() {
@@ -89,14 +93,14 @@ dojo.widget.defineWidget(
 			axiom.dirtyProps['_location'] = true;
 			axiom.dirtyProps['ax_id'] = true;
 			widget.setCurrentPath();
-			widget.displayMessage();
+		    widget.displayMessage(widget.showMessage, true);
 		},
 		clearLocation:function(evt){
 			this.pathField.value = '';
 			this.pathValue.value = '';
 			axiom.dirtyProps['_location'] = true;
 		    this.setCurrentPath();
-			this.displayMessage(true);
+			this.displayMessage(this.showMessage);
 		},
 		browse:function() {
 			this.dialog = dojo.widget.byId("BrowseDialog");
@@ -133,7 +137,10 @@ dojo.widget.defineWidget(
 		      }
 		},
 		scrub:function(){
-			this.idField.value = this.idField.value.replace(/\s+/g, '-').replace(/[^\w-]/g, '');
+		    this.idField.value = this.idField.value.replace(/\s+/g, '-');
+			if (!this.allowExtended) {
+			    this.idField.value = this.idField.value.replace(/[^\w-]/g, '');
+			}
 			if(!this.filemode){
 				this.idField.value = this.idField.value.toLowerCase();
 			}
@@ -167,7 +174,7 @@ dojo.widget.defineWidget(
 			dojo.event.kwConnect({ srcObj:this.idField,
 								   srcFunc:'onblur',
 								   adviceObj:this,
-								   adviceFunc:function() { this.setCurrentPath(); this.displayMessage(); }
+					       adviceFunc:function() { this.setCurrentPath(); this.displayMessage(this.showMessage, true); }
 					     });
 			dojo.event.kwConnect({ srcObj:this.idField,
 								   srcFunc:'onblur',

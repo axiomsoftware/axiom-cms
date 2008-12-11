@@ -660,7 +660,7 @@ var axiom = {
 	deleteNewAdd: function(path, callback) {
 		if(path){
 			axiom.dirtyProps = {};
-			dojo.io.bind({   url:path + "/cms_delete",
+			dojo.io.bind({   url:path + "/cms_delete?full_removal=true",
 							 method:"GET",
 							 mimetype:"text/json",
 							 load:function(type,data,evt){ if(callback) {callback(type,data,evt);} else{ axiom.showContent();}},

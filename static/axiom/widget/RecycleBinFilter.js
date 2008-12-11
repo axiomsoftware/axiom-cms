@@ -25,8 +25,9 @@ dojo.widget.defineWidget(
 		getKeywords:function(){
 			return this.keywordInput.value;
 		},
-		reset:function(){
+		reset:function(evt){
 			this.keywordInput.value = "";
+		    this.search(evt, "CMSTrashBag");
 		},
 		postCreate:function() {
 			dojo.event.kwConnect({       srcObj: this.keywordInput,
