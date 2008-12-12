@@ -40,7 +40,7 @@
 			</div>
 			<div class="columnRightLogin">
 			  <div class="adminbox">
-				<span tal:replace="this.contacts"/>
+				<span tal:replace="(this.contacts||'Welcome to Axiom CMS')"/>
 				<div tal:content-if="this.domain_warning()"/>
 			  </div>
 			</div>
