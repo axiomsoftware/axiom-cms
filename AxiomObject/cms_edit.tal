@@ -10,7 +10,7 @@
       <div class="buttons">
         <a alt="Preview" class="button form-button" href="javascript:void(0)" tal:attr="onclick: 'axiom.submitEdit({edit_url: \''+this.getURI('save_preview')+'\',form_elem:this, preview: true, callback: function(type, data){window.open(data)}})'" tal:if="this.previewable" title="Preview">Preview</a>
         <a alt="Save" class="button form-button" href="javascript:void(0)" id="save_button" tal:attr="onclick: 'axiom.submitEdit({edit_url:\''+this.getURI('save')+'\',form_elem: this})'" title="Save">Save</a>
-        <a alt="Cancel" class="button form-button" href="javascript:void(0)" tal:attr="onclick: add ? 'axiom.deleteNewAdd(\''+this.getURI()+'\')' : 'axiom.dirtyProps={}; axiom.showContent()'" title="Cancel">Cancel</a>
+        <a alt="Cancel" class="button form-button" href="javascript:void(0)" tal:attr="onclick: add ? 'axiom.deleteNewAdd(\''+this.getURI()+'\')' : 'axiom.isDirty()?axiom.saveDialog():function() {axiom.dirtyProps={};axiom.showContent();}'" title="Cancel">Cancel</a>
       </div>
       <!-- if-cms-version-enterprise -->
       <div class="task_info alert_info" tal:if="this.lockedByOther()" tal:var="task: this._task?  this._task.getTarget() : false">
