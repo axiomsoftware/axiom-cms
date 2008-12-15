@@ -121,7 +121,7 @@ FCKLinkSelect.prototype.Execute = function()
 	el = FCKSelection.GetParentElement();
     }
     if (el && el.innerHTML && el.nodeName == 'A') {
-	SelectedURL = el.getAttribute('href');
+	SelectedURL = el.getAttribute('href', 2);
 	SelectedText = el.innerHTML;
 	if (el.getAttribute('target')) {
 	    NewWindow = true;
