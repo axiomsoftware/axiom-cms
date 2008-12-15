@@ -120,7 +120,7 @@ FCKLinkSelect.prototype.Execute = function()
     if (!el || !(el.innerHTML)) {
 	el = FCKSelection.GetParentElement();
     }
-    if (el && el.innerHTML) {
+    if (el && el.innerHTML && el.nodeName == 'A') {
 	SelectedURL = el.getAttribute('href');
 	SelectedText = el.innerHTML;
 	if (el.getAttribute('target')) {
@@ -128,7 +128,18 @@ FCKLinkSelect.prototype.Execute = function()
 	}
 	FCKSelection.SelectNode(el);
     } else {
-	SelectedText = '';
+	var sel = FCKSelection.GetSelection();
+	if (FCKBrowserInfo.IsIE) {
+	    SelectedText = "";
+	    if (sel.createRange && sel.createRange().text) {
+		SelectedText = sel.createRange().text;
+	    }
+	} else {
+	    SelectedText = '';
+	    if (sel) {
+		SelectedText = sel + '';
+	    }
+	}
     }
 
 	// Destroy previous instances of Link Dialog
