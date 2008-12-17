@@ -341,7 +341,7 @@ dojo.widget.defineWidget(
 				uri = uri.substring(0, 60)+'...';
 			}
 			location.innerHTML = uri;
-		    location.setAttribute('_target', 'blank');
+		    location.setAttribute('target', '_blank');
 		    location.title = uri;
 			cols.push({content: location, 'class': 'col_location'});
 

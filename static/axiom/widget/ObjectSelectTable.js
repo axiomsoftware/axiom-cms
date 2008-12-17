@@ -81,6 +81,7 @@ dojo.widget.defineWidget(
 				uri = uri.substring(0, 60)+'...';
 			}
 			location.innerHTML = uri;
+		    location.setAttribute('target', '_blank');
 			this.selectedRows[obj.path] = (obj.path == axiom.browsetable.defaultValue || dojo.lang.inArray(axiom.browsetable.defaultValues,obj.path));
 			var row = this.createRow({
 				cols: [{content: obj.title, 'class': 'col_title'},
@@ -102,7 +103,7 @@ dojo.widget.defineWidget(
 						this.widget.searchterm.innerHTML = '';
 					}
 				}
-			} 
+			}
 			this.widget.loading.style.display = 'none';
 			this.widget.tablewrap.style.display = 'block';
 
