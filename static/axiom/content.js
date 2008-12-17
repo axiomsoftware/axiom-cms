@@ -77,7 +77,6 @@ var axiom = {
 			}
 			axiom.adjustHeight();
 		};
-
 		axiom.adjustHeight();
 		axiom.initValidation();
 	},
@@ -94,6 +93,16 @@ var axiom = {
 			dojo.byId("columnRight").style.height= (height-170)+'px';
 		}
 	},
+    showSaveOrContent: function(event) {
+	if (axiom.isEditing) {
+	    if (axiom.isDirty()) {
+		axiom.saveDialog();
+		return false;
+	    } else {
+		axiom.showContent();
+	    }
+	}
+    },
 	hideMessage:function(){
 		var messages = dojo.byId("Messages");
 		if(messages){
