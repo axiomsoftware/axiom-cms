@@ -1,6 +1,6 @@
-if (!(global.axiomcms)) {
-    global.axiomcms = {
+if (!(global.cmsGlobals)) {
+    global.cmsGlobals = {
     };
 }
 
-global.axiomcms.version = "3.2.0";
+global.cmsGlobals.version = "3.2.0";
