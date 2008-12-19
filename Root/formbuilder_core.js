@@ -37,7 +37,7 @@ function _fb_writeToFile(outputFile, xml){
 	var w = new java.io.BufferedWriter(new java.io.FileWriter(new java.io.File(outputFile)));
 
 	// switch old TAL based forms to TALE on the way out
-    w.write(xml.toXMLString().replace(/xmlns:tal(out)?="http:\/\/axiom.com\/(talout)?"/g, "").replace('<div class="form"', '<div xmlns:tal="http://axiomstack.com/tale"').replace(/xmlns:tal="http:\/\/xml.zope.org\/namespaces\/tal"/g, 'xmlns:tal="http://axiomstack.com/tale"').replace(/xmlns:tal="http:\/\/www.w3.org\/1999\/xhtml\/"/g, ""));
+    w.write(xml.toXMLString().replace(/xmlns:tal(out)?="http:\/\/axiom.com\/(talout)?"/g, "").replace('<div class="form"', '<div xmlns:tal="http://axiomstack.com/tale"').replace(/xmlns:tal="http:\/\/xml.zope.org\/namespaces\/tal"/g, 'xmlns:tal="http://axiomstack.com/tale"').replace(/(xmlns|xmlns:tal)="http:\/\/www.w3.org\/1999\/xhtml"/g, 'xmlns:tal="http://axiomstack.com/tale"'));
 	w.close();
 }
 
