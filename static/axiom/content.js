@@ -240,23 +240,9 @@ var axiom = {
 		return valid;
 	},
 	saveDialog:function(callback){
-		var content = document.createElement('p');
-		var img = document.createElement('img');
-		img.src = axiom.staticPath+'/axiom/images/alert.gif';
-		if(dojo.render.html.ie){
-			img.style.styleFloat = 'left';
-		} else{
-			img.style.cssFloat = 'left';
-		}
-		img.style.margin = '15px';
-		var div = document.createElement('div');
-		div.innerHTML = 'You are about to navigate away from this form without saving it.  To save your changes and continue, click the OK button or else click CANCEL to return to the form.';
-		content.appendChild(img);
-		content.appendChild(div);
-
-		axiom.openModal({content: content,
-						 callback: function(){axiom.triggerSubmitEdit(callback)},
-						 confirmdialog: true});
+	    dojo.require('axiom.widget.SaveDialogModal');
+	    var widget =  dojo.widget.createWidget('axiom:SaveDialogModal', {appPath: axiom.appPath, staticPath: axiom.staticPath, callback: callback});
+	    axiom.openModal({ widget: widget });
 	},
 	isDirty: function(){
 		var dirty = false;

@@ -116,6 +116,9 @@ function cms_init(){
 	app.addCronJob('archive_tasks', '*', '*', '*', '*', '2', '0');
 	app.addCronJob('publish_scheduled_tasks', '*', '*', '*', '*', '*', '0,15,30,45');
 	// end-cms-if
+
+    /* Set CMS version */
+    cmsGlobals.version = "3.2.0";
 }
 
 function getCMSXMLLines(file) {

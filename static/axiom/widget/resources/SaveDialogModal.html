@@ -1,0 +1,20 @@
+<div dojoAttachEvent="onKeyPress:handleKeyPress" class="ax-modal task-edit">
+  <div class="title"><img class="modal-icon" dojoattachpoint="modalIcon" /><h2 class="title-content" dojoattachpoint="title">Edit Task</h2><img class="close_button" dojoAttachEvent="onClick:close" src="${this.staticPath}/axiom/images/button_close.gif"/></div>
+  <form id="edit-task">
+	<div class="content-wrapper"> 
+	  <div class="content" dojoattachpoint="mainContent"> 
+	    <img dojoAttachPoint="img" style="float:left;margin:15px;" >
+	    <div>
+	      You are about to navigate away from this form without saving it.  To save your changes and continue, click the 'Save' button. To forgo changes and continue, click the 'Don't Save' button. Otherwise, click 'Cancel' to return to the form.
+	    </div>
+	  </div>
+
+	  <div class="modal-buttons" dojoattachpoint="modalButtons">
+		<a dojoAttachPoint="saveButton" dojoAttachEvent="onClick:save" class="button form-button">Save</a> 
+		<a dojoAttachPoint="dontSaveButton" dojoAttachEvent="onClick:dontSave" class="button form-button">Don't Save</a>
+		<a dojoAttachPoint="cancelButton" dojoAttachEvent="onClick:close" class="button form-button">Cancel</a> 
+	  </div>
+
+	</div>
+  </form>
+</div>
