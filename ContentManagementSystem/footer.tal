@@ -1,4 +1,4 @@
 <div id="footer" xmlns:tal="http://axiomstack.com/tale">
-  <span class="version" tal:text="$">Axiom CMS ${global.cmsGlobals.version}</span>
+  <span class="version" tal:text="$">Axiom CMS ${cmsGlobals.version}</span>
   <a href="http://www.axiomcm.com" target="_blank">&#169;2008, Axiom Software, Inc. All rights reserved.</a>
 </div>
