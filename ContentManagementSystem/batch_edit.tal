@@ -17,10 +17,10 @@
 			  individually even if you use the template!<br/><br/>
 			  <a href="javascript:void(0);" class="button form-button" onclick="applyBatch()">Apply</a></div></td>
 		  <td class="coltitle"><textarea id="template_title"> </textarea></td>
-		  <td tal:var="window_id: template_window" class="coltags tags">
+		  <td tal:var="window_id: 'template_window'" class="coltags tags">
 			<textarea id="template_tags"> </textarea> 
 			<div class="tag_button"><img tal:attr="onclick: 'axiom.tags.toggleWindow(\''+window_id+'\')', src: app.getStaticMountpoint('axiom/images/tag.gif')" /></div>
-			<span tal:var="input_id: template_tags" tal:replace="this.list_tags(data)"/>
+			<span tal:var="input_id: 'template_tags'" tal:replace="this.list_tags(data)"/>
 		  </td>
 		  <td class="colcaption"><textarea id="template_alt"> </textarea></td>
 		  <td class="colcredit"><textarea id="template_credit"> </textarea></td>

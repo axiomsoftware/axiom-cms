@@ -99,6 +99,8 @@ function search_assets(){
 	var highlight = [];
 	var contentTypeProp = app.getProperty('propertyFilesIgnoreCase') == 'true' ? '_contenttype' : '_contentType';
 	var object_types = [];
+	if (!types)
+	    types = "all";
 	if(types.match(/All|Image/i))
 		object_types.push('Image');
 	if(types.match(/All|Video|Audio|Document|Other/i))
@@ -132,7 +134,7 @@ function search_assets(){
 	var total = 0;
 	var hits;
 	if((!keywords || keywords.replace(/^\s+/, '').replace(/\s+$/, '') == '') && types.match(/all/i)){
-		var filter = '(cms_status:a OR cms_status:z) NOT _rendered: true';
+	    var filter = new NativeFilter('(cms_status:a OR cms_status:z) NOT _rendered: true', 1);
 		if(typeof this.cmsCustomQueryFilter == "function")
 			filter = new AndFilter(filter, this.cmsCustomQueryFilter(context));
 		hits = app.getHits(object_types, filter, {sort: sort_obj});
@@ -166,9 +168,9 @@ function search_assets(){
             final_query += ' AND ';
 		final_query += '(cms_status: z OR cms_status: a) NOT _rendered: true';
 
-		var final_filter = new NativeFilter(final_query, 'WhitespaceAnalyzer');
+	    var final_filter = new NativeFilter(final_query, 'WhitespaceAnalyzer', 1);
 		if(typeof this.cmsCustomQueryFilter == "function")
-			final_filter = new AndFilter(final_filter, this.cmsCustomQueryFilter(context));
+		    final_filter = new AndFilter(final_filter, this.cmsCustomQueryFilter(context));
 
 		hits = app.getHits(object_types, final_filter, {sort: sort_obj});
 		highlight = q.highlight;
@@ -183,8 +185,7 @@ function search_assets(){
 
 	var len = objects.length;
 	var results = [];
-	for(var i=0; i< len; i++){
-		var asset = objects[i];
+	for each(var asset in objects) {
 		var filesize = asset.getFileSize();
 
 		// workaround for Rhino's goofy serialization of references
