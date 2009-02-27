@@ -342,7 +342,7 @@ dojo.widget.defineWidget(
 			}
 			location.innerHTML = uri;
 		    location.setAttribute('target', '_blank');
-		    location.title = uri;
+		    location.title = obj.href;
 			cols.push({content: location, 'class': 'col_location'});
 
 			// content type

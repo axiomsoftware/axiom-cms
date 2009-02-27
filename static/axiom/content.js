@@ -93,7 +93,7 @@ var axiom = {
 			dojo.byId("columnRight").style.height= (height-170)+'px';
 		}
 	},
-    showSaveOrContent: function(event) {
+    showSaveOrContent: function() {
 	if (axiom.isEditing) {
 	    if (axiom.isDirty()) {
 		axiom.saveDialog();
