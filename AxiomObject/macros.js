@@ -87,14 +87,12 @@ function addable(){
  *  Return a boolean indicating if the object can be edited in the cms
  */
 function editable(){
-	// if-cms-version-enterprise
 	if (this._task) {
 		var task = this._task.getTarget();
 		if (task.status == "Scheduled") {
 			return false;
 		}
 	}
-	// end-cms-if
 
 
 	var val = this.getCMSProperty('editable', true);

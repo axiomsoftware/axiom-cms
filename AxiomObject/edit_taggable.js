@@ -39,9 +39,7 @@ function edit_taggable(data){
 				obj.setFileName(args.ax_id);
 			}
 			obj.save(args);
-			// if-cms-version-enterprise
 			obj.cms_status = 'z';
-			// end-cms-if
 		}
 	}
 }

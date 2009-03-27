@@ -79,12 +79,7 @@ dojo.widget.defineWidget(
 						 });
 		},
 		postCreate:function() {
-			// if-cms-version-enterprise
 			this.title.innerHTML = "Add Content to Task for Copying";
-			// end-cms-if
-			// if-cms-version-workgroup|standard
-			this.title.innerHTML = "Copy Objects";
-			// end-cms-if
 
 			var prefix_label = document.createElement('label');
 			prefix_label.innerHTML = 'Copy Prefix: ';
@@ -119,7 +114,6 @@ dojo.widget.defineWidget(
 			list.setAttribute('readonly', true);
 			this.mainContent.appendChild(list);
 
-			// if-cms-version-enterprise
 			var error_field = document.createElement('div');
 			error_field.className = 'error_message';
 			this.errorField = error_field;
@@ -149,33 +143,17 @@ dojo.widget.defineWidget(
 			}
 			this.taskField = task_list;
 			this.mainContent.appendChild(task_list);
-			// end-cms-if
 
-			// if-cms-version-personal|standard
-			var info = document.createElement('div');
-			info.innerHTML = "The content listed above will be copied."
-			this.mainContent.appendChild(info);
-			// end-cms-if
 
 			this.modalButtons.innerHTML = '';
 			var saveButton = document.createElement('a');
 			saveButton.className = 'button form-button';
-			// if-cms-version-enterprise
 			saveButton.innerHTML = "Save";
-			// end-cms-if
-			// if-cms-version-personal|standard
-			saveButton.innerHTML = "Copy";
-			// end-cms-if
 
 			dojo.event.kwConnect({srcObj: saveButton,
 								  srcFunc: 'onclick',
 								  adviceObj: this,
-								  // if-cms-version-enterprise
 								  adviceFunc: 'addToTask'
-								  // end-cms-if
-								  // if-cms-version-workgroup|standard
-								  adviceFunc: 'copyObjects'
-								  // end-cms-if
 								 });
 			this.modalButtons.appendChild(saveButton);
 

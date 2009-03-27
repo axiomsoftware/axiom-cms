@@ -4,6 +4,10 @@ dojo.require("dojo.io.IframeIO");
 dojo.require("dojo.html.*");
 dojo.require("dojo.widget.ContentPane");
 dojo.require("axiom.widget.Asset");
+// if we take out this require statement, strange onclick behavior
+// begins occuring.  accept the voodoo and leave it here though we
+// aren't going to make anything draggable.
+dojo.require("dojo.dnd.HtmlDragMove");
 var current_thumbs = [];
 var lastTags = '';
 var lastKeywords = '';
@@ -17,6 +21,7 @@ var last_page = 1;
 var edited_widget;
 
 function queryAssets(keywords, types, batch_size, sort, page_num){
+    showLoading();
 	dojo.io.bind({ url: axiom.cmsPath + 'search_assets',
  				   load: load_thumbs,
 				   mimetype: 'text/javascript',
@@ -247,7 +252,7 @@ function uploadFile(){
 }
 
 function showLoading(){
-	assetEdit('<div style="width:100%;text-align:center;padding:25px 0;">Loading...<br/><img src="'+axiom.staticPath + '/axiom/images/ajax-loader.gif" alt="Loading..." /></div>');
+	dojo.byId('thumbs').innerHTML = '<div style="width:100%;text-align:center;padding:25px 0;">Loading...<br/><img src="'+axiom.staticPath + '/axiom/images/ajax-loader.gif" alt="Loading..." /></div>';
 }
 
 function pageInit(){
@@ -255,11 +260,6 @@ function pageInit(){
 	new dojo.io.FormBind({ formNode: dojo.byId('search_form'),
 						   load: load_thumbs,
 						   mimetype: 'text/javascript' });
-
-	// if we take out this require statement, strange onclick behavior
-	// begins occuring.  accept the voodoo and leave it here though we
-	// aren't going to make anything draggable.
-	dojo.require("dojo.dnd.HtmlDragMove");
 
 	var oldcall = window.onresize;
 	window.onresize =  function(){
@@ -352,9 +352,10 @@ function cancelBatch(){
 	}
 	// chain the delete events so we don't switch back to search results
 	// before they're all deleted
-	assetEdit('<div style="width:100%;text-align:center;padding:25px 0;">'
+	/*assetEdit('<div style="width:100%;text-align:center;padding:25px 0;">'
 			  + 'Loading...<br/><img src="'+axiom.staticPath + '/axiom/images/ajax-loader.gif" '
-			  + 'alt="Loading..." /></div>');
+			  + 'alt="Loading..." /></div>');*/
+    showLoading();
 	dojo.byId('columnLeft').style.display = 'block';
 	dojo.byId('columnRight').style.margin = axiom.oldLeftMargin;
 	if(hrefs.length != 0){
@@ -394,7 +395,8 @@ function fire_submit(){
 					   contentType: 'text/json',
 					   load: function(){
 						   var colRight = dojo.byId('columnRight');
-						   assetEdit('<div style="width:100%;text-align:center;padding:25px 0;">Loading...<br/><img src="'+axiom.staticPath + '/axiom/images/ajax-loader.gif" alt="Loading..." /></div>');
+						   /*assetEdit('<div style="width:100%;text-align:center;padding:25px 0;">Loading...<br/><img src="'+axiom.staticPath + '/axiom/images/ajax-loader.gif" alt="Loading..." /></div>');*/
+					       showLoading();
 						   dojo.byId('columnLeft').style.display = 'block';
 						   colRight.style.margin = axiom.oldLeftMargin;
 						   fireLastQuery();

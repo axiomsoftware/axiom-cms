@@ -45,22 +45,12 @@ dojo.widget.defineWidget(
 			this.archivedTaskReport.style.display = 'block';
 		},
 		showObjectActionReport:function(){
- 			// if-cms-version-enterprise
 			this.reportSelect.selectedIndex = 4;
-			// end-cms-if
-			// if-cms-version-workgroup
-			this.reportSelect.selectedIndex = 1;
-			// end-cms-if
 			this.hideAll();
 			this.objectActionReport.style.display = 'block';
 		},
 		showUsersReport:function(){
-			// if-cms-version-enterprise
 			this.reportSelect.selectedIndex = 5;
-			// end-cms-if
-			// if-cms-version-workgroup
-			this.reportSelect.selectedIndex = 2;
-			// end-cms-if
 			this.hideAll();
 			this.usersReport.style.display = 'block';
 		},
@@ -82,7 +72,6 @@ dojo.widget.defineWidget(
 				this.usersReportOption.style.display = 'none';
 			}
 
-			// if-cms-version-enterprise
 			for(var i in axiom.allUsers){
 				var opt = document.createElement('option');
 				opt.value = axiom.allUsers[i];
@@ -90,7 +79,6 @@ dojo.widget.defineWidget(
 				this.assignee.appendChild(opt);
 				this.owner.appendChild(opt.cloneNode(true));
 			}
-			// end-cms-if
 
 			dojo.event.kwConnect({ srcObj:  this.reportSelect,
 								   srcFunc: 'onchange',

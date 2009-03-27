@@ -2,7 +2,6 @@ function session_id(){
 	return session._id;
 }
 
-// if-cms-version-enterprise
 function task_preview(){
 	var pieces = req.data.http_host.split(":");
 	var port = pieces[1];
@@ -26,25 +25,17 @@ function task_preview(){
 	}
 	res.redirect('http://'+domain+this.getURI());
 }
-// end-cms-if
 
 function save_preview(data){
 	data = (data || req.data);
-	// if-cms-version-enterprise
 	var layer = 2;
-	// end-cms-if
-	// if-cms-version-workgroup|standard
-	var layer = 1;
-	// end-cms-if
 	app.deleteDraft(this, layer);
 	var previewObj = app.getDraft(this, layer);
 	var errors = previewObj.save_as_preview(data);
 	if(errors) {
 		return errors;
 	} else {
-		// if-cms-version-enterprise
 		session.setDraftIds([previewObj._id], layer);
-		// end-cms-if
 		app.log('previewObj.getURI() => '+previewObj.getURI());
 		var port = req.data.http_host.split(":")[1];
 		return 'http://'+app.getProperties()['draftHost.'+layer]+(port?":"+port:'') + previewObj.getURI();
@@ -52,12 +43,7 @@ function save_preview(data){
 }
 
 function preview_url(){
-	// if-cms-version-enterprise
 	var preview_domain = app.getProperties()['draftHost.2'];
-	// end-cms-if
-	// if-cms-version-workgroup|standard
-	var preview_domain = app.getProperties()['draftHost.1'];
-	// end-cms-if
 	var port = req.data.http_host.split(":")[1];
 	if(port){
 		preview_domain += ":"+port;

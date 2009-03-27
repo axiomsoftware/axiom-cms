@@ -8,7 +8,6 @@
         </tr>
     </table>
   </fieldset>
-  <!-- if-cms-version-enterprise -->
   <h3>Approval Workflow Settings</h3>
   <fieldset>
     <table>
@@ -46,5 +45,4 @@
         </tr>
     </table>	
   </fieldset>
-  <!-- end-cms-if -->
 </form>    

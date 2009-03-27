@@ -2,16 +2,13 @@
   <h1>Reports</h1>
   <select class="report-select" dojoattachpoint="reportSelect">
 	<option>--Choose One--</option>
-	<!-- if-cms-version-enterprise -->
 	<option value="taskReport">Task Report</option>
 	<option value="archivedTaskReport">Archived Task Report</option>
 	<option value="lockedContentReport">Locked Content Report</option>
-	<!-- end-cms-if -->
 	<option value="objectActionReport">Object Action Report</option>
 	<option dojoattachpoint="usersReportOption" value="usersReport">Users Report</option>
   </select>
   
-  <!-- if-cms-version-enterprise -->
   <div class="reports-section" dojoattachpoint="taskReport">
 	<form method="post" action="task_report" name="taskReport">
 	  <label for="keywords">Keyword</label>
@@ -76,7 +73,6 @@
 	  <a href="javascript:void(0);" class="button form-button" onclick="document.lockedContentReport.submit()">Run</a>
 	</form>
   </div>
-  <!-- end-cms-if -->
 
   <div class="reports-section" dojoattachpoint="objectActionReport">
 	<form method="post" action="object_action_report" name="objectActionReport">

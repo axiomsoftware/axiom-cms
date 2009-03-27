@@ -56,7 +56,6 @@ def preprocess(lines, version)
     when /if-cms-version-([\w\|]+)/
       skip = !($LAST_PAREN_MATCH.index(version))
       nil
-    when /end-cms-if/
       skip = false
       nil
     else

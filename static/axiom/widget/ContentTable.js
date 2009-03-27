@@ -326,12 +326,7 @@ dojo.widget.defineWidget(
 								   srcFunc: 'onclick',
 								   adviceFunc: function(evt){
 									   evt.cancelBubble = true;
-									   // if-cms-version-enterprise
 									   window.open(obj.href.replace(/\/$/,'') + '/task_preview');
-									   // end-cms-if
-									   // if-cms-version-workgroup|standard
-									   window.open(obj.href.replace(/\/$/,''));
-									   // end-cms-if
 								   }
 								 });
 
@@ -342,7 +337,7 @@ dojo.widget.defineWidget(
 			}
 			location.innerHTML = uri;
 		    location.setAttribute('target', '_blank');
-		    location.title = uri;
+		    location.title = obj.href;
 			cols.push({content: location, 'class': 'col_location'});
 
 			// content type
@@ -452,9 +447,6 @@ dojo.widget.defineWidget(
 			}
 		},
 		checkDeleteButton:function(){
-			// if-cms-version-standard|workgroup
-			if(!axiom.isContentContributor)
-			// end-cms-if
 				this.checkButton(this.nonDeletableObjects, this.deleteButton);
 		},
 		checkButton: function(noTable, button){
@@ -524,11 +516,6 @@ dojo.widget.defineWidget(
 			}
 
 			var delete_data = {text:'Delete', callback: 'deleteObjects'};
-			// if-cms-version-standard|workgroup
-			if(axiom.isContentContributor){
-				delete delete_data.callback;
-			}
-			// end-cms-if
 
 			var buttons;
 			if(data.results.length != 0){

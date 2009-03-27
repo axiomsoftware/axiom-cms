@@ -74,7 +74,7 @@ dojo.widget.defineWidget(
 			assetEdit(this.path+ 'asset_edit?noCache='+(new Date()).getTime(), true, false, this);
 		},
 		toggleZoom:function(e) {
-			if(!this.contentType.match(/^image/i))
+			if(!(this.contentType && this.contentType.match(/^image/i)))
 				return;
 			if(this.zoomVisible){
 				this.nodeOff(this.zoom);
@@ -158,7 +158,7 @@ dojo.widget.defineWidget(
 			this.thumbnailActive.src = this.icons.on;
 			this.thumbnailActive.title = this.altText;
 
-			if(!(this.contentType.match(/^image/i))){
+		    if(!(this.contentType && this.contentType.match(/^image/i))){
 				this.zoomButton.src = this.staticPath+"/axiom/widget/resources/images/no_zoom_thumb.gif";
 				this.zoomButton.title = "";
 				this.zoomButton.style.cursor = "default";

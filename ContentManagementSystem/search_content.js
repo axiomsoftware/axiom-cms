@@ -169,12 +169,7 @@ function extractUser(user){
 			last_name:  user.last_name,
 			role:       user.roles[0],
 			email:      user.email,
-			// if-cms-version-enterprise
 			deletable:  (root.get('cms').my_open_tasks(user).length === 0),
-			// end-cms-if
-			// if-cms-version-workgroup|standard
-			deletable:  true,
-			// end-cms-if
 			edit_url:   user.getURI('user_edit')};
 }
 

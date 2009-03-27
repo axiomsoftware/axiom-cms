@@ -39,7 +39,6 @@ function auditLogObjectAction(data, conn){
 	}
 }
 
-// if-cms-version-enterprise
 function archive_tasks(){
 	var conn = app.getDbSource('_default').getConnection(false);
 	app.getObjects('CMSTask', {status: 'Approved'}).each(function(task){
@@ -50,4 +49,3 @@ function archive_tasks(){
 		}
 	});
 }
-// end-cms-if

@@ -13,10 +13,8 @@
 	  <p id="obj_last_modified"></p>
 	  <h4>Content-Type:</h4>
 	  <p id="obj_content_type"></p>
-	  <!-- if-cms-version-enterprise -->
 	  <h4>Task Info:</h4>
 	  <p id="obj_task_info"></p>
-	  <!-- end-cms-if -->
 	</div>
 	<div class="box">
 	  <h4>Referenced</h4>

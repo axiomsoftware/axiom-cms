@@ -42,9 +42,7 @@ function upload(){
 					if(hop_object_file instanceof Image){
 						hop_object_file.add_cms_thumbnails();
 					}
-					// if-cms-version-enterprise
 					hop_object_file.publishToLive();
-					// end-cms-if
 
 					files_to_edit.push(hop_object_file);
 				}
@@ -69,9 +67,7 @@ function upload(){
 			f.id = this.uniqueId(file.getName(), true);
 			f.cms_status = 'null';
 			req.data.add = true;
-			// if-cms-version-enterprise
 			f.publishToLive();
-			// end-cms-if
 			if(assetselect) { return f.assetselect_edit({'asset_id':assetid}); }
 			else { return f.asset_edit({add:true}); }
 		} else { // uh-oh

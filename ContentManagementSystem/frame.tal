@@ -20,10 +20,8 @@
 
 	axiom.searchPrototypes = ${this.cms_getPrototypesHash()};
 	axiom.addPrototypes = ${this.cms_getAddPrototypesHash()};
-	// if-cms-version-enterprise
 	axiom.myAssignedTasks = ${this.my_assigned_tasks().toSource().ampEscape()};
 	axiom.lastTaskID = ${this.get_last_task_id()};
-	// end-cms-if
 	function FCKeditor_OnComplete(editorInstance) {
         editorInstance.Focus();
 	} 

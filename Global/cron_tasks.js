@@ -30,7 +30,6 @@ function cms_cleanup(){
 	app.log('Removed '+for_removal.length+' objects with null status.');
 }
 
-// if-cms-version-enterprise
 function publish_scheduled_tasks(){
 	var current = new Date();
 	var start = new Date(current.valueOf());
@@ -66,4 +65,3 @@ function publish_scheduled_tasks(){
 	root.get('cms').scheduleNotification(task_groups);
 
 }
-// end-cms-if
