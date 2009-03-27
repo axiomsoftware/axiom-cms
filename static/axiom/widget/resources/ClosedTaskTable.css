@@ -1,7 +1,0 @@
-.closedTasks th.selector { width:3%; }
-.closedTasks th.col_id { width:5%; }
-.closedTasks th.col_name { width:43%; }
-.closedTasks th.col_items { width:5%; }
-.closedTasks th.col_completed { width:15%; }
-.closedTasks th.col_by { width:5%; border-right: 1px solid #b0b4b6; } 
-.closedTasks .col_sort { display: none; }

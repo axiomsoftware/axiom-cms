@@ -1,17 +1,7 @@
-// if-cms-version-enterprise
-function main(){
-	res.write(this.frame({title: 'Axiom CMS',
-						  nav: 'tasks_nav',
-						  content: 'tasks_content',
-						  scripts: ['tasks.js']}));
-}
-// end-cms-if
 
-//if-cms-version-standard|workgroup
 function main(){
 	this.content();
 }
-//end-cms-if
 
 function content(){
 	res.write(this.frame({title: 'Axiom CMS',

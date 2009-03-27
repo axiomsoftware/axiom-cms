@@ -12,26 +12,6 @@
         <a alt="Save" class="button form-button" href="javascript:void(0)" id="save_button" tal:attr="onclick: 'axiom.submitEdit({edit_url:\''+this.getURI('save')+'\',form_elem: this})'" title="Save">Save</a>
         <a alt="Cancel" class="button form-button" href="javascript:void(0)" tal:attr="onclick: add ? 'axiom.deleteNewAdd(\''+this.getURI()+'\')' : 'axiom.showSaveOrContent();'" title="Cancel">Cancel</a>
       </div>
-      <!-- if-cms-version-enterprise -->
-      <div class="task_info alert_info" tal:if="this.lockedByOther()" tal:var="task: this._task?  this._task.getTarget() : false">
-        <div>
-          <img tal:attr="src: app.getStaticMountpoint('/axiom/images/alert.gif')"/>
-          This content is included in an existing task.<br/>
-          Saving it will update task: <strong tal:text="$">${task.task_id} - ${task.name}</strong><br/>
-          <span class="alert">Note: You must still approve the task to publish the content.</span>
-        </div>
-      </div>
-      <div class="task_info" id="ax-_task" tal:if="!(this.lockedByOther())">
-        <select class="validate-task" name="_task" onchange="axiom.dirtyProps['_task']=true; axiom.taskListChange(this);">
-          <option value="">--Choose Task--</option>
-          <option tal:attr="value: task.path, selected: (this._task ? (task.task_id == this._task.getTarget().task_id ? 'true' : false) : false)" 
-				  tal:content="task.task_id+' - '+task.name" tal:repeat="task: root.get('cms').my_assigned_tasks()"/>
-          <option value="ADD NEW TASK">ADD NEW TASK</option>
-          <option tal:if="session.user.hasRole('Administrator')" value="BYPASS">BYPASS TASK CREATION</option>
-        </select>
-        <div class="error_message">hidden error message</div>
-      </div>
-      <!-- end-cms-if -->
     </div>
     <script tal:text="$" tal:var="window_title: add ? 'Add '+this.cms_sortable_prototype : 'Edit '+this.title, task_info: this._task ? this._task.getTarget().task_id + ' - ' + this._task.getTarget().name + ' - ' + this._task.getTarget().status : 'None'" type="text/javascript">
       //<![CDATA[

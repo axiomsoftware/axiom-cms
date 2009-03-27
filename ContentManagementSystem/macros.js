@@ -52,36 +52,11 @@ function domain_warning(){
 	var preview_hosts = app.getDomains(2);
 	var errors = [];
 
-	// if-cms-version-enterprise
-	switch(staging_hosts.length){
-	case 0: 	errors.push("No staging domains set."); break;
-	case 1:		errors.push("Only one domain set for staging layer."); break;
-	}
-
-	if(preview_hosts.length === 0){
-		errors.push("No preview domains set.");
-	}
-
-	var on_staging = false;
-	for each(var staging_host in staging_hosts){
-		if(staging_host == host) {
-			on_staging = true;
-			break;
-		}
-	}
-
-	if(!on_staging){
-		errors.push("Accessing CMS on live domain. Axiom CMS Enterprise must be accessed via a staging domain.");
-	}
-
-	// end-cms-if
-	// if-cms-version-workgroup|standard
 	if(staging_hosts.length === 0){
 		errors.push("No preview domain");
 	} else if(staging_hosts.length > 1) {
 		errors.push("Multiple preview domains set.");
 	}
-	// end-cms-if
 
 	if(errors.length === 0){
 		return false;

@@ -25,12 +25,7 @@ dojo.widget.defineWidget(
 			axiom.closeModal();
 		},
 		onEnter: function(){
-			// if-cms-version-enterprise
-			this.addToTask();
-			// end-cms-if
-			// if-cms-version-workgroup|standard
 			this.deleteObjects();
-			// end-cms-if
 		},
 		addToTask:function(){
 			if(this.taskField.value){
@@ -82,12 +77,7 @@ dojo.widget.defineWidget(
 						 });
 		},
 		postCreate:function() {
-			// if-cms-version-enterprise
-			this.title.innerHTML = "Add Content to Task for Deletion";
-			// end-cms-if
-			// if-cms-version-workgroup|standard
 			this.title.innerHTML = "Delete Objects";
-			// end-cms-if
 
 		    var table = document.createElement("table");
 		    table.setAttribute("id", "Delete");
@@ -127,62 +117,19 @@ dojo.widget.defineWidget(
 		    note.setAttribute("class", "note");
 		    this.mainContent.appendChild(note);
 
-			// if-cms-version-enterprise
-			var error_field = document.createElement('div');
-			error_field.className = 'error_message';
-			this.errorField = error_field;
-			this.mainContent.appendChild(error_field);
-
-			var task_label = document.createElement('label');
-			task_label.innerHTML = '<span class="required">*</span>Task: ';
-			this.mainContent.appendChild(task_label);
-
-			var task_list = document.createElement('select');
-			var opt = document.createElement('option');
-			opt.innerHTML = '--Choose One--';
-			opt.value = '';
-			task_list.appendChild(opt);
-			for(var i in axiom.myAssignedTasks){
-				var task = axiom.myAssignedTasks[i];
-				opt = document.createElement('option');
-				opt.innerHTML = task.task_id + ' - ' +task.name;
-				opt.value = task.task_id;
-				task_list.appendChild(opt);
-			}
-			if (axiom.isAdministrator) {
-				var bypassopt = document.createElement('option');
-				bypassopt.innerHTML = 'BYPASS TASK CREATION';
-				bypassopt.value = 'BYPASS';
-				task_list.appendChild(bypassopt);
-			}
-			this.taskField = task_list;
-			this.mainContent.appendChild(task_list);
-			// end-cms-if
-			// if-cms-version-personal|standard
 			var warning = document.createElement('div');
 			warning.innerHTML = "Are you sure you want to delete the selected content listed above?";
 			this.mainContent.appendChild(warning);
-			// end-cms-if
 
 			this.modalButtons.innerHTML = '';
 			var saveButton = document.createElement('a');
 			saveButton.className = 'button form-button';
-			// if-cms-version-enterprise
-			saveButton.innerHTML = "Save";
-			// end-cms-if
-			// if-cms-version-personal|standard
 			saveButton.innerHTML = "Delete";
-			// end-cms-if
 
 			dojo.event.kwConnect({srcObj: saveButton,
 								  srcFunc: 'onclick',
 								  adviceObj: this,
-								  // if-cms-version-enterprise
-								  adviceFunc: 'addToTask'
-								  // end-cms-if
-								  // if-cms-version-workgroup|standard
 								  adviceFunc: 'deleteObjects'
-								  // end-cms-if
 								 });
 			this.modalButtons.appendChild(saveButton);
 

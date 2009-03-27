@@ -44,9 +44,6 @@ function removeReferences(){
 				source[ref.sourceProperty] = null;
 			}
 		}
-		// if-cms-version-enterprise
-		app.saveDraft(source, 0);
-		// end-cms-if
 	}
 }
 

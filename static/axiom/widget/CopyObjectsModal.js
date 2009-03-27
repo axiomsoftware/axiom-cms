@@ -79,12 +79,7 @@ dojo.widget.defineWidget(
 						 });
 		},
 		postCreate:function() {
-			// if-cms-version-enterprise
-			this.title.innerHTML = "Add Content to Task for Copying";
-			// end-cms-if
-			// if-cms-version-workgroup|standard
 			this.title.innerHTML = "Copy Objects";
-			// end-cms-if
 
 			var prefix_label = document.createElement('label');
 			prefix_label.innerHTML = 'Copy Prefix: ';
@@ -119,63 +114,20 @@ dojo.widget.defineWidget(
 			list.setAttribute('readonly', true);
 			this.mainContent.appendChild(list);
 
-			// if-cms-version-enterprise
-			var error_field = document.createElement('div');
-			error_field.className = 'error_message';
-			this.errorField = error_field;
-			this.mainContent.appendChild(error_field);
 
-			var task_label = document.createElement('label');
-			task_label.innerHTML = '<span class="required">*</span>Task: ';
-			this.mainContent.appendChild(task_label);
-
-			var task_list = document.createElement('select');
-			var opt = document.createElement('option');
-			opt.innerHTML = '--Choose One--';
-			opt.value = '';
-			task_list.appendChild(opt);
-			for(var i in axiom.myAssignedTasks){
-				var task = axiom.myAssignedTasks[i];
-				var opt = document.createElement('option');
-				opt.innerHTML = task.task_id + ' - ' +task.name;
-				opt.value = task.task_id;
-				task_list.appendChild(opt);
-			}
-			if (axiom.isAdministrator) {
-				var bypassopt = document.createElement('option');
-				bypassopt.innerHTML = 'BYPASS TASK CREATION';
-				bypassopt.value = 'BYPASS';
-				task_list.appendChild(bypassopt);
-			}
-			this.taskField = task_list;
-			this.mainContent.appendChild(task_list);
-			// end-cms-if
-
-			// if-cms-version-personal|standard
 			var info = document.createElement('div');
 			info.innerHTML = "The content listed above will be copied."
 			this.mainContent.appendChild(info);
-			// end-cms-if
 
 			this.modalButtons.innerHTML = '';
 			var saveButton = document.createElement('a');
 			saveButton.className = 'button form-button';
-			// if-cms-version-enterprise
-			saveButton.innerHTML = "Save";
-			// end-cms-if
-			// if-cms-version-personal|standard
 			saveButton.innerHTML = "Copy";
-			// end-cms-if
 
 			dojo.event.kwConnect({srcObj: saveButton,
 								  srcFunc: 'onclick',
 								  adviceObj: this,
-								  // if-cms-version-enterprise
-								  adviceFunc: 'addToTask'
-								  // end-cms-if
-								  // if-cms-version-workgroup|standard
 								  adviceFunc: 'copyObjects'
-								  // end-cms-if
 								 });
 			this.modalButtons.appendChild(saveButton);
 

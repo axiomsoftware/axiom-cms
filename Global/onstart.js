@@ -45,13 +45,6 @@ function cms_init(){
 		bin.id = "recyclebin";
 	}
 
-	// if-cms-version-enterprise
-	if(!app.getObjects("CMSTaskContainer", "_d:1", {maxlength: 1})[0]){
- 		var container = new CMSTaskContainer();
-		root.get('cms').add(container);
-		container.id = "task_container";
-	}
-	// end-cms-if
 
 	// setup audit log table
 	var exception = false;
@@ -111,11 +104,6 @@ function cms_init(){
 	}
 	app.addCronJob.apply(app, args);
 
-	// if-cms-version-enterprise
-	// run task archiving at 2:00am every night
-	app.addCronJob('archive_tasks', '*', '*', '*', '*', '2', '0');
-	app.addCronJob('publish_scheduled_tasks', '*', '*', '*', '*', '*', '0,15,30,45');
-	// end-cms-if
 
     /* Set CMS version */
     cmsGlobals.version = "3.2.0";

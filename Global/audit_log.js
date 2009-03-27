@@ -39,15 +39,3 @@ function auditLogObjectAction(data, conn){
 	}
 }
 
-// if-cms-version-enterprise
-function archive_tasks(){
-	var conn = app.getDbSource('_default').getConnection(false);
-	app.getObjects('CMSTask', {status: 'Approved'}).each(function(task){
-		var delta = (new Date()).getTime() - task.lastmodified.getTime();
-		var archive_period = root.get('cms').archive_period * 86400000;
-		if(delta > archive_period){
-			task.archive(conn);
-		}
-	});
-}
-// end-cms-if
