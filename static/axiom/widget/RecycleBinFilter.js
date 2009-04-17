@@ -41,7 +41,7 @@ dojo.widget.defineWidget(
 	{
 		templatePath:new dojo.uri.dojoUri('../axiom/widget/resources/RecycleBinFilter.html'),
 		prototypeList: ["CMSTrashBag"],
-		sortObj: [{title: 'asc'}],
+		sortObj: [{cms_sortabletitle: 'asc'}],
 		getPrototype:function() {
 			return "CMSTrashBag";
 		},
