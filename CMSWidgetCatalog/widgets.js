@@ -40,7 +40,8 @@ function location(attr_name, props){
 
 	//]]></script>
     </div>
-		</fieldset>;
+	<p class="note">Once this field is set, saving the page will publish it live.</p>
+	</fieldset>;
 }
 
 function dropdown_location(attr_name, props){
@@ -232,7 +233,7 @@ function radio(attr_name, props){
 function wysiwyg(attr_name, props){
 	return <fieldset xmlns:talout="http://axiom.com/talout" xmlns:tal="http://axiomstack.com/tale" tal:attr="'class': 'ax-wysiwyg ax-'+attr_name, id: 'ax-'+attr_name">
 		<div> <div class="error_message">hidden error message</div>
-		<label class="wysiwyg-label" tal:attr="'for': attr_name">{(props.widget.required?new XML('<span class="required">*</span>'):'')} {(props.widget.label?new XMLList(props.widget.label.value):'undefined')+' '} <a class="button form-button" tal:attr="onclick: 'axiom.loadFCKInstance(\''+attr_name+'\',\''+(props.widget.width?props.widget.width.value:'')+'\',\''+(props.widget.height?props.widget.height.value:'')+'\',\''+(props.widget.formats?props.widget.formats.value:'')+'\',\''+(props.widget.templates?props.widget.templates.value:'')+'\',\''+(props.widget.styles?props.widget.styles.value:'')+'\',\''+(props.widget.stylesxml?props.widget.stylesxml.value:'')+'\');axiom.dirtyProps[\''+attr_name+'\'] = true;'">Edit</a>
+		<label class="wysiwyg-label" tal:attr="'for': attr_name">{(props.widget.required?new XML('<span class="required">*</span>'):'')} {(props.widget.label?new XMLList(props.widget.label.value):'undefined')+' '} <a class="button form-button" tal:attr="id: attr_name+'_toggle',onclick: 'axiom.toggleFCKInstance(\''+attr_name+'\',\''+(props.widget.width?props.widget.width.value:'')+'\',\''+(props.widget.height?props.widget.height.value:'')+'\',\''+(props.widget.formats?props.widget.formats.value:'')+'\',\''+(props.widget.templates?props.widget.templates.value:'')+'\',\''+(props.widget.styles?props.widget.styles.value:'')+'\',\''+(props.widget.stylesxml?props.widget.stylesxml.value:'')+'\');axiom.dirtyProps[\''+attr_name+'\'] = true;'">Edit</a>
 		          </label>
         <iframe tal:attr="id: attr_name+'_preview', 'talout:attr': 'src: this.getURI(\'preview_property?property='+attr_name+'&amp;src_id='+attr_name+'\')'" class="wysiwyg_preview"></iframe>
         <textarea tal:attr="id: attr_name, name: attr_name, 'class':(props.widget.required?'validate-empty':'')" style="display:none"><span tal:attr="'talout:replace':'this.'+attr_name+'||\'\''" /></textarea>

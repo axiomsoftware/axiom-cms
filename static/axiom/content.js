@@ -473,10 +473,9 @@ var axiom = {
 	FCKAssetSelect:null,
 	loadFCKInstance: function(id,width,height,formats,templates,styles,stylesxml) {
 		// TODO: Add more config parameters, config?/toolbar? etc
-		if(axiom.currentFCKInstance!=id) {
-			if(axiom.currentFCKInstance) { axiom.unloadFCKInstance(axiom.currentFCKInstance); }
 			dojo.byId(id+'_preview').style.display='none';
 			dojo.byId(id+'_fckarea').style.display='block';
+		    	dojo.byId(id+'_toggle').innerHTML = 'VIEW';
 			var fck = new FCKeditor(id+'_fcktext');
 			fck.BasePath = axiom.staticPath+'/FCKeditor/';
 			fck.Config.PluginsPath = axiom.staticPath+'/axiom/fck/';
@@ -492,8 +491,19 @@ var axiom = {
 			if(stylesxml) { fck.Config.StylesXmlPath = axiom.appPath + stylesxml; }
 			fck.ReplaceTextarea();
 			axiom.currentFCKInstance = id;
-		}
 	},
+
+    toggleFCKInstance: function(id,width,height,formats,templates,styles,stylesxml) {
+	var tmp = axiom.currentFCKInstance;
+	if(axiom.currentFCKInstance) {
+	    axiom.unloadFCKInstance(axiom.currentFCKInstance);
+	}
+
+	if (tmp!=id) {
+	    axiom.loadFCKInstance(id,width,height,formats,templates,styles,stylesxml);
+	}
+	tmp = null;
+    },
 
 	unloadFCKInstance: function(id) {
 		var xhtml = FCKeditorAPI.GetInstance(id+'_fcktext').GetXHTML();
@@ -506,6 +516,7 @@ var axiom = {
 		dojo.byId(id+'_preview').style.display='block';
 		dojo.byId(id+'_fckarea').style.display='none'; // Hide FCK Area
 		dojo.byId(id+'_fckarea').innerHTML = '<textarea id="'+id+'_fcktext">'+xhtml+'</textarea>';
+	    	dojo.byId(id+'_toggle').innerHTML = 'EDIT';
 		axiom.currentFCKInstance = null;
 	},
 
