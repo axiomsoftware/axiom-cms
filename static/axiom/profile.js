@@ -23,6 +23,10 @@
 var profile = {
 	init: function(){
 		dojo.require('dojo.json');
+		
+		// Wire up password meter for this page
+		var form = dojo.byId('edit');
+		createStrengthMeter(form.password, form.password.previousSibling);
 	},
 	submit: function(href) {
 		var form = dojo.byId('edit');
