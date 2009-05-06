@@ -27,6 +27,10 @@ var profile = {
 		// Wire up password meter for this page
 		var form = dojo.byId('edit');
 		createStrengthMeter(form.password, form.password.previousSibling);
+		
+		form.onchange = function(evt) {
+			dojo.byId('cancel').innerHTML = 'Cancel';
+		}
 	},
 	submit: function(href) {
 		var form = dojo.byId('edit');
@@ -34,10 +38,10 @@ var profile = {
 			axiom.openModal({content: 'Please provide a first and last name.'});
 		} else if(!form.email.value || !form.email.value.match(/^[\w\.=-]+@[\w\.-]+\.[\w]{2,3}$/)) {
 			axiom.openModal({content: 'Please provide a valid email address.'});
-		} else if(!form.password.value && form.password.value != form.verifypassword.value) {
+		} else if(form.password.value && form.password.value != form.verifypassword.value) {
 			axiom.openModal({content: 'The passwords specified do not match.'});
 		} else if(form.password.value && !form.password.value.match(/[\w\s]{5,10}/)) {
-			axiom.openModal({content: 'Please verify that your password is 5-10 characters before proceeding.'});
+			axiom.openModal({content: 'Please verify that your password is at least 5 characters before proceeding.'});
 		} else {
 			axiom.submitEdit({
 				edit_url:href,

@@ -2,17 +2,25 @@
 	<div class="profile_rail">
 		<h2>User Information</h2>
 
-		<h4>CMS Role</h4>
+		<h4>CMS Role:</h4>
 		<span tal:content="session.user.search_roles" />
+		
+		<h4>Created:</h4>
+		<span tal:content="this.cms_lastmodified+' by '+(session.user ? session.user.username : 'System')" />
 
-		<h4>Created</h4>
-		<span tal:content="session.user.created()" />
-
-		<h4>Last login</h4>
+		<h4>Last login:</h4>
 		<span tal:content="session.user.last_login" />
 
-
-		<h4>Last Update</h4>
+		<h4>Last Profile Update:</h4>
 		<span tal:content="session.user.cms_lastmodified" />
+	</div>
+	<div class="profile_rail bottom">
+		<h2>Latest Modifications</h2>
+		<ul>
+			<li tal:repeat="content: session.user.getLatestActivity()">
+				<span tal:content="content.title" />
+				<span class="modified" tal:content="content.cms_lastmodified" />
+			</li>
+		</ul>
 	</div>
 </div>

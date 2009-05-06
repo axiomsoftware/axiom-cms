@@ -6,6 +6,7 @@
 	  <li><a target="blank" tal:attr="onclick: 'window.open(\''+cms.getURI('settings')+'\', \'Settings\', \'width=1024,height=700,resizable=yes,scrollbars=yes\')' ">Settings</a></li>
 	  <li><a target="blank" tal:attr="onclick: 'window.open(\''+cms.getURI('users')+'\', \'Users\', \'width=1024,height=700,resizable=yes,scrollbars=yes\')' ">Users</a></li>
 	</swx>
+	<li><a target="blank" tal:attr="onclick: 'window.open(\''+cms.getURI('profile')+'\', \'UserProfile\', \'width=1024,height=700,resizable=yes,scrollbars=no\')' ">My Profile</a></li>
 	<li class="last"><a href="#" onclick="axiom.logout()">Logout</a></li>
   </ul>
   <div class="logo">

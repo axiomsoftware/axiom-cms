@@ -35,7 +35,7 @@
 		  <div class="separator"> </div>
 		  <div class="separator border"> </div>
 		  <div dojoType="ContentPane" executeScripts="true" scriptSeperation="false" class="body" id="ContentBody">
-			<div tal:replace="this[data.nav](data)"/>
+			<div tal:if="this[data.nav]" tal:replace="this[data.nav](data)"/>
 			<div tal:replace="this[data.content](data)"/> 
 		  </div>
 		</div>
