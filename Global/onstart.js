@@ -138,7 +138,7 @@ function cms_init(){
 
     // Cron job to grab analytics data
     // TODO: Allow this to be adjusted in the settings tab
-    app.addCronJob('cms_analytics','*','*','*','*','03','*','*');
+    app.addCronJob('cms_analytics','*','*','*','*','03','*');
 
     /* Set CMS version */
     cmsGlobals.version = "3.2.0";
