@@ -16,7 +16,7 @@
     <script tal:text="$" tal:var="window_title: add ? 'Add '+this.cms_sortable_prototype : 'Edit '+this.title, task_info: this._task ? this._task.getTarget().task_id + ' - ' + this._task.getTarget().name + ' - ' + this._task.getTarget().status : 'None'" type="text/javascript">
       //<![CDATA[
      //axiom.FCKInstances=[]; // Used for Saving with FCKeditor
-	document.title = 'Axiom CMS - ${window_title.replace(/(['])/g,\'\\$1\')}';
+	document.title = 'Axiom CMS - ${window_title.replace(/(['])/g, '\\$1')}';
     axiom.dirtyProps = {};
     axiom.isEditing = true;
 	axiom.triggerSubmitEdit = function(callback){ axiom.submitEdit({edit_url:'${this.getURI('save')}', form_elem:dojo.byId('save_button'), callback: callback}); }
