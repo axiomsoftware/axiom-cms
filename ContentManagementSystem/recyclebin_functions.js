@@ -22,12 +22,15 @@
 
 
 function restore_objects(data){
-	data = data || req.data;
+	if (!data) { data = req.data; }
+    var conflict = false;
 	var msgs = [];
 	var filter = new OrFilter([new Filter(f) for each(f in data.objects)]);
 	for each(bag in app.getObjects("CMSTrashBag", filter)){
 		var item = bag.getChildren()[0];
+		app.log(bag.oldlocation);
 		var new_location = bag.oldlocation.replace(/\/[^\/]+$/, '');
+		app.log(new_location);
 		var errors = item.save({_location: new_location});
 		var restore = function(obj){
 			bag._parent.remove(bag);
@@ -37,19 +40,19 @@ function restore_objects(data){
 			restore(item);
 		} else {
 			// try readable probably-unique location
-			errors = item.save({_location: new_location+'_restored'});
+			errors = item.save({_location: new_location, id: item.id+"_restored"});
 			var new_location_msg = 'Object "'+item.title+'" could not be restored to its original'
-												+ ' location because another object is '
-												+ 'currently located there.  It has been restored to ';
+			+ ' location because another object is '
+			+ 'currently located there.  It has been restored to ';
 			if(!errors){
-				msgs.push(new_location_msg+new_location+'_restored instead.');
+				msgs.push(new_location_msg+item.getURI()+' instead.');
 				restore(item);
 			} else {
 				// try guaranteed unique path
 				var time = (new Date()).getTime();
-				errors = item.save({_location: new_location+'_'+time});
+				errors = item.save({_location: new_location, id: item.id+'_'+time});
 				if(!errors){
-					msgs.push(new_location_msg+new_location+'_'+time+' instead.');
+					msgs.push(new_location_msg+item.getURI()+' instead.');
 					restore(item);
 				} else{
 				    app.log('RecycleBin Restore Exception: Object Title="'+item.title+'": Server Message="'+errors.toSource()+'"');
