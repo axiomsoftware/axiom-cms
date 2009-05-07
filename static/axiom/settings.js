@@ -28,6 +28,7 @@ axiom.settings = {
 			dojo.require("axiom.widget.SettingsNav");
 			dojo.require("axiom.widget.GeneralSettings");
 			dojo.require("axiom.widget.SEOSettings");
+		    dojo.require("axiom.widget.AnalyticsSettings");
 
 			axiom.settings.nav = dojo.widget.createWidget('axiom:SettingsNav', {}, dojo.byId('SettingsNav'));
 
@@ -36,6 +37,9 @@ axiom.settings = {
 
 			axiom.settings.seo = dojo.widget.createWidget('axiom:SEOSettings', {}, dojo.byId('SEO'));
 			axiom.settings.nav.registerModule(axiom.settings.seo, "SEO");
+
+			axiom.settings.analytics = dojo.widget.createWidget('axiom:AnalyticsSettings', {}, dojo.byId('Analytics'));
+			axiom.settings.nav.registerModule(axiom.settings.analytics, "Analytics");
 
 			axiom.settings.nav.showWidget("General");
 		}

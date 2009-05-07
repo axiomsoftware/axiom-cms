@@ -39,3 +39,42 @@ function upload_seo_files(){
 	replace('sitemap.xml', req.data.sitemap);
 	replace('favicon.ico', req.data.favicon);
 }
+
+function save_analytics_info() {
+    var ret = {
+	success: false
+    };
+
+    var acct = req.get("acctname");
+    var pw = req.get("password");
+    var profile_id = req.get("profile");
+    var pageviews = req.get("pageviews");
+    var conversions = req.get("conversions");
+
+    var settings = app.getObjects('CMSSettings')[0];
+    if (settings && acct && profile_id) {
+	settings.analytics_account = acct;
+	settings.profile_id = profile_id;
+
+	if (pw) {
+	    settings.analytics_password = pw;
+	}
+
+	if (pageviews == "on") {
+	    settings.show_pageviews = true;
+	} else {
+	    settings.show_pageviews = false;
+	}
+
+	if (conversions == "on") {
+	    settings.show_conversions = true;
+	} else {
+	    settings.show_conversions = false;
+	}
+
+	createAnalyticsDB();
+	ret.success = true;
+    }
+
+    return ret;
+}

@@ -53,3 +53,61 @@ function cms_cleanup(){
 	app.log('Removed '+for_removal.length+' objects with null status.');
 }
 
+function cms_analytics() {
+    var settings = app.getHits('CMSSettings').objects(0,1);
+    var url = req.get('url');
+    if (settings.length > 0) {
+	settings = settings[0];
+	if (settings.analytics_account && settings.analytics_password && settings.profile_id && (settings.show_pageviews || settings.show_conversions)) {
+	    var paths = {};
+	    var now = new Date();
+	    var as = new Packages.com.google.gdata.client.analytics.AnalyticsService("analytics");
+	    as.setUserCredentials(settings.analytics_account, settings.analytics_password);
+
+	    var metrics = "ga:pageviews,ga:goalCompletionsAll";
+
+	    //url info
+	    var today = new Date();
+	    var month = new Date();
+	    month.setMonth(today.getMonth()-1);
+	    var feed_url = new Packages.java.net.URL("https://www.google.com/analytics/feeds/data?ids=ga:"+settings.profile_id+"&dimensions=ga:pagePath&metrics="+metrics+"&start-date="+month.format("yyyy-MM-dd")+"&end-date="+today.format("yyyy-MM-dd"));
+	    var feed = as.getFeed(feed_url, Packages.com.google.gdata.data.analytics.DataFeed);
+	    var entries = feed.getEntries();
+	    var entries_size = entries.size();
+	    if (entries_size > 0) {
+		var conn = getDBConnection('_default');
+
+		for (var i = 0; i < entries_size; i++) {
+		    var entry = entries.get(i);
+		    var pageviews_value = entry.doubleValueOf("ga:pageviews");
+		    var conversions_value = entry.doubleValueOf("ga:goalCompletionsAll");
+		    if (entry.hasDimensions()) {
+			var dim = entry.getDimension("ga:pagePath");
+			var dim_url = dim.getValue();
+			dim_url = dim_url.replace(/\/+$/, "");
+			if (dim_url == "") {
+			    dim_url = '/';
+			}
+			if (!(paths[dim_url])) {
+			    paths[dim_url] = {
+				pageviews: pageviews_value,
+				conversions: conversions_value
+			    };
+			} else {
+			    paths[dim_url].pageviews += pageviews_value;
+			    paths[dim_url].conversions += conversions_value;
+			}
+		    }
+		}
+
+		for (var path in paths) {
+		    var path_obj = paths[path];
+		    var statement = "INSERT INTO cms_analytics (date, path, pageviews, conversions) VALUES ("+["'"+now.format("yyyy-MM-dd hh:mm:ss"),path,path_obj.pageviews,path_obj.conversions+"'"].join("','")+")";
+		    if (conn.executeUpdate(statement) == -1) {
+			app.log(conn.getLastError());
+		    }
+		}
+	    }
+	}
+    }
+}

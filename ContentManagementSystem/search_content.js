@@ -148,23 +148,29 @@ function runSearch(custom_query) {
 	this.writeResults(this.extractContent,hits,results,start,length,sort,return_href);
 }
 
+
+
 function extractContent(result){
 	var task = result._task ? result._task.getTarget() : null;
 	var locked = task ? task.status.match(/incomplete|rejected|pending|scheduled/i): false;
 	var cms = root.get('cms'); // scoping fun
-	return {id: result.id,
-			_id: result._id,
-			path: result.getPath(),
-			href: result.getURI(),
-			title: result.title,
-			task: task ? cms.extractTask(task) : null,
-			addable: result.addable(),
-			editable: result.task_editable(),
-			locked: locked,
-			deletable: (!locked && result.deleteable()),
-			created: result.cms_createdby,
-			lastmodified: result.cms_lasteditedby,
-			contenttype: result.getPrettyName().toString()};
+	var obj = {
+	    id: result.id,
+	    _id: result._id,
+	    path: result.getPath(),
+	    href: result.getURI(),
+	    title: result.title,
+	    task: task ? cms.extractTask(task) : null,
+	    addable: result.addable(),
+	    editable: result.task_editable(),
+	    locked: locked,
+	    deletable: (!locked && result.deleteable()),
+	    created: result.cms_createdby,
+	    lastmodified: result.cms_lasteditedby,
+	    contenttype: result.getPrettyName().toString()
+	};
+
+	return obj;
 }
 
 function extractTask(task){

@@ -83,9 +83,7 @@ dojo.widget.defineWidget(
 				this.searchURL = this.appPath + 'cms/runSearch';
 			if(this.ajaxLoader) this.ajaxLoader.src = axiom.staticPath+'/axiom/images/ajax-loader.gif';
 
-			if(this.lock) this.lock.src = axiom.staticPath+'/axiom/images/lock.gif';
-
-			dojo.event.kwConnect({srcObj: this.pagination_input,
+		    dojo.event.kwConnect({srcObj: this.pagination_input,
 								  srcFunc: 'onkeypress',
 								  adviceObj: this,
 								  adviceFunc: 'goToPage'});
@@ -113,7 +111,7 @@ dojo.widget.defineWidget(
 			var row,input;
 			if(dojo.dom.isNode(evt)){
 				row = evt;
-				input = row.getElementsByTagName('input')[0]
+			    input = row.getElementsByTagName('input')[0];
 			} else{
 				this.stopBubble(evt);
 				input = evt.currentTarget;
@@ -306,7 +304,7 @@ dojo.widget.defineWidget(
 			dojo.event.kwConnect({srcObj:row,
 								  srcFunc: 'onclick',
 								  adviceObj: this,
-								  adviceFunc: function(){this.toggleRow(row)}
+					      adviceFunc: function(){this.toggleRow(row);}
 								 });
 			return row;
 		},
@@ -341,24 +339,16 @@ dojo.widget.defineWidget(
 				lock.title = "Locked";
 				lock.alt = "Locked";
 			}
-			cols.push({content: lock, 'class': 'col_lock'})
+		    cols.push({content: lock, 'class': 'col_lock'});
 
 			// live url
 			var location = document.createElement('a');
-			dojo.event.kwConnect({ srcObj: location,
-								   srcFunc: 'onclick',
-								   adviceFunc: function(evt){
-									   evt.cancelBubble = true;
-									   window.open(obj.href.replace(/\/$/,''));
-								   }
-								 });
-
-			location.href = "javascript:void(0);";
 			var uri =  obj.path.match(/^\/cms/) ? '' : obj.href;
 			if(uri.length > 60){
 				uri = uri.substring(0, 60)+'...';
 			}
 			location.innerHTML = uri;
+			location.href = uri;
 		    location.setAttribute('target', '_blank');
 		    location.title = obj.href;
 			cols.push({content: location, 'class': 'col_location'});
@@ -378,25 +368,34 @@ dojo.widget.defineWidget(
 				dojo.html.addClass(row, 'addable');
 			}
 
-			// info row creation
-			var task_text = '';
-			if(obj.task){
-				task_text = 'In Task:  '+obj.task.task_id+ ' - '+obj.task.name+' - '+obj.task.status;
-			}
-			this.results_body.appendChild(this.createInfoRow({
-				id: obj._id+'created',
-                omitSelector: true,
-				cols: [ {content: obj.created},
-						{content: task_text ? '<img src="'+axiom.staticPath+'/axiom/images/arrow-right.gif" />' : ''},
-						{content: task_text} ]
-			}));
+		    var obj_id = obj._id;
+			this.results_body.appendChild(
+			    this.createInfoRow(
+				{
+				    id: obj_id+'created',
+				    omitSelector: true,
+				    cols: [
+					{content: obj.created},
+					{content: ''},
+					{content: 'Loading Pageviews...', id: obj_id+'pageviews'}
+				    ]
+				}
+			    )
+			);
 
-			this.results_body.appendChild(this.createInfoRow({id: obj._id+ 'edited',
-															  cols: [{content: obj.lastmodified},
-																	 {content:  ''},
-																	 {content: obj.task ? obj.task.cms_createdby : ''}]
-															 }));
-			this.rowInfoIndex[obj._id] = [obj._id+'created', obj._id+'edited'];
+			this.results_body.appendChild(
+			    this.createInfoRow(
+				{
+				    id: obj_id+ 'edited',
+				    cols: [
+					{content: obj.lastmodified},
+					{content: ''},
+					{content: 'Loading Goal Conversions...', id: obj_id+'conversions'}
+				    ]
+				}
+			    )
+			);
+			this.rowInfoIndex[obj_id] = [obj_id+'created', obj_id+'edited'];
 		},
 		createInfoRow:function(data){
 			var row = this.results_body.insertRow(document.createElement('tr'));
@@ -412,13 +411,18 @@ dojo.widget.defineWidget(
 
 			var total_cols = data.cols.length + 2;
 			for(var i in data.cols){
-				var row_content = document.createElement('td');
-				var content = data.cols[i].content;
+			    var col = data.cols[i];
+			    var row_content = document.createElement('td');
+			    if (col.id) {
+				var id = col.id;
+				row_content.setAttribute('id', id);
+			    }
+				var content = col.content;
 				if(dojo.dom.isNode(content))
 				   row_content.appendChild(content);
 				else
-					row_content.innerHTML = content
-				var colspan = data.cols[i].colspan;
+				    row_content.innerHTML = content;
+				var colspan = col.colspan;
 				if(colspan){
 					row_content.setAttribute('colSpan', colspan);
 					total_cols += colspan - 1;
@@ -437,10 +441,12 @@ dojo.widget.defineWidget(
 		},
 		collapseRow:function(row){
 			dojo.html.removeClass(row, 'highlight');
+		    if (row) {
 			var ids = this.rowInfoIndex[row.id];
 			for(var i in ids){
 				dojo.byId(ids[i]).style.display = 'none';
 			}
+		    }
 		},
 		onSelect:function(row){
 			if(this.deleteButton && !dojo.html.hasClass(row, 'deletable')){
@@ -483,14 +489,15 @@ dojo.widget.defineWidget(
 				dojo.html.addClass(button, 'form-button-disabled');
 			}
 		},
-		toggleRow:function(row){
-			if(this.activeRow && this.activeRow != row.id){
+		toggleRow:function(internal_row){
+			if(this.activeRow && this.activeRow != internal_row.id){
 				this.collapseRow(dojo.byId(this.activeRow));
 			}
-			this.activeRow = row.id;
-			var rows = this.rowInfoIndex[row.id];
+			this.activeRow = internal_row.id;
+			var rows = this.rowInfoIndex[internal_row.id];
 			for(var i in rows){
-				var row = dojo.byId(rows[i]);
+			    var row_id = rows[i];
+				var row = dojo.byId(row_id);
 				if(row){
 					if(row.style.display == 'table-row' || row.style.display == ''){
 						row.style.display = 'none';
@@ -503,8 +510,53 @@ dojo.widget.defineWidget(
 							row.style.display = 'table-row';
 					}
 				}
+
 			}
+		    this.applyAnalytics(internal_row.id);
 		},
+	    applyAnalytics: function(id) {
+		var path;
+		var path_element = dojo.byId(id);
+		var nodes = path_element.childNodes;
+		var i = 0;
+		for (i; i < nodes.length; i++) {
+		    var node = nodes[i];
+		    if (node.getAttribute('class') == 'col_location') {
+			path = node.childNodes[0].getAttribute('href');
+		    }
+		}
+
+		dojo.io.bind(
+		    {
+			url: axiom.cmsPath + "getAnalytics",
+			method: 'post',
+			contentType: 'text/json',
+			mimetype: 'text/json',
+			postContent: dojo.json.serialize({url: path}),
+			load: function(type, data, evt) {
+			    var top = dojo.byId(id+'pageviews');
+			    var bottom = dojo.byId(id+'conversions');
+			    if (data.pageviews) {
+				var pageviews = data.pageviews;
+				var pv = ['<a href="http://analytics.google.com" target="_blank"><img src="',axiom.staticPath,'/axiom/images/ga-icon.png" title="Google Analytics" alt="Google Analytics"</a> <span>Pageviews: ',pageviews.value,' / ',pageviews.percent,'%'].join('');
+				top.innerHTML = pv;
+			    }
+
+			    if (data.conversions) {
+				var conversions = data.conversions;
+				var conv = ['<span style="margin-left:22px;"class="ga_spacer">Goal Conversions: ',conversions.value,' / ',conversions.percent,'%'].join('');
+				bottom.innerHTML = conv;
+			    }
+
+			    if (!(data.pageviews && data.conversions)) {
+				top.innerHTML = '<span>No <a href="http://analytics.google.com/">Google Analytics</a> data for this URL</span>';
+				bottom.innerHTML = '';
+			    }
+			    return;
+			}
+		    }
+		);
+	    },
 		handleResults:function(type, data, req){
 			if (this.widget == axiom.ctable) {
 				if (this.widget.searchterm) {

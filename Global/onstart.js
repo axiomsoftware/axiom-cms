@@ -49,6 +49,11 @@ function cms_init(){
 		files.title = "File Folder";
 		root.add(files);
 
+	    var settings = new CMSSettings();
+	    settings.id = "settings";
+	    settings.title = "CMS Settings";
+	    cms.add(settings);
+
 		app.log('-------------------------------------------');
 		app.log('Creating default cms user: admin / changeme');
 		app.log('-------------------------------------------');
@@ -127,9 +132,22 @@ function cms_init(){
 	}
 	app.addCronJob.apply(app, args);
 
+    // Create the analytics storage database
+    // TODO: Should allow some customizability(is that a word) here, which DB source to use, which analytics tool, etc.
+    createAnalyticsDB();
+
+    // Cron job to grab analytics data
+    // TODO: Allow this to be adjusted in the settings tab
+    app.addCronJob('cms_analytics','*','*','*','*','03','*','*');
 
     /* Set CMS version */
     cmsGlobals.version = "3.2.0";
+}
+
+function createAnalyticsDB() {
+    var conn = getDBConnection('_default');
+    var statement = "CREATE TABLE IF NOT EXISTS cms_analytics (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, date TIMESTAMP NOT NULL, path VARCHAR(255) NOT NULL, pageviews INT, conversions INT)";
+    conn.executeUpdate(statement);
 }
 
 function getCMSXMLLines(file) {
