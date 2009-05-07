@@ -1,0 +1,3 @@
+<div class="columnRight" xmlns:tal="http://axiomstack.com/tale">
+	<div tal:replace="session.user.user_profile({})" />
+</div>

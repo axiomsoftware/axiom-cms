@@ -41,3 +41,41 @@ function editFormSubmit(){
 function editFormPreview(){
 	alert('Preview');
 };
+
+var strengths = [
+	{word: 'weak',		regex:/.{0,4}/},
+	{word:'fair',		regex:/.{5,}/},
+	{word:'strong',		regex:/^.{16,}$/},
+	{word:'strong',		regex:/^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^a-zA-Z0-9]).{6,}|(?=.*\d).{10,}$/},
+	{word:'excellent',	regex:/^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^a-zA-Z0-9]).{14,}$/},
+	{word:'excellent',	regex:/^.{20,}$/}
+];
+
+function createStrengthMeter(input, target) {
+	target.innerHTML += '<span id="pw_strength_'+input.id+'" class="password"></span>';
+	input.onkeyup = function() {
+		visualizeStrength(input, dojo.byId('pw_strength_'+input.id));
+	}
+}
+
+function visualizeStrength(input, target) {
+	if(!input.value || input.value.length == 0) {
+		target.innerHTML = '';
+	} else {
+		var word = measureStrength(input.value);
+		target.innerHTML =
+			' (Strength: <span class="'+
+				word
+			+'">'+word+'</span>)';
+	}
+};
+
+function measureStrength(str) {
+	var total = strengths.length-1;
+	for(var x=total; x>-1; x--) {
+		if(str.match(strengths[x].regex)) {
+			return strengths[x].word;
+		}
+	}
+	return strengths[0].word;
+};

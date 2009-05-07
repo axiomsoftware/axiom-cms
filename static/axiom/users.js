@@ -37,6 +37,18 @@ var users = {
 												 dojo.byId("UserFilter"));
 		users.cfilter.registerTable(users.ctable);
 		users.cfilter.search();
+		
+		// Wire up password meter for this page
+		var form = dojo.byId('add_form');
+		var label = form.add_password;
+		var safe = 0;
+		while(label = label.previousSibling) {	// Move back till we find the label for this element
+			if(label.tagName && label.tagName.toLowerCase() == 'label' || safe == 15) {
+				if(safe != 15) createStrengthMeter(form.add_password, label);
+				break;
+			}
+			safe++;
+		}
 	},
 	submit: function(href, id, callback){
 		var form = dojo.byId('edit');
@@ -69,7 +81,6 @@ var users = {
 		var edit = dojo.widget.byId('EditBody');
 		edit.setUrl(href);
 		edit.show();
-
 	},
 	load_search: function(){
 		dojo.widget.byId('EditBody').hide();

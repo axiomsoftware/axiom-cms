@@ -325,6 +325,13 @@ th,td {white-space: normal; text-align: left; padding:0px;border: 1px solid #AAA
 #content .body .columnLeft p {font-size:.9em;margin:0px;}
 #content .body .columnLeft fieldset {margin:0px;padding:0 0 13px 0;}
 #content .body .columnLeft .section {width:190px; padding:10px 0; margin:0 25px; margin-bottom:3px;border-bottom: 1px solid #b8b8b8;}
+#content .body .columnLeft .profile_rail {width:190px; padding:10px 0 30px; margin:0 25px 10px; border-bottom: 1px solid #b8b8b8;}
+#content .body .columnLeft .profile_rail.bottom {border-bottom:0 none;}
+#content .body .columnLeft .profile_rail h4 {margin:20px 0 4px; color:#333; text-transform:uppercase;}
+#content .body .columnLeft .profile_rail ul {margin:0; padding:0; list-style:none;}
+#content .body .columnLeft .profile_rail li {margin:10px 0; padding:0;}
+#content .body .columnLeft .bottom span {display:block;}
+#content .body .columnLeft .profile_rail span.modified {color:#666; font-weight:normal;}
 #content .body .columnLeft .first { padding:0px 0 19px 0;}
 #content .body .columnLeft .section .searchtags, .searchtags label {float:left;}
 .searchtags img {float:right;}
@@ -478,6 +485,11 @@ body.login .loginbox div, .adminbox div {padding-bottom:10px;}
 .users-textbox {margin-bottom: 5px;}
 .edit_buttons {padding-left:3.5%;}
 .edit_buttons a {padding:3px 6px 4px 6px; display:block;float:left; margin-right:4px;}
+.password {font-weight:bold;}
+.password .weak {color:#990000;}
+.password .fair {color:#FF9900;}
+.password .strong {color:#009900;}
+.password .excellent {color:#0055E5;}
 
 /* SimpleFormBuilder table styles */
 #SimpleFormBuilder table {padding:0;border-bottom:0;border-collapse:collapse;}
@@ -486,7 +498,8 @@ body.login .loginbox div, .adminbox div {padding-bottom:10px;}
 #SimpleFormBuilder table tr {border-bottom:#b0b4b7 1px solid;}
 /*end SimpleFormBuilder table styles */
 
-#Messages { display:none; margin:0 6% 0 40px; font-family: Tahoma; font-size: 12px; color: #006600; font-weight: bold; padding: 5px; 7px 7px 2px;}
+#Messages { display:none; margin:0 6% 0 40px; font-family: Tahoma; font-size: 12px; color: #006600; font-weight: bold; padding: 5px 7px 7px 2px;}
+#edit #Messages {margin:0 0 -26px 24px;}
 
 /* modal styles */
 .ax-modal {border:2px solid #b0b4b7; border-bottom:5px solid #c8cbce; width:367px; background: #fff; font-family:Tahoma; font-size: 11px; color: #333;}

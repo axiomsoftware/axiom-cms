@@ -1,0 +1,17 @@
+<div xmlns:tal="http://axiomstack.com/tale">
+	<form id="edit" method="post"> 
+	<h1 tal:text="$">
+		<img tal:attr="src: app.getStaticMountpoint('axiom/images/icon_edit.gif')" alt="Edit Icon" title="Edit Icon"/> 
+		Profile For ${this.first_name} ${this.last_name} (${this.username})
+	</h1>
+	<div id="Messages"/>
+	<div class="form">
+		<span tal:replace="this.cms_editForm(data)"/>
+		<div class="edit_buttons">
+			<a href="javascript:void(0)" class="button form-button" tal:attr="onclick: 'profile.submit(\''+this.getURI('editprofile')+'\')'" alt="Save" title="Save">Save</a>
+			<a href="javascript:void(0)" class="button form-button" alt="Cancel" title="Cancel" id="cancel" onclick="profile.cancel()">Cancel</a>
+		</div> 
+	</div>
+	</form>
+</div>
+

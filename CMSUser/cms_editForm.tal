@@ -10,8 +10,12 @@
 
   <fieldset class="ax-textbox ax-password" id="ax-verifypassword"><div><div class="error_message">hidden error message</div><label for="verifypassword">Verify New Password</label><input id="verifypassword" name="verifypassword" type="password" onchange="axiom.dirtyProps['verifypassword']=true;axiom.dirtyProps['password']=true;"/></div></fieldset>
   
-  <fieldset class="ax-select ax-roles" id="ax-roles"><div><div class="error_message">hidden error message</div><label for="roles"><span class="required">*</span>Role(s)</label><select id="roles" name="roles" class="validate-empty" onchange="axiom.dirtyProps['roles']=true"><option tal:repeat="item: ['Administrator', 'Content Editor', 'Content Contributor']" tal:attr="value: item, selected: this.hasRole(item)" tal:content="item" /></select></div></fieldset>
+  <fieldset class="ax-select ax-roles" id="ax-roles" tal:if="req.action != 'profile'"><div><div class="error_message">hidden error message</div><label for="roles"><span class="required">*</span>Role(s)</label><select id="roles" name="roles" class="validate-empty" onchange="axiom.dirtyProps['roles']=true"><option tal:repeat="item: ['Administrator', 'Content Editor', 'Content Contributor']" tal:attr="value: item, selected: this.hasRole(item)" tal:content="item" /></select></div></fieldset>
   
 </fieldset>
-
+<script type="text/javascript">	
+	// Wire up password meter for this page
+	var form = dojo.byId('edit');
+	createStrengthMeter(form.password, form.password.previousSibling);
+</script>
 </div>

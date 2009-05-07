@@ -29,6 +29,24 @@ this.editwrapper = function(){
 	this.edit(req.data);
 }
 
+function editprofile(){
+	var errors = {};
+	var data = {};
+	if(req.data.first_name) {
+		data.first_name = req.data.first_name;
+	}
+	if(req.data.last_name) {
+		data.last_name = req.data.last_name;
+	}
+	if(req.data.email) {
+		data.last_name = req.data.email;
+	}
+	if(req.data.password && req.data.password != '') {
+		data.password = req.data.password.md5();
+	}
+	this.edit(data);
+}
+
 this.setPassword = function(pw) {
     this.password = pw.md5();
 }
@@ -87,4 +105,10 @@ function rolesString(){
 		result.push(this.roles[i]);
 	}
 	return result.join(' ');
+}
+
+function getLatestActivity(max) {
+	max = max || 5;
+	var prototypes = this.getSearchablePrototypes();
+	return app.getHits(prototypes, {lastmodifiedby:this.username}, {sort:{cms_lastmodified:'desc'}}).objects(0, max);
 }

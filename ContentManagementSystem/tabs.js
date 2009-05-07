@@ -51,6 +51,16 @@ function users(){
 
 }
 
+function profile(){
+	res.write(this.frame({title: 'Axiom CMS - User Profile',
+						  content: 'user_profile',
+						  nav: 'profile_nav',
+						  class_name: 'profile',
+						  omit_top: true,
+						  scripts: ['profile.js']}));
+
+}
+
 function recyclebin(){
 	res.write(this.frame({title: 'Axiom CMS - Recycle Bin',
 						  nav: 'recyclebin_nav',
