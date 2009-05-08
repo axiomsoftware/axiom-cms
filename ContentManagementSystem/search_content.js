@@ -133,10 +133,13 @@ function runSearch(custom_query) {
 	var prototype = req.data.prototype || this.getSearchablePrototypes();
 	var keywords = req.data.keywords || '';
 	var sort = req.data.sort || false;
-	if(!sort || sort.toSource() == '({})'){
+	if(sort.toSource() == '({})') {
+		sort = false;
+	};
+	if(!keywords){
 		sort = {'cms_lastmodified':'desc'};
+		sort = new Sort(sort);
 	}
-	sort = new Sort(sort);
 
 	var start = req.data.start || 0;
 	var length = parseInt(req.data.length) || 15;
@@ -219,7 +222,11 @@ function search(prototype,keywords,sort,start,length,published_only,context) {
 
 	var prototypes = [];
 	if (prototype.length!=0) { prototypes = [prototype]; }
-	return app.getHits(prototype,filter,{sort: sort});
+	if(sort) {
+		return app.getHits(prototype,filter,{sort: sort});
+	} else {
+		return app.getHits(prototype,filter);
+	}
 }
 
 function writeResults(extract_func,hits,results,start,length,sort,return_href) {
