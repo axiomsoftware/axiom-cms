@@ -67,7 +67,7 @@ function deleteTags(){
 	for(var t=0; t != input_len; t++){
 		if(tag_list[t].checked){
 			submitted++;
-			dojo.io.bind({ url: tag_list[t].value +'/cms_delete',
+			dojo.io.bind({ url: tag_list[t].value +'/cms_delete?full_removal=true',
 						   load: (submitted == checked_len)?manageTags:function(){}
 					     });
 		}
