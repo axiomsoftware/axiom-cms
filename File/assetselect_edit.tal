@@ -1,7 +1,7 @@
 <div xmlns:tal="http://axiomstack.com/tale">
 	<h3>Add File</h3>
 	<div class="asset-thumbpreview">
-		<img tal:if="this.preview_href" tal:attributes="src: this.preview_href" style="max-width:200px;max-height:300px;"/>
+		<img tal:if="this.preview_href" tal:attr="src: this.preview_href()" style="max-width:200px;max-height:300px;"/>
 		<div>Specifications</div>
 		<ul>
 			<li><strong>Filename</strong>: <span tal:replace="this.getFileName()"/></li>
