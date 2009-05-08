@@ -144,7 +144,7 @@ function iconsTable(){
 function getAssetObject(){
 	var filesize = this.getFileSize();
 	return ['{id: "'+this.id+'"',
-		'title: "'+this.title.replace(/&/g,'&amp;')+'"',
+		'title: "'+(this.title?this.title.replace(/&/g,'&amp;'):'')+'"',
 			'filename: "'+this.getFileName()+'"',
 			'thumb_on: "'+this.thumb_on()+'"',
 			'thumb_off: "'+this.thumb_off()+'"',
