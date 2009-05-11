@@ -11,7 +11,7 @@
 		if(!filename){
 			window.replaceFileError('Please select a file before continuing.');
 		} else {
-			var isImage = filename.match(/\.(jpe?g|gif|png)$/);
+			var isImage = filename.match(/\.(jpe?g|gif|png)$/i);
 			var valid = ('<span tal:replace="this._prototype"/>' == 'Image') ? isImage : !isImage;
 			if(valid){
 				dojo.io.bind({url: '<span tal:replace="this.getURI('replace')"/>',
