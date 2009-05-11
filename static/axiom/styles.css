@@ -404,8 +404,8 @@ body.manage_tags h2 {font-family: "Georgia";font-size:1.6em;}
 .tag_container .tag_col {float:left;width:50%;}
 .tag_container .tag_col div {overflow:hidden;width:100%;}
 .tag_container .tag_col ul {list-style:none;}
-.tag_container .tag_col input, 
-.tag_container .tag_col label {display:inline;}
+.tag_container .tag_col input {display:block; float:left; clear:both;}
+.tag_container .tag_col label {margin-bottom:2px; display:block; float:left; width:160px; padding:2px; overflow:hidden;}
 .tag_container .tag_col ul li a {color:#4D666D; text-decoration:none;}
 
 /* End Manage Tags Screen Styles */
@@ -424,7 +424,7 @@ td textarea { border: 1px solid #acb0b2;}
 #pages2{ display:none; /*margin-top:-165px; */}
 
 /* Asset Manager Dialog Popups */
-.tags_window {position:absolute; opacity:0.0; filter:Alpha(Opacity=0);display:none; border:7px solid #afbac0;width:340px;background: #fff;}
+.tags_window {position:absolute; opacity:0.0; filter:Alpha(Opacity=0);display:none; border:7px solid #afbac0;width:400px;background: #fff;}
 .tags_window .taghead {overflow:hidden;_height:1%;background:#FFF url(images/body_bg.gif) 0 0 repeat;border-bottom:7px solid #afbac0;padding:10px;}
 
 /* Asset Titles */
@@ -439,8 +439,8 @@ td textarea { border: 1px solid #acb0b2;}
 .tags_window .tag_col ul { padding-left:3px; margin-left:0px; }
 .tags_window .tag_col ul li { list-style:none; display:block; margin-left:0px; padding-left:0px;}
 .tags_window .tag_col div {overflow:hidden;width:100%;}
-.tags_window .tag_col input {display:inline;}
-.tags_window .tag_col label {display:inline;}
+.tags_window .tag_col input {display:block; float:left; clear:both;}
+.tags_window .tag_col label {margin-bottom:2px; display:block; float:left; width:160px; padding:2px; overflow:hidden;}
 .tags_window .buttons {width:100%;text-align:center;padding:10px 0;clear:left;}
 
 /* Supported Files Window Styles */
