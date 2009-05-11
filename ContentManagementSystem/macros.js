@@ -35,6 +35,7 @@ function copy_objects() {
 		var accessname = fixed_prefix + objs[i].id;
 		copy.id = accessname;
 		copy.cms_lastmodified = new Date();
+		copy.cms_createdby = eval('copy'+copy.getSchema().cms_createdby['default'].value.replace('this', ''));
 	    var par = null;
 		if (data.clear_url == "true") {
 			var p = objs[i]._prototype;
