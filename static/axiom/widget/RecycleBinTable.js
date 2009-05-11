@@ -72,18 +72,22 @@ dojo.widget.defineWidget(
 						 });
 		},
 		restoreObjects: function(){
-			this.submitObjects('restore_objects', function(evt,text,res){ axiom.showMessage(text); recyclebin.cfilter.search(); });
+			if(!dojo.html.hasClass(this.buttons[0], 'form-button-disabled')){
+				this.submitObjects('restore_objects', function(evt,text,res){ axiom.showMessage(text); recyclebin.cfilter.search(); });
+			}
 		},
 		deleteObjects: function(){
-			axiom.openModal({content: "Permanently delete these objects?",
-							 callback: function(){
-								 recyclebin.ctable.submitObjects('purge_recycled_objects',
-																	   function(evt,text,res){
-																		   axiom.showMessage(text);
-																		   recyclebin.cfilter.search();
-																	   });
-							 },
-							 confirmdialog: true});
+			if(!dojo.html.hasClass(this.buttons[1], 'form-button-disabled')){
+				axiom.openModal({content: "Permanently delete these objects?",
+								 callback: function(){
+									 recyclebin.ctable.submitObjects('purge_recycled_objects',
+																		   function(evt,text,res){
+																			   axiom.showMessage(text);
+																			   recyclebin.cfilter.search();
+																		   });
+								 },
+								 confirmdialog: true});
+			}
 		},
 		toggleButtons: function(){
 			this.checkButton([], this.buttons[0]);
