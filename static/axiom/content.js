@@ -760,6 +760,6 @@ var axiom = {
 					 });
 	},
     search_initialized: false,
-	dirtyProps:{}
+    dirtyProps:{}
 };
 dojo.addOnLoad(axiom.init);
