@@ -12,6 +12,8 @@
   
   <fieldset class="ax-select ax-roles" id="ax-roles" tal:if="req.action != 'profile'"><div><div class="error_message">hidden error message</div><label for="roles"><span class="required">*</span>Role(s)</label><select id="roles" name="roles" class="validate-empty" onchange="axiom.dirtyProps['roles']=true"><option tal:repeat="item: ['Administrator', 'Content Editor', 'Content Contributor']" tal:attr="value: item, selected: this.hasRole(item)" tal:content="item" /></select></div></fieldset>
   
+  <fieldset class="ax-checkbox ax-disabled" id="ax-roles" tal:if="req.action != 'profile'"><div><div class="error_message">hidden error message</div><input id="disabled" name="disabled" onchange="axiom.dirtyProps['disabled']=true" type="checkbox" tal:attr="checked: this.disabled ? 'checked' : null" value="true"/><label for="disabled">Account Disabled</label><p>A disabled account may not log in to the system or perform any action.</p></div></fieldset>
+  
 </fieldset>
 <script type="text/javascript">	
 	// Wire up password meter for this page

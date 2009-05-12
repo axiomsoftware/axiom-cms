@@ -549,6 +549,9 @@ th.col_by { width:5%; border-right: 1px solid #b0b4b6; }
 
 .users #content .body { height: 600px; }
 .users #content .body .columnRight{ min-height: 530px; }
+.users #content .body .columnRight .ax-disabled input {float:left; display:block; margin:0; padding:0; border:0 none;}
+.users #content .body .columnRight .ax-disabled label {float:left; display:block; padding:0 0 0 5px;}
+.users #content .body .columnRight .ax-disabled p {display:block; clear:both; margin:5px 0 0; float:left;}
 
 .body .recycleBinTable thead tr th.col_title,
 .body .recycleBinTable tbody tr td.col_title { border-left: 1px solid #b0b4b6; } 

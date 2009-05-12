@@ -26,6 +26,14 @@ this.editwrapper = function(){
 		req.data.password = req.data.password.md5();
 	else
 		delete req.data.password;
+	// Log out a disabled user if it is logged in
+	if(req.data.disabled == 'true') {
+		for each (var session in app.getSessions()) {
+			if (session.user && session.user.username == this.username) {
+				session.logout();
+			}
+		}
+	};
 	this.edit(req.data);
 }
 

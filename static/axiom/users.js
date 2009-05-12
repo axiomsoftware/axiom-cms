@@ -79,7 +79,8 @@ var users = {
 	load_edit: function(href){
 		dojo.widget.getWidgetsByType('UserTable')[0].hide();
 		var edit = dojo.widget.byId('EditBody');
-		edit.setUrl(href);
+		var time = new Date().getTime();
+		edit.setUrl(href+'?noCache='+time);
 		edit.show();
 	},
 	load_search: function(){
