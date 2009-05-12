@@ -31,6 +31,8 @@ function Login() {
 		if (users.length === 0) { 
 			app.log("Invalid login attempt for user "+username+" from "+ req.data.http_remotehost);
 			data.error_message = "You have entered an invalid username/password combination. If you have forgotten this information please contact your Axiom administrator.";
+		} else if(users[0].disabled == true) {
+			data.error_message = "This account has been disabled."
 		} else {
 			users[0].last_login = new Date();
 			session.login(users[0]);

@@ -484,8 +484,13 @@ var axiom = {
 		var edit = dojo.byId(id);
 		var data = {};
 		var extract_lambda = function(elem){ if(elem.name) {
-			if(submitAll || axiom.dirtyProps[elem.name])
-				data[elem.name] = elem.value;
+			if(submitAll || axiom.dirtyProps[elem.name]) {
+				if(elem.getAttribute('type') && elem.getAttribute('type').toLowerCase() == 'checkbox') {
+					data[elem.name] = elem.checked ? elem.value : false;
+				} else {
+					data[elem.name] = elem.value;
+				}
+			}
 		}
 										   };
 		dojo.lang.forEach( (edit.getElementsByTagName('textarea') || []), extract_lambda);
