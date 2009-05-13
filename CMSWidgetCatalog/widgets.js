@@ -20,13 +20,35 @@
  * info@axiomsoftwareinc.com
  * */
 
+function info_label(attr_name, props) {
+    return <div class="info_box" xmlns:tal="http://axiomstack.com/tale">
+            <label for="_location_widget">URL</label>
+	    <span class="info_toggle" tal:attr="id: 'info_toggle_'+attr_name"><img src="/static/axiom/images/icon_info.png" /></span>
+	    <div tal:attr="id: 'info_'+attr_name" class="info">
+		<p tal:attr="id: 'info_desc_'+attr_name"><strong>Axiom Description</strong>: This is the location field. You can set the url of your Page by changing the values here.</p>
+		<p tal:if="props.info" tal:attr="id: 'info_note_'+attr_name"><strong>Developer Note</strong>: {props.info}</p>
+		<p tal:if="props.info_img" tal:attr="id: 'info_img_'+attr_name"><strong>Developer Image</strong>: <img  tal:attr="src: props.info_img" /></p>
+	    </div>
+	    <script tal:text="%" type="text/javascript">//<![CDATA[
+		dojo.require("axiom.widget.Info");
+		var info = dojo.widget.createWidget('axiom:Info', {
+						    id: 'info_%{attr_name}'
+						},
+						dojo.byId('info_%{attr_name}')
+					       );
+		dojo.event.kwConnect({ srcObj:dojo.byId('info_toggle_%{attr_name}'),
+		srcFunc:'onclick',
+		adviceObj:info,
+		adviceFunc:'toggleInfo'});
+	    //]]></script>
+    </div>;
+}
 
 function location(attr_name, props){
-	return <fieldset xmlns:tal="http://axiomstack.com/tale" xmlns:talout="http://axiom.com/talout" class="ax-_location" id="ax-_location">
+	var ret = <fieldset xmlns:tal="http://axiomstack.com/tale" xmlns:talout="http://axiom.com/talout" class="ax-_location" id="ax-_location">
         <div><div class="error_message">hidden error message </div>
-        <label for="_location_widget">URL</label>
-	<span class="bubble_hover" tal:attr="onclick: 'axiom.toggleBubble(\'bubble_'+attr_name+'\')'"></span>
-	<div tal:attr="id: 'bubble_'+attr_name" class="bubble"> </div>
+	<div class="info_box">
+	</div>
         <div id="_location_widget">Loading...</div>
         <script type="text/javascript" tal:text="%" talout:text="$"> //<![CDATA[
 
@@ -44,6 +66,10 @@ function location(attr_name, props){
     </div>
 	<p class="note">Once this field is set, saving the page will publish it live.</p>
 	</fieldset>;
+
+    ret..div.(@['class'] == 'info_box').appendChild(this.info_label(attr_name, props));
+
+    return ret;
 }
 
 function dropdown_location(attr_name, props){
