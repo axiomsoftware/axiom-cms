@@ -415,7 +415,7 @@ function fire_submit(){
 	if(error_message == ''){
 		var script = dojo.byId('batch_scripts').value;
 		var zip_id = dojo.byId('zip_id').value;
-		dojo.io.bind({ url: 'edit_taggable',
+		dojo.io.bind({ url: axiom.cmsPath+'edit_taggable',
 				   method: 'post',
 				   postContent: dojo.json.serialize(objs),
 				   contentType: 'text/json',
