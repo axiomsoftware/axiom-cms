@@ -27,6 +27,7 @@ dojo.require("dojo.io.IframeIO");
 dojo.require("dojo.html.*");
 dojo.require("dojo.widget.ContentPane");
 dojo.require("axiom.widget.Asset");
+dojo.require("axiom.widget.ProgressBarModal");
 // if we take out this require statement, strange onclick behavior
 // begins occuring.  accept the voodoo and leave it here though we
 // aren't going to make anything draggable.
@@ -412,22 +413,29 @@ function fire_submit(){
 					credit:  textareas[3].value};
 	}
 	if(error_message == ''){
+		var script = dojo.byId('batch_scripts').value;
+		var zip_id = dojo.byId('zip_id').value;
 		dojo.io.bind({ url: 'edit_taggable',
-					   method: 'post',
-					   postContent: dojo.json.serialize(objs),
-					   contentType: 'text/json',
-					   load: function(){
-						   var colRight = dojo.byId('columnRight');
-						   /*assetEdit('<div style="width:100%;text-align:center;padding:25px 0;">Loading...<br/><img src="'+axiom.staticPath + '/axiom/images/ajax-loader.gif" alt="Loading..." /></div>');*/
-					       showLoading();
-						   dojo.byId('columnLeft').style.display = 'block';
-						   colRight.style.margin = axiom.oldLeftMargin;
-						   fireLastQuery();
-					   }
-					 });
-	}else{
+				   method: 'post',
+				   postContent: dojo.json.serialize(objs),
+				   contentType: 'text/json',
+				   load: function(){
+						if(script) {
+							axiom.openModal({ widget: dojo.widget.createWidget("axiom:ProgressBarModal", {appPath:axiom.appPath, staticPath: axiom.staticPath, script_id:script, zip_id:zip_id, closeFunc:showAssetManager}) });
+						}
+				   }
+				 });
+	} else{
 		axiom.openModal({content: error_message});
 	}
+}
+
+function showAssetManager() {
+	var colRight = dojo.byId('columnRight');
+	showLoading();
+	dojo.byId('columnLeft').style.display = 'block';
+	colRight.style.margin = axiom.oldLeftMargin;
+	fireLastQuery();
 }
 
 function resetForm(){

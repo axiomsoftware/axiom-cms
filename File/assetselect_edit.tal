@@ -6,7 +6,7 @@
 		<ul>
 			<li><strong>Filename</strong>: <span tal:replace="this.getFileName()"/></li>
 			<li><strong>Size</strong>: <span tal:replace="this.getFileSizeKB()"/></li>
-			<li tal:if="this.getWidth &amp;&amp; this.getHeight"><strong>Dimensions</strong>: <span tal:replace="this.getWidth()+' x '+this.getHeight()"/> </li>
+			<li tal:if="this.getWidth && this.getHeight"><strong>Dimensions</strong>: <span tal:replace="this.getWidth()+' x '+this.getHeight()"/> </li>
 		</ul>
 	</div>
 
