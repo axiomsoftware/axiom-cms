@@ -1,0 +1,8 @@
+.axmodal label {display:inline; vertical-align:top;}
+.ax-modal .content-wrapper .modal-buttons {clear:both;}
+.status-wrapper {float:left; margin:6px 0 20px;}
+.progress_container {width:200px; height:14px; background:#627A87; margin:0 auto; float:left;}
+.progress_bar {width:0px; height:12px; margin:1px; background:#D6DCDF; float:left;}
+.progress {float:left; width:100px; margin-left:5px; padding-left:5px; border-left:1px solid #777;}
+.message {font-weight:bold; color:#118811; clear:both; margin:10px 0;}
+.errors {font-weight:bold; color:#BB0000;}
