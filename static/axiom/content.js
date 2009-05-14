@@ -264,8 +264,10 @@ var axiom = {
 		dojo.html.removeClass(dojo.byId("columnRight"), 'fixed');
 		var content = dojo.byId("ContentWrapper");
 		var edit = dojo.widget.byId("EditBody");
-		edit.hide();
-		dojo.html.setClass(edit.domNode, axiom.editBaseClass);
+		if (edit) {
+		    edit.hide();
+		    dojo.html.setClass(edit.domNode, axiom.editBaseClass);
+		}
 		if(classname){ dojo.html.addClass(content.domNode, classname); }
 		axiom.showingThumbs = true;
 		axiom.hideObjectDetail();
@@ -433,11 +435,17 @@ var axiom = {
 		};
 		dojo.io.bind(args);
 	    }
-	    dojo.byId('object_detail').style.display = 'block';
+	    var object_detail = dojo.byId('object_detail');
+	    if (object_detail) {
+		object_detail.style.display = 'block';
+	    }
 	},
 
 	hideObjectDetail: function() {
-		dojo.byId('object_detail').style.display = 'none';
+	    var object_detail = dojo.byId('object_detail');
+	    if (object_detail) {
+		object_detail.style.display = 'none';
+	    }
 	},
 
 	showContentTable: function() {
