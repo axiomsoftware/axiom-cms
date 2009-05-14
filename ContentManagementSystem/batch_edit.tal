@@ -50,6 +50,13 @@
       </swx>
 	</table>
   </div>
+  <div class="batch_scripts" tal:var="scripts: cmsGlobals.batchScripts">
+	<select id="batch_scripts" tal:if="scripts">
+		<option>-- Optional: Run a CMS Script on these objects --</option>
+		<option tal:repeat="script: scripts" tal:content="script.title || ('Script #'+repeat.script.number())" tal:attr="value: script.id"/>
+	</select>
+	<input type="hidden" name="zip_id" id="zip_id" tal:attr="value: zip_id" />
+  </div>
   <div class="batch_buttons">
 	<a href="javascript:void(0);" class="button form-button" onclick="fire_submit();">Save</a> 
 	<a href="javascript:void(0);" onclick="cancelBatch();" class="button form-button">Cancel</a>
