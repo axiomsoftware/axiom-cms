@@ -298,8 +298,8 @@ a.form-button:hover, input.form-button:hover, fieldset#ax-booth_selections a:hov
 
 a.form-button-disabled, input.form-button-disabled {background-color:#93A0A7; background-image:url(images/button_form-button-disabled_bg.gif);}
 a.form-button-disabled:hover, input.form-button-disabled:hover {cursor:default; background-color:#93A0A7; background-image:url(images/button_form-button-disabled_bg.gif);}
-label.wysiwyg-label { margin-bottom: 5px; }
-label.wysiwyg-label a.form-button{ margin-left: 5px; }
+div.wysiwyg-label { margin-bottom: 5px; overflow:hidden;}
+div.wysiwyg-label a.form-button{ margin-left: 5px; float:left;}
 
 /* Assets Mgmt specific styles */
 tr {padding:0px; margin:0px;}
@@ -572,8 +572,9 @@ th.col_by { width:5%; border-right: 1px solid #b0b4b6; }
 .ax-modal .content-wrapper .content #Delete tbody tr td {border-top:1px solid #b0b4b6;border-bottom:none;background:#fff;padding-left:5px;}
 .ax-modal .content-wrapper .content p.note {font-size:.8em;margin-bottom:10px;}
 
+div.info_box .info_label {margin-bottom:3px;overflow:hidden;}
 div.info_box label {float:left;}
-span.info_toggle {margin-left:5px;}
-div.info {display:none;margin:5px;padding:10px;border:1px solid #000;background:#ffffdd;clear:both;overflow:hidden;}
+span.info_toggle {margin-left:5px;float:left;cursor:pointer;}
+div.info {display:none;margin:0px 5px 5px;padding:10px;border:1px solid #aeafb1;background:#efefde;clear:both;overflow:hidden;}
 div.info .info_img strong {display:block;}
-div.info .info_img img {border:2px solid #000;}
+div.info .info_img img {border:1px solid #000;}
