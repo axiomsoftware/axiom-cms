@@ -302,9 +302,9 @@ function wysiwyg(attr_name, props){
 	    <div class="wysiwyg-label">
 		<div class="info_box"> </div>
 	    </div>
-        <iframe tal:attr="id: attr_name+'_preview', 'talout:attr': 'src: this.getURI(\'preview_property?property='+attr_name+'&amp;src_id='+attr_name+'\')'" class="wysiwyg_preview"></iframe>
+        <iframe tal:attr="id: attr_name+'_preview', 'talout:attr': 'src: this.getURI(\'preview_property?property='+attr_name+'\u0026src_id='+attr_name+'\')'" class="wysiwyg_preview"></iframe>
         <textarea tal:attr="id: attr_name, name: attr_name, 'class':(props.widget.required?'validate-empty':'')" style="display:none"><span tal:attr="'talout:replace':'(this.'+attr_name+'||\'\')'" /></textarea>
-		<div tal:attr="id: attr_name+'_fckarea'" style="display:none"><textarea tal:attr="id: attr_name+'_fcktext'"><span tal:attr=" 'talout:replace': 'this.'+attr_name+'||\'\''" /></textarea></div>
+		<div tal:attr="id: attr_name+'_fckarea'" style="display:none"><textarea tal:attr="id: attr_name+'_fcktext'"><span tal:attr="'talout:replace': 'this.'+attr_name+'||\'\''" /></textarea></div>
 		</div></fieldset>;
 
     ret..div.(@['class'] == 'info_box').appendChild(this.info_label(attr_name, props, (props.widget.label?new XMLList(props.widget.label.value):'undefined'), 'This area is a wysiwyg (What You See Is What You Get). It allows you to type text, select images, and format your information without having to write HTML. To get started with the wysiwyg, click the EDIT button above.', <a xmlns:tal="http://axiomstack.com/tale" class="button form-button" tal:attr="id: attr_name+'_toggle',onclick: 'axiom.toggleFCKInstance(\''+attr_name+'\',\''+(props.widget.width?props.widget.width.value:'')+'\',\''+(props.widget.height?props.widget.height.value:'')+'\',\''+(props.widget.formats?props.widget.formats.value:'')+'\',\''+(props.widget.templates?props.widget.templates.value:'')+'\',\''+(props.widget.styles?props.widget.styles.value:'')+'\',\''+(props.widget.stylesxml?props.widget.stylesxml.value:'')+'\');axiom.dirtyProps[\''+attr_name+'\'] = true;'">Edit</a>));
