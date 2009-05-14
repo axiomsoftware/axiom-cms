@@ -142,6 +142,20 @@ function isAdministrator(){
 	return session.user.hasRole("Administrator");
 }
 
+function hasRole(roles) {
+    if (!roles) {
+	return true;
+    }
+
+    for each (var role in roles) {
+	if (session.user.hasRole(role)) {
+	    return true;
+	}
+    }
+
+    return false;
+}
+
 function currentUser(){
 	return session.user.username;
 }

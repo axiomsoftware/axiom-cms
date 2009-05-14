@@ -17,7 +17,7 @@
   <ul class="tabs">
 	<li tal:attr="'class': req.action == 'main'?'active':(req.action == 'content'?'active':'')"><a tal:attr="href: cms.getURI('content')">Content</a></li>
 	<li tal:if="this.viewAssets()" tal:attr="'class': (req.action == 'assets')?'active':''"><a tal:attr="href: cms.getURI('assets')">Assets</a></li>
-	<li tal:repeat="tab: this.app_tabs()" tal:attr="'class': (req.action == data.tab.highlight_action?'active':'')"><a tal:attr="href: tab.getURI()" tal:content="tab.title"/></li>
+	<li tal:repeat="tab: cmsGlobals.cmsTabs" tal:if="this.hasRole(tab.roles)" tal:attr="'class': (req.action == data.tab.highlight_action?'active':'')"><a tal:attr="href: (typeof tab.href == 'function')?tab.href():tab.href" tal:content="tab.title"/></li>
   </ul>
 
 </div>
