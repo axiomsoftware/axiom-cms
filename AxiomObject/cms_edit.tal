@@ -5,7 +5,7 @@
       <h1 tal:attr="title:add ? 'ADD '+this.getPrettyName() : 'EDIT '+this.title">
           <img alt="Edit Icon" tal:attr="src: app.getStaticMountpoint('axiom/images/icon_edit.gif')" tal:if="!add" title="Edit Icon"/>
           <img alt="Add Icon" tal:attr="src: app.getStaticMountpoint('axiom/images/icon_add.gif')" tal:if="add" title="Add Icon"/>
-          <span tal:replace="add ? 'ADD '+this.getPrettyName().ellipse(40) : 'EDIT '+(this.title)?this.title.ellipse(40):this.getPrettyName().ellipse(40)"/>
+          <span tal:replace="add ? 'ADD '+this.getPrettyName().ellipse(40) : 'EDIT '+(((this.title)?this.title:this.getPrettyName())||'').ellipse(40)"/>
       </h1>
       <div class="buttons">
         <a alt="Preview" class="button form-button" href="javascript:void(0)" tal:attr="onclick: 'axiom.submitEdit({edit_url: \''+this.getURI('save_preview')+'\',form_elem:this, preview: true, callback: function(type, data){window.open(data)}})'" tal:if="this.previewable" title="Preview">Preview</a>
