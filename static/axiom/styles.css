@@ -396,16 +396,15 @@ table.batch_edit tr td{border:0; vertical-align:top; padding:5px;}
 /* End Batch Upload Screen Styles */
 
 /* Manage Tags Screen Styles */
-body.manage_tags div.manage_column {width:98%;padding:10px 1%}
-body.manage_tags div.manage_column p {font-size:1.2em;}
-body.manage_tags h2 {font-family: "Georgia";font-size:1.6em;}
+.assetsPane .manage_column {width:98%;padding:10px 1%}
+.assetsPane .manage_column h2 {font-family:"Georgia";font-size:1.6em;font-weight:normal;letter-spacing:-0.01em;margin:0;padding-bottom:9px;}
 
-.tag_container {margin-bottom:10px;float:left;width:100%;padding-bottom:10px;}
+.tag_container {margin:13px 0 14px;float:left;width:100%;padding-bottom:10px; border:1px solid #ccc;}
 .tag_container .tag_col {float:left;width:50%;}
 .tag_container .tag_col div {overflow:hidden;width:100%;}
-.tag_container .tag_col ul {list-style:none;}
+.tag_container .tag_col ul {list-style:none; margin:30px 0 30px 45px; float:left;}
 .tag_container .tag_col input {display:block; float:left; clear:both;}
-.tag_container .tag_col label {margin-bottom:2px; display:block; float:left; width:160px; padding:2px; overflow:hidden;}
+.tag_container .tag_col label {margin:0 0px 3px 4px; display:block; float:left; width:160px; padding:2px 2px 2px 25px; background:url(images/icon_tags.gif) top left no-repeat; overflow:hidden; cursor:pointer;}
 .tag_container .tag_col ul li a {color:#4D666D; text-decoration:none;}
 
 /* End Manage Tags Screen Styles */
