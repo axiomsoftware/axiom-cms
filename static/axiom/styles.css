@@ -574,4 +574,6 @@ th.col_by { width:5%; border-right: 1px solid #b0b4b6; }
 
 div.info_box label {float:left;}
 span.info_toggle {margin-left:5px;}
-div.info {display:none;margin:5px;border:1px solid #000;background:#ffffdd;clear:both;}
+div.info {display:none;margin:5px;padding:10px;border:1px solid #000;background:#ffffdd;clear:both;overflow:hidden;}
+div.info .info_img strong {display:block;}
+div.info .info_img img {border:2px solid #000;}

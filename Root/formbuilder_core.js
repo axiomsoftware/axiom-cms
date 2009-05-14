@@ -111,17 +111,19 @@ function _fb_generate(prototype, catalog) {
 
 	var proto = app.__app__.getPrototypeByName(prototype);
 	var location_data = {
-		widget:      proto.getProperty('_location.widget')  || 'location',
+	    widget: {
+		value:     proto.getProperty('_location.widget')  || 'location',
 		push:        proto.getProperty('_location.widget.push'),
 		push_target: proto.getProperty('_location.widget.push.target'),
-	    push_path:   proto.getProperty('_location.widget.push.property'),
-	    info: proto.getProperty('_location.widget.info'),
-	    info_img: proto.getProperty('_location.widget.info_img')
+		push_path:   proto.getProperty('_location.widget.push.property'),
+		info: {value:proto.getProperty('_location.widget.info')},
+		info_img: {value:proto.getProperty('_location.widget.info_img')}
+	    }
 	};
 
     var result = <div xmlns:tal="http://axiomstack.com/tale" class="form"><div class="subform"> </div></div>;
 	var ns_transform = [ { from: new Namespace('talout', 'http://axiom.com/talout'), to: new Namespace('tal', 'http://axiomstack.com/tale')} ];
-	var location = TAL.namespace_transform(this.renderTAL(catalog[location_data.widget]('_location',location_data), {attr_name: '_location', props: location_data}), ns_transform);
+	var location = TAL.namespace_transform(this.renderTAL(catalog[location_data.widget.value]('_location',location_data), {attr_name: '_location', props: location_data}), ns_transform);
 	result.div[location.name()] += location;
 	var reference_widgets = <div class="subform reference-container"></div>;
 	for(key in properties){
