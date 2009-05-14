@@ -31,8 +31,12 @@ function info_label(attr_name, props, label, desc, added_label_html, after_label
 	</div>
 	<div tal:if="props.widget" tal:attr="id: 'info_'+attr_name" class="info">
 	    <p tal:attr="id: 'info_desc_'+attr_name" class="info_desc"><strong>Definition:</strong> {desc}</p>
-	    <p tal:if="props.widget.info" tal:attr="id: 'info_note_'+attr_name" class="info_note"><strong>Notes:</strong> <span tal:replace="new XHTML(props.widget.info.value)" /></p>
-	    <p tal:if="props.widget.info_img" tal:attr="id: 'info_img_'+attr_name" class="info_img"><strong>Image:</strong> <img  tal:attr="src: props.widget.info_img.value" /></p>
+	<span tal:omit="true" tal:if="props.widget.info">
+	    <p tal:if="props.widget.info.value" tal:attr="id: 'info_note_'+attr_name" class="info_note"><strong>Notes:</strong> <span tal:replace="new XHTML(props.widget.info.value)" /></p>
+	</span>
+	<span tal:omit="true" tal:if="props.widget.info_img">
+	    <p tal:if="props.widget.info_img.value" tal:attr="id: 'info_img_'+attr_name" class="info_img"><strong>Image:</strong> <img  tal:attr="src: props.widget.info_img.value" /></p>
+	</span>
 	</div>
 	<script tal:text="%" type="text/javascript">//<![CDATA[
 	    dojo.require("axiom.widget.Info");
@@ -71,7 +75,7 @@ function location(attr_name, props){
 	<p class="note">Once this field is set, saving the page will publish it live.</p>
 	</fieldset>;
 
-    ret..div.(@['class'] == 'info_box').appendChild(this.info_label(attr_name, props, 'URL', 'This is the location field. You can set the url of your Page by changing the values here.'));
+    ret..div.(@['class'] == 'info_box').appendChild(this.info_label(attr_name, props, 'URL', 'This is the location field. You can set the url of your page by changing the values here.'));
 
     return ret;
 }
@@ -97,7 +101,7 @@ function dropdown_location(attr_name, props){
     </div>
 	</fieldset>;
 
-    ret..div.(@['class'] == 'info_box').appendChild(this.info_label(attr_name, props, 'Location', 'This is the location field. You can set the url of your Page by changing the values here.'));
+    ret..div.(@['class'] == 'info_box').appendChild(this.info_label(attr_name, props, 'Location', 'This is the location field. You can set the url of your page by changing the values here.'));
 
     return ret;
 }
@@ -119,21 +123,21 @@ function textbox(attr_name, props, desc){
 
 	</fieldset>;
 
-    ret..div.(@['class'] == 'info_box').appendChild(this.info_label(attr_name, props, (props.widget.label?new XMLList(props.widget.label.value):'undefined'), (desc||'This is a textbox. Hooray for textboxes.')));
+    ret..div.(@['class'] == 'info_box').appendChild(this.info_label(attr_name, props, (props.widget.label?new XMLList(props.widget.label.value):'undefined'), (desc||'You have the ability to enter any text you want within this field.')));
 
     return ret;
 }
 
 
 function title(attr_name, props){
-    var textbox = this.textbox(attr_name, props, 'This is the title of the page. The title of the page has great significance to SEO of a page but also to a users understanding of a page.');
+    var textbox = this.textbox(attr_name, props, 'This is the title of the page. The title of the page has great significance throughout most web sites. The title is used throughout Axiom CMS for identification. Also, most developers use the title but within the page templates. This means that you should always fill out this field.');
 	textbox..input.@onkeyup = "dojo.widget.byNode(dojo.byId('_location').parentNode).populate(this.value)";
 	return textbox;
 }
 
 
 function password(attr_name, props){
-	var widget = this.textbox(attr_name, props, 'This is a password field. Store any password here.');
+	var widget = this.textbox(attr_name, props, 'This textfield is set to accept passwords.');
 	widget..input[0].@type = 'password';
 	return widget;
 }
@@ -155,7 +159,7 @@ function textarea(attr_name, props){
 	</fieldset>;
 
 
-    ret..div.(@['class'] == 'info_box').appendChild(this.info_label(attr_name, props, (props.widget.label?new XMLList(props.widget.label.value):'undefined'), 'This is a textarea.'));
+    ret..div.(@['class'] == 'info_box').appendChild(this.info_label(attr_name, props, (props.widget.label?new XMLList(props.widget.label.value):'undefined'), 'This larger area can accept any type of text. Sometimes it is used to format specific information so be sure to read the Notes section for more information.'));
 
     return ret;
 }
@@ -180,7 +184,7 @@ function multitext(attr_name, props){
 	//]]></script>
 	</fieldset>;
 
-    ret..div.(@['class'] == 'info_box').appendChild(this.info_label(attr_name, props, (props.widget.label?new XMLList(props.widget.label.value):'undefined'), 'This is a multitext area.'));
+    ret..div.(@['class'] == 'info_box').appendChild(this.info_label(attr_name, props, (props.widget.label?new XMLList(props.widget.label.value):'undefined'), 'This area is a special kind of text area. You should enter information such that it is one bit of information per line.'));
 
     return ret;
 }
@@ -204,7 +208,7 @@ function select(attr_name, props, desc){
 	//]]></script>
     </fieldset>;
 
-    ret..div.(@['class'] == 'info_box').appendChild(this.info_label(attr_name, props, (props.widget.label?new XMLList(props.widget.label.value):'undefined'), (desc||'This is a single select box.')));
+    ret..div.(@['class'] == 'info_box').appendChild(this.info_label(attr_name, props, (props.widget.label?new XMLList(props.widget.label.value):'undefined'), (desc||'This is a dropdown area that lets you specify some specific option.')));
 
     return ret;
 }
@@ -214,7 +218,7 @@ function multiselect(attr_name, props){
 	var tal = new Namespace('tal','http://axiomstack.com/tale');
 	var talout = new Namespace('tal', 'http://axiom.com/talout');
 
-    var widget = this.select(attr_name, props, 'This is a multi-select box. Choose many options.');
+    var widget = this.select(attr_name, props, 'This select area allows you to select multiple items. You can do so by pressing the Ctrl key and click on a couple of items. If you are on a Mac then use the Cmd key.');
 	widget..select.@tal::attr = "id: 'multiselect_'+attr_name, name: attr_name, 'class': (props.widget.required?'validate-empty':''), 'talout:attr': 'value: this.'+attr_name, onchange: 'window.ms_'+attr_name+'.update(this);axiom.dirtyProps[\\''+attr_name+'\\']=true;'";
 	widget..select.@multiple = "true";
 	delete widget..option[0];
@@ -263,7 +267,7 @@ function checkbox(attr_name, props){
 		</div>
 		</fieldset>;
 
-    ret..div.(@['class'] == 'info_box').appendChild(this.info_label(attr_name+'_cb', props, (props.widget.label?new XMLList(props.widget.label.value):'undefined'), 'This is a checkbox.'));
+    ret..div.(@['class'] == 'info_box').appendChild(this.info_label(attr_name+'_cb', props, (props.widget.label?new XMLList(props.widget.label.value):'undefined'), 'By checking this field you are toggling some functionality within your website.'));
 
     return ret;
 }
@@ -287,7 +291,7 @@ function radio(attr_name, props){
 		</div>
 		</fieldset>;
 
-    ret..div.(@['class'] == 'info_box').appendChild(this.info_label(attr_name, props, (props.widget.label?new XMLList(props.widget.label.value):'undefined'), 'This is a set of radio buttons.'));
+    ret..div.(@['class'] == 'info_box').appendChild(this.info_label(attr_name, props, (props.widget.label?new XMLList(props.widget.label.value):'undefined'), 'By specifying one of the options you are setting an option to the selected value.'));
 
     return ret;
 }
@@ -303,7 +307,7 @@ function wysiwyg(attr_name, props){
 		<div tal:attr="id: attr_name+'_fckarea'" style="display:none"><textarea tal:attr="id: attr_name+'_fcktext'"><span tal:attr=" 'talout:replace': 'this.'+attr_name+'||\'\''" /></textarea></div>
 		</div></fieldset>;
 
-    ret..div.(@['class'] == 'info_box').appendChild(this.info_label(attr_name, props, (props.widget.label?new XMLList(props.widget.label.value):'undefined'), 'This is a WYSIWYG.', <a xmlns:tal="http://axiomstack.com/tale" class="button form-button" tal:attr="id: attr_name+'_toggle',onclick: 'axiom.toggleFCKInstance(\''+attr_name+'\',\''+(props.widget.width?props.widget.width.value:'')+'\',\''+(props.widget.height?props.widget.height.value:'')+'\',\''+(props.widget.formats?props.widget.formats.value:'')+'\',\''+(props.widget.templates?props.widget.templates.value:'')+'\',\''+(props.widget.styles?props.widget.styles.value:'')+'\',\''+(props.widget.stylesxml?props.widget.stylesxml.value:'')+'\');axiom.dirtyProps[\''+attr_name+'\'] = true;'">Edit</a>));
+    ret..div.(@['class'] == 'info_box').appendChild(this.info_label(attr_name, props, (props.widget.label?new XMLList(props.widget.label.value):'undefined'), 'This area is a wysiwyg (What You See Is What You Get). It allows you to type text, select images, and format your information without having to write HTML. To get started with the wysiwyg, click the EDIT button above.', <a xmlns:tal="http://axiomstack.com/tale" class="button form-button" tal:attr="id: attr_name+'_toggle',onclick: 'axiom.toggleFCKInstance(\''+attr_name+'\',\''+(props.widget.width?props.widget.width.value:'')+'\',\''+(props.widget.height?props.widget.height.value:'')+'\',\''+(props.widget.formats?props.widget.formats.value:'')+'\',\''+(props.widget.templates?props.widget.templates.value:'')+'\',\''+(props.widget.styles?props.widget.styles.value:'')+'\',\''+(props.widget.stylesxml?props.widget.stylesxml.value:'')+'\');axiom.dirtyProps[\''+attr_name+'\'] = true;'">Edit</a>));
 
     return ret;
 }
@@ -329,7 +333,7 @@ function calendar(attr_name, props){ // Requires Dojo
 		</div>
 		</fieldset>;
 
-    ret..div.(@['class'] == 'info_box').appendChild(this.info_label(attr_name, props, (props.widget.label?new XMLList(props.widget.label.value):'undefined'), 'This is a calendar.'));
+    ret..div.(@['class'] == 'info_box').appendChild(this.info_label(attr_name, props, (props.widget.label?new XMLList(props.widget.label.value):'undefined'), 'The calendar allows you to set a field to a Date.'));
 
     return ret;
 }
@@ -410,7 +414,7 @@ function time(attr_name, props) {
 		</div>
 		</fieldset>;
 
-    ret..div.(@['class'] == 'info_box').appendChild(this.info_label(attr_name, props, (props.widget.label?new XMLList(props.widget.label.value):'undefined'), 'This is a time widget.'));
+    ret..div.(@['class'] == 'info_box').appendChild(this.info_label(attr_name, props, (props.widget.label?new XMLList(props.widget.label.value):'undefined'), 'With this area you can specify a Time value for the field.'));
 
     return ret;
 }
@@ -523,7 +527,7 @@ function datetime(attr_name, props){ // Requires Dojo
 		</div>
 		</fieldset>;
 
-    ret..div.(@['class'] == 'info_box').appendChild(this.info_label(attr_name, props, (props.widget.label?new XMLList(props.widget.label.value):'undefined'), 'This is a date and time widget.'));
+    ret..div.(@['class'] == 'info_box').appendChild(this.info_label(attr_name, props, (props.widget.label?new XMLList(props.widget.label.value):'undefined'), 'This area allows you to set both a Date and Time.'));
 
     return ret;
 }
@@ -553,7 +557,7 @@ function referenceSingleSelectAuto(attr_name, props){ // Requires Dojo
 		  </div>
 		</fieldset>;
 
-    ret..div.(@['class'] == 'info_box').appendChild(this.info_label(attr_name, props, (props.widget.label?new XMLList(props.widget.label.value):'undefined'), 'This is a reference selector.'));
+    ret..div.(@['class'] == 'info_box').appendChild(this.info_label(attr_name, props, (props.widget.label?new XMLList(props.widget.label.value):'undefined'), 'This field allows to type the title of what you are looking for an tries to help you select it. This connects this page with some other page inside your website.'));
 
     return ret;
 }
@@ -580,7 +584,7 @@ function referenceSingleSelectPopUp(attr_name, props){ // Requires Dojo
 		</div>
 		</fieldset>;
 
-    ret..div.(@['class'] == 'info_box').appendChild(this.info_label(attr_name, props, (props.widget.label?new XMLList(props.widget.label.value):'undefined'), 'This is a single reference selector.'));
+    ret..div.(@['class'] == 'info_box').appendChild(this.info_label(attr_name, props, (props.widget.label?new XMLList(props.widget.label.value):'undefined'), 'This field allows you to select a page that you would like to connect this page with from a dialog. You have the ability to search your website within that dialog.'));
 
     return ret;
 }
@@ -609,7 +613,7 @@ function referenceOrderedMultiSelectPopUp(attr_name, props){ // Requires Dojo
 		</div>
 	      </fieldset>;
 
-    ret..div.(@['class'] == 'info_box').appendChild(this.info_label(attr_name, props, (props.widget.label?new XMLList(props.widget.label.value):'undefined'), 'This is an ordered reference selection tool.', <span xmlns:tal="http://axiomstack.com/tale" class="ref-widget-toggle" style="margin-left:5px;float:left;">[<a href="javascript:void(0);" tal:attr="onclick:'dojo.widget.byId(\''+attr_name+'\').toggleVisibility(this)'">Show</a>]</span>, <a href="javascript:void(0);" class="button form-button" tal:attr="id:'refomsp_add_'+attr_name" xmlns:tal="http://axiomstack.com/tale">ADD...</a>));
+    ret..div.(@['class'] == 'info_box').appendChild(this.info_label(attr_name, props, (props.widget.label?new XMLList(props.widget.label.value):'undefined'), 'This allows you to connect multiple pages with this page through a dialog. You have the ability to search your website within that dialog.', <span xmlns:tal="http://axiomstack.com/tale" class="ref-widget-toggle" style="margin-left:5px;float:left;">[<a href="javascript:void(0);" tal:attr="onclick:'dojo.widget.byId(\''+attr_name+'\').toggleVisibility(this)'">Show</a>]</span>, <a href="javascript:void(0);" class="button form-button" tal:attr="id:'refomsp_add_'+attr_name" xmlns:tal="http://axiomstack.com/tale">ADD...</a>));
 
     return ret;
 }
@@ -634,7 +638,7 @@ function referenceMultiSelectChecked(attr_name, props){
 			 //]]></script>
 		    </div>
 		</fieldset>;
-        ret..div.(@['class'] == 'info_box').appendChild(this.info_label(attr_name, props, (props.widget.label?new XMLList(props.widget.label.value):'undefined'), 'This is multi reference selection tool in the form of checkboxes.'));
+        ret..div.(@['class'] == 'info_box').appendChild(this.info_label(attr_name, props, (props.widget.label?new XMLList(props.widget.label.value):'undefined'), 'This allows you to connect multiple pages with this page through a set of checkboxes. By selecting one of the items, a connection will be made to that page.'));
 
     return ret;
 }
@@ -664,7 +668,7 @@ function assetselect(attr_name, props){
 		     </div>
 		</fieldset>;
 
-        ret..div.(@['class'] == 'info_box').appendChild(this.info_label(attr_name, props, (props.widget.label?new XMLList(props.widget.label.value):'undefined'), 'This is asset selection tool.'));
+        ret..div.(@['class'] == 'info_box').appendChild(this.info_label(attr_name, props, (props.widget.label?new XMLList(props.widget.label.value):'undefined'), 'You can create a connection to an Asset that exists within Axiom CMS. This will bring up a dialog allowing you to search for your Asset and then select it.'));
 
     return ret;
 }
@@ -692,7 +696,7 @@ function textboxcounter(attr_name, props){
 		   </div>
 		 </fieldset>;
 
-        ret..div.(@['class'] == 'info_box').appendChild(this.info_label(attr_name, props, (props.widget.label?new XMLList(props.widget.label.value):'undefined'), 'This is specifies a counter to the textbox and limits keys after the specified number.'));
+        ret..div.(@['class'] == 'info_box').appendChild(this.info_label(attr_name, props, (props.widget.label?new XMLList(props.widget.label.value):'undefined'), 'This specifies a counter for the textbox and does not allow any more entry after the max has been reached.'));
 
     return ret;
 }
@@ -725,7 +729,7 @@ function textareacounter(attr_name, props){
 			</div>
 		</fieldset>;
 
-        ret..div.(@['class'] == 'info_box').appendChild(this.info_label(attr_name, props, (props.widget.label?new XMLList(props.widget.label.value):'undefined'), 'This is specifies a counter to the textarea and limits keys after the specified number.'));
+        ret..div.(@['class'] == 'info_box').appendChild(this.info_label(attr_name, props, (props.widget.label?new XMLList(props.widget.label.value):'undefined'), 'This specifies a counter for the textarea and does not allow any more entry after the max has been reached.'));
 
     return ret;
 }
@@ -742,7 +746,7 @@ function tags(attr_name, props){
 		</div>
 	      </fieldset>;
 
-        ret..div.(@['class'] == 'info_box').appendChild(this.info_label(attr_name+'_tags', props, (props.widget.label?new XMLList(props.widget.label.value):'undefined'), 'Allows you to enter tags.'));
+        ret..div.(@['class'] == 'info_box').appendChild(this.info_label(attr_name+'_tags', props, (props.widget.label?new XMLList(props.widget.label.value):'undefined'), 'Within this area you can enter tag names. These names are comma delimited and are then able to be managed within the Asset Manager.'));
 
     return ret;
 }
@@ -789,7 +793,7 @@ function urlselect(attr_name, props){
 	}
     var ret = markup;
 
-        ret..div.(@['class'] == 'info_box').appendChild(this.info_label(attr_name, props, (props.widget.label?new XMLList(props.widget.label.value):'undefined'), 'Enter a url or select one from the system.'));
+        ret..div.(@['class'] == 'info_box').appendChild(this.info_label(attr_name, props, (props.widget.label?new XMLList(props.widget.label.value):'undefined'), 'This area allows you to specify a URL that is not a part of your website, but it also brings up a dialog allowing you to find another URL within your website.'));
 
     return ret;
 }
