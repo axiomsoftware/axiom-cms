@@ -56,6 +56,7 @@ function save_analytics_info() {
 	settings = new CMSSettings();
 	settings.id = 'settings';
 	settings.title = 'CMS Settings';
+	this.add(settings);
     }
 
     if (settings && acct && profile_id) {
