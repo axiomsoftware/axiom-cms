@@ -52,6 +52,13 @@ function save_analytics_info() {
     var conversions = req.get("conversions");
 
     var settings = app.getObjects('CMSSettings')[0];
+    if (!settings) {
+	settings = new CMSSettings();
+	settings.id = 'settings';
+	settings.title = 'CMS Settings';
+	this.add(settings);
+    }
+
     if (settings && acct && profile_id) {
 	settings.analytics_account = acct;
 	settings.profile_id = profile_id;

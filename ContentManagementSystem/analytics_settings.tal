@@ -3,15 +3,15 @@
   <form id="analytics_settings" name="analytics_settings" method="post" action="save_analytics_info">
 	<h3>Google Analytics Account Information</h3>
 	<fieldset>
-	  <label for="acctname"><span class="required">*</span> Account Name:</label> <input type="text" name="acctname" id="acctname" tal:attr="value:settings.analytics_account" />
+	  <label for="acctname"><span class="required">*</span> Account Name:</label> <input type="text" name="acctname" id="acctname" tal:attr="value:(settings)?settings.analytics_account:''" />
 	  <label for="password">Password:</label> <input type="password" name="password" id="password"/>
-	  <label for="profile"><span class="required">*</span> Profile ID:</label> <input type="text" name="profile" id="profile" tal:attr="value:settings.profile_id" />
+	  <label for="profile"><span class="required">*</span> Profile ID:</label> <input type="text" name="profile" id="profile" tal:attr="value:(settings)?settings.profile_id:''" />
 	</fieldset>
 	<fieldset>
-	  <input type="checkbox" name="pageviews" id="pageviews" tal:attr="checked: ((settings.show_pageviews)?'checked':null)" /> <label for="pageviews">Show Pageviews</label>
+	  <input type="checkbox" name="pageviews" id="pageviews" tal:attr="checked: ((settings && settings.show_pageviews)?'checked':null)" /> <label for="pageviews">Show Pageviews</label>
 	</fieldset>
 	<fieldset>
-	  <input type="checkbox" name="conversions" id="conversions" tal:attr="checked: ((settings.show_conversions)?'checked':null)" /> <label for="conversions">Show Conversions</label>
+	  <input type="checkbox" name="conversions" id="conversions" tal:attr="checked: ((settings && settings.show_conversions)?'checked':null)" /> <label for="conversions">Show Conversions</label>
 	</fieldset>
 	<p class="note">
 	  Google Analytics information is updated once a day.
