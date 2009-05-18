@@ -381,7 +381,7 @@ table.batch_edit tr td{border:0; vertical-align:top; padding:5px;}
 .upload div.template_head a {color:#4c6571;text-decoration:underline;}
 .upload div#template_wrapper {background:#cfd4d7;border:1px solid #a2a7a9;width:98%;padding:0 1%;}
 .upload table.template_items tr th,.upload table.template_items tr td {vertical-align:top;border:0;background:none;}
-.upload table.template_items .colinfo {width:30%}
+.upload table.template_items .colinfo {width:42%}
 .upload table.template_items .colthumb,
 .upload table.template_items .colfile,
 .upload table.template_items .colcontent,
