@@ -1,8 +1,14 @@
 .axmodal label {display:inline; vertical-align:top;}
-.ax-modal .content-wrapper .modal-buttons {clear:both;}
-.status-wrapper {float:left; margin:6px 0 20px;}
-.progress_container {width:200px; height:14px; background:#627A87; margin:0 auto; float:left;}
-.progress_bar {width:0px; height:12px; margin:1px; background:#D6DCDF; float:left;}
-.progress {float:left; width:100px; margin-left:5px; padding-left:5px; border-left:1px solid #777;}
-.message {font-weight:bold; color:#118811; clear:both; margin:10px 0;}
-.errors {font-weight:bold; color:#BB0000;}
+.ax-modal {border:2px solid #778084; padding:5px; background:#AEBABF;}
+.ax-modal .status-wrapper {margin:6px 0 14px;}
+.ax-modal div.title {background:#fff; margin:0; border:0 none;}
+.ax-modal div.title img {margin:0 5px}
+.ax-modal h2.title-content {font-weight:normal;}
+.ax-modal .content-wrapper {margin:0; background:#D6DCDF; padding:1px 0 16px;}
+.ax-modal .content-wrapper .modal-buttons {clear:both; margin:0;}
+.ax-modal .script_title {width:275px; color:#333; font-size:1.1em; margin:5px auto 10px;}
+.ax-modal .progress_container {height:16px; width:202px; background:#fff; border:1px solid #627A87; margin:0 auto;}
+.ax-modal .progress_bar {width:0px; height:16px; background:#CFD4D7;}
+.ax-modal .progress {width:100px; margin:10px auto 5px;}
+.ax-modal .message {font-weight:bold; color:#118811; clear:both; margin:10px 0;}
+.ax-modal .errors {font-weight:bold; color:#BB0000;}

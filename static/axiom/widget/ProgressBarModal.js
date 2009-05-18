@@ -64,19 +64,19 @@ dojo.widget.defineWidget(
 					}
 					if(me.completed) {return};
 					me.progress.innerHTML = 'Processed '+data+' of '+me.totalObjects;
-					me.modal_progress_bar.style.width = ((parseInt(data) / parseInt(me.totalObjects)) * 198) +'px';
+					me.modal_progress_bar.style.width = ((parseInt(data) / parseInt(me.totalObjects)) * 202) +'px';
 
 					if(parseInt(data) == parseInt(me.totalObjects)) {
 						me.completed = true;
 						clearInterval(me.progressInterval);
-						me.message.innerHTML += 'Complete!';
 						me.showCloseButon('OK');
 					}
 				}
 			});
 		},
 		postCreate:function() {
-			this.title.innerHTML = "CMS Script Progress";
+			this.title.innerHTML = "Asset Script Processing";
+			this.script_title.innerHTML = 'Action: ' + this.s_title;
 			var me = this;
 			
 			// Call to get the total objects to process...
@@ -115,7 +115,7 @@ dojo.widget.defineWidget(
 					}
 				}
 			});
-			this.modalIcon.src = axiom.staticPath + '/axiom/images/icon_info.gif';
+			this.modalIcon.src = axiom.staticPath + '/axiom/images/icon_processing.gif';
 		},
 		showCloseButon: function(text) {
 			var buttons = document.createElement('div');
