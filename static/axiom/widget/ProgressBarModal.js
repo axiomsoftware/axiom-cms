@@ -58,16 +58,25 @@ dojo.widget.defineWidget(
 				contentType: 'text/json',
 				mimetype: 'text/json',
 				load: function(load, data, evt){
+					var completed = parseInt(data);
+					var total = parseInt(me.totalObjects);
 					if(data.errors) {
 						me.errors.innerHTML = "An error occured while running the script. Please contact your system administrator.<br /><br />Error: "+data.errors;
 						me.showCloseButon('OK');
 					}
 					if(me.completed) {return};
-					me.progress.innerHTML = 'Processed '+data+' of '+me.totalObjects;
-					me.modal_progress_bar.style.width = ((parseInt(data) / parseInt(me.totalObjects)) * 202) +'px';
+					me.progress.innerHTML = 'Processed '+completed+' of '+total;
+					me.modal_progress_bar.style.width = ((completed / total) * 202) +'px';
 
-					if(parseInt(data) == parseInt(me.totalObjects)) {
-						me.completed = true;
+					if(completed == total) {
+						if(completed == 0) {
+							me.progress.style.width = '200px';
+							me.progress.style.textAlign = 'center';
+							me.modal_progress_bar.style.width = '202px';
+							me.progress.innerHTML = 'No files were processed by the script. Files successfully saved.';
+						} else {
+							me.completed = true;
+						}
 						clearInterval(me.progressInterval);
 						me.showCloseButon('OK');
 					}
