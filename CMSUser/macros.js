@@ -65,7 +65,7 @@ this.setUsername = function(uname) {
 
 this.setRoles = function(r) {
     if (typeof r == "string") {
-	this.roles = new MultiValue(r); 
+	this.roles = new MultiValue(r);
     } else if (r instanceof Array) {
 	for (var i in r) {
 	    if (this.roles) {
@@ -116,7 +116,16 @@ function rolesString(){
 }
 
 function getLatestActivity(max) {
-	max = max || 5;
-	var prototypes = this.getSearchablePrototypes();
-	return app.getHits(prototypes, {lastmodifiedby:this.username}, {sort:{cms_lastmodified:'desc'}}).objects(0, max);
+    max = max || 5;
+    var prototypes = this.getSearchablePrototypes();
+    return app.getHits(prototypes, {lastmodifiedby:this.username}, {sort:{cms_lastmodified:'desc'}}).objects(0, max).map(
+	function(e) {
+	    return {
+		not_external: !(e.getURI().search("^/cms")),
+		href: e.getURI(),
+		lastmodified: e.cms_lastmodified.format("E MMM dd yyyy, hh:mm a"),
+		title: e.title
+	    };
+	}
+    );
 }

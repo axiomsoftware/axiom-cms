@@ -6,20 +6,20 @@
 		<span tal:content="session.user.search_roles" />
 		
 		<h4>Created:</h4>
-		<span tal:content="this.cms_lastmodified+' by '+(session.user ? session.user.username : 'System')" />
+		<span tal:content="this.cms_lastmodified.format('E MMM dd yyyy, hh:mm a')+' by '+(session.user ? session.user.username : 'System')" />
 
 		<h4>Last login:</h4>
-		<span tal:content="session.user.last_login" />
+		<span tal:content="session.user.last_login.format('E MMM dd yyyy, hh:mm a')" />
 
 		<h4>Last Profile Update:</h4>
-		<span tal:content="session.user.cms_lastmodified" />
+		<span tal:content="session.user.cms_lastmodified.format('E MMM dd yyyy, hh:mm a')" />
 	</div>
 	<div class="profile_rail bottom">
 		<h2>Latest Modifications</h2>
 		<ul>
 			<li tal:repeat="content: session.user.getLatestActivity()">
-				<span tal:content="content.title" />
-				<span class="modified" tal:content="content.cms_lastmodified" />
+				<a tal:omit="content.not_external" tal:attr="href: content.href" target="_blank"><span tal:content="content.title" /></a>
+				<span class="modified" tal:content="content.lastmodified" />
 			</li>
 		</ul>
 	</div>

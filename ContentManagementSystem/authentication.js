@@ -28,14 +28,16 @@ function Login() {
     var data = {};
     if (postback && username && password) {
 		var users = app.getObjects('CMSUser', new NativeFilter("username:"+username+" AND password:"+password.md5()+" AND (cms_status: a OR cms_status: z)", "WhitespaceAnalyzer"));
-		if (users.length === 0) { 
+		if (users.length === 0) {
 			app.log("Invalid login attempt for user "+username+" from "+ req.data.http_remotehost);
 			data.error_message = "You have entered an invalid username/password combination. If you have forgotten this information please contact your Axiom administrator.";
 		} else if(users[0].disabled == true) {
-			data.error_message = "This account has been disabled."
+		    data.error_message = "This account has been disabled.";
 		} else {
-			users[0].last_login = new Date();
-			session.login(users[0]);
+		    var user = users[0];
+		    user.last_login = new Date();
+		    user.login_count++;
+			session.login(user);
 			var http_referer = session.getHttpReferer();
 			if(http_referer != null && http_referer.match(/(cms|assets|reports|content)\/?$/)){ // referer may be set to an action like create/delete, etc. only allow landing pages for redirection
 				session.setHttpReferer(null); // Remove http_referer from session
@@ -45,7 +47,7 @@ function Login() {
 			}
 		}
     }
-	
+
     data.came_from = req.data.http_referer;
     return this.login(data);
 }
