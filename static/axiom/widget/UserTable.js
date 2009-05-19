@@ -101,17 +101,13 @@ dojo.widget.defineWidget(
 
 		},
 		toggleRow:function(internal_row){
-		    console.log("internal "+internal_row);
 		    if(this.activeRow && this.activeRow != internal_row.id){
 			this.collapseRow(dojo.byId(this.activeRow));
 		    }
 		    this.activeRow = internal_row.id;
-		    console.log("active "+this.activeRow);
 		    var rows = this.rowInfoIndex[internal_row.id];
 		    for(var i in rows){
-			console.log("rows i "+i);
 			var row_id = rows[i];
-			console.log("rows id "+row_id);
 			var row = dojo.byId(row_id);
 			if(row){
 			    if(row.style.display == 'table-row' || row.style.display == ''){
