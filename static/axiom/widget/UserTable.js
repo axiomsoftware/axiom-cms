@@ -41,7 +41,7 @@ dojo.widget.defineWidget(
 	{
 		appPath:'',
 		data: {},
-		numCols: 7,
+		numCols: 6,
 		approveButton: null,
 		rejectButton: null,
 		templatePath:new dojo.uri.dojoUri('../axiom/widget/resources/UserTable.html'),
@@ -60,6 +60,7 @@ dojo.widget.defineWidget(
 						{content: user.role,       'class': 'col_role' },
 						{content: user.email,      'class': 'col_email' }]
 				});
+
 			if(user.deletable)
 				dojo.html.addClass(row, 'deletable');
 
@@ -69,8 +70,63 @@ dojo.widget.defineWidget(
 								   adviceFunc: function(){users.load_edit(user.edit_url);}
 								 });
 
+
+		    var user_id = user._id;
+		    this.results_body.appendChild(
+			    this.createInfoRow(
+				{
+				    id: user_id+'created',
+				    omitSelector: true,
+				    cols: [
+					{content: "Created on: " + user.created, colspan: 2},
+					{content: "Number of times logged in: " + user.logins, colspan: 2}
+				    ]
+				}
+			    )
+			);
+
+			this.results_body.appendChild(
+			    this.createInfoRow(
+				{
+				    id: user_id+ 'edited',
+				    cols: [
+					{content: "Last modified on: " + user.lastmodified, colspan: 2},
+					{content: 'Last login on: ' + user.lastlogin, colspan: 2}
+				    ]
+				}
+			    )
+			);
+
+			this.rowInfoIndex[user_id] = [user_id+'created', user_id+'edited'];
+
 		},
-		toggleRow:function(){}, // override for no-op
+		toggleRow:function(internal_row){
+		    console.log("internal "+internal_row);
+		    if(this.activeRow && this.activeRow != internal_row.id){
+			this.collapseRow(dojo.byId(this.activeRow));
+		    }
+		    this.activeRow = internal_row.id;
+		    console.log("active "+this.activeRow);
+		    var rows = this.rowInfoIndex[internal_row.id];
+		    for(var i in rows){
+			console.log("rows i "+i);
+			var row_id = rows[i];
+			console.log("rows id "+row_id);
+			var row = dojo.byId(row_id);
+			if(row){
+			    if(row.style.display == 'table-row' || row.style.display == ''){
+				row.style.display = 'none';
+				this.activeRow = '';
+			    }
+			    else {
+				if(dojo.render.html.ie)
+				    row.style.display = '';
+				else
+				    row.style.display = 'table-row';
+			    }
+			}
+		    }
+		},
 		deleteObjects:function(){
 			if(!dojo.html.hasClass(this.deleteButton, 'form-button-disabled')){
 				var objects = [];
