@@ -598,8 +598,20 @@ dojo.widget.defineWidget(
 
 			var buttons;
 			if(data.results.length != 0){
+			    var idx = 0;
 				if (this.widget.widgetType == "UserTable") {
-					buttons = this.widget.insertButtonRow([delete_data]);
+				    delete_data = {
+					text: 'Disable',
+					callback: 'disableObjects'
+				    };
+
+				    var enable_data = {
+					text: 'Enable',
+					callback: 'enableObjects'
+				    };
+				    buttons = this.widget.insertButtonRow([enable_data, delete_data]);
+				    idx = 1;
+				    this.widget.enableButton = buttons[0];
 				} else if(this.widget.buttonData){
 					buttons = this.widget.insertButtonRow(this.widget.buttonData);
 					this.widget.buttons = buttons;
@@ -608,7 +620,7 @@ dojo.widget.defineWidget(
 					buttons = this.widget.insertButtonRow([delete_data,copy_data]);
 					this.widget.copyButton = buttons[1];
 				}
-				this.widget.deleteButton = buttons[0];
+				this.widget.deleteButton = buttons[idx];
 				this.widget.setupPagination(data);
 			}
 		},

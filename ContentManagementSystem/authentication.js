@@ -37,6 +37,7 @@ function Login() {
 		    var user = users[0];
 		    user.last_login = new Date();
 		    user.login_count++;
+		    user.addTimestamp();
 			session.login(user);
 			var http_referer = session.getHttpReferer();
 			if(http_referer != null && http_referer.match(/(cms|assets|reports|content)\/?$/)){ // referer may be set to an action like create/delete, etc. only allow landing pages for redirection

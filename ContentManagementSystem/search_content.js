@@ -117,7 +117,7 @@ function searchUsers(keywords){
 	var start = parseInt(req.data.start) || 0;
 	var length = parseInt(req.data.length) || 15;
 	var query = this.parseKeywordSearch(keywords).queries.join(' AND ');
-	var statusfilter = new Filter({cms_status:"z"});
+	var statusfilter = new Filter({});
 	var filter;
 	if (query) {
 		filter = new AndFilter(new NativeFilter(query),statusfilter);
@@ -207,7 +207,8 @@ function extractUser(user){
 	    logins:      (user.login_count || '0'),
 	    created:     user.created().format('E MMM dd yyyy'),
 	    lastmodified:user.lastmodified().format('E MMM dd yyyy'),
-	    lastlogin:   (user.last_login)?user.last_login.format('E MMM dd yyyy, hh:mm a'):"Never"
+	    lastlogin:   (user.last_login)?user.last_login.format('E MMM dd yyyy, hh:mm a'):"Never",
+	    disabled:    user.disabled
 	};
 }
 

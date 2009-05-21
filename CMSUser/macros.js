@@ -129,3 +129,15 @@ function getLatestActivity(max) {
 	}
     );
 }
+
+function addTimestamp(d) {
+    if (!d) {
+	d = new Date().getTime();
+    }
+
+    if (!(this.login_timestamps) || this.login_timestamps.length == 0) {
+	this.login_timestamps = new MultiValue(d);
+    } else {
+	this.login_timestamps = this.login_timestamps.concat(new MultiValue(d));
+    }
+}
