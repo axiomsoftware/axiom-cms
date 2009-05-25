@@ -10,7 +10,7 @@
       <table cellspacing="0" border="0" class="template_items">
 		<tr class="template" ><th class="colinfo"> </th><th class="coltitle">Title</th><th class="coltags">Tags</th><th class="colcaption">Caption/Alternate Text</th><th class="colcredit">Credit</th></tr>
 		<tr class="template"  >
-		  <td class="colinfo"><div class="info">When you use the template it prepopulates<br/>
+		  <td class="colinfo"><div>When you use the template it prepopulates<br/>
 			  each like field for all files in the batch<br/>
 			  saving you entry time. Just complete the fields<br/>
 			  and click APPLY. You can modify any field<br/>

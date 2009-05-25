@@ -13,8 +13,7 @@
 		<a href="javascript:void(0);" dojoattachpoint="pagination_button" class="button" alt="Go" title="Go">Go</a>
 	  </div>
 	</div> 
-	<div class="tablewrap">    
-	  <div class="table-info">Users with open tasks may not be deleted.</div>
+	<div class="tablewrap">
 	  <table class="results usersTable">
 		<thead>
 		  <tr>
@@ -24,7 +23,7 @@
 			<th class="col_last_name"><a href="javascript:void(0);" onclick="users.cfilter.sort([{sortable_last_name:'alternate'}, {first_name: 'asc'}]);">Last Name</a> <img class="col_sort" dojoattachpoint="col_sort_sortable_last_name" /></th>
 			<th class="col_username"><a href="javascript:void(0);" onclick="users.cfilter.sort([{sortable_username:'alternate'}, {last_name: 'asc'}]);">Username</a> <img class="col_sort" dojoattachpoint="col_sort_sortable_username" /></th>
 			<th class="col_role"><a href="javascript:void(0);" onclick="users.cfilter.sort([{sortable_roles:'alternate'}, {last_name: 'asc'}]);">Role</a> <img class="col_sort" dojoattachpoint="col_sort_sortable_roles" /></th>
-			<th class="col_email"><a href="javascript:void(0);" onclick="users.cfilter.sort([{sortable_email:'alternate'}, {last_name: 'asc'}]);">Email</a> <img class="col_sort" dojoattachpoint="col_sort_sortable_email" /></th>
+			<th class="col_email">Account Status</th>
 		  </tr>
 		</thead>
 		<tbody dojoattachpoint="results_body">

@@ -58,25 +58,34 @@ dojo.widget.defineWidget(
 				contentType: 'text/json',
 				mimetype: 'text/json',
 				load: function(load, data, evt){
+					var completed = parseInt(data);
+					var total = parseInt(me.totalObjects);
 					if(data.errors) {
 						me.errors.innerHTML = "An error occured while running the script. Please contact your system administrator.<br /><br />Error: "+data.errors;
 						me.showCloseButon('OK');
 					}
 					if(me.completed) {return};
-					me.progress.innerHTML = 'Processed '+data+' of '+me.totalObjects;
-					me.modal_progress_bar.style.width = ((parseInt(data) / parseInt(me.totalObjects)) * 198) +'px';
+					me.progress.innerHTML = 'Processed '+completed+' of '+total;
+					me.modal_progress_bar.style.width = ((completed / total) * 202) +'px';
 
-					if(parseInt(data) == parseInt(me.totalObjects)) {
-						me.completed = true;
+					if(completed == total) {
+						if(completed == 0) {
+							me.progress.style.width = '200px';
+							me.progress.style.textAlign = 'center';
+							me.modal_progress_bar.style.width = '202px';
+							me.progress.innerHTML = 'No files were processed by the script. Files successfully saved.';
+						} else {
+							me.completed = true;
+						}
 						clearInterval(me.progressInterval);
-						me.message.innerHTML += 'Complete!';
 						me.showCloseButon('OK');
 					}
 				}
 			});
 		},
 		postCreate:function() {
-			this.title.innerHTML = "CMS Script Progress";
+			this.title.innerHTML = "Asset Script Processing";
+			this.script_title.innerHTML = 'Action: ' + this.s_title;
 			var me = this;
 			
 			// Call to get the total objects to process...
@@ -115,7 +124,7 @@ dojo.widget.defineWidget(
 					}
 				}
 			});
-			this.modalIcon.src = axiom.staticPath + '/axiom/images/icon_info.gif';
+			this.modalIcon.src = axiom.staticPath + '/axiom/images/icon_processing.gif';
 		},
 		showCloseButon: function(text) {
 			var buttons = document.createElement('div');

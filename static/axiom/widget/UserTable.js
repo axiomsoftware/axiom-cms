@@ -41,7 +41,8 @@ dojo.widget.defineWidget(
 	{
 		appPath:'',
 		data: {},
-		numCols: 7,
+		numCols: 6,
+	    enableButton: null,
 		approveButton: null,
 		rejectButton: null,
 		templatePath:new dojo.uri.dojoUri('../axiom/widget/resources/UserTable.html'),
@@ -58,8 +59,9 @@ dojo.widget.defineWidget(
 						{content: user.last_name,  'class': 'col_last_name' },
 						{content: user.username,   'class': 'col_username' },
 						{content: user.role,       'class': 'col_role' },
-						{content: user.email,      'class': 'col_email' }]
+					{content: (user.disabled)?'Disabled':'Enabled',      'class': 'col_email' }]
 				});
+
 			if(user.deletable)
 				dojo.html.addClass(row, 'deletable');
 
@@ -69,9 +71,92 @@ dojo.widget.defineWidget(
 								   adviceFunc: function(){users.load_edit(user.edit_url);}
 								 });
 
+
+		    var user_id = user._id;
+		    this.results_body.appendChild(
+			    this.createInfoRow(
+				{
+				    id: user_id+'created',
+				    omitSelector: true,
+				    cols: [
+					{content: "Created on: " + user.created, colspan: 2},
+					{content: "Number of times logged in: " + user.logins, colspan: 2},
+					{content: user.email}
+				    ]
+				}
+			    )
+			);
+
+			this.results_body.appendChild(
+			    this.createInfoRow(
+				{
+				    id: user_id+ 'edited',
+				    cols: [
+					{content: "Last modified on: " + user.lastmodified, colspan: 2},
+					{content: 'Last login on: ' + user.lastlogin, colspan: 2}
+				    ]
+				}
+			    )
+			);
+
+			this.rowInfoIndex[user_id] = [user_id+'created', user_id+'edited'];
+
 		},
-		toggleRow:function(){}, // override for no-op
-		deleteObjects:function(){
+		toggleRow:function(internal_row){
+		    if(this.activeRow && this.activeRow != internal_row.id){
+			this.collapseRow(dojo.byId(this.activeRow));
+		    }
+		    this.activeRow = internal_row.id;
+		    var rows = this.rowInfoIndex[internal_row.id];
+		    for(var i in rows){
+			var row_id = rows[i];
+			var row = dojo.byId(row_id);
+			if(row){
+			    if(row.style.display == 'table-row' || row.style.display == ''){
+				row.style.display = 'none';
+				this.activeRow = '';
+			    }
+			    else {
+				if(dojo.render.html.ie)
+				    row.style.display = '';
+				else
+				    row.style.display = 'table-row';
+			    }
+			}
+		    }
+		},
+	    enableObjects:function(){
+			if(!dojo.html.hasClass(this.enableButton, 'form-button-disabled')){
+				var objects = [];
+				for(var id in this.selectedRows){
+					objects.push(id);
+				}
+				var content;
+				if(objects.length == 1){
+					var cells = dojo.byId(objects[0]).getElementsByTagName('td');
+					content = "Enable user <b>"+cells[2].innerHTML+" "+cells[3].innerHTML+"</b>?";
+				} else {
+					content = "Enable the selected users?";
+				}
+				axiom.openModal({ confirmdialog: true,
+								  content: content,
+								  callback: function(){
+									  dojo.io.bind({ url: 'enable_users',
+													 method: 'post',
+													 contentType: 'text/json',
+													 load: function(){ users.cfilter.search();},
+													 postContent: dojo.json.serialize({users: objects}),
+													 error: function(e){
+														 axiom.openModal({content: "Error connecting to server."});
+													 }
+												   });
+								  }
+
+
+				});
+			}
+		},
+		disableObjects:function(){
 			if(!dojo.html.hasClass(this.deleteButton, 'form-button-disabled')){
 				var objects = [];
 				for(var id in this.selectedRows){
@@ -80,14 +165,14 @@ dojo.widget.defineWidget(
 				var content;
 				if(objects.length == 1){
 					var cells = dojo.byId(objects[0]).getElementsByTagName('td');
-					content = "Delete user <b>"+cells[2].innerHTML+" "+cells[3].innerHTML+"</b>?";
+					content = "Disable user <b>"+cells[2].innerHTML+" "+cells[3].innerHTML+"</b>?";
 				} else {
-					content = "Delete the selected users? This action cannot be undone.";
+					content = "Disable the selected users?";
 				}
 				axiom.openModal({ confirmdialog: true,
 								  content: content,
 								  callback: function(){
-									  dojo.io.bind({ url: 'delete_users',
+									  dojo.io.bind({ url: 'disable_users',
 													 method: 'post',
 													 contentType: 'text/json',
 													 load: function(){ users.cfilter.search();},
@@ -104,16 +189,18 @@ dojo.widget.defineWidget(
 		},
 
 		onSelect:function(row){
-			if(this.deleteButton && !dojo.html.hasClass(row, 'deletable')){
+			/*if(this.deleteButton && !dojo.html.hasClass(row, 'deletable')){
 				this.nonDeletableObjects[row.id] = true;
-			}
+			}*/
 			this.checkButton(this.nonDeletableObjects, this.deleteButton);
+			this.checkButton(this.nonDeletableObjects, this.enableButton);
 		},
 		onUnselect:function(row){
-			if(row.id != this.activeRow){
+			/*if(row.id != this.activeRow){
 				delete this.nonDeletableObjects[row.id];
-			}
+			}*/
 			this.checkButton(this.nonDeletableObjects, this.deleteButton);
+			this.checkButton(this.nonDeletableObjects, this.enableButton);
 		},
 		previous:function(){
 			users.cfilter.go(this.start-this.length,this.length);

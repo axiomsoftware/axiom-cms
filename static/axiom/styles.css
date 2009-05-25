@@ -324,7 +324,8 @@ th,td {white-space: normal; text-align: left; padding:0px;border: 1px solid #AAA
 #content .body .columnLeft form {margin:0px;}
 #content .body .columnLeft p {font-size:.9em;margin:0px;}
 #content .body .columnLeft fieldset {margin:0px;padding:0 0 13px 0;}
-#content .body .columnLeft .section {width:190px; padding:10px 0; margin:0 25px; margin-bottom:3px;border-bottom: 1px solid #b8b8b8;}
+#content .body .columnLeft .section {width:190px; padding:10px 0; margin:0 25px; margin-bottom:3px;border-bottom: 1px solid #b8b8b8; border-top: 1px solid #b8b8b8;}
+#content .body .columnLeft .section.first {border-top:0 none;}
 #content .body .columnLeft .profile_rail {width:190px; padding:10px 0 30px; margin:0 25px 10px; border-bottom: 1px solid #b8b8b8;}
 #content .body .columnLeft .profile_rail.bottom {border-bottom:0 none;}
 #content .body .columnLeft .profile_rail h4 {margin:20px 0 4px; color:#333; text-transform:uppercase;}
@@ -346,6 +347,8 @@ th,td {white-space: normal; text-align: left; padding:0px;border: 1px solid #AAA
 #content .body .columnLeft .section .cblabel {display:inline;}
 #content .body .columnLeft .section #nounzip {float:left;margin-right:4px !important;}
 #content .body .columnLeft .section a#filetypes {display:block;background:url(images/icon_info.gif) 0 0 no-repeat;padding:0 0 10px 20px;color:#4D666D;text-decoration:underline;font-size:1.2em;}
+#content .body .columnLeft .section .li {display:block; font-size:1.1em; background:url(images/icon_folder.gif) top right no-repeat; margin:8px 0; color:#666; width:120px; height:16px; padding:2px 0 0; outline:0 none;}
+#content .body .columnLeft .section .tags {display:block; font-size:1.1em; background-image:url(images/icon_tags.gif)}
 #content .body .columnLeft .second {border-top: 1px solid #b8b8b8;}
 #content .body .columnLeft .last   {border-top:1px solid #b8b8b8; border-bottom: 0px;}
 #content .body .columnLeft .last p {font-size:1em;padding-bottom:5px;}
@@ -378,7 +381,7 @@ table.batch_edit tr td{border:0; vertical-align:top; padding:5px;}
 .upload div.template_head a {color:#4c6571;text-decoration:underline;}
 .upload div#template_wrapper {background:#cfd4d7;border:1px solid #a2a7a9;width:98%;padding:0 1%;}
 .upload table.template_items tr th,.upload table.template_items tr td {vertical-align:top;border:0;background:none;}
-.upload table.template_items .colinfo {width:42%;}
+.upload table.template_items .colinfo {width:42%}
 .upload table.template_items .colthumb,
 .upload table.template_items .colfile,
 .upload table.template_items .colcontent,
@@ -386,8 +389,13 @@ table.batch_edit tr td{border:0; vertical-align:top; padding:5px;}
 .upload table.template_items .coltags,
 .upload table.template_items .colcaption,
 .upload table.template_items .colcredit {width:14%;}
+.upload table.template_items .colfile,
+.upload table.template_items .colfolder {width:14%;}
 .upload table.template_items textarea {height:84px;width:133px;overflow:hidden;}
-.upload .tag_button {float:left;border:1px solid #b8b8b8;background:#e4e7e8;width:133px;position:relative;top:-23px;}
+.upload table.template_items td span {color:#333; font-weight:bold;}
+.upload table.template_items td label {color:#333; display:block; margin:0 0 1px;}
+.upload table.template_items td p {margin:0 0 14px; display:block;}
+.upload .tag_button {float:left;border:1px solid #b8b8b8;background:#e4e7e8;width:133px;position:relative;top:-21px;}
 .upload .tag_button img {float:right;}
 
 .upload div#content_table {width:98%;background:#FFF;padding:10px 1%;margin:13px 0;border:1px solid #a2a7a9;}
@@ -399,12 +407,20 @@ table.batch_edit tr td{border:0; vertical-align:top; padding:5px;}
 .assetsPane .manage_column {width:98%;padding:10px 1%}
 .assetsPane .manage_column h2 {font-family:"Georgia";font-size:1.6em;font-weight:normal;letter-spacing:-0.01em;margin:0;padding-bottom:9px;}
 
+.folder_container,
 .tag_container {margin:13px 0 14px;float:left;width:100%;padding-bottom:10px; border:1px solid #ccc;}
+.folder_container .tag_col,
 .tag_container .tag_col {float:left;width:50%;}
+.folder_container .tag_col div,
 .tag_container .tag_col div {overflow:hidden;width:100%;}
+.folder_container .tag_col ul,
 .tag_container .tag_col ul {list-style:none; margin:30px 0 30px 45px; float:left;}
+.folder_container .tag_col input,
 .tag_container .tag_col input {display:block; float:left; clear:both;}
+.folder_container .tag_col label ,
 .tag_container .tag_col label {margin:0 0px 3px 4px; display:block; float:left; width:160px; padding:2px 2px 2px 25px; background:url(images/icon_tags.gif) top left no-repeat; overflow:hidden; cursor:pointer;}
+.folder_container .tag_col label {background-image:url(images/icon_folder.gif) !important;}
+.folder_container .tag_col ul li a,
 .tag_container .tag_col ul li a {color:#4D666D; text-decoration:none;}
 
 /* End Manage Tags Screen Styles */

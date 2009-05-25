@@ -27,12 +27,10 @@ function getAnalytics() {
 		    if (total_views_rs) {
 			total_views_rs.next();
 			var total_pageviews = total_views_rs.getColumnItem("total_pageviews");
-			if (pageviews && total_pageviews) {
-			    ga_data.pageviews = {
-				value: (pageviews || 0),
-				percent: ((total_pageviews > 0)?""+((pageviews || 0)/total_pageviews):"0.0").substring(0,4)
-			    };
-			}
+			ga_data.pageviews = {
+			    value: (pageviews || 0),
+			    percent: ((total_pageviews > 0)?""+((pageviews || 0)/total_pageviews):"0.0").substring(0,4)
+			};
 		    }
 		}
 
@@ -42,12 +40,10 @@ function getAnalytics() {
 		    if (total_convs_rs) {
 			total_convs_rs.next();
 			var total_conversions = total_convs_rs.getColumnItem("total_conversions");
-			if (conversions && total_conversions) {
-			    ga_data.conversions = {
-				value: (conversions || 0),
-				percent: ((total_conversions > 0)?""+((pageviews || 0)/total_conversions):"0.0").substring(0,4)
-			    };
-			}
+			ga_data.conversions = {
+			    value: (conversions || 0),
+			    percent: ((total_conversions > 0)?""+((conversions || 0)/total_conversions):"0.0").substring(0,4)
+			};
 		    }
 		}
 	    }

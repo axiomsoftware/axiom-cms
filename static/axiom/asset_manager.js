@@ -420,8 +420,18 @@ function fire_submit(){
 				   postContent: dojo.json.serialize(objs),
 				   contentType: 'text/json',
 				   load: function(){
-						if(script) {
-							axiom.openModal({ widget: dojo.widget.createWidget("axiom:ProgressBarModal", {appPath:axiom.appPath, staticPath: axiom.staticPath, script_id:script, zip_id:zip_id, closeFunc:showAssetManager}) });
+						if(script && script.indexOf('--') < 0) {
+							
+							var title;
+							var options = dojo.byId('batch_scripts').getElementsByTagName('option');
+							for(var x=0; x<options.length; x++) {
+								if(options[x].selected) {
+									title = options[x].innerHTML;
+								}
+							}
+							axiom.openModal({ widget: dojo.widget.createWidget("axiom:ProgressBarModal", {appPath:axiom.appPath, staticPath: axiom.staticPath, script_id:script, s_title:title, zip_id:zip_id, closeFunc:showAssetManager}) });
+						} else {
+							showAssetManager();
 						}
 				   }
 				 });
