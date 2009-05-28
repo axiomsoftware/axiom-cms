@@ -142,6 +142,7 @@ dojo.widget.defineWidget(
 				this._setPreview(this.objectData);
 				this._setCurrentAsset(this.objectData);
 				this.original_asset = this.objectData;
+				delete axiom.dirtyProps[this.current_asset.name];
 			} else {
 				this._setPreview();
 			}
