@@ -1,10 +1,14 @@
 <div dojoattachpoint="help_search" class="help_search_modal">
-  <div>
-    <label for="s">Keyword</label>
-    <input dojoattachpoint="search_input" type="text" name="s" id="s" />
-    <a dojoattachevent="onclick:fire_helpsearch">&gt;</a>
+  <div class="help_search_wrap">
+    <form>
+      <fieldset>
+	<label for="s">Keyword</label>
+	<input dojoattachpoint="search_input" type="text" name="s" id="s" />
+	<a class="button" dojoattachevent="onclick:fire_helpsearch">&gt;</a>
+      </fieldset>
+    </form>
+    <ul dojoattachpoint="help_search_results"class="results">
+    </ul>
+    <p><a class="more" href="http://kb.axiomcms.com/" target="_blank">More</a></p>
   </div>
-  <ul dojoattachpoint="help_search_results"class="results">
-  </ul>
-  <p><a class="more" href="" target="_blank">More</a></p>
 </div>

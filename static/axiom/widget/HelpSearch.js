@@ -60,6 +60,7 @@ dojo.widget.defineWidget(
 	    }
 	},
 	search_kb: function(url) {
+	    var self = this;
 	    dojo.io.bind(
 		{
 		    url: url,
@@ -75,8 +76,8 @@ dojo.widget.defineWidget(
 	fire_top_searches: function() {
 	    this.search_kb(axiom.cmsPath + 'popularQueriesKnowledgeBase');
 	},
-	fire_helpsearch: function(path) {
-	    var self = this;
+	fire_helpsearch: function(e) {
+	    e.preventDefault();
 	    this.search_kb(axiom.cmsPath + 'searchKnowledgeBase'+((this.search_input != '')?'?s='+this.search_input.value:''));
 
 	    this.searched_once = true;
@@ -111,6 +112,18 @@ dojo.widget.defineWidget(
 		    srcFunc: 'onclick',
 		    adviceObj: this,
 		    adviceFunc: 'click_handler'
+		}
+	    );
+
+	    dojo.event.connect(
+		{
+		    srcObj: this.search_input,
+		    srcFunc: 'onkeypress',
+		    adviceObj: this,
+		    adviceFunc: function(evt) {
+			if (evt)
+			    this.fire_helpsearch();
+		    }
 		}
 	    );
 	}

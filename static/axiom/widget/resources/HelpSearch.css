@@ -1,9 +1,6 @@
-.help_search_modal {
-    position:absolute;
-    z-index:999;
-    border:1px solid #b8b8b8;
-    width:200px;
-    height:300px;
-    background:#B8C0C3;
-    display:none;
-}
+.help_search_modal {position:absolute;z-index:999;border:1px solid #778084;width:200px;max-height:300px;background:#aebabf;display:none;padding:3px;}
+.help_search_wrap {background:#d6dcdf;}
+.help_search_modal form {background:#fff;border:none;}
+.help_search_modal fieldset {border:none;}
+.help_search_modal label {width:150px;}
+.help_search_results li {list-style:none;}
