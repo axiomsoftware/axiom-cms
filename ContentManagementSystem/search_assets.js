@@ -162,7 +162,7 @@ function search_assets(){
 			filter = new AndFilter(filter, this.cmsCustomQueryFilter(context));
 		hits = app.getHits(object_types, filter, {sort: sort_obj});
 	} else{
-		var q = this.parseKeywordSearch(keywords);
+		var q = this.parseKeywordSearch(keywords, this.searchField ? this.searchField() : null);
 		var typefilter;
 		if(types && !types.match(/all|other/i)){
 			var contentTypes = this.getContentTypes(types);
