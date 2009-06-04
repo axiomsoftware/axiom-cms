@@ -4,6 +4,7 @@
   </script>
   <span tal:replace="this.cms_header(data)"/> 
   <script type="text/javascript" tal:attr="src: app.getStaticMountpoint('axiom/content.js')"> </script>
+  <script type="text/javascript" tal:attr="src: app.getStaticMountpoint('axiom/help.js')"> </script>
   <script language="JavaScript" type="text/javascript" tal:text="$">
 	axiom.appPath = '${root.getURI()}' == '/' ? '/' : '${root.getURI()}/';
 	axiom.cmsPath = '${this.getURI()}/';
@@ -43,6 +44,7 @@
 	  </div>
 	  <span tal:replace="this.footer()" />
 	</div>
+	<div id="HelpSearch"> </div>
   </body> 
 </html>
 

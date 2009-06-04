@@ -48,7 +48,6 @@ function users(){
 						  class_name: 'users',
 						  omit_top: true,
 						  scripts: ['users.js']}));
-
 }
 
 function profile(){
@@ -58,7 +57,6 @@ function profile(){
 						  class_name: 'profile',
 						  omit_top: true,
 						  scripts: ['profile.js']}));
-
 }
 
 function recyclebin(){
@@ -68,7 +66,6 @@ function recyclebin(){
 						  omit_top: true,
 						  class_name: 'users',
 						  scripts: ['recyclebin.js']}));
-
 }
 
 function settings(){
@@ -80,25 +77,10 @@ function settings(){
 						  css: ['settings.css']}));
 
 }
+
 function reports(){
 	res.write(this.frame({title: 'Axiom CMS - Reports',
 						  nav: 'reports_nav',
 						  content: 'reports_content',
 						  scripts: ['reports.js']}));
-
-}
-
-
-/**
- *  Add application specific tabs to the cms by overriding this stub method.
- *  Should return a list of objects with the following properties:
- *        href             -> location of the tab content
- *        title            -> link title
- *        highlight_action -> name of the action upon which this tab should be highlighted
- *
- *  Example:
- *     return [ {href: root.getURI()+'cms/reports', title: 'Reports', highlight_action:'reports'} ];
- */
-function app_tabs(){
-	return [];
 }

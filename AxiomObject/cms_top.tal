@@ -7,7 +7,8 @@
 	  <li><a target="blank" tal:attr="onclick: 'window.open(\''+cms.getURI('users')+'\', \'Users\', \'width=1024,height=700,resizable=yes,scrollbars=yes\')' ">Users</a></li>
 	</swx>
 	<li><a target="blank" tal:attr="onclick: 'window.open(\''+cms.getURI('profile')+'\', \'UserProfile\', \'width=1024,height=700,resizable=yes,scrollbars=no\')' ">My Profile</a></li>
-	<li class="last"><a href="#" onclick="axiom.logout()">Logout</a></li>
+	<li><a href="#" onclick="axiom.logout()">Logout</a></li>
+	<li class="last"><a href="http://kb.axiomcms.com/" target="_blank" id="cms_help">Help</a></li>
   </ul>
   <div class="logo">
 	<a tal:attr="href: cms.getURI()" target="_blank">
@@ -19,5 +20,4 @@
 	<li tal:if="this.viewAssets()" tal:attr="'class': (req.action == 'assets')?'active':''"><a tal:attr="href: cms.getURI('assets')">Assets</a></li>
 	<li tal:repeat="tab: cmsGlobals.cmsTabs" tal:if="this.hasRole(tab.roles)" tal:attr="'class': (req.action == data.tab.highlight_action?'active':'')"><a tal:attr="href: (typeof tab.href == 'function')?tab.href():tab.href" tal:content="tab.title"/></li>
   </ul>
-
 </div>
