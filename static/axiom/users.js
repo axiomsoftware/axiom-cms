@@ -61,7 +61,16 @@ var users = {
 		else{
 			axiom.submitEdit({edit_url:href,
 							  obj_id: id,
-							  callback: callback});
+							  callback: function(type, data) {
+								try{
+									data = eval("("+data+")");
+								} catch(e) {}
+								if(data.errors) {
+									axiom.openModal({content: data.errors});
+								} else {
+									callback();
+								}
+							  }});
 		}
 	},
 	delete_user: function(href, username){

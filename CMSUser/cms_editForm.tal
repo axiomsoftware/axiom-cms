@@ -1,5 +1,7 @@
 <div xmlns:tal="http://axiomstack.com/tale" class="subform">
 <fieldset>
+  <fieldset class="ax-textbox ax-username" id="ax-username" tal:if="req.action != 'profile'"><div><div class="error_message">hidden error message</div><label for="username"><span class="required">*</span>Username</label><input id="username" name="username" type="text" tal:attr="value: this.username" class="validate-empty" onchange="axiom.dirtyProps['username']=true" /></div></fieldset>
+  
   <fieldset class="ax-textbox ax-first_name" id="ax-first_name"><div><div class="error_message">hidden error message</div><label for="first_name"><span class="required">*</span>First Name</label><input id="first_name" name="first_name" type="text" tal:attr="value: this.first_name" class="validate-empty" onchange="axiom.dirtyProps['first_name']=true" /></div></fieldset>
 
   <fieldset class="ax-textbox ax-last_name" id="ax-last_name"><div><div class="error_message">hidden error message</div><label for="last_name"><span class="required">*</span>Last Name</label><input id="last_name" name="last_name" type="text" tal:attr="value: this.last_name" class="validate-empty" onchange="axiom.dirtyProps['last_name']=true"/></div></fieldset>

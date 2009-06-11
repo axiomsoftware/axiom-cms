@@ -27,7 +27,7 @@ function Login() {
     var password = req.get("password");
     var data = {};
     if (postback && username && password) {
-	var users = app.getObjects('CMSUser', {username:username, password:password.md5()}, {polymorphic:true});
+	var users = app.getObjects('CMSUser', new Filter({username:username, password:password.md5()}, 'WhitespaceAnalyzer'), {polymorphic:true});
 		if (users.length === 0) {
 			app.log("Invalid login attempt for user "+username+" from "+ req.data.http_remotehost);
 			data.error_message = "You have entered an invalid username/password combination. If you have forgotten this information please contact your Axiom administrator.";
