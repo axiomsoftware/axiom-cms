@@ -767,7 +767,7 @@ function urlselect(attr_name, props){
 					open:function() {
 						axiom.browsetable.multiple = false;
 						axiom.browsetable.property = '%{attr_name}';
-						axiom.browsetable.defaultValue = '${this.%{attr_name}}';
+						axiom.browsetable.defaultValue = '${escape(this.%{attr_name})}';
 						axiom.browsetable.defaultValues = [];
 						axiom.browsetable.setCallBack = function(a,b){
 							var url = b[1].uri;
