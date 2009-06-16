@@ -463,6 +463,10 @@ var axiom = {
 			if(submitAll || axiom.dirtyProps[elem.name]) {
 				if(elem.getAttribute('type') && elem.getAttribute('type').toLowerCase() == 'checkbox') {
 					data[elem.name] = elem.checked ? elem.value : false;
+				} else if(elem.getAttribute('type') && elem.getAttribute('type').toLowerCase() == 'radio')  {
+					if(elem.checked) {
+						data[elem.name] = elem.value;
+					}
 				} else {
 					data[elem.name] = elem.value;
 				}
