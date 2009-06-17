@@ -1,0 +1,345 @@
+<div xmlns:tal="http://axiomstack.com/tale" class="form"><div class="subform"> <fieldset  class="ax-_location" id="ax-_location">
+        <div><div class="error_message">hidden error message </div>
+	<div class="info_box"> <div>
+        <div class="info_label">
+	    <label for="_location">URL</label>
+	    
+	    <span class="info_toggle" id="info_toggle__location"><img src="/static/axiom/images/icon_info.gif"/></span>
+
+	    
+	</div>
+	<div class="info" id="info__location">
+	    <p class="info_desc" id="info_desc__location"><strong>Definition:</strong> This is the location field. You can set the url of your page by changing the values here.</p>
+	
+	    
+	
+	
+	    
+	
+	</div>
+	<script type="text/javascript">//
+	    dojo.require("axiom.widget.Info");
+	    var info = dojo.widget.createWidget('axiom:Info', {
+						    id: 'info__location'
+						},
+						dojo.byId('info__location')
+					       );
+	    dojo.event.kwConnect({ srcObj:dojo.byId('info_toggle__location'),
+		srcFunc:'onclick',
+		adviceObj:info,
+		adviceFunc:'toggleInfo'});
+	    //</script>
+    </div></div>
+        <div id="_location_widget">Loading...</div>
+        <script xmlns:tal="http://axiomstack.com/tale" tal:text="$" type="text/javascript"> //
+
+	dojo.require("axiom.widget.LocationField");
+	var loc = dojo.widget.createWidget('axiom:LocationField',
+									   {appPath:axiom.appPath,
+										initialValue: '${this._parent.getPath()}',
+										parentHref:'${this._parent.getURI()}',
+										href:'${this.getURI()}/',
+										objectId:'${this.id}',
+										parentTypes: ${this.parentTypesJSON()}},
+									   dojo.byId('_location_widget'));
+
+	//</script>
+    </div>
+	<p class="note">Once this field is set, saving the page will publish it live.</p>
+	</fieldset><fieldset  class="ax-textbox ax-title" id="ax-title">
+		<div><div class="error_message">hidden error message </div>
+		<div class="info_box"> <div>
+        <div class="info_label">
+	    <label for="title">Title</label>
+	    
+	    <span class="info_toggle" id="info_toggle_title"><img src="/static/axiom/images/icon_info.gif"/></span>
+
+	    
+	</div>
+	<div class="info" id="info_title">
+	    <p class="info_desc" id="info_desc_title"><strong>Definition:</strong> This is the title of the page. The title of the page has great significance throughout most web sites. The title is used throughout Axiom CMS for identification. Also, most developers use the title but within the page templates. This means that you should always fill out this field.</p>
+	
+	
+	</div>
+	<script type="text/javascript">//
+	    dojo.require("axiom.widget.Info");
+	    var info = dojo.widget.createWidget('axiom:Info', {
+						    id: 'info_title'
+						},
+						dojo.byId('info_title')
+					       );
+	    dojo.event.kwConnect({ srcObj:dojo.byId('info_toggle_title'),
+		srcFunc:'onclick',
+		adviceObj:info,
+		adviceFunc:'toggleInfo'});
+	    //</script>
+    </div></div>
+		<input id="title" name="title" onkeyup="dojo.widget.byNode(dojo.byId('_location').parentNode).populate(this.value)" xmlns:tal="http://axiomstack.com/tale" tal:attr="value: this.title" type="text"/>
+		</div>
+		<script type="text/javascript"> //
+        dojo.event.kwConnect({ srcObj: dojo.byId('title'),
+							   srcFunc: 'onchange',
+  							   adviceFunc: function(evt){ axiom.dirtyProps[ evt.target['name'] ] = true; }
+  							 });
+
+    //</script>
+
+	</fieldset><fieldset  class="ax-wysiwyg ax-error_500" id="ax-error_500">
+	    <div> <div class="error_message">hidden error message</div>
+	    <div class="wysiwyg-label">
+		<div class="info_box"> <div>
+        <div class="info_label">
+	    <label for="error_500">Message to Display on 500 (Server Error) Error Page</label>
+	    <a class="button form-button" id="error_500_toggle" onclick="axiom.toggleFCKInstance('error_500','','','','','','');axiom.dirtyProps['error_500'] = true;">Edit</a>
+	    <span class="info_toggle" id="info_toggle_error_500"><img src="/static/axiom/images/icon_info.gif"/></span>
+
+	    
+	</div>
+	<div class="info" id="info_error_500">
+	    <p class="info_desc" id="info_desc_error_500"><strong>Definition:</strong> This area is a wysiwyg (What You See Is What You Get). It allows you to type text, select images, and format your information without having to write HTML. To get started with the wysiwyg, click the EDIT button above.</p>
+	
+	
+	</div>
+	<script type="text/javascript">//
+	    dojo.require("axiom.widget.Info");
+	    var info = dojo.widget.createWidget('axiom:Info', {
+						    id: 'info_error_500'
+						},
+						dojo.byId('info_error_500')
+					       );
+	    dojo.event.kwConnect({ srcObj:dojo.byId('info_toggle_error_500'),
+		srcFunc:'onclick',
+		adviceObj:info,
+		adviceFunc:'toggleInfo'});
+	    //</script>
+    </div></div>
+	    </div>
+        <iframe class="wysiwyg_preview" id="error_500_preview" xmlns:tal="http://axiomstack.com/tale" tal:attr="src: this.getURI('preview_property?property=error_500&amp;src_id=error_500')"/>
+        <textarea id="error_500" name="error_500" style="display:none"><span xmlns:tal="http://axiomstack.com/tale" tal:replace="(this.error_500||'')"/></textarea>
+		<div id="error_500_fckarea" style="display:none"><textarea id="error_500_fcktext"><span xmlns:tal="http://axiomstack.com/tale" tal:replace="this.error_500||''"/></textarea></div>
+		</div></fieldset><fieldset  class="ax-wysiwyg ax-footer" id="ax-footer">
+	    <div> <div class="error_message">hidden error message</div>
+	    <div class="wysiwyg-label">
+		<div class="info_box"> <div>
+        <div class="info_label">
+	    <label for="footer">Site Footer</label>
+	    <a class="button form-button" id="footer_toggle" onclick="axiom.toggleFCKInstance('footer','','','','','','');axiom.dirtyProps['footer'] = true;">Edit</a>
+	    <span class="info_toggle" id="info_toggle_footer"><img src="/static/axiom/images/icon_info.gif"/></span>
+
+	    
+	</div>
+	<div class="info" id="info_footer">
+	    <p class="info_desc" id="info_desc_footer"><strong>Definition:</strong> This area is a wysiwyg (What You See Is What You Get). It allows you to type text, select images, and format your information without having to write HTML. To get started with the wysiwyg, click the EDIT button above.</p>
+	
+	
+	</div>
+	<script type="text/javascript">//
+	    dojo.require("axiom.widget.Info");
+	    var info = dojo.widget.createWidget('axiom:Info', {
+						    id: 'info_footer'
+						},
+						dojo.byId('info_footer')
+					       );
+	    dojo.event.kwConnect({ srcObj:dojo.byId('info_toggle_footer'),
+		srcFunc:'onclick',
+		adviceObj:info,
+		adviceFunc:'toggleInfo'});
+	    //</script>
+    </div></div>
+	    </div>
+        <iframe class="wysiwyg_preview" id="footer_preview" xmlns:tal="http://axiomstack.com/tale" tal:attr="src: this.getURI('preview_property?property=footer&amp;src_id=footer')"/>
+        <textarea id="footer" name="footer" style="display:none"><span xmlns:tal="http://axiomstack.com/tale" tal:replace="(this.footer||'')"/></textarea>
+		<div id="footer_fckarea" style="display:none"><textarea id="footer_fcktext"><span xmlns:tal="http://axiomstack.com/tale" tal:replace="this.footer||''"/></textarea></div>
+		</div></fieldset><fieldset  class="ax-urlselect ax-site_title" id="ax-site_title">
+			 <div> <div class="error_message">hidden error message</div>
+		<div class="info_box"> <div>
+        <div class="info_label">
+	    <label for="site_title">Title of The Website</label>
+	    
+	    <span class="info_toggle" id="info_toggle_site_title"><img src="/static/axiom/images/icon_info.gif"/></span>
+
+	    
+	</div>
+	<div class="info" id="info_site_title">
+	    <p class="info_desc" id="info_desc_site_title"><strong>Definition:</strong> This area allows you to specify a URL that is not a part of your website, but it also brings up a dialog allowing you to find another URL within your website.</p>
+	
+	
+	</div>
+	<script type="text/javascript">//
+	    dojo.require("axiom.widget.Info");
+	    var info = dojo.widget.createWidget('axiom:Info', {
+						    id: 'info_site_title'
+						},
+						dojo.byId('info_site_title')
+					       );
+	    dojo.event.kwConnect({ srcObj:dojo.byId('info_toggle_site_title'),
+		srcFunc:'onclick',
+		adviceObj:info,
+		adviceFunc:'toggleInfo'});
+	    //</script>
+    </div></div>
+		<input id="site_title" name="site_title" onchange="axiom.dirtyProps['site_title']=true" xmlns:tal="http://axiomstack.com/tale" tal:attr="value: this.site_title" type="text"/> <img id="icon_site_title" onclick="urlselectsite_title.open();" xmlns:tal="http://axiomstack.com/tale" tal:attr="src: app.getStaticMountpoint('axiom/images/icon_link.gif')"/> <a class="button form-button" href="javascript:void(0);" onclick="urlselectsite_title.clear();">Clear</a>
+		<script xmlns:tal="http://axiomstack.com/tale" tal:text="$" type="text/javascript"> //
+
+				window.urlselectsite_title = {
+					host:'${root.getURI()}/',
+					clear:function() {
+						dojo.byId('site_title').value = '';
+						axiom.dirtyProps['site_title'] = true;
+					},
+					open:function() {
+						axiom.browsetable.multiple = false;
+						axiom.browsetable.property = 'site_title';
+						axiom.browsetable.defaultValue = '${escape(this.site_title)}';
+						axiom.browsetable.defaultValues = [];
+						axiom.browsetable.setCallBack = function(a,b){
+							var url = b[1].uri;
+							dojo.byId('site_title').value = url;
+							axiom.dirtyProps['site_title'] = true;
+						}
+						axiom.browsetable.exitCallBack = function(){axiom.browsemodal.hide();}
+						axiom.browsetable.callingWidget = this;
+						axiom.browsetable.searchURL = '/' + axiom.ctable.searchURL;
+						axiom.browsetable.setContext('urlselect');
+						axiom.browsetable.toggleHrefValues();
+						axiom.browsecfilter.setTargetTypes({'All': []});
+						axiom.browsecfilter.search();
+						axiom.browsemodal.show();
+					}
+				};
+
+				//</script>
+			</div>
+		</fieldset><fieldset  class="ax-wysiwyg ax-error_400" id="ax-error_400">
+	    <div> <div class="error_message">hidden error message</div>
+	    <div class="wysiwyg-label">
+		<div class="info_box"> <div>
+        <div class="info_label">
+	    <label for="error_400">Message to Display on 400 (Bad Request) Error Page</label>
+	    <a class="button form-button" id="error_400_toggle" onclick="axiom.toggleFCKInstance('error_400','','','','','','');axiom.dirtyProps['error_400'] = true;">Edit</a>
+	    <span class="info_toggle" id="info_toggle_error_400"><img src="/static/axiom/images/icon_info.gif"/></span>
+
+	    
+	</div>
+	<div class="info" id="info_error_400">
+	    <p class="info_desc" id="info_desc_error_400"><strong>Definition:</strong> This area is a wysiwyg (What You See Is What You Get). It allows you to type text, select images, and format your information without having to write HTML. To get started with the wysiwyg, click the EDIT button above.</p>
+	
+	
+	</div>
+	<script type="text/javascript">//
+	    dojo.require("axiom.widget.Info");
+	    var info = dojo.widget.createWidget('axiom:Info', {
+						    id: 'info_error_400'
+						},
+						dojo.byId('info_error_400')
+					       );
+	    dojo.event.kwConnect({ srcObj:dojo.byId('info_toggle_error_400'),
+		srcFunc:'onclick',
+		adviceObj:info,
+		adviceFunc:'toggleInfo'});
+	    //</script>
+    </div></div>
+	    </div>
+        <iframe class="wysiwyg_preview" id="error_400_preview" xmlns:tal="http://axiomstack.com/tale" tal:attr="src: this.getURI('preview_property?property=error_400&amp;src_id=error_400')"/>
+        <textarea id="error_400" name="error_400" style="display:none"><span xmlns:tal="http://axiomstack.com/tale" tal:replace="(this.error_400||'')"/></textarea>
+		<div id="error_400_fckarea" style="display:none"><textarea id="error_400_fcktext"><span xmlns:tal="http://axiomstack.com/tale" tal:replace="this.error_400||''"/></textarea></div>
+		</div></fieldset><fieldset  class="ax-wysiwyg ax-error_401" id="ax-error_401">
+	    <div> <div class="error_message">hidden error message</div>
+	    <div class="wysiwyg-label">
+		<div class="info_box"> <div>
+        <div class="info_label">
+	    <label for="error_401">Message to Display on 401 (Server Error) Error Page</label>
+	    <a class="button form-button" id="error_401_toggle" onclick="axiom.toggleFCKInstance('error_401','','','','','','');axiom.dirtyProps['error_401'] = true;">Edit</a>
+	    <span class="info_toggle" id="info_toggle_error_401"><img src="/static/axiom/images/icon_info.gif"/></span>
+
+	    
+	</div>
+	<div class="info" id="info_error_401">
+	    <p class="info_desc" id="info_desc_error_401"><strong>Definition:</strong> This area is a wysiwyg (What You See Is What You Get). It allows you to type text, select images, and format your information without having to write HTML. To get started with the wysiwyg, click the EDIT button above.</p>
+	
+	
+	</div>
+	<script type="text/javascript">//
+	    dojo.require("axiom.widget.Info");
+	    var info = dojo.widget.createWidget('axiom:Info', {
+						    id: 'info_error_401'
+						},
+						dojo.byId('info_error_401')
+					       );
+	    dojo.event.kwConnect({ srcObj:dojo.byId('info_toggle_error_401'),
+		srcFunc:'onclick',
+		adviceObj:info,
+		adviceFunc:'toggleInfo'});
+	    //</script>
+    </div></div>
+	    </div>
+        <iframe class="wysiwyg_preview" id="error_401_preview" xmlns:tal="http://axiomstack.com/tale" tal:attr="src: this.getURI('preview_property?property=error_401&amp;src_id=error_401')"/>
+        <textarea id="error_401" name="error_401" style="display:none"><span xmlns:tal="http://axiomstack.com/tale" tal:replace="(this.error_401||'')"/></textarea>
+		<div id="error_401_fckarea" style="display:none"><textarea id="error_401_fcktext"><span xmlns:tal="http://axiomstack.com/tale" tal:replace="this.error_401||''"/></textarea></div>
+		</div></fieldset><fieldset  class="ax-wysiwyg ax-error_403" id="ax-error_403">
+	    <div> <div class="error_message">hidden error message</div>
+	    <div class="wysiwyg-label">
+		<div class="info_box"> <div>
+        <div class="info_label">
+	    <label for="error_403">Message to Display on 403 (Forbidden) Error Page</label>
+	    <a class="button form-button" id="error_403_toggle" onclick="axiom.toggleFCKInstance('error_403','','','','','','');axiom.dirtyProps['error_403'] = true;">Edit</a>
+	    <span class="info_toggle" id="info_toggle_error_403"><img src="/static/axiom/images/icon_info.gif"/></span>
+
+	    
+	</div>
+	<div class="info" id="info_error_403">
+	    <p class="info_desc" id="info_desc_error_403"><strong>Definition:</strong> This area is a wysiwyg (What You See Is What You Get). It allows you to type text, select images, and format your information without having to write HTML. To get started with the wysiwyg, click the EDIT button above.</p>
+	
+	
+	</div>
+	<script type="text/javascript">//
+	    dojo.require("axiom.widget.Info");
+	    var info = dojo.widget.createWidget('axiom:Info', {
+						    id: 'info_error_403'
+						},
+						dojo.byId('info_error_403')
+					       );
+	    dojo.event.kwConnect({ srcObj:dojo.byId('info_toggle_error_403'),
+		srcFunc:'onclick',
+		adviceObj:info,
+		adviceFunc:'toggleInfo'});
+	    //</script>
+    </div></div>
+	    </div>
+        <iframe class="wysiwyg_preview" id="error_403_preview" xmlns:tal="http://axiomstack.com/tale" tal:attr="src: this.getURI('preview_property?property=error_403&amp;src_id=error_403')"/>
+        <textarea id="error_403" name="error_403" style="display:none"><span xmlns:tal="http://axiomstack.com/tale" tal:replace="(this.error_403||'')"/></textarea>
+		<div id="error_403_fckarea" style="display:none"><textarea id="error_403_fcktext"><span xmlns:tal="http://axiomstack.com/tale" tal:replace="this.error_403||''"/></textarea></div>
+		</div></fieldset><fieldset  class="ax-wysiwyg ax-error_404" id="ax-error_404">
+	    <div> <div class="error_message">hidden error message</div>
+	    <div class="wysiwyg-label">
+		<div class="info_box"> <div>
+        <div class="info_label">
+	    <label for="error_404">Message to Display on 404 (Not Found) Error Page</label>
+	    <a class="button form-button" id="error_404_toggle" onclick="axiom.toggleFCKInstance('error_404','','','','','','');axiom.dirtyProps['error_404'] = true;">Edit</a>
+	    <span class="info_toggle" id="info_toggle_error_404"><img src="/static/axiom/images/icon_info.gif"/></span>
+
+	    
+	</div>
+	<div class="info" id="info_error_404">
+	    <p class="info_desc" id="info_desc_error_404"><strong>Definition:</strong> This area is a wysiwyg (What You See Is What You Get). It allows you to type text, select images, and format your information without having to write HTML. To get started with the wysiwyg, click the EDIT button above.</p>
+	
+	
+	</div>
+	<script type="text/javascript">//
+	    dojo.require("axiom.widget.Info");
+	    var info = dojo.widget.createWidget('axiom:Info', {
+						    id: 'info_error_404'
+						},
+						dojo.byId('info_error_404')
+					       );
+	    dojo.event.kwConnect({ srcObj:dojo.byId('info_toggle_error_404'),
+		srcFunc:'onclick',
+		adviceObj:info,
+		adviceFunc:'toggleInfo'});
+	    //</script>
+    </div></div>
+	    </div>
+        <iframe class="wysiwyg_preview" id="error_404_preview" xmlns:tal="http://axiomstack.com/tale" tal:attr="src: this.getURI('preview_property?property=error_404&amp;src_id=error_404')"/>
+        <textarea id="error_404" name="error_404" style="display:none"><span xmlns:tal="http://axiomstack.com/tale" tal:replace="(this.error_404||'')"/></textarea>
+		<div id="error_404_fckarea" style="display:none"><textarea id="error_404_fcktext"><span xmlns:tal="http://axiomstack.com/tale" tal:replace="this.error_404||''"/></textarea></div>
+		</div></fieldset></div></div>

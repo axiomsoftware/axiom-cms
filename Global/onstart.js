@@ -67,6 +67,13 @@ function cms_init(){
 		user.setRoles('Administrator');
 	}
 
+	if(!root.get('cms').get('siteelements')) {
+		var elements = new CMSSiteElements();
+		elements.id = 'siteelements';
+		elements.title = 'CMS Site Elements';
+		root.get('cms').add(elements);
+	}
+
 	if(!app.getObjects("CMSRecycleBin", "_d:1", {maxlength: 1})[0]){
 		var bin = new CMSRecycleBin();
 		root.get('cms').add(bin);
