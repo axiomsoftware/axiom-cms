@@ -44,7 +44,7 @@ function upload(){
 		else if(file.getName().match(/\.zip$/) && !req.get('nounzip')){
 			var zip_name = file.getName();
 			var zip_id = (zip_name+':'+new Date().getTime()).md5();
-			var f = axiom.Zip.extractData(file.getContent());
+			var f = axiom.Zip.extractDataWithFolders(file.getContent());
 			var files_to_edit = [];
 			for(var i in f.toc){
 				var item = f.toc[i];
@@ -62,6 +62,17 @@ function upload(){
 					hop_object_file.id = this.uniqueId(item.name, true);
 					hop_object_file.cms_status = 'null';
 					hop_object_file.cms_batchid = zip_id;
+					hop_object_file.path = item.path;
+					hop_object_file.directory = item.directory;
+
+					hop_object_file.suggested_name = 
+						[(str.length > 1 ?  str[0].toUpperCase()+str.substr(1) : str)	// Capitalize words, ignore single letter words
+							for each(str in 	
+								hop_object_file.getFileName()
+									.replace(/[\-_]+|\.[^\.]*$/g, ' ')					// Remove dashes, underscores, and file extension
+									.replace(/^ +| +$/g, '')							// Trim
+									.toLowerCase().split(' ')
+						)].join(' ');
 
 					root.get(ff.id).add(hop_object_file);
 					if(hop_object_file instanceof Image){

@@ -28,6 +28,7 @@ dojo.require("dojo.html.*");
 dojo.require("dojo.widget.ContentPane");
 dojo.require("axiom.widget.Asset");
 dojo.require("axiom.widget.ProgressBarModal");
+dojo.require("axiom.widget.BatchStepModal");
 // if we take out this require statement, strange onclick behavior
 // begins occuring.  accept the voodoo and leave it here though we
 // aren't going to make anything draggable.
@@ -237,6 +238,7 @@ function assetEdit(content,is_href,hide_nav, widget){
 		var colRight = dojo.byId('columnRight');
 		axiom.oldLeftMargin = colRight.style.margin;
 		colRight.style.margin = '0px';
+		dojo.byId('pages').parentNode.style.display = 'none';
 	}
 }
 
@@ -318,14 +320,18 @@ function gotoKey(evt){
 		gotoPage((evt.srcElement ? evt.srcElement.value : evt.target.value));
 }
 
-var batchTitle = '';
 var batchTags = '';
 var batchAlt = '';
 var batchCredit = '';
 var templateHidden = false;
 function kludgeTextareas(){
-	dojo.lang.forEach(document.getElementsByTagName('textarea'), function(area){ area.value='';});
-	batchTitle = '';
+	dojo.lang.forEach(document.getElementsByTagName('textarea'), function(area){
+		if(area.parentNode.className == 'coltitle') {
+			area.kludgeTitle = area.value;
+		} else {
+			area.value = '';
+		}
+	});
 	batchTags = '';
 	batchCredit = '';
 	batchAlt = '';
@@ -351,8 +357,10 @@ function applyBatch(){
 		var textareas = rows[i].getElementsByTagName('textarea');
 		if(textareas.length != 4)
 			continue;
-		if(textareas[0].value == batchTitle)
+		if(textareas[0].value == textareas[0].kludgeTitle) {
 			textareas[0].value = newTitle;
+			textareas[0].kludgeTitle = newTitle;
+		}
 		if(textareas[1].value == batchTags)
 			textareas[1].value = newTags;
 		if(textareas[2].value == batchAlt)
@@ -360,7 +368,6 @@ function applyBatch(){
 		if(textareas[3].value == batchCredit)
 			textareas[3].value = newCredit;
 	}
-	batchTitle = newTitle;
 	batchTags = newTags;
 	batchAlt = newAlt;
 	batchCredit = newCredit;
@@ -381,6 +388,7 @@ function cancelBatch(){
 			  + 'alt="Loading..." /></div>');*/
     showLoading();
 	dojo.byId('columnLeft').style.display = 'block';
+	dojo.byId('pages').parentNode.style.display = 'block';
 	dojo.byId('columnRight').style.margin = axiom.oldLeftMargin;
 	if(hrefs.length != 0){
 		dojo.io.bind({ url:'cancel_batch',
@@ -393,6 +401,7 @@ function cancelBatch(){
 
 }
 
+var script_title;
 function fire_submit(){
 	var rows = dojo.byId('content_table').getElementsByTagName('tr');
 	var objs = {};
@@ -420,16 +429,16 @@ function fire_submit(){
 				   postContent: dojo.json.serialize(objs),
 				   contentType: 'text/json',
 				   load: function(){
-						if(script && script.indexOf('--') < 0) {
-							
-							var title;
+						// If a script is selected...
+						if(script && script.indexOf('Select a') < 0) {
 							var options = dojo.byId('batch_scripts').getElementsByTagName('option');
 							for(var x=0; x<options.length; x++) {
 								if(options[x].selected) {
-									title = options[x].innerHTML;
+									script_title = options[x].innerHTML;
 								}
 							}
-							axiom.openModal({ widget: dojo.widget.createWidget("axiom:ProgressBarModal", {appPath:axiom.appPath, staticPath: axiom.staticPath, script_id:script, s_title:title, zip_id:zip_id, closeFunc:showAssetManager}) });
+							// ...start the script process
+							stepBatchScript(script, zip_id);
 						} else {
 							showAssetManager();
 						}
@@ -438,6 +447,41 @@ function fire_submit(){
 	} else{
 		axiom.openModal({content: error_message});
 	}
+}
+
+// If this script has steps defined, use those. Otherwise, show the progress bar
+function stepBatchScript(script_id, zip_id) {
+	dojo.io.bind({
+		url: axiom.cmsPath + 'batchStep',
+		method: 'post',
+		postContent: dojo.json.serialize({zip_id: zip_id, script_id: script_id}),
+		contentType: 'text/json',
+		mimetype: 'text/json',
+		load: function(load, data, evt){
+			data = eval(data);
+			// If the server returns data, then it will be a modal to pop up
+			if(data.data) {
+				axiom.openModal({widget:dojo.widget.createWidget("axiom:BatchStepModal", {
+						appPath:axiom.appPath, staticPath: axiom.staticPath, script_id:script_id,
+							s_title:data.title, zip_id:zip_id, tempalateData: data.data,
+							closeFunc: function() {
+								stepBatchScript(script_id, zip_id);
+							}
+					})
+				});
+			// Otherwise there are no modals to show, so we start the progress bar modal
+			} else {
+				axiom.openModal({widget:dojo.widget.createWidget("axiom:ProgressBarModal", {
+						appPath:axiom.appPath, staticPath: axiom.staticPath, script_id:script_id, zip_id:zip_id,
+							closeFunc:showAssetManager, s_title: script_title
+					})
+				});
+			}
+		},
+		error: function() {
+			alert('An error occured while performing this step. Please contact your system administrator.');
+		}
+	});
 }
 
 function showAssetManager() {

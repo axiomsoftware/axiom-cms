@@ -5,7 +5,9 @@
 .ax-modal div.title img {margin:0 5px}
 .ax-modal h2.title-content {font-weight:normal;}
 .ax-modal .content-wrapper {margin:0; background:#D6DCDF; padding:1px 0 16px;}
+.ax-modal .content-wrapper.inset {padding:11px;}
 .ax-modal .content-wrapper .modal-buttons {clear:both; margin:0;}
+.ax-modal .modal-buttons.batch-buttons {clear:both; margin-top:16px;}
 .ax-modal .script_title {width:275px; color:#333; font-size:1.1em; margin:5px auto 10px;}
 .ax-modal .progress_container {height:16px; width:202px; background:#fff; border:1px solid #627A87; margin:0 auto;}
 .ax-modal .progress_bar {width:0px; height:16px; background:#CFD4D7;}
