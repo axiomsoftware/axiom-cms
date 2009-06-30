@@ -38,7 +38,7 @@
 		  <td class="colthumb"><img tal:attr="src: file.thumb_on()"/> </td>
 		  <td class="colfile" tal:content="file.getFileName()"> </td> 
 		  <td class="colcontent"><input readonly="readonly" type="text" tal:attr="value: file.getContentType()"/></td>
-		  <td class="coltitle"><textarea> </textarea></td>
+		  <td class="coltitle"><textarea tal:content="file.suggested_name || ''"></textarea></td>
 		  <td tal:var="window_id: id+'_window'" class="coltags tags">
 			<textarea tal:attr="id: id+'_tags'"> </textarea> 
 			<div class="tag_button"><img tal:attr="onclick: 'axiom.tags.toggleWindow(\''+window_id+'\')', src: app.getStaticMountpoint('axiom/images/tag.gif')" /></div>
@@ -51,11 +51,18 @@
 	</table>
   </div>
   <div class="batch_scripts" tal:var="scripts: cmsGlobals.batchScripts">
-	<select id="batch_scripts" tal:if="scripts">
-		<option>-- Optional: Run a CMS Script on these objects --</option>
-		<option tal:repeat="script: scripts" tal:content="script.title || ('Script #'+repeat.script.number())" tal:attr="value: script.id"/>
-	</select>
-	<input type="hidden" name="zip_id" id="zip_id" tal:attr="value: zip_id" />
+	<div class="inform">
+		<span>Batch Actions</span>
+		<p>Batch Actions will be applied to all assets within the Batch Template. Choose an action from the dropdown list, and that action will be applied when the Batch Template is saved.</p>
+	</div>
+	<div>
+		<select id="batch_scripts" tal:if="scripts">
+			<option>Select a Batch Action</option>
+			<option tal:repeat="script: scripts" tal:content="script.title || ('Script #'+repeat.script.number())" tal:attr="value: script.id" />
+		</select>
+		<p>Batch actions will be processed prior to saving</p>
+		<input type="hidden" name="zip_id" id="zip_id" tal:attr="value: zip_id" />
+	</div>
   </div>
   <div class="batch_buttons">
 	<a href="javascript:void(0);" class="button form-button" onclick="fire_submit();">Save</a> 

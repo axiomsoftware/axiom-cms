@@ -401,6 +401,12 @@ table.batch_edit tr td{border:0; vertical-align:top; padding:5px;}
 .upload div#content_table {width:98%;background:#FFF;padding:10px 1%;margin:13px 0;border:1px solid #a2a7a9;}
 .upload div.batch_buttons{width:100%;text-align:center;padding:10px 0;}
 .upload div.batch_buttons img{ cursor:pointer; }
+.upload div.batch_buttons img{ cursor:pointer; }
+.upload .batch_scripts {margin:0 0 13px;width:100%;color:#333;;background:#CFD4D7;border:1px solid #A2A7A9; float:left;}
+.upload .batch_scripts div.inform {width:40%; margin:14px 0 40px 12px;}
+.upload .batch_scripts div.inform span {font-family:"Georgia";font-size:1.3em;font-weight:bold;}
+.upload .batch_scripts div.inform p{margin:1em 0 0; width:250px; display:block;}
+.upload .batch_scripts div {float:left; margin:24px 0 0;}
 /* End Batch Upload Screen Styles */
 
 /* Manage Tags Screen Styles */

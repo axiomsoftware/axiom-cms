@@ -26,6 +26,34 @@ this.editwrapper = function(){
 		req.data.password = req.data.password.md5();
 	else
 		delete req.data.password;
+		
+	if(req.data.username) {
+		if(req.data.username.length > 3) {
+			if(req.data.username.toLowerCase() != 'system') {
+				var users = app.getHitCount('CMSUser', {username:req.data.username}, {maxlength:1});
+				if(users) {
+					return {errors: 'This username is already in use.'};
+				} else {
+					var objs = app.getObjects(root.get('cms').getSearchablePrototypes(),
+						new AndFilter({cms_status:'z'}, new OrFilter({cms_createdby: this.username}, {cms_lasteditedby: this.username}))
+					);
+
+					for each(obj in objs) {
+						if(obj.cms_createdby.indexOf(this.username) > -1) {
+							obj.cms_createdby = obj.cms_createdby.replace(this.username, req.data.username);
+						}
+						if(obj.cms_lasteditedby.indexOf(this.username) > -1) {
+							obj.cms_lasteditedby = obj.cms_lasteditedby.replace(this.username, req.data.username);
+						}
+					}
+				}
+			} else {
+				return {errors: '"System" is a reserved username.'}
+			}
+		} else {
+			return {errors: 'Username must be at least three characters long'};
+		}
+	}
 	// Log out a disabled user if it is logged in
 	if(req.data.disabled == 'true') {
 		for each (var session in app.getSessions()) {

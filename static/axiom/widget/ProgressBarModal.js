@@ -122,18 +122,22 @@ dojo.widget.defineWidget(
 						me.errors.innerHTML = "An error occured while running the script. Please contact your system administrator.<br /><br />Error: "+data.errors;
 						me.showCloseButon('OK');
 					}
+				},
+				error: function() {
+					me.errors.innerHTML = 'An unchecked error occured while running this script. Please contact your system administrator.';
+					me.showCloseButon('Close');
 				}
 			});
-			this.modalIcon.src = axiom.staticPath + '/axiom/images/icon_processing.gif';
+			this.modalIcon.src = axiom.staticPath + '/axiom/images/icon_info.gif';
 		},
 		showCloseButon: function(text) {
 			var buttons = document.createElement('div');
-			buttons.setAttribute('class', 'modal-buttons');
+			buttons.className = 'modal-buttons';
 			buttons.setAttribute('dojoattachpoint', 'modalButtons');
 			this.mainContent.appendChild(buttons);
 			
 			var button = document.createElement('a');
-			button.setAttribute('class', 'button form-button');
+			button.className = 'button form-button';
 			button.innerHTML = (text || 'Close');
 			buttons.appendChild(button);
 			
