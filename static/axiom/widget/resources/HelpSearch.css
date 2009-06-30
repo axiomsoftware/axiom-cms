@@ -1,0 +1,15 @@
+.help_search_modal {position:absolute;z-index:999;border:2px solid #778084;width:200px;max-height:300px;background:#aebabf;display:none;padding:5px;overflow:hidden;}
+.help_search_wrap {background:#d6dcdf;overflow:hidden;padding-bottom:5px;}
+.input_wrap {background:#fff;}
+.help_search_modal form, .help_search_modal fieldset {border:none;padding:5px 0 5px 5px;margin:0;overflow:hidden;}
+.help_search_modal label {width:160px;float:left;margin-bottom:5px;}
+.help_search_modal input {width:130px;}
+.button {border:1px solid #9a9e9c;margin-right:0;}
+.help_search_results h3 {margin:5px;}
+.help_search_results p {margin:5px;}
+.help_search_results ul {padding:5px;}
+.help_search_results li {list-style:none;padding:0;}
+.help_search_results img {margin:10px auto;}
+.more {margin-right:5px;float:right;}
+.close {float:right;margin-right:3px;cursor:pointer;}
+#header .utility li.help_active {border-bottom:1px solid #778084;background:#778084;}

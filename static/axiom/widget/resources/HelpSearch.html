@@ -1,0 +1,13 @@
+<div dojoattachpoint="help_search" class="help_search_modal">
+  <div class="help_search_wrap">
+    <div class="input_wrap">
+      <fieldset>
+	<label for="s">Search Knowledge Base</label>
+	<img class="close" dojoattachevent="onclick:click_handler" dojoattachpoint="close_button" />
+	<input dojoattachpoint="search_input" type="text" name="s" id="s" />
+	<a class="button" dojoattachevent="onclick:fire_helpsearch">Search</a>
+      </fieldset>
+    </div>
+    <div dojoattachpoint="help_search_results" class="help_search_results"> </div>
+  </div>
+</div>
