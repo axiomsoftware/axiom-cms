@@ -25,7 +25,7 @@ if(!this.cmsGlobals){
 	this.cmsGlobals = {};
 }
 
-function cms_init(){
+function cms_init() {
 	cmsGlobals.loadCMSProperties();
 	if(!root.get('cms')){
 		app.log("Creating cms...");
@@ -65,13 +65,11 @@ function cms_init(){
 		user.email = '';
 		user.setPassword('changeme');
 		user.setRoles('Administrator');
-	}
 
-	if(!root.get('cms').get('siteelements')) {
 		var elements = new CMSSiteElements();
 		elements.id = 'siteelements';
 		elements.title = 'CMS Site Elements';
-		root.get('cms').add(elements);
+		cms.add(elements);
 	}
 
 	if(!app.getObjects("CMSRecycleBin", "_d:1", {maxlength: 1})[0]){
@@ -200,6 +198,7 @@ cmsGlobals.loadCMSProperties = function() {
     }
 
     // Find cms.xml for loaded modules (in order of specification) (optional)
+    app.log('modules: ' + app.getProperty("modules"));
     var modules = app.getProperty("modules").split(",");
     for each (var mod in modules) {
 	var modcmsFile = new java.io.File("modules/"+mod+"/cms.xml");

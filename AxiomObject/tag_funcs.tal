@@ -1,4 +1,5 @@
-<script type="text/javascript"> 
+<script xmlns:tal="http://axiomstack.com/tale" type="text/javascript">
+  //<![CDATA[
   /*function toggleWindow(id){
 		var node = dojo.byId(id);
 		if(!(id in axiom.tags.tagWindows)){
@@ -38,4 +39,5 @@
 		axiom.tags.toggleWindow(windowNode.id);
 	}
 */
+//]]>
 </script>
