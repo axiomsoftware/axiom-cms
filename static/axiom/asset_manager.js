@@ -422,8 +422,10 @@ function fire_submit(){
 					credit:  textareas[3].value};
 	}
 	if(error_message == ''){
-		var script = dojo.byId('batch_scripts').value;
+		var script = dojo.byId('batch_scripts');
+	  if (script) script = script.value;
 		var zip_id = dojo.byId('zip_id').value;
+				console.log(axiom.cmsPath);
 		dojo.io.bind({ url: axiom.cmsPath+'edit_taggable',
 				   method: 'post',
 				   postContent: dojo.json.serialize(objs),
