@@ -15,7 +15,7 @@
 			  <div class="loginbox">
 				<h2>Axiom Login</h2>
 				<div class="error_message" style="display:block" tal:content-if="data.error_message"> </div>
-				<form action="" method="POST" name="cms_login" onkeypress="check(event);">
+				<form action="" method="post" name="cms_login" onkeypress="check(event);">
 				  <div>
 					<label for="username"><span class="required">*</span>Username:</label>
 					<input type="text" id="username" name="username" />

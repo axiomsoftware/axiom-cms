@@ -1,4 +1,6 @@
 <prototypes>
   <prototype name="CMSRedirect" displayname="CMS Redirect" addable="true" deletable="true" editable="true" />
   <prototype name="CMSSiteElements" displayname="CMS Site Elements" addable="false" deletable="false" editable="true" />
+  <prototype name="CMSPage" displayname="Page" addable="true" deletable="true" editable="true" />
+  <prototype name="CMSElement" displayname="Page Element" addable="true" deletable="true" editable="true" />
 </prototypes>

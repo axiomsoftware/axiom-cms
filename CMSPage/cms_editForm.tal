@@ -1,0 +1,258 @@
+<div xmlns:tal="http://axiomstack.com/tale" class="form"><div class="subform">
+<fieldset  class="ax-textbox ax-title" id="ax-title">
+		<div><div class="error_message">hidden error message </div>
+		<div class="info_box"> <div>
+        <div class="info_label">
+	    <label for="title">Title</label>
+	    
+	    <span class="info_toggle" id="info_toggle_title"><img src="/static/axiom/images/icon_info.gif"/></span>
+
+	    
+	</div>
+	<div class="info" id="info_title">
+	    <p class="info_desc" id="info_desc_title"><strong>Definition:</strong> This is the title of the page. The title of the page has great significance throughout most web sites. The title is used throughout Axiom CMS for identification. Also, most developers use the title but within the page templates. This means that you should always fill out this field.</p>
+	
+	    <p class="info_note" id="info_note_title"><strong>Notes:</strong> The title of a Page is important. Not only do typical searches include the Title, but the Title is a very important factor in SEO rankings. The more relevant your Title, the higher likelihood of you ranking well in search engines.</p>
+	
+	
+	</div>
+	<script type="text/javascript">//&lt;![CDATA[
+	    dojo.require("axiom.widget.Info");
+	    var info = dojo.widget.createWidget('axiom:Info', {
+						    id: 'info_title'
+						},
+						dojo.byId('info_title')
+					       );
+	    dojo.event.kwConnect({ srcObj:dojo.byId('info_toggle_title'),
+		srcFunc:'onclick',
+		adviceObj:info,
+		adviceFunc:'toggleInfo'});
+	    //]]&gt;</script>
+    </div></div>
+		<input id="title" name="title" onkeyup="dojo.widget.byNode(dojo.byId('_location').parentNode).populate(this.value)" xmlns:tal="http://axiomstack.com/tale" tal:attr="value: this.title" type="text"/>
+		</div>
+		<script type="text/javascript"> //&lt;![CDATA[
+        dojo.event.kwConnect({ srcObj: dojo.byId('title'),
+							   srcFunc: 'onchange',
+  							   adviceFunc: function(evt){ axiom.dirtyProps[ evt.target['name'] ] = true; }
+  							 });
+
+    //]]&gt;</script>
+
+	</fieldset>
+
+ <fieldset  class="ax-_location" id="ax-_location">
+        <div><div class="error_message">hidden error message </div>
+	<div class="info_box"> <div>
+        <div class="info_label">
+	    <label for="_location">URL</label>
+	    
+	    <span class="info_toggle" id="info_toggle__location"><img src="/static/axiom/images/icon_info.gif"/></span>
+
+	    
+	</div>
+	<div class="info" id="info__location">
+	    <p class="info_desc" id="info_desc__location"><strong>Definition:</strong> This is the location field. You can set the url of your page by changing the values here.</p>
+	
+	    
+	
+	
+	    
+	
+	</div>
+	<script type="text/javascript">//&lt;![CDATA[
+	    dojo.require("axiom.widget.Info");
+	    var info = dojo.widget.createWidget('axiom:Info', {
+						    id: 'info__location'
+						},
+						dojo.byId('info__location')
+					       );
+	    dojo.event.kwConnect({ srcObj:dojo.byId('info_toggle__location'),
+		srcFunc:'onclick',
+		adviceObj:info,
+		adviceFunc:'toggleInfo'});
+	    //]]&gt;</script>
+    </div></div>
+        <div id="_location_widget">Loading...</div>
+        <script xmlns:tal="http://axiomstack.com/tale" tal:text="$" type="text/javascript"> //&lt;![CDATA[
+
+	dojo.require("axiom.widget.LocationField");
+	var loc = dojo.widget.createWidget('axiom:LocationField',
+									   {appPath:axiom.appPath,
+										initialValue: '${this._parent.getPath()}',
+										parentHref:'${this._parent.getURI()}',
+										href:'${this.getURI()}/',
+										objectId:'${this.id}',
+										parentTypes: ${this.parentTypesJSON()}},
+									   dojo.byId('_location_widget'));
+
+	//]]&gt;</script>
+    </div>
+	<p class="note">Once this field is set, saving the page will publish it live.</p>
+	</fieldset>
+
+
+<fieldset  class="ax-textarea ax-meta_keywords" id="ax-meta_keywords">
+		<div> <div class="error_message">hidden error message</div>
+		<div class="info_box"> <div>
+        <div class="info_label">
+	    <label for="meta_keywords">Meta Keywords</label>
+	    
+	    <span class="info_toggle" id="info_toggle_meta_keywords"><img src="/static/axiom/images/icon_info.gif"/></span>
+
+	    
+	</div>
+	<div class="info" id="info_meta_keywords">
+	    <p class="info_desc" id="info_desc_meta_keywords"><strong>Definition:</strong> This larger area can accept any type of text. Sometimes it is used to format specific information so be sure to read the Notes section for more information.</p>
+	
+	    <p class="info_note" id="info_note_meta_keywords"><strong>Notes:</strong> Your meta keywords are the words that you're trying to use to represent your Page. These should be relevant and unique keywords as they will be how users find your page. The meta keywords primarily are used for search engines.</p>
+	
+	
+	</div>
+	<script type="text/javascript">//&lt;![CDATA[
+	    dojo.require("axiom.widget.Info");
+	    var info = dojo.widget.createWidget('axiom:Info', {
+						    id: 'info_meta_keywords'
+						},
+						dojo.byId('info_meta_keywords')
+					       );
+	    dojo.event.kwConnect({ srcObj:dojo.byId('info_toggle_meta_keywords'),
+		srcFunc:'onclick',
+		adviceObj:info,
+		adviceFunc:'toggleInfo'});
+	    //]]&gt;</script>
+    </div></div>
+		<textarea cols="50" id="meta_keywords" name="meta_keywords" rows="5" xmlns:tal="http://axiomstack.com/tale" tal:content="this.meta_keywords|| ''"/>
+		</div>
+		<script type="text/javascript"> //&lt;![CDATA[
+
+    dojo.event.kwConnect({ srcObj: dojo.byId('meta_keywords'),
+		                   srcFunc: 'onchange',
+  						   adviceFunc: function(evt){ axiom.dirtyProps[ evt.target['name'] ] = true; }
+  						 });
+
+	//]]&gt;</script>
+	</fieldset>
+
+<fieldset  class="ax-textarea ax-meta_description" id="ax-meta_description">
+		<div> <div class="error_message">hidden error message</div>
+		<div class="info_box"> <div>
+        <div class="info_label">
+	    <label for="meta_description">Meta Description</label>
+	    
+	    <span class="info_toggle" id="info_toggle_meta_description"><img src="/static/axiom/images/icon_info.gif"/></span>
+
+	    
+	</div>
+	<div class="info" id="info_meta_description">
+	    <p class="info_desc" id="info_desc_meta_description"><strong>Definition:</strong> This larger area can accept any type of text. Sometimes it is used to format specific information so be sure to read the Notes section for more information.</p>
+	
+	    <p class="info_note" id="info_note_meta_description"><strong>Notes:</strong> The meta description is a bit of text that describes your page. This is usually similar to the abstract, but is different in it's purpose. Ultimately the meta description is used for search engines; both for the snippet describing your Page and for the content. The meta description is primarily used for search engines.</p>
+	
+	
+	</div>
+	<script type="text/javascript">//&lt;![CDATA[
+	    dojo.require("axiom.widget.Info");
+	    var info = dojo.widget.createWidget('axiom:Info', {
+						    id: 'info_meta_description'
+						},
+						dojo.byId('info_meta_description')
+					       );
+	    dojo.event.kwConnect({ srcObj:dojo.byId('info_toggle_meta_description'),
+		srcFunc:'onclick',
+		adviceObj:info,
+		adviceFunc:'toggleInfo'});
+	    //]]&gt;</script>
+    </div></div>
+		<textarea cols="50" id="meta_description" name="meta_description" rows="5" xmlns:tal="http://axiomstack.com/tale" tal:content="this.meta_description|| ''"/>
+		</div>
+		<script type="text/javascript"> //&lt;![CDATA[
+
+    dojo.event.kwConnect({ srcObj: dojo.byId('meta_description'),
+		                   srcFunc: 'onchange',
+  						   adviceFunc: function(evt){ axiom.dirtyProps[ evt.target['name'] ] = true; }
+  						 });
+
+	//]]&gt;</script>
+	</fieldset>
+
+<fieldset  class="ax-textarea ax-abs" id="ax-abs">
+		<div> <div class="error_message">hidden error message</div>
+		<div class="info_box"> <div>
+        <div class="info_label">
+	    <label for="abs">Abstract</label>
+	    
+	    <span class="info_toggle" id="info_toggle_abs"><img src="/static/axiom/images/icon_info.gif"/></span>
+
+	    
+	</div>
+	<div class="info" id="info_abs">
+	    <p class="info_desc" id="info_desc_abs"><strong>Definition:</strong> This larger area can accept any type of text. Sometimes it is used to format specific information so be sure to read the Notes section for more information.</p>
+	
+	    <p class="info_note" id="info_note_abs"><strong>Notes:</strong> The abstract is a brief description for your Page that can be used to display an overview of the Page content. This is useful for promoting a Page within your site or for internal search results.</p>
+	
+	
+	</div>
+	<script type="text/javascript">//&lt;![CDATA[
+	    dojo.require("axiom.widget.Info");
+	    var info = dojo.widget.createWidget('axiom:Info', {
+						    id: 'info_abs'
+						},
+						dojo.byId('info_abs')
+					       );
+	    dojo.event.kwConnect({ srcObj:dojo.byId('info_toggle_abs'),
+		srcFunc:'onclick',
+		adviceObj:info,
+		adviceFunc:'toggleInfo'});
+	    //]]&gt;</script>
+    </div></div>
+		<textarea cols="50" id="abs" name="abs" rows="5" xmlns:tal="http://axiomstack.com/tale" tal:content="this.abs|| ''"/>
+		</div>
+		<script type="text/javascript"> //&lt;![CDATA[
+
+    dojo.event.kwConnect({ srcObj: dojo.byId('abs'),
+		                   srcFunc: 'onchange',
+  						   adviceFunc: function(evt){ axiom.dirtyProps[ evt.target['name'] ] = true; }
+  						 });
+
+	//]]&gt;</script>
+	</fieldset>
+
+
+<fieldset  class="ax-wysiwyg ax-body" id="ax-body">
+	    <div> <div class="error_message">hidden error message</div>
+	    <div class="wysiwyg-label">
+		<div class="info_box"> <div>
+        <div class="info_label">
+	    <label for="body">Page Body</label>
+	    <a class="button form-button" id="body_toggle" onclick="axiom.toggleFCKInstance('body','','','','','','');axiom.dirtyProps['body'] = true;">Edit</a>
+	    <span class="info_toggle" id="info_toggle_body"><img src="/static/axiom/images/icon_info.gif"/></span>
+
+	    
+	</div>
+	<div class="info" id="info_body">
+	    <p class="info_desc" id="info_desc_body"><strong>Definition:</strong> This area is a wysiwyg (What You See Is What You Get). It allows you to type text, select images, and format your information without having to write HTML. To get started with the wysiwyg, click the EDIT button above.</p>
+	
+	    <p class="info_note" id="info_note_body"><strong>Notes:</strong> The page body is the primary content area of your Page. You should pay close attention to the words and terminology of your content. Search engines use the content of your Page to apply the Page to related searches, and to rank you based on what you are saying in the content. Plus, this is where the Page's message is constructed for users of your site.</p>
+	
+	
+	</div>
+	<script type="text/javascript">//&lt;![CDATA[
+	    dojo.require("axiom.widget.Info");
+	    var info = dojo.widget.createWidget('axiom:Info', {
+						    id: 'info_body'
+						},
+						dojo.byId('info_body')
+					       );
+	    dojo.event.kwConnect({ srcObj:dojo.byId('info_toggle_body'),
+		srcFunc:'onclick',
+		adviceObj:info,
+		adviceFunc:'toggleInfo'});
+	    //]]&gt;</script>
+    </div></div>
+	    </div>
+        <iframe class="wysiwyg_preview" id="body_preview" xmlns:tal="http://axiomstack.com/tale" tal:attr="src: this.getURI('preview_property?property=body&amp;src_id=body')"/>
+        <textarea id="body" name="body" style="display:none"><span xmlns:tal="http://axiomstack.com/tale" tal:replace="(this.body||'')"/></textarea>
+		<div id="body_fckarea" style="display:none"><textarea id="body_fcktext"><span xmlns:tal="http://axiomstack.com/tale" tal:replace="this.body||''"/></textarea></div>
+		</div></fieldset>
+</div></div>

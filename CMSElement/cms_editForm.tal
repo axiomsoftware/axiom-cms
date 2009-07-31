@@ -1,0 +1,78 @@
+<div xmlns:tal="http://axiomstack.com/tale" class="form"><div class="subform">
+
+<fieldset  class="ax-textbox ax-title" id="ax-title">
+		<div><div class="error_message">hidden error message </div>
+		<div class="info_box"> <div>
+        <div class="info_label">
+	    <label for="title">Title</label>
+	    
+	    <span class="info_toggle" id="info_toggle_title"><img src="/static/axiom/images/icon_info.gif"/></span>
+
+	    
+	</div>
+	<div class="info" id="info_title">
+	    <p class="info_desc" id="info_desc_title"><strong>Definition:</strong> This is the title of the page. The title of the page has great significance throughout most web sites. The title is used throughout Axiom CMS for identification. Also, most developers use the title but within the page templates. This means that you should always fill out this field.</p>
+	
+	    <p class="info_note" id="info_note_title"><strong>Notes:</strong> The title of an Element is more for your own house keeping. This makes it easier to find the elements you create.</p>
+	
+	
+	</div>
+	<script type="text/javascript">//&lt;![CDATA[
+	    dojo.require("axiom.widget.Info");
+	    var info = dojo.widget.createWidget('axiom:Info', {
+						    id: 'info_title'
+						},
+						dojo.byId('info_title')
+					       );
+	    dojo.event.kwConnect({ srcObj:dojo.byId('info_toggle_title'),
+		srcFunc:'onclick',
+		adviceObj:info,
+		adviceFunc:'toggleInfo'});
+	    //]]&gt;</script>
+    </div></div>
+		<input id="title" name="title" onkeyup="dojo.widget.byNode(dojo.byId('_location').parentNode).populate(this.value)" xmlns:tal="http://axiomstack.com/tale" tal:attr="value: this.title" type="text"/>
+		</div>
+		<script type="text/javascript"> //&lt;![CDATA[
+        dojo.event.kwConnect({ srcObj: dojo.byId('title'),
+							   srcFunc: 'onchange',
+  							   adviceFunc: function(evt){ axiom.dirtyProps[ evt.target['name'] ] = true; }
+  							 });
+
+    //]]&gt;</script>
+
+	</fieldset><fieldset  class="ax-wysiwyg ax-body" id="ax-body">
+	    <div> <div class="error_message">hidden error message</div>
+	    <div class="wysiwyg-label">
+		<div class="info_box"> <div>
+        <div class="info_label">
+	    <label for="body">Element Body</label>
+	    <a class="button form-button" id="body_toggle" onclick="axiom.toggleFCKInstance('body','','','','','','');axiom.dirtyProps['body'] = true;">Edit</a>
+	    <span class="info_toggle" id="info_toggle_body"><img src="/static/axiom/images/icon_info.gif"/></span>
+
+	    
+	</div>
+	<div class="info" id="info_body">
+	    <p class="info_desc" id="info_desc_body"><strong>Definition:</strong> This area is a wysiwyg (What You See Is What You Get). It allows you to type text, select images, and format your information without having to write HTML. To get started with the wysiwyg, click the EDIT button above.</p>
+	
+	    <p class="info_note" id="info_note_body"><strong>Notes:</strong> The body of an Element is the content that you want to display. This can be used for promotional purposes or to augment the content of a Page.</p>
+	
+	
+	</div>
+	<script type="text/javascript">//&lt;![CDATA[
+	    dojo.require("axiom.widget.Info");
+	    var info = dojo.widget.createWidget('axiom:Info', {
+						    id: 'info_body'
+						},
+						dojo.byId('info_body')
+					       );
+	    dojo.event.kwConnect({ srcObj:dojo.byId('info_toggle_body'),
+		srcFunc:'onclick',
+		adviceObj:info,
+		adviceFunc:'toggleInfo'});
+	    //]]&gt;</script>
+    </div></div>
+	    </div>
+        <iframe class="wysiwyg_preview" id="body_preview" xmlns:tal="http://axiomstack.com/tale" tal:attr="src: this.getURI('preview_property?property=body&amp;src_id=body')"/>
+        <textarea id="body" name="body" style="display:none"><span xmlns:tal="http://axiomstack.com/tale" tal:replace="(this.body||'')"/></textarea>
+		<div id="body_fckarea" style="display:none"><textarea id="body_fcktext"><span xmlns:tal="http://axiomstack.com/tale" tal:replace="this.body||''"/></textarea></div>
+		</div></fieldset></div></div>
