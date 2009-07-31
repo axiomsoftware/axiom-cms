@@ -146,7 +146,7 @@ function cms_init() {
     app.addCronJob('cms_analytics','*','*','*','*','03','*');
 
     /* Set CMS version */
-    cmsGlobals.version = "3.2.0";
+    cmsGlobals.version = "3.2.1";
 }
 
 function createAnalyticsDB() {
