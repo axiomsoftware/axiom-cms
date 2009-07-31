@@ -21,14 +21,14 @@ label.reference span.ref-widget-toggle { font-size:0.9em; margin-left:5px; font-
 input.cb {border:0px;} /* So checkboxes don't have borders in IE */
 #tag_window {display:block;}
 .outerwrap {margin:0 auto; padding:0; width:95%; font-size:1em;}
-.innerwrap {position:relative; width:100%; min-width:765px;}
-#footer {clear:both;padding-left:25px;}
+.innerwrap {position:relative; width:100%; min-width:765px;overflow:hidden;}
+#footer {clear:both;padding:0 0 25px;overflow:hidden;}
 #footer a {font-weight:bold;color:#FFF;text-decoration:underline; float:left;}
 #footer .version { float:right; margin-right: 5px; color:#666; }
 .required {color:#ba212a;}
 .alert {font-family:Tahoma; font-size:11px; font-weight:bold; color: #990000}
 
-#header {position:relative; z-index:10; width:100%;}
+#header {position:relative; z-index:10; width:100%;overflow:hidden;}
 #header .utility,
 #header .tabs {list-style-type:none; margin:0; padding:0;}
 #header .utility li,
@@ -36,7 +36,7 @@ input.cb {border:0px;} /* So checkboxes don't have borders in IE */
 
 #header .utility {float:right; margin:10px 0 0 0;}
 #header .utility li {border-right:1px solid #7e8f98; padding:0 8px;}
-#header .utility li.last {border-right:0; padding-right:0;}
+#header .utility li.last {border-right:0;}
 #header .utility li a {color:#FFF; text-decoration:underline; cursor: pointer;}
 #header .logo {float:left; padding:20px 30px;}
 
