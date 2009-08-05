@@ -1,8 +1,14 @@
 <html xmlns:tal="http://axiomstack.com/tale">
-  <script type="text/javascript">
-    var djConfig = {isDebug:true};
-  </script>
-  <span tal:replace="this.cms_header(data)"/>
+  <head>
+    <title>Axiom CMS</title>
+    <link tal:attr="href: app.getStaticMountpoint('/axiom/styles.css')" rel="stylesheet" type="text/css"/>
+    <link tal:repeat="sheet: data.css" tal:attr="href: app.getStaticMountpoint('/axiom/'+sheet)" rel="stylesheet" type="text/css"/>
+    <!--[if IE 7]><style type="text/css"> 
+	#header .tabs li {padding: 4px 0px 6px;}
+	#content .body .columnRightAsset { width:auto;}
+	</style>
+	<![endif]-->
+  </head>
   <body style="cursor: default" class="login">
     <div class="outerwrap">
       <div class="innerwrap">

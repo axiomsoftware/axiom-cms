@@ -1,13 +1,16 @@
 <head xmlns:tal="http://axiomstack.com/tale">
   <link tal:attr="href: app.getStaticMountpoint('/axiom/styles.css')" rel="stylesheet" type="text/css"/>
   <link tal:repeat="sheet: data.css" tal:attr="href: app.getStaticMountpoint('/axiom/'+sheet)" rel="stylesheet" type="text/css"/>
-   <!--[if IE 7]><style> 
+   <!--[if IE 7]><style type="text/css"> 
  	   #header .tabs li {padding: 4px 0px 6px;}
 	   #content .body .columnRightAsset { width:auto;}
 	   </style>
    <![endif]-->
 
   <title>Axiom CMS</title>
+  <script type="text/javascript">
+	var djConfig = {isDebug:false};
+  </script>
   <script type="text/javascript" tal:attr="src: app.getStaticMountpoint('/FCKeditor/fckeditor.js')"> </script>
   <script type="text/javascript" tal:attr="src: app.getStaticMountpoint('/dojo/dojo.js')"> </script>
   <script tal:attr="src: app.getStaticMountpoint('/axiom/util.js')"> </script>
@@ -15,4 +18,27 @@
     	dojo.registerModulePath("axiom", "../axiom");
 		dojo.require("dojo.widget.*");
   </script>
+  <script type="text/javascript" tal:attr="src: app.getStaticMountpoint('axiom/content.js')"> </script>
+  <script type="text/javascript" tal:attr="src: app.getStaticMountpoint('axiom/help.js')"> </script>
+  <script type="text/javascript" tal:text="$">
+	axiom.appPath = '${root.getURI()}' == '/' ? '/' : '${root.getURI()}/';
+	axiom.cmsPath = '${this.getURI()}/';
+	axiom.staticPath = '${app.getStaticMountpoint()}';
+	axiom.reqLimit = ${app.getProperties()['uploadLimit']}; 
+
+	axiom.isContentContributor = ${this.isContentContributor()};
+	axiom.isContentEditor = ${this.isContentEditor()};
+	axiom.isAdministrator = ${this.isAdministrator()};
+	axiom.adminsAndEditors = ${this.getAdminsAndEditors()};
+	axiom.allUsers = ${this.getUserList()};
+	axiom.currentUser = '${this.currentUser()}';
+	axiom.currentUserFullName = "${this.currentUserFullName()}";
+
+	axiom.searchPrototypes = ${this.cms_getPrototypesHash()};
+	axiom.addPrototypes = ${this.cms_getAddPrototypesHash()};
+	function FCKeditor_OnComplete(editorInstance) {
+        editorInstance.Focus();
+	} 
+  </script>
+  <script type="text/javascript" tal:if="data.scripts" tal:repeat="script: scripts" tal:attr="src: app.getStaticMountpoint('/axiom/'+script)"> </script>
 </head>

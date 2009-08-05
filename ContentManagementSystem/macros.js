@@ -131,21 +131,23 @@ function getAllUsers() {
 }
 
 function isContentContributor(){
-	return session.user.hasRole("Content Contributor");
+    return session.user && session.user.hasRole("Content Contributor");
 }
 
 function isContentEditor(){
-	return session.user.hasRole("Content Editor");
+    return session.user && session.user.hasRole("Content Editor");
 }
 
 function isAdministrator(){
-	return session.user.hasRole("Administrator");
+    return session.user && session.user.hasRole("Administrator");
 }
 
 function hasRole(roles) {
     if (!roles) {
 	return true;
     }
+    if (!(session.user))
+	return false;
 
     for each (var role in roles) {
 	if (session.user.hasRole(role)) {
@@ -157,7 +159,9 @@ function hasRole(roles) {
 }
 
 function currentUser(){
-	return session.user.username;
+    if (!(session.user))
+	return "No User";
+    return session.user.username;
 }
 
 function currentUserFullName(){

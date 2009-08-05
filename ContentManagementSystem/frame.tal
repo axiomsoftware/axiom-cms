@@ -1,32 +1,5 @@
 <html xmlns:tal="http://axiomstack.com/tale">
-  <script>
-	var djConfig = {isDebug:false};
-  </script>
-  <span tal:replace="this.cms_header(data)"/> 
-  <script type="text/javascript" tal:attr="src: app.getStaticMountpoint('axiom/content.js')"> </script>
-  <script type="text/javascript" tal:attr="src: app.getStaticMountpoint('axiom/help.js')"> </script>
-  <script language="JavaScript" type="text/javascript" tal:text="$">
-	axiom.appPath = '${root.getURI()}' == '/' ? '/' : '${root.getURI()}/';
-	axiom.cmsPath = '${this.getURI()}/';
-	axiom.staticPath = '${app.getStaticMountpoint()}';
-	axiom.reqLimit = ${app.getProperties()['uploadLimit']}; 
-
-	axiom.isContentContributor = ${this.isContentContributor()};
-	axiom.isContentEditor = ${this.isContentEditor()};
-	axiom.isAdministrator = ${this.isAdministrator()};
-	axiom.adminsAndEditors = ${this.getAdminsAndEditors()};
-	axiom.allUsers = ${this.getUserList()};
-	axiom.currentUser = '${this.currentUser()}';
-	axiom.currentUserFullName = "${this.currentUserFullName()}";
-
-	axiom.searchPrototypes = ${this.cms_getPrototypesHash()};
-	axiom.addPrototypes = ${this.cms_getAddPrototypesHash()};
-	function FCKeditor_OnComplete(editorInstance) {
-        editorInstance.Focus();
-	} 
-  </script>
-  <script type="text/javascript" tal:repeat="script: scripts" tal:attr="src: app.getStaticMountpoint('/axiom/'+script)"> </script>
-  
+  <head tal:replace="this.cms_header(data)"/> 
   <body style="cursor: default;" tal:attr="'class': (data.class_name || 'assets_frame')"> 
   <div class="outerwrap">
 	<div class="innerwrap">
