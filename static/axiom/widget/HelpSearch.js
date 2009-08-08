@@ -141,53 +141,55 @@ dojo.widget.defineWidget(
 	    }
 	},
 	postCreate:function() {
-	    /* Setup Widget*/
-	    var position = dojo.html.getAbsolutePosition(this.search_element);
-	    dojo.html.placeOnScreen(this.help_search, position.x-175, position.y+15, 0, false, null, false);
+	    if (this.search_element) {
+		/* Setup Widget*/
+		var position = dojo.html.getAbsolutePosition(this.search_element);
+		dojo.html.placeOnScreen(this.help_search, position.x-175, position.y+15, 0, false, null, false);
 
-	    var img = document.createElement('img');
-	    img.setAttribute('src', axiom.staticPath + '/axiom/images/ajax-loader.gif');
-	    this.loading = document.createElement('div');
-	    var p = document.createElement('p');
-	    p.appendChild(document.createTextNode('Loading...'));
-	    this.loading.appendChild(p);
-	    this.loading.appendChild(img);
+		var img = document.createElement('img');
+		img.setAttribute('src', axiom.staticPath + '/axiom/images/ajax-loader.gif');
+		this.loading = document.createElement('div');
+		var p = document.createElement('p');
+		p.appendChild(document.createTextNode('Loading...'));
+		this.loading.appendChild(p);
+		this.loading.appendChild(img);
 
-	    this.close_button.setAttribute('src', axiom.staticPath + '/axiom/images/button_close.gif');
+		this.close_button.setAttribute('src', axiom.staticPath + '/axiom/images/button_close.gif');
 
-	    dojo.event.kwConnect(
-		{
-		    srcObj: this.search_element,
-		    srcFunc: 'onclick',
-		    adviceObj: this,
-		    adviceFunc: 'click_handler'
-		}
-	    );
-
-	    dojo.event.kwConnect(
-		{
-		    srcObj: this.search_input,
-		    srcFunc: 'onkeypress',
-		    adviceObj: this,
-		    adviceFunc: function(evt) {
-			if (evt.keyCode == evt.KEY_ENTER)
-			    this.fire_helpsearch(evt);
+		dojo.event.kwConnect(
+		    {
+			srcObj: this.search_element,
+			srcFunc: 'onclick',
+			adviceObj: this,
+			adviceFunc: 'click_handler'
 		    }
-		}
-	    );
+		);
 
-	    dojo.event.kwConnect(
-		{
-		    srcObj: this.help_search,
-		    srcFunc: 'onkeypress',
-		    adviceObj: this,
-		    adviceFunc: function(evt) {
-			if (evt.keyCode == evt.KEY_ESCAPE) {
-			    this.click_handler(evt);
+		dojo.event.kwConnect(
+		    {
+			srcObj: this.search_input,
+			srcFunc: 'onkeypress',
+			adviceObj: this,
+			adviceFunc: function(evt) {
+			    if (evt.keyCode == evt.KEY_ENTER)
+				this.fire_helpsearch(evt);
 			}
 		    }
-		}
-	    );
+		);
+
+		dojo.event.kwConnect(
+		    {
+			srcObj: this.help_search,
+			srcFunc: 'onkeypress',
+			adviceObj: this,
+			adviceFunc: function(evt) {
+			    if (evt.keyCode == evt.KEY_ESCAPE) {
+				this.click_handler(evt);
+			    }
+			}
+		    }
+		);
+	    }
 	}
 
     }
